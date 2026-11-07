@@ -4,7 +4,7 @@
 
 > **This project is fully reproducible. All data needed to run the analysis are included in this repository, and every file path is relative. The project can be downloaded and run on any computer without changing file paths or settings. Running the single master file `Scripts/00_Master.do` rebuilds the cleaned survey data from the raw data and produces all regressions, tables, and figures along with the paper, online appendix and results PDFs.**
 
-**Paper:** [Paper/Paper.pdf](Paper/Paper.pdf) (the paper and its appendix), with the [online appendix](Paper/Online_Appendix.pdf) and every table and figure in [Paper/Results.pdf](Paper/Results.pdf)
+**Paper:** [Paper.pdf](https://zakserby.github.io/Not-Only-Extremes-How-Moderate-Rainfall-Deficits-Affect-Child-Health-in-Mexico/Paper.pdf) (the paper and its appendix), with the [online appendix](https://zakserby.github.io/Not-Only-Extremes-How-Moderate-Rainfall-Deficits-Affect-Child-Health-in-Mexico/Online_Appendix.pdf) and every table and figure in [Results.pdf](https://zakserby.github.io/Not-Only-Extremes-How-Moderate-Rainfall-Deficits-Affect-Child-Health-in-Mexico/Results.pdf) (links in the PDFs are clickable; also in [Paper/](Paper))
 **Code:** [Scripts/](Scripts) (start with [Scripts/00_Master.do](Scripts/00_Master.do))
 
 ---

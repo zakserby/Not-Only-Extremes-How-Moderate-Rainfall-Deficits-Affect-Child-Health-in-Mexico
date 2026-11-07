@@ -546,25 +546,30 @@ convert_cites <- function(doc) {
   doc
 }
 
+# The PDFs are also on GitHub Pages. Links between the paper and the online appendix go there, so they open at the right spot even in a downloaded copy
+pages <- "https://zakserby.github.io/Not-Only-Extremes-How-Moderate-Rainfall-Deficits-Affect-Child-Health-in-Mexico"
+
 # The online appendix is built first, so the paper can use its table and figure numbers and link to them
 online <- c(paper_preamble, "\\begin{document}", "", fill_text("Online_Appendix_Text.tex"), "", "\\end{document}")
-# Table 1 of the paper in the online appendix notes links to Table 1 in Paper.pdf
-online <- gsub("Table~\\ref{tab:sumstats}", "\\href{Paper.pdf\\#tab-sumstats}{Table~1} of the paper", online, fixed = TRUE)
-# The online appendix has no reference list, so a citation there links to that paper in the reference list of Paper.pdf
+# Table 1 of the paper in the online appendix notes links to Table 1 in Paper.pdf on GitHub Pages
+online <- gsub("Table~\\ref{tab:sumstats}", paste("\\href{",pages,"/Paper.pdf\\#tab-sumstats}{Table~1} of the paper",sep=""), online, fixed = TRUE)
+# The online appendix has no reference list, so a citation there links to that paper in the reference list of Paper.pdf on GitHub Pages
 # These lines go right before \begin{document} and change where the citation links go
 bp <- which(online == "\\begin{document}")[1]
 online <- append(online, c("\\makeatletter", "\\protected\\def\\blx@imc@bibhyperref{\\@ifnextchar[{\\zs@bhr@opt}{\\zs@bhr}}", "\\def\\zs@bhr@opt[#1]#2{\\zs@bhr{#2}}",
-                           "\\long\\def\\zs@bhr#1{\\href{Paper.pdf\\#cite.0@\\thefield{entrykey}}{#1}}", "\\makeatother"), after = bp - 1)
+                           paste("\\long\\def\\zs@bhr#1{\\href{",pages,"/Paper.pdf\\#cite.0@\\thefield{entrykey}}{#1}}",sep=""), "\\makeatother"), after = bp - 1)
 # Changes the citations in the notes, then saves and compiles the online appendix
 online <- convert_cites(online)
 writeLines(online, paste(dir$paper,"/Online_Appendix.tex",sep=""), useBytes = TRUE)
 compile_tex("Online_Appendix", keep_aux = TRUE)
 
 # This builds the paper with the title page, the text with its tables and figures, the references and the appendix in the paper
-# xr-hyper reads Online_Appendix.aux, so the paper can use the online appendix numbers and link to that file. It has to be loaded before hyperref
+# xr-hyper reads Online_Appendix.aux, so the paper can use the online appendix numbers and link to that file on GitHub Pages. It has to be loaded before hyperref
 hy <- grep("{hyperref}", paper_preamble, fixed = TRUE)
-paper_pre <- c(paper_preamble[1:(hy - 1)], "\\usepackage{xr-hyper}", paper_preamble[hy:length(paper_preamble)], "\\externaldocument[OA-]{Online_Appendix}[Online_Appendix.pdf]")
+paper_pre <- c(paper_preamble[1:(hy - 1)], "\\usepackage{xr-hyper}", paper_preamble[hy:length(paper_preamble)], paste("\\externaldocument[OA-]{Online_Appendix}[",pages,"/Online_Appendix.pdf]",sep=""))
 paper <- c(paper_pre, "\\begin{document}", "", fill_text("Paper_Text.tex"), "", "\\end{document}")
+# The Online Appendix links in the text also go to its GitHub Pages copy
+paper <- gsub("\\href{Online_Appendix.pdf}", paste("\\href{",pages,"/Online_Appendix.pdf}",sep=""), paper, fixed = TRUE)
 # Table 1 gets a name, so the online appendix can link to it
 paper <- sub("\\label{tab:sumstats}", "\\label{tab:sumstats}\\hypertarget{tab-sumstats}{}", paper, fixed = TRUE)
 # Changes the citations in the notes, then saves and compiles the paper
