@@ -4,6 +4,7 @@
 \usepackage{newtxtext,newtxmath}
 \DeclareUnicodeCharacter{2010}{-}
 \DeclareUnicodeCharacter{05F3}{'}
+\DeclareUnicodeCharacter{2014}{\textemdash\allowbreak}
 \usepackage{setspace}
 \onehalfspacing
 \usepackage{amsmath}
@@ -27,9 +28,11 @@
 \captionsetup[figure]{position=top,justification=centering}
 \usepackage{xcolor}
 \definecolor{linkblue}{cmyk}{0.94,0.54,0,0}
-\usepackage[authordate,backend=biber,natbib=false,maxcitenames=3,mincitenames=1,maxbibnames=10,minbibnames=7]{biblatex-chicago}
+\usepackage[authordate,backend=biber,natbib=false,maxcitenames=3,mincitenames=1,maxbibnames=10,minbibnames=7,doi=only]{biblatex-chicago}
 \DeclareSourcemap{\maps[datatype=bibtex]{\map{\step[typesource=software,typetarget=misc]}}}
-\AtEveryBibitem{\clearfield{issn}\clearfield{month}\clearfield{doi}\clearfield{url}\clearfield{urlyear}\clearfield{eprint}}
+\AtEveryBibitem{\clearfield{issn}\clearfield{month}\clearfield{urlyear}\clearfield{eprint}}
+\AtBeginBibliography{\sloppy}
+\biburlbigskip=0mu
 \addbibresource{Text/References.bib}
 \usepackage[colorlinks=true,linkcolor=linkblue,citecolor=linkblue,urlcolor=linkblue,filecolor=linkblue,runcolor=linkblue]{hyperref}
 \usepackage{xurl}
@@ -41,6 +44,11 @@
 \exhyphenpenalty=10000
 \emergencystretch=3em
 \frenchspacing
+\pdfinterwordspaceon
+\newif\ifindisplay
+\everymath\expandafter{\the\everymath\ifindisplay\else\pdfinterwordspaceoff\aftergroup\pdfinterwordspaceon\fi}
+\AddToHook{env/equation/before}{\pdfinterwordspaceoff\global\indisplaytrue}
+\AddToHook{env/equation/end}{\global\indisplayfalse\pdfinterwordspaceon}
 \makeatletter
 \protected\def\blx@imc@bibhyperref{\@ifnextchar[{\zs@bhr@opt}{\zs@bhr}}
 \def\zs@bhr@opt[#1]#2{\zs@bhr{#2}}

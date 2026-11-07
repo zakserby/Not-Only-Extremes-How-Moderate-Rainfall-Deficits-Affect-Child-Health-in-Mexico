@@ -402,22 +402,30 @@ fill_text <- function(file) {
 paper_preamble <- c("\\documentclass[12pt]{article}", "\\usepackage[margin=1in]{geometry}", "\\usepackage[T1]{fontenc}", "\\usepackage{newtxtext,newtxmath}",
                     # Some publishers put an odd hyphen or apostrophe in their titles, so these print as the normal ones
                     "\\DeclareUnicodeCharacter{2010}{-}", "\\DeclareUnicodeCharacter{05F3}{'}",
+                    # An em dash in a reference title can end a line, so a long title does not run past the margin
+                    "\\DeclareUnicodeCharacter{2014}{\\textemdash\\allowbreak}",
                     "\\usepackage{setspace}", "\\onehalfspacing", "\\usepackage{amsmath}", "\\usepackage{booktabs}", "\\usepackage{longtable}", "\\usepackage{array}",
                     "\\usepackage{graphicx}", "\\usepackage{float}", "\\usepackage{lscape}", "\\usepackage{afterpage}", "\\usepackage{placeins}", "\\renewcommand{\\topfraction}{0.9}", "\\renewcommand{\\bottomfraction}{0.8}", "\\renewcommand{\\textfraction}{0.07}", "\\renewcommand{\\floatpagefraction}{0.85}", "\\setcounter{topnumber}{3}", "\\setcounter{totalnumber}{4}", "\\usepackage{caption}", "\\usepackage{adjustbox}",
                     "\\captionsetup{font=normalsize,labelsep=colon}", "\\captionsetup[figure]{position=top,justification=centering}",
                     # The link color is the same blue as the reference paper
                     "\\usepackage{xcolor}", "\\definecolor{linkblue}{cmyk}{0.94,0.54,0,0}",
                     # Citations and the reference list come from Paper/Text/References.bib, in Chicago 17th edition author-date style
-                    # The ISSNs, months, DOIs, URLs and handles are left out of the reference list like in the reference papers (References.bib still has them)
-                    "\\usepackage[authordate,backend=biber,natbib=false,maxcitenames=3,mincitenames=1,maxbibnames=10,minbibnames=7]{biblatex-chicago}",
+                    # The ISSNs, months, access dates and handles are left out of the reference list (References.bib still has them)
+                    # Each reference shows its DOI or URL as in Chicago style, and only the DOI when it has both (doi=only)
+                    "\\usepackage[authordate,backend=biber,natbib=false,maxcitenames=3,mincitenames=1,maxbibnames=10,minbibnames=7,doi=only]{biblatex-chicago}",
                     "\\DeclareSourcemap{\\maps[datatype=bibtex]{\\map{\\step[typesource=software,typetarget=misc]}}}",
-                    "\\AtEveryBibitem{\\clearfield{issn}\\clearfield{month}\\clearfield{doi}\\clearfield{url}\\clearfield{urlyear}\\clearfield{eprint}}",
+                    "\\AtEveryBibitem{\\clearfield{issn}\\clearfield{month}\\clearfield{urlyear}\\clearfield{eprint}}",
+                    # In the reference list, a line with a long title or link stretches its spaces instead of running past the margin, and the letters in a link keep their normal spacing
+                    "\\AtBeginBibliography{\\sloppy}", "\\biburlbigskip=0mu",
                     "\\addbibresource{Text/References.bib}",
                     "\\usepackage[colorlinks=true,linkcolor=linkblue,citecolor=linkblue,urlcolor=linkblue,filecolor=linkblue,runcolor=linkblue]{hyperref}", "\\usepackage{xurl}",
                     "\\def\\sym#1{\\ifmmode^{#1}\\else\\(^{#1}\\)\\fi}",
                     "\\setlength{\\LTcapwidth}{\\textwidth}",
                     # No words broken across lines with a hyphen, and normal spaces after periods (e.g. "Obs." and "et al.")
-                    "\\usepackage{microtype}", "\\newsavebox{\\tblbox}", "\\hyphenpenalty=10000", "\\exhyphenpenalty=10000", "\\emergencystretch=3em", "\\frenchspacing")
+                    "\\usepackage{microtype}", "\\newsavebox{\\tblbox}", "\\hyphenpenalty=10000", "\\exhyphenpenalty=10000", "\\emergencystretch=3em", "\\frenchspacing",
+                    # So text copied from the PDF keeps its spaces. They are turned off inside math and equations, where they can push a symbol out of place
+                    "\\pdfinterwordspaceon", "\\newif\\ifindisplay", "\\everymath\\expandafter{\\the\\everymath\\ifindisplay\\else\\pdfinterwordspaceoff\\aftergroup\\pdfinterwordspaceon\\fi}",
+                    "\\AddToHook{env/equation/before}{\\pdfinterwordspaceoff\\global\\indisplaytrue}", "\\AddToHook{env/equation/end}{\\global\\indisplayfalse\\pdfinterwordspaceon}")
 
 # The table and figure notes from the Stata and R scripts have their citations typed out
 # This chunk changes them to \parencite{...} and \textcite{...}, so they print and link like the citations in the text. The names, years and keys all come from References.bib

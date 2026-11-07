@@ -4,6 +4,7 @@
 \usepackage{newtxtext,newtxmath}
 \DeclareUnicodeCharacter{2010}{-}
 \DeclareUnicodeCharacter{05F3}{'}
+\DeclareUnicodeCharacter{2014}{\textemdash\allowbreak}
 \usepackage{setspace}
 \onehalfspacing
 \usepackage{amsmath}
@@ -27,9 +28,11 @@
 \captionsetup[figure]{position=top,justification=centering}
 \usepackage{xcolor}
 \definecolor{linkblue}{cmyk}{0.94,0.54,0,0}
-\usepackage[authordate,backend=biber,natbib=false,maxcitenames=3,mincitenames=1,maxbibnames=10,minbibnames=7]{biblatex-chicago}
+\usepackage[authordate,backend=biber,natbib=false,maxcitenames=3,mincitenames=1,maxbibnames=10,minbibnames=7,doi=only]{biblatex-chicago}
 \DeclareSourcemap{\maps[datatype=bibtex]{\map{\step[typesource=software,typetarget=misc]}}}
-\AtEveryBibitem{\clearfield{issn}\clearfield{month}\clearfield{doi}\clearfield{url}\clearfield{urlyear}\clearfield{eprint}}
+\AtEveryBibitem{\clearfield{issn}\clearfield{month}\clearfield{urlyear}\clearfield{eprint}}
+\AtBeginBibliography{\sloppy}
+\biburlbigskip=0mu
 \addbibresource{Text/References.bib}
 \usepackage{xr-hyper}
 \usepackage[colorlinks=true,linkcolor=linkblue,citecolor=linkblue,urlcolor=linkblue,filecolor=linkblue,runcolor=linkblue]{hyperref}
@@ -42,6 +45,11 @@
 \exhyphenpenalty=10000
 \emergencystretch=3em
 \frenchspacing
+\pdfinterwordspaceon
+\newif\ifindisplay
+\everymath\expandafter{\the\everymath\ifindisplay\else\pdfinterwordspaceoff\aftergroup\pdfinterwordspaceon\fi}
+\AddToHook{env/equation/before}{\pdfinterwordspaceoff\global\indisplaytrue}
+\AddToHook{env/equation/end}{\global\indisplayfalse\pdfinterwordspaceon}
 \externaldocument[OA-]{Online_Appendix}[https://zakserby.github.io/Not-Only-Extremes-How-Moderate-Rainfall-Deficits-Affect-Child-Health-in-Mexico/viewer/web/viewer.html?file=../../Online_Appendix.pdf]
 \begin{document}
 
@@ -302,7 +310,7 @@ The coefficient of interest is $\beta$, which captures the difference in the cha
 
 Under this specification, I again argue that the 2009 drought is orthogonal to time-varying unobserved determinants of child health, for the same reasons discussed for the main specification. Rainfall is calculated as in the main specification, except that the treatment is a binary indicator for rainfall below the municipality's 1981--2004 20th percentile rather than a dose level of the standardized deviation. Appendix Figure~\ref{fig:mapbinary} maps drought and non-drought municipalities in the estimation sample. The two definitions do not align exactly because some municipalities below their 20th percentile have z-scores above $-1$. As a result, the binary treatment combines moderate and more severe rainfall deficits.
 
-For brevity, I discuss the identifying assumptions for the binary difference-in-differences and the event studies in \hyperref[app:binary]{Appendix B}.
+For brevity, I discuss the identifying assumptions for the binary difference-in-differences and the event studies in \hyperref[app:binary]{Appendix A}.
 
 Across all specifications, I add controls in increments, starting with earlier droughts and then household, child, mother, and father controls. All specifications include child and interview year-month fixed effects. Looking at the outcome BMIZ, the coefficient for the BMI-for-age z-score remains negative, stable, and statistically significant throughout, as shown in Table~\ref{tab:binbmiz}. The fact that the coefficient on the 2009 drought remains negative and significant after controlling for the 2005 to 2008 droughts indicates that the 2009 drought matters in and of itself, and not simply because it is correlated with droughts in the preceding years.
 
@@ -580,7 +588,7 @@ This study has limitations that future work could address. My remittance analysi
 
 The \href{https://zakserby.github.io/Not-Only-Extremes-How-Moderate-Rainfall-Deficits-Affect-Child-Health-in-Mexico/viewer/web/viewer.html?file=../../Online_Appendix.pdf}{Online Appendix} reports sample sizes and attrition, the continuous dose results and heterogeneity by sex and by rural and urban residence.
 
-\subsection*{Appendix A. Binary Difference-in-Differences}
+\subsection*{Appendix A. Binary Difference-in-Differences}\phantomsection\label{app:binary}
 
 \begin{figure}[!htbp]
 \centering
@@ -712,7 +720,6 @@ The inclusion of controls substantially reduces the sample size and statistical 
 The household controls are from 2002, and the child, mother, father, and birth controls are from 2005. I choose controls based on the existing literature. \textcite{cattaneoHousingHealthHappiness2009} find that replacing dirt floors with cement floors in Mexico reduced parasitic infestations, diarrhea, and anemia and improved children's cognitive development. This motivates my dwelling controls, such as floor and roof quality. \textcite{thomasHowDoesMothers1991} show that parental characteristics such as the mother's years of schooling are determinants of child height and health, so controlling for them helps avoid omitted variable bias. \textcite{thamarapaniNaturalDisastersChild2021} uses a similar set of controls in Indonesia. Most variables in the table are as expected. The average mother is about 154 cm tall and the average father about 166 cm. These are close to the national averages of about 154 to 155 cm for Mexican women and 167 to 168 cm for Mexican men born in the 1970s \parencite{ncdriskfactorcollaborationCenturyTrendsAdult2016}. On average, mothers were about 27 and fathers about 30 at the child's birth. Most dwellings, 97 to 98 percent, have electricity, in line with the 96.6 percent of Mexican dwellings with electricity in 2005 \parencite{inegiIIConteoPoblacion2005}.
 
 \clearpage
-\subsection*{Appendix B. Binary Difference-in-Differences}\phantomsection\label{app:binary}
 
 \begin{figure}[!htbp]
 \centering
@@ -1062,7 +1069,13 @@ Children    &       1,755         &         700         &       1,714         \\
 
 
 \FloatBarrier
-\subsection*{Appendix C. Discrete Dose}
+\setcounter{table}{0}
+\setcounter{figure}{0}
+\setcounter{equation}{0}
+\renewcommand{\thetable}{B\arabic{table}}
+\renewcommand{\thefigure}{B\arabic{figure}}
+\renewcommand{\theequation}{B\arabic{equation}}
+\subsection*{Appendix B. Discrete Dose}\phantomsection\label{app:discrete}
 
 \begin{figure}[!htbp]
 \centering
