@@ -4,7 +4,7 @@
 
 > **This project is fully reproducible. All data needed to run the analysis are included in this repository, and every file path is relative. The project can be downloaded and run on any computer without changing file paths or settings. Running the single master file `Scripts/00_Master.do` rebuilds the cleaned survey data from the raw data. It then produces all regressions, tables, and figures, along with the paper, online appendix and results PDFs.**
 
-**Paper:** [Paper.pdf](https://zakserby.github.io/Not-Only-Extremes-How-Moderate-Rainfall-Deficits-Affect-Child-Health-in-Mexico/viewer/web/viewer.html?file=../../Paper.pdf) is the paper and its appendix, with the [online appendix](https://zakserby.github.io/Not-Only-Extremes-How-Moderate-Rainfall-Deficits-Affect-Child-Health-in-Mexico/viewer/web/viewer.html?file=../../Online_Appendix.pdf) and every table and figure in [Results.pdf](https://zakserby.github.io/Not-Only-Extremes-How-Moderate-Rainfall-Deficits-Affect-Child-Health-in-Mexico/viewer/web/viewer.html?file=../../Results.pdf). Links in the PDFs are clickable, and copies are also in [Paper/](Paper).
+**Paper:** [MS_Thesis.pdf](https://zakserby.github.io/Not-Only-Extremes-How-Moderate-Rainfall-Deficits-Affect-Child-Health-in-Mexico/viewer/web/viewer.html?file=../../MS_Thesis.pdf) is the paper and its appendix, with the [online appendix](https://zakserby.github.io/Not-Only-Extremes-How-Moderate-Rainfall-Deficits-Affect-Child-Health-in-Mexico/viewer/web/viewer.html?file=../../Online_Appendix.pdf) and every table and figure in [Results.pdf](https://zakserby.github.io/Not-Only-Extremes-How-Moderate-Rainfall-Deficits-Affect-Child-Health-in-Mexico/viewer/web/viewer.html?file=../../Results.pdf). Links in the PDFs are clickable, and copies are also in [Paper/](Paper).
 **Code:** [Scripts/](Scripts), starting with [Scripts/00_Master.do](Scripts/00_Master.do)
 
 ---
@@ -17,7 +17,7 @@ This thesis studies how the effects of the 2009 rainfall deficit in Mexico on ch
 
 1. Download or clone this repository.
 2. Open `Scripts/00_Master.do`. Double-clicking it sets Stata's working folder to `Scripts` (if Stata is already open, `cd` to the project or `Scripts` folder first). The project root is found automatically.
-3. Run it. The pipeline first cleans the three MxFLS waves (2002, 2005, 2009) and builds the DID analysis data. It then runs the summary statistics and balance tables, the drought map in R, and the DID, triple difference and event study regressions. Next come the continuous DID in R and the subanalyses by sex and by rural vs urban, in Stata and then R. Last, it writes the regression tables and builds the paper in R, compiled to `Paper/Paper.pdf`, `Paper/Online_Appendix.pdf` and `Paper/Results.pdf`. The continuous DID steps are the slowest because of the wild cluster bootstrap.
+3. Run it. The pipeline first cleans the three MxFLS waves (2002, 2005, 2009) and builds the DID analysis data. It then runs the summary statistics and balance tables, the drought map in R, and the DID, triple difference and event study regressions. Next come the continuous DID in R and the subanalyses by sex and by rural vs urban, in Stata and then R. Last, it writes the regression tables and builds the paper in R, compiled to `Paper/MS_Thesis.pdf`, `Paper/Online_Appendix.pdf` and `Paper/Results.pdf`. The continuous DID steps are the slowest because of the wild cluster bootstrap.
 
 Each step can be switched on or off with the `run_*` switches at the top of `00_Master.do` (all are on). The master calls R through `Rscript` and finds it automatically in the usual Mac locations. On another system, set `global Rscript` in `00_Master.do`.
 
@@ -53,7 +53,7 @@ Scripts/
     Subanalysis_Gender_*            Same analyses for boys and girls
     Subanalysis_Rural_*             Same analyses for rural and urban children
   Paper/
-    Build_Results.R                 Writes Paper.tex, Online_Appendix.tex and Results.tex and compiles the PDFs
+    Build_Results.R                 Writes MS_Thesis.tex, Online_Appendix.tex and Results.tex and compiles the PDFs
 
 Data/
   Raw/        MxFLS data and documentation, including codebooks, questionnaires and user guides.
@@ -69,7 +69,7 @@ Output/
   Logs/                   Every Stata, R and LaTeX log
 
 Paper/
-  Paper.tex, Paper.pdf              The paper and its appendix
+  MS_Thesis.tex, MS_Thesis.pdf      The paper and its appendix
   Online_Appendix.tex, .pdf         Online appendix with subanalyses and additional figures
   Results.tex, Results.pdf          Every table and figure
   Text/                             Text of the paper and online appendix, and References.bib
@@ -80,7 +80,7 @@ README.rtf                          Detailed project readme
 ## Data sources
 
 - **Mexican Family Life Survey (MxFLS)**: MxFLS-1 (2002), MxFLS-2 (2005-06), MxFLS-3 (2009-12). Data, codebooks, questionnaires and user guides are publicly available at no charge from [ennvih-mxfls.org](http://www.ennvih-mxfls.org).
-- **CHIRPS v2.0** monthly precipitation on a 0.05 degree grid from the UCSB Climate Hazards Center: [chirps-v2.0.monthly.nc](https://data.chc.ucsb.edu/products/CHIRPS-2.0/global_monthly/netcdf/chirps-v2.0.monthly.nc).
+- **CHIRPS v2.0** monthly precipitation on a 0.05 degree grid from the UCSB Climate Hazards Center, available as [chirps-v2.0.monthly.nc](https://data.chc.ucsb.edu/products/CHIRPS-2.0/global_monthly/netcdf/chirps-v2.0.monthly.nc).
 - **INEGI** Marco Geoestadistico 2010 municipal boundaries (Municipios_2010_5).
 - **WHO** Child Growth Standards (igrowup) and 2007 Growth Reference (who2007) Stata macros.
 
@@ -88,6 +88,6 @@ README.rtf                          Detailed project readme
 
 - **Stata** (tested with Stata 19 MP). reghdfe, ftools, require, estout, distinct and boottest install automatically.
 - **R** 4.x (tested with R 4.4.2). terra, sf, data.table, readxl, haven, did (>= 2.5.0), BMisc, sandwich, RColorBrewer and tinytex install automatically. contdid 0.1.1 installs from GitHub (bcallaway11/contdid) and needs ptetools >= 1.0.1. fwildclusterboot 0.13.0 and summclust 0.7.2 install from the CRAN archive. On a Mac, they need the Xcode command line tools and gfortran.
-- **TinyTeX** compiles Paper.pdf, Online_Appendix.pdf and Results.pdf. `Build_Results.R` installs it if no LaTeX is found, and missing LaTeX packages install automatically, including biblatex-chicago and biber for the references.
+- **TinyTeX** compiles MS_Thesis.pdf, Online_Appendix.pdf and Results.pdf. `Build_Results.R` installs it if no LaTeX is found, and missing LaTeX packages install automatically, including biblatex-chicago and biber for the references.
 
 Bootstrap results are reproducible: `set.seed(1234)` is set before every bootstrap in R, and `seed(1234)` for every `boottest` in Stata.

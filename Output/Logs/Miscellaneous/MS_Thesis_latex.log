@@ -1,9 +1,9 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.11.6)  7 NOV 2026 05:49
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.11.6)  7 NOV 2026 06:06
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**Paper.tex
-(./Paper.tex
+**MS_Thesis.tex
+(./MS_Thesis.tex
 LaTeX2e <2026-11-01>
 L3 programming layer <2026-09-09>
 (/Users/zakserby/Library/TinyTeX/texmf-dist/tex/latex/base/article.cls
@@ -790,8 +790,8 @@ LaTeX Font Info:    Font shape `T1/ntxtlf/m/n' will be
 (Font)              scaled to size 12.0pt on input line 47.
 \@quotelevel=\count463
 \@quotereset=\count464
-(./Paper.aux)
-\openout1 = `Paper.aux'.
+(./MS_Thesis.aux)
+\openout1 = `MS_Thesis.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/ntxmi/m/it on input line 47.
 LaTeX Font Info:    Trying to load font information for OML+ntxmi on input line 47.
@@ -899,17 +899,17 @@ File: english.lbx 2026/09/24 v3.22a biblatex localization (PK/MW)
 Package biblatex Info: Input encoding 'utf8' detected.
 Package biblatex Info: Automatic encoding selection.
 (biblatex)             Assuming data encoding 'utf8'.
-\openout3 = `Paper.bcf'.
+\openout3 = `MS_Thesis.bcf'.
 
 Package biblatex Info: Trying to load bibliographic data...
-Package biblatex Info: ... file 'Paper.bbl' found.
-(./Paper.bbl)
+Package biblatex Info: ... file 'MS_Thesis.bbl' found.
+(./MS_Thesis.bbl)
 Package biblatex Info: Reference section=0 on input line 47.
 Package biblatex Info: Reference segment=0 on input line 47.
 Package hyperref Info: Link coloring ON on input line 47.
-(./Paper.out) (./Paper.out)
+(./MS_Thesis.out) (./MS_Thesis.out)
 \@outlinefile=\write4
-\openout4 = `Paper.out'.
+\openout4 = `MS_Thesis.out'.
 
 LaTeX Info: Redefining \microtypecontext on input line 47.
 Package microtype Info: Applying patch `item' on input line 47.
@@ -1303,27 +1303,27 @@ Package pdftex.def Info: /Users/zakserby/Documents/Documents (MAC)/Cornell Unive
 (pdftex.def)             Requested size: 399.29463pt x 239.58345pt.
 [47
 
- </Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thesis/Proposal 3 Mexico OG/Output/Figures/Appendix/event_study_severity_haz_all3.png> </Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thesis/Proposal 3 Mexico OG/Output/Figures/Appendix/event_study_severity_waz_all3.png>] (./Paper.aux)
+ </Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thesis/Proposal 3 Mexico OG/Output/Figures/Appendix/event_study_severity_haz_all3.png> </Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thesis/Proposal 3 Mexico OG/Output/Figures/Appendix/event_study_severity_waz_all3.png>] (./MS_Thesis.aux)
  ***********
 LaTeX2e <2026-11-01>
 L3 programming layer <2020/03/25>
  ***********
-Package rerunfilecheck Info: File `Paper.out' has not changed.
+Package rerunfilecheck Info: File `MS_Thesis.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
-Package logreq Info: Writing requests to 'Paper.run.xml'.
-\openout1 = `Paper.run.xml'.
+Package logreq Info: Writing requests to 'MS_Thesis.run.xml'.
+\openout1 = `MS_Thesis.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
  28851 strings out of 468958
- 531238 string characters out of 5453337
- 1797348 words of memory out of 5000000
+ 531342 string characters out of 5453337
+ 1797364 words of memory out of 5000000
  57230 multiletter control sequences out of 15000+600000
  751868 words of font info for 316 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 84i,20n,117p,2492b,4041s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 84i,20n,117p,2496b,4041s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </Users/zakserby/Library/TinyTeX/texmf-dist/fonts/type1/public/newtx/NewTXBMI.pfb></Users/zakserby/Library/TinyTeX/texmf-dist/fonts/type1/public/newtx/NewTXMI.pfb></Users/zakserby/Library/TinyTeX/texmf-dist/fonts/type1/public/newtx/NewTXMI7.pfb></Users/zakserby/Library/TinyTeX/texmf-dist/fonts/type1/public/pdftex/pdftexspace.pfb></Users/zakserby/Library/TinyTeX/texmf-dist/fonts/type1/public/newtx/txexs.pfb></Users/zakserby/Library/TinyTeX/texmf-dist/fonts/type1/public/newtx/txmiaX.pfb></Users/zakserby/Library/TinyTeX/texmf-dist/fonts/type1/public/newtx/txsys.pfb></Users/zakserby/Library/TinyTeX/texmf-dist/fonts/type1/public/newtx/ztmb.pfb></Users/zakserby/Library/TinyTeX/texmf-dist/fonts/type1/public/newtx/ztmr.pfb></Users/zakserby/Library/TinyTeX/texmf-dist/fonts/type1/public/newtx/ztmri.pfb>
-Output written on Paper.pdf (48 pages, 1498960 bytes).
+Output written on MS_Thesis.pdf (48 pages, 1498960 bytes).
 PDF statistics:
  740 PDF objects out of 1000 (max. 8388607)
  636 compressed objects within 7 object streams

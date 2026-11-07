@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.11.6)  7 NOV 2026 05:49
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.11.6)  7 NOV 2026 06:06
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1156,13 +1156,13 @@ Package logreq Info: Writing requests to 'Online_Appendix.run.xml'.
 Here is how much of TeX's memory you used:
  27850 strings out of 468958
  494896 string characters out of 5453337
- 1823188 words of memory out of 5000000
+ 1823192 words of memory out of 5000000
  56556 multiletter control sequences out of 15000+600000
  704964 words of font info for 197 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 84i,9n,117p,2423b,4041s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 84i,9n,117p,2427b,4041s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </Users/zakserby/Library/TinyTeX/texmf-dist/fonts/type1/public/newtx/NewTXMI.pfb></Users/zakserby/Library/TinyTeX/texmf-dist/fonts/type1/public/newtx/NewTXMI7.pfb></Users/zakserby/Library/TinyTeX/texmf-dist/fonts/type1/public/pdftex/pdftexspace.pfb></Users/zakserby/Library/TinyTeX/texmf-dist/fonts/type1/public/newtx/txmiaX.pfb></Users/zakserby/Library/TinyTeX/texmf-dist/fonts/type1/public/newtx/txsys.pfb></Users/zakserby/Library/TinyTeX/texmf-dist/fonts/type1/public/newtx/ztmb.pfb></Users/zakserby/Library/TinyTeX/texmf-dist/fonts/type1/public/newtx/ztmr.pfb></Users/zakserby/Library/TinyTeX/texmf-dist/fonts/type1/public/newtx/ztmri.pfb>
-Output written on Online_Appendix.pdf (16 pages, 545119 bytes).
+Output written on Online_Appendix.pdf (16 pages, 545132 bytes).
 PDF statistics:
  233 PDF objects out of 1000 (max. 8388607)
  184 compressed objects within 2 object streams

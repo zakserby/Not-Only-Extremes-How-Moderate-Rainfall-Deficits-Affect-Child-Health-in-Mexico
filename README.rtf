@@ -61,7 +61,7 @@
 #     (used by the R scripts), and the Subanalysis_Gender_* and Subanalysis_Rural_*\
 #     versions of both. Their event studies use each subsample's Model 3 children, and the\
 #     DDD event studies its Model 5 children with the event study controls, as in DID_Regs.do.\
-#   - Paper/Build_Results.R : writes and compiles Paper/Paper.tex (the paper with its\
+#   - Paper/Build_Results.R : writes and compiles Paper/MS_Thesis.tex (the paper with its\
 #     appendix), Paper/Online_Appendix.tex (the separate online appendix) and Paper/Results.tex\
 #     (every table and figure). The text is in Paper/Text, where each %%TABLE or %%FIGURE line\
 #     is replaced by that table or figure from Output.\
@@ -69,7 +69,7 @@
 #     17th edition author-date style (biblatex-chicago, run with biber; TinyTeX installs both\
 #     if they are missing). References.bib is exported from the Zotero Thesis collection with\
 #     Better BibTeX (Better BibLaTeX, keep updated), so the build runs without Zotero. In the\
-#     online appendix, a citation opens that entry in the reference list of Paper.pdf.\
+#     online appendix, a citation opens that entry in the reference list of MS_Thesis.pdf.\
 #\
 # Data/Raw/ (never edited by any script): MxFLS data and documentation (codebooks,\
 #   questionnaires, user guides), CHIRPS, INEGI shapefiles, WHO macros.\
@@ -99,7 +99,7 @@
 #     is in Online_Appendix.\
 #   - Logs/ : every log, and nowhere else.\
 #\
-# Paper/ : Paper.tex and Paper.pdf (the paper and its appendix), Online_Appendix.tex and\
+# Paper/ : MS_Thesis.tex and MS_Thesis.pdf (the paper and its appendix), Online_Appendix.tex and\
 #   Online_Appendix.pdf (separate online appendix), Results.tex and Results.pdf (every table\
 #   and figure) and Text/ (the written text the paper and online appendix are built from).\
 \
@@ -129,7 +129,7 @@
 #     GitHub (bcallaway11/contdid) and needs ptetools >= 1.0.1. fwildclusterboot\
 #     0.13.0 and summclust 0.7.2 install from the CRAN archive and need the Xcode\
 #     command line tools and gfortran on a Mac.\
-#   - TinyTeX compiles Paper.pdf, Online_Appendix.pdf and Results.pdf. Build_Results.R installs it if there is no LaTeX,\
+#   - TinyTeX compiles MS_Thesis.pdf, Online_Appendix.pdf and Results.pdf. Build_Results.R installs it if there is no LaTeX,\
 #     and missing LaTeX packages (e.g. pdflscape) install automatically.\
 #\
 # END OF README ----------------------------------------------------------------}

@@ -551,13 +551,13 @@ pages <- "https://zakserby.github.io/Not-Only-Extremes-How-Moderate-Rainfall-Def
 
 # The online appendix is built first, so the paper can use its table and figure numbers and link to them
 online <- c(paper_preamble, "\\begin{document}", "", fill_text("Online_Appendix_Text.tex"), "", "\\end{document}")
-# Table 1 of the paper in the online appendix notes links to Table 1 in Paper.pdf on GitHub Pages
-online <- gsub("Table~\\ref{tab:sumstats}", paste("\\href{",pages,"/Paper.pdf\\#tab-sumstats}{Table~1} of the paper",sep=""), online, fixed = TRUE)
-# The online appendix has no reference list, so a citation there links to that paper in the reference list of Paper.pdf on GitHub Pages
+# Table 1 of the paper in the online appendix notes links to Table 1 in MS_Thesis.pdf on GitHub Pages
+online <- gsub("Table~\\ref{tab:sumstats}", paste("\\href{",pages,"/MS_Thesis.pdf\\#tab-sumstats}{Table~1} of the paper",sep=""), online, fixed = TRUE)
+# The online appendix has no reference list, so a citation there links to that paper in the reference list of MS_Thesis.pdf on GitHub Pages
 # These lines go right before \begin{document} and change where the citation links go
 bp <- which(online == "\\begin{document}")[1]
 online <- append(online, c("\\makeatletter", "\\protected\\def\\blx@imc@bibhyperref{\\@ifnextchar[{\\zs@bhr@opt}{\\zs@bhr}}", "\\def\\zs@bhr@opt[#1]#2{\\zs@bhr{#2}}",
-                           paste("\\long\\def\\zs@bhr#1{\\href{",pages,"/Paper.pdf\\#cite.0@\\thefield{entrykey}}{#1}}",sep=""), "\\makeatother"), after = bp - 1)
+                           paste("\\long\\def\\zs@bhr#1{\\href{",pages,"/MS_Thesis.pdf\\#cite.0@\\thefield{entrykey}}{#1}}",sep=""), "\\makeatother"), after = bp - 1)
 # Changes the citations in the notes, then saves and compiles the online appendix
 online <- convert_cites(online)
 writeLines(online, paste(dir$paper,"/Online_Appendix.tex",sep=""), useBytes = TRUE)
@@ -574,8 +574,8 @@ paper <- gsub("\\href{Online_Appendix.pdf}", paste("\\href{",pages,"/Online_Appe
 paper <- sub("\\label{tab:sumstats}", "\\label{tab:sumstats}\\hypertarget{tab-sumstats}{}", paper, fixed = TRUE)
 # Changes the citations in the notes, then saves and compiles the paper
 paper <- convert_cites(paper)
-writeLines(paper, paste(dir$paper,"/Paper.tex",sep=""), useBytes = TRUE)
-compile_tex("Paper")
+writeLines(paper, paste(dir$paper,"/MS_Thesis.tex",sep=""), useBytes = TRUE)
+compile_tex("MS_Thesis")
 # The online appendix .aux file is not needed anymore once the paper is done, so remove
 if (file.exists(paste(dir$paper,"/Online_Appendix.aux",sep=""))) file.remove(paste(dir$paper,"/Online_Appendix.aux",sep=""))
 sink()

@@ -61,7 +61,7 @@ global run_sub_gender_contdid 1   // Subanalyses: continuous DID for boys and gi
 global run_sub_rural_did     1   // Subanalyses: DID regressions for rural and urban children separately
 global run_sub_rural_contdid 1   // Subanalyses: continuous DID for rural and urban children separately. Slow for the same reason as run_contdid
 global run_regstats    1   // Exports the regression tables to LaTeX. Note: runs last because it needs the continuous DID results from R
-global run_paper       1   // Builds Paper/Paper.tex and .pdf (the paper and its appendix) and Paper/Online_Appendix.tex and .pdf from the text in Paper/Text, and Paper/Results.tex and .pdf with every table and figure
+global run_paper       1   // Builds Paper/MS_Thesis.tex and .pdf (the paper and its appendix) and Paper/Online_Appendix.tex and .pdf from the text in Paper/Text, and Paper/Results.tex and .pdf with every table and figure
 
 * If the municipality rainfall data is not in Data/Cleaned yet, e.g. a fresh copy with only the raw data, the R rainfall step runs even if run_R is 0
 capture confirm file "$clean_rain/municipality_year_rainfall.dta"
