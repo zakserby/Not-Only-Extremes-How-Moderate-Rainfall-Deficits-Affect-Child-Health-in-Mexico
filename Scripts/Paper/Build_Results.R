@@ -414,14 +414,13 @@ paper_preamble <- c("\\documentclass[12pt]{article}", "\\usepackage[margin=1in]{
                     # The link color is the same blue as the reference paper
                     "\\usepackage{xcolor}", "\\definecolor{linkblue}{cmyk}{0.94,0.54,0,0}",
                     # Citations and the reference list come from Paper/Text/References.bib, in Chicago 17th edition author-date style
-                    # The ISSNs, months, access dates and handles are left out of the reference list (References.bib still has them)
-                    # Each reference shows its DOI or URL as in Chicago style, and only the DOI when it has both (doi=only)
+                    # The ISSNs, months, DOIs, URLs, access dates and handles are left out of the reference list like in the reference papers (References.bib still has them)
                     # In a citation, both the author names and the year link to the reference (hyperall)
-                    "\\usepackage[authordate,backend=biber,natbib=false,maxcitenames=3,mincitenames=1,maxbibnames=10,minbibnames=7,doi=only,hyperall]{biblatex-chicago}",
+                    "\\usepackage[authordate,backend=biber,natbib=false,maxcitenames=3,mincitenames=1,maxbibnames=10,minbibnames=7,hyperall]{biblatex-chicago}",
                     "\\DeclareSourcemap{\\maps[datatype=bibtex]{\\map{\\step[typesource=software,typetarget=misc]}}}",
-                    "\\AtEveryBibitem{\\clearfield{issn}\\clearfield{month}\\clearfield{urlyear}\\clearfield{urlmonth}\\clearfield{urlday}\\clearfield{eprint}}",
-                    # In the reference list, a line with a long title or link stretches its spaces instead of running past the margin, and the letters in a link keep their normal spacing
-                    "\\AtBeginBibliography{\\sloppy}", "\\biburlbigskip=0mu",
+                    "\\AtEveryBibitem{\\clearfield{issn}\\clearfield{month}\\clearfield{doi}\\clearfield{url}\\clearfield{urlyear}\\clearfield{urlmonth}\\clearfield{urlday}\\clearfield{eprint}}",
+                    # In the reference list, a line with a long title stretches its spaces instead of running past the margin
+                    "\\AtBeginBibliography{\\sloppy}",
                     "\\addbibresource{Text/References.bib}",
                     "\\usepackage[colorlinks=true,linkcolor=linkblue,citecolor=linkblue,urlcolor=linkblue,filecolor=linkblue,runcolor=linkblue]{hyperref}", "\\usepackage{xurl}",
                     "\\def\\sym#1{\\ifmmode^{#1}\\else\\(^{#1}\\)\\fi}",

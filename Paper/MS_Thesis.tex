@@ -32,11 +32,10 @@
 \captionsetup[figure]{position=top,justification=centering}
 \usepackage{xcolor}
 \definecolor{linkblue}{cmyk}{0.94,0.54,0,0}
-\usepackage[authordate,backend=biber,natbib=false,maxcitenames=3,mincitenames=1,maxbibnames=10,minbibnames=7,doi=only,hyperall]{biblatex-chicago}
+\usepackage[authordate,backend=biber,natbib=false,maxcitenames=3,mincitenames=1,maxbibnames=10,minbibnames=7,hyperall]{biblatex-chicago}
 \DeclareSourcemap{\maps[datatype=bibtex]{\map{\step[typesource=software,typetarget=misc]}}}
-\AtEveryBibitem{\clearfield{issn}\clearfield{month}\clearfield{urlyear}\clearfield{urlmonth}\clearfield{urlday}\clearfield{eprint}}
+\AtEveryBibitem{\clearfield{issn}\clearfield{month}\clearfield{doi}\clearfield{url}\clearfield{urlyear}\clearfield{urlmonth}\clearfield{urlday}\clearfield{eprint}}
 \AtBeginBibliography{\sloppy}
-\biburlbigskip=0mu
 \addbibresource{Text/References.bib}
 \usepackage{xr-hyper}
 \usepackage[colorlinks=true,linkcolor=linkblue,citecolor=linkblue,urlcolor=linkblue,filecolor=linkblue,runcolor=linkblue]{hyperref}
