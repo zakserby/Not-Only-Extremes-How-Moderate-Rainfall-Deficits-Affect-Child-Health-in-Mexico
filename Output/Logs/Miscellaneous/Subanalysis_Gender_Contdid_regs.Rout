@@ -861,7 +861,7 @@ This warning is displayed once per session.
   critical value for uniform confidence band is somehow smaller than
             critical value for pointwise confidence interval...using pointwise
             confidence interal
-SPI section done, elapsed: 0.9 min
+SPI section done, elapsed: 0.8 min
 
 ==================== Summary ====================
  outcome           sample
@@ -1227,4 +1227,4 @@ SPI section done, elapsed: 0.9 min
                        76
                        76
                        41
-Total runtime: 0.9 min
+Total runtime: 0.8 min

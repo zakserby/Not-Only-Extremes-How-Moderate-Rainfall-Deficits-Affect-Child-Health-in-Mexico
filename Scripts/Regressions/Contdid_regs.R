@@ -81,12 +81,13 @@ dir.create(dir$output_regs, recursive = TRUE, showWarnings = FALSE)
 dir.create(dir$output_figure, recursive = TRUE, showWarnings = FALSE)
 dir$output_logs <- paste(dir$root,"/Output/Logs",sep="")
 for (d in c(dir$output_regs, dir$output_figure, dir$output_logs)) for (s in c("Main","Appendix")) dir.create(paste(d,"/",s,sep=""), recursive = TRUE, showWarnings = FALSE)
-for (d in c(dir$output_figure, dir$output_logs)) dir.create(paste(d,"/Miscellaneous",sep=""), recursive = TRUE, showWarnings = FALSE)
+dir.create(paste(dir$output_figure,"/Online_Appendix",sep=""), recursive = TRUE, showWarnings = FALSE)
+dir.create(paste(dir$output_logs,"/Miscellaneous",sep=""), recursive = TRUE, showWarnings = FALSE)
 
 # Everything printed below is also saved to this log
 sink(paste(dir$output_logs,"/Main/contdid_regs.log",sep=""), split = TRUE)
 
-# Misc just used as our list for the settings your script uses later
+# Misc just used as our list for the settings used later
 # We are just defining some vars here to use later. This way is more efficient
 # We use the function's default of 1000 bootstrap draws for inference
 misc <- list()
@@ -123,7 +124,7 @@ rain09 <- unique(panel[, c("cvegeo05","rain_z2009")])
 # ---- Functions ----
 
 # Theses functions are in the functions r script
-# make_df(), dose_values(), save_plot() and elapsed() moved to functions.R, which is loaded in section 1
+# make_df(), dose_values(), save_plot() and elapsed() are in functions.R, which is loaded in section 1
 
 # ---- Build the panels ----
 
@@ -174,8 +175,8 @@ for (v in misc$outcomes) {
   # Use this to have the results show up in the console and the log
   cat("\n==================== Case 1, dose aggregation:", v, "====================\n")
   print(summary(cd_res[[v]]))
-  save_plot(ggcont_did(cd_res[[v]], type = "att"), paste0("Miscellaneous/contdid_att_", v, ".png"))
-  save_plot(ggcont_did(cd_res[[v]], type = "acrt"), paste0("Miscellaneous/contdid_acrt_", v, ".png"))
+  save_plot(ggcont_did(cd_res[[v]], type = "att"), paste0("Online_Appendix/contdid_att_", v, ".png"))
+  save_plot(ggcont_did(cd_res[[v]], type = "acrt"), paste0("Online_Appendix/contdid_acrt_", v, ".png"))
 }
 elapsed("Case 1")
 
@@ -233,8 +234,8 @@ for (v in misc$outcomes) {
   print(summary(cd_res_es_level[[v]]))
   cat("\n==================== Case 2, ACRT event study:", v, "====================\n")
   print(summary(cd_res_es_slope[[v]]))
-  save_plot(ggcont_did(cd_res_es_level[[v]]), paste0("Miscellaneous/contdid_es_att_", v, ".png"))
-  save_plot(ggcont_did(cd_res_es_slope[[v]]), paste0("Miscellaneous/contdid_es_acrt_", v, ".png"))
+  save_plot(ggcont_did(cd_res_es_level[[v]]), paste0("Online_Appendix/contdid_es_att_", v, ".png"))
+  save_plot(ggcont_did(cd_res_es_slope[[v]]), paste0("Online_Appendix/contdid_es_acrt_", v, ".png"))
 }
 elapsed("Case 2")
 
@@ -283,7 +284,7 @@ for (v in misc$outcomes) {
 
 # ---- Functions ----
 
-# first_diff(), mboot_mun(), add_result() and plot_bands() moved to functions.R, which is loaded in section 1
+# first_diff(), mboot_mun(), add_result() and plot_bands() are in functions.R, which is loaded in section 1
 
 # We are creating a data frame with the results, this inserts inputs later on. The results we want to add are defined by the function and the variables in it.
 # Then we combine these results into a dataframe.
@@ -293,7 +294,7 @@ results <- data.frame()
 
 # We first are making 4 separate data frames.
 # df: dataframe, 2 rows per child, 2005 and 2009
-# fd: first difference, 1 row per child, with their 2005→2009 change
+# fd: first difference, 1 row per child, with their 2005 to 2009 change
 # trt: treated, the fd rows with a 2009 deficit (D > 0)
 # unt: untreated, the fd rows with no deficit (D = 0)
 cd_res_cluster <- list()
@@ -311,17 +312,17 @@ for (v in misc$outcomes) {
   
   # ---- a. Binned scatter ----
   # a. Binned scatter: mean change in the outcome by decile of the dose among treated, untreated mean as a dashed line
-  # We build the bins by splitting treated children into 10 groups by dose at the 0%, 10%, …, 100% cutoffs
+  # We build the bins by splitting treated children into 10 groups by dose at the 0%, 10%, ..., 100% cutoffs
   trt$bin <- cut(trt$D, breaks = unique(quantile(trt$D, seq(0, 1, .1))), include.lowest = TRUE)
-  # Groups treated children by their dose bin and takes the average dose and average change in the outcome within each bin. NOTE: Those averages are each circle’s x and y position on the plot.
+  # Groups treated children by their dose bin and takes the average dose and average change in the outcome within each bin. NOTE: Those averages are each circle's x and y position on the plot.
   bins <- aggregate(cbind(D, dY) ~ bin, data = trt, FUN = mean)
   # Counts the number of children in that bin and then determines the size of the circle based on that
   bins$n <- as.numeric(table(trt$bin)[as.character(bins$bin)])
   # Simply construct the figure below
-  png(paste(dir$output_figure,"/", ifelse(v == "bmiz", "Main", "Appendix"), "/contdid_binscatter_",v,".png",sep=""), width = 6.5, height = 4.5, units = "in", res = 200)
+  png(paste(dir$output_figure,"/Online_Appendix/contdid_binscatter_",v,".png",sep=""), width = 6.5, height = 4.5, units = "in", res = 200)
   plot(bins$D, bins$dY, pch = 21, bg = "grey70", cex = 1 + 2 * bins$n / max(bins$n),
        xlab = "2009 rainfall deficit (SDs below the 1981-2004 mean)", ylab = paste0("Change in ", v, ", 2005 to 2009"),
-       main = paste0("Change in ", v, " by 2009 rainfall deficit"), ylim = range(c(bins$dY, mean(unt$dY))))
+       ylim = range(c(bins$dY, mean(unt$dY))))
   abline(h = mean(unt$dY), lty = 2)
   legend("bottomleft", legend = c("Treated, deciles of the deficit", "Untreated mean (D = 0)"),
          pch = c(21, NA), pt.bg = c("grey70", NA), lty = c(NA, 2), bty = "n", cex = 0.8)
@@ -329,7 +330,7 @@ for (v in misc$outcomes) {
   
   # ---- b. and c. Clustered SEs ----
   # b. and c. We redo their SEs by clustering by municipality with did::mboot(). This is for ATT(d), ACRT(d), ATT^o and ACRT^o in contdid's own estimates from Case 1 in 3
-  # Grabs outcome’s Case 1 results from cont_did() from above
+  # Grabs outcome's Case 1 results from cont_did() from above
   res <- cd_res[[v]]
   n <- nrow(fd)
   n1 <- nrow(trt)
@@ -354,11 +355,11 @@ for (v in misc$outcomes) {
   xlab <- "2009 rainfall deficit (SDs below the 1981-2004 mean)"
   
   # ATT(d): Use contdid's estimates from Case 1, with the clustered SEs and uniform critical value from b.
-  plot_bands(res$dose, res$att.d, b_att.d$se, b_att.d$crit.val, paste0("Appendix/contdid_att_clustered_", v, ".png"),
-             xlab, "ATT", paste0("ATT(d), ", v, ": 95% bands clustered by municipality"))
+  plot_bands(res$dose, res$att.d, b_att.d$se, b_att.d$crit.val, paste0("Online_Appendix/contdid_att_clustered_", v, ".png"),
+             xlab, "ATT", "")
   
   # ACRT(d): same plot for the slope curve
-  plot_bands(res$dose, res$acrt.d, b_acrt.d$se, b_acrt.d$crit.val, paste0("Miscellaneous/contdid_acrt_clustered_", v, ".png"),
+  plot_bands(res$dose, res$acrt.d, b_acrt.d$se, b_acrt.d$crit.val, paste0("Online_Appendix/contdid_acrt_clustered_", v, ".png"),
              xlab, "ACRT", paste0("ACRT(d), ", v, ": 95% bands clustered by municipality"))
   
   # If have time can insert an event study where we cluster by municipality
@@ -374,7 +375,7 @@ for (v in misc$outcomes) {
 
 # Tests whether 2002 remittances protected children from the 2009 drought. It loops over the three outcomes HAZ, WAZ, BMIZ, and for each one does two things.
 # 1: Runs CGBS continuous DID, splits children into non-remittance and remittance households, then estimates the drought effect aka the average ATT within each group with a municipality-clustered SE.
-# 2: Puts both groups back together and estimates the difference between those two effects, remittance minus non-remittance, also clustered. If it’s positive and significant for HAZ, the drought hurt remittance children less.
+# 2: Puts both groups back together and estimates the difference between those two effects, remittance minus non-remittance, also clustered. If it's positive and significant for HAZ, the drought hurt remittance children less.
 cd_res_remit <- list()
 for (v in misc$outcomes) {
   
@@ -402,10 +403,10 @@ for (v in misc$outcomes) {
       dvals = dose_values(df_r)
     )
     
-    # Turns the two rows per child into one row with 2005→2009 change dY
+    # Turns the two rows per child into one row with 2005 to 2009 change dY
     fd_r <- first_diff(df_r)
-    # Regresses each child’s change on D_any (1 if any deficit, 0 if none). The D_any coefficient is (mean change of treated children) − (mean change of untreated children).
-    # This is CGBS’s average ATT, the same number as contdid’s overall_att. We run it as a regression only so we can cluster its SE.
+    # Regresses each child's change on D_any (1 if any deficit, 0 if none). The D_any coefficient is (mean change of treated children) - (mean change of untreated children).
+    # This is CGBS's average ATT, the same number as contdid's overall_att. We run it as a regression only so we can cluster its SE.
     # This just answers how much a drought hurt a remittance family or non-remittance family separately
     fit_r <- lm(dY ~ D_any, data = fd_r)
     b_r <- coef(fit_r)[2]
@@ -452,7 +453,7 @@ for (v in misc$outcomes) {
 
 # ---- Functions ----
 
-# add_spi() and spi_reg() moved to functions.R, which is loaded in section 1
+# add_spi() and spi_reg() are in functions.R, which is loaded in section 1
 # spi_reg() adds its rows to this data frame
 spi_results <- data.frame()
 
@@ -490,7 +491,7 @@ for (v in misc$outcomes) {
     dvals = seq(min(d_pos), max(d_pos), length.out = 100)
   )
   print(summary(cd_res_spi[[v]]))
-  save_plot(ggcont_did(cd_res_spi[[v]], type = "att"), paste0("Miscellaneous/contdid_spi_att_", v, ".png"))
+  save_plot(ggcont_did(cd_res_spi[[v]], type = "att"), paste0("Online_Appendix/contdid_spi_att_", v, ".png"))
   
   # Here we add the clustering using mboot, exact same code as above
   res_spi <- cd_res_spi[[v]]
@@ -509,12 +510,12 @@ for (v in misc$outcomes) {
   spi_results <- rbind(spi_results, row)
   
   # Graph note not necessary to keep if only want the results, this is the exact same code as above
-  plot_bands(res_spi$dose, res_spi$att.d, b_att_spi.d$se, b_att_spi.d$crit.val, paste0("Miscellaneous/contdid_spi_att_clustered_", v, ".png"),
+  plot_bands(res_spi$dose, res_spi$att.d, b_att_spi.d$se, b_att_spi.d$crit.val, paste0("Online_Appendix/contdid_spi_att_clustered_", v, ".png"),
              "2009 rainfall deficit (SDs below the 1981-2004 mean), z <= -1", "ATT",
-             paste0("ATT(d), SPI dose, ", v, ": 95% bands clustered by municipality"))
+             paste0("ATT(d), dose z <= -1, ", v, ": 95% bands clustered by municipality"))
   
   # ---- b. Dry vs near normal ----
-  # b. The average effect of being in a dry municipality, z ≤ −1, compared with a near-normal one.
+  # b. The average effect of being in a dry municipality, z <= -1, compared with a near-normal one.
   cat("b. Average ATT, dry vs near normal:\n")
   # This is the reg function being run
   spi_reg(fd_spi, "dry", v, "Average ATT: dry (z <= -1) vs near normal", near_normal)

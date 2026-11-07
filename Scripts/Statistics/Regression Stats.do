@@ -7,8 +7,10 @@
 * It reruns the binary DID regressions of DID_Regs.do and the subanalysis do files, and reads the continuous DID results from the csv files Contdid_regs.R and the subanalysis R scripts save
 
 * Broadly how we organize the results
-	* 1) Tables/Main/regression_tables_main.tex: SPI drought classes, binary DID for BMIZ, continuous DID and the remittance buffer
-	* 2) Tables/Appendix/regression_tables_appendix.tex: binary DID for HAZ and WAZ, Model 3 with all covariates, children in all three waves, subanalyses by sex and rural vs urban, event studies, continuous DID subanalyses
+	* The files follow where each table is placed
+	* 1) Tables/Main/regression_tables_main.tex: discrete dose groups, binary DID for BMIZ, HAZ and WAZ
+	* 2) Tables/Appendix/regression_tables_appendix.tex (appendix within the paper): Model 3 with all covariates, children in all three waves, event studies
+	* 3) Tables/Online_Appendix/regression_tables_online_appendix.tex: subanalyses by sex and rural vs urban, continuous DID and the remittance buffer, continuous DID subanalyses
 
 clear all
 set more off
@@ -29,7 +31,7 @@ global out_sumstats  "$root/Output/Tables"
 global out_regs      "$root/Output/Regression_Estimates"
 global out_logs      "$root/Output/Logs"
 * Create the folders this file writes to. Note: capture skips quietly if a folder already exists
-foreach d in "$root/Output" "$out_sumstats" "$out_sumstats/Main" "$out_sumstats/Appendix" "$out_logs" "$out_logs/Main" {
+foreach d in "$root/Output" "$out_sumstats" "$out_sumstats/Main" "$out_sumstats/Appendix" "$out_sumstats/Online_Appendix" "$out_logs" "$out_logs/Main" {
     capture mkdir "`d'"
 }
 
@@ -225,7 +227,7 @@ program define csv_cell, rclass
 end
 
 
-* Program mostly used for counts, like the "Children" rows. It reads the number from the one row you pick, formats it with commas, and returns it as text to write into the table
+* Program mostly used for counts, like the "Children" rows. It reads the number from the one row picked, formats it with commas, and returns it as text to write into the table
 capture program drop csv_num
 program define csv_num, rclass
     syntax varname [if], [fmt(string)]
@@ -274,9 +276,9 @@ local age_waz "10 or younger"
 local age_bmiz "15 or younger"
 
 * Sources cited in the notes. Used multiple times across tables so we make them locals
-local cgbs "(Callaway et al., 2024)"
-local rural_note "Rural is a locality with fewer than 2,500 inhabitants (INEGI, 2024)."
-local mnw_note "Wild cluster bootstrap p-values are in brackets, which tend to be conservative with few treated municipalities (MacKinnon et al., 2023)."
+local cgbs "(Callaway, Goodman-Bacon, and Sant'Anna 2024)"
+local rural_note "Rural is a locality with fewer than 2,500 inhabitants (INEGI 2024)."
+local mnw_note "Wild cluster bootstrap p-values are in brackets, which tend to be conservative with few treated municipalities (MacKinnon, Nielsen, and Webb 2023)."
 local star_note "Stars use the clustered p-values, and where a wild bootstrap p-value is shown both must pass."
 
 *******************************************************************
@@ -315,7 +317,7 @@ foreach g in boys girls rural urban {
 save `csvs', replace
 
 * For assumptions the continuous DID and SPI notes use the same sentence 
-local pt_note "The average ATT needs parallel trends, while the average ACRT, the average slope of the dose response, and comparisons between doses need strong parallel trends (Callaway et al., 2024)."
+local pt_note "The average ATT needs parallel trends, while the average ACRT, the average slope of the dose response, and comparisons between doses need strong parallel trends (Callaway, Goodman-Bacon, and Sant'Anna 2024)."
 
 *******************************************************************
 * SPI drought classes table, main
@@ -330,7 +332,7 @@ file open tab using "$out_sumstats/Main/regression_tables_main.tex", write repla
 foreach p of local preamble {
     file write tab `"`p'"' _n
 }
-tab_head 6 "2009 Drought and Child Anthropometrics, Rainfall Classes" first
+tab_head 6 "2009 Rainfall Deficits and Child Anthropometrics, Discrete Dose" first
 file write tab " & \multicolumn{2}{c}{HAZ} & \multicolumn{2}{c}{WAZ} & \multicolumn{2}{c}{BMIZ}\\" _n "\cmidrule(lr){2-3}\cmidrule(lr){4-5}\cmidrule(lr){6-7}" _n " & (1) & (2) & (3) & (4) & (5) & (6)\\" _n "\midrule" _n
 
 * Coefficient rows: each outcome has the dry column and the groups column
@@ -395,9 +397,9 @@ foreach n in n_children municipalities_in_group untreated_municipalities {
 * Notes
 file write tab "\bottomrule" _n
 file write tab "\addlinespace[6pt]\multicolumn{7}{p{0.97\textwidth}}{\scriptsize \textit{Notes:} This table compares children in dry 2005 municipalities with children in near-normal ones. Regressions are at the child level, on the 2005 to 2009 change in the WHO z-score," _n
-file write tab "for the binary DID estimation samples without children in wet municipalities (z of 1 or above). z is 2009 May--October CHIRPS rainfall, the maize growing season (Jessoe et al., 2018), in the child's 2005 municipality in standard deviations from its 1981--2004 mean, grouped into standardized rainfall classes with the SPI cutoffs:" _n
-file write tab "near normal is z between -1 and 1, moderately dry between -1.5 and -1, and severely dry or worse -1.5 or below (McKee et al., 1993). Cols. 1, 3 and 5 compare dry (z of -1 or below) with near normal, and Cols. 2, 4 and 6 split dry into moderately dry and" _n
-file write tab "severely dry or worse. Each class is only compared with near normal, which needs parallel trends, and not with the other class, which would need strong parallel trends (Callaway et al., 2024). Since the contdid package does not yet support discrete doses, the classes are estimated with the discrete-dose regression in equation 4.1 (Callaway et al., 2024). The regressions have no controls, as the contdid package does not yet support covariates (Callaway et al., 2024). The pre-trend p-values test the 2002 leads of the rainfall class event study, on the same children with child and wave fixed effects. Standard errors clustered by 2005 municipality are in parentheses." _n
+file write tab "for the binary DID estimation samples without children in wet municipalities (z of 1 or above). z is 2009 May--October CHIRPS rainfall, the maize growing season (Jessoe, Manning, and Taylor 2018), in the child's 2005 municipality in standard deviations from its 1981--2004 mean, grouped into dose levels with the SPI cutoffs. The SPI cutoffs are" _n
+file write tab "near normal for z between -1 and 1, moderately dry between -1.5 and -1, and severely dry or worse for -1.5 or below (McKee, Doesken, and Kleist 1993; WMO 2012). Cols. 1, 3 and 5 compare dry (z of -1 or below) with near normal, and Cols. 2, 4 and 6 split dry into moderately dry and" _n
+file write tab "severely dry or worse. Each dose group is only compared with near normal, which needs parallel trends, and not with the other dose group, which would need strong parallel trends (Callaway, Goodman-Bacon, and Sant'Anna 2024). Since the contdid package does not yet support discrete doses, the dose groups are estimated with the discrete-dose regression in equation 4.1 (Callaway, Goodman-Bacon, and Sant'Anna 2024). The regressions have no controls, as the contdid package does not yet accommodate covariates (Callaway, Goodman-Bacon, and Sant'Anna 2026). The pre-trend p-values test the 2002 leads of the discrete-dose event study, on the same children with child and wave fixed effects. Standard errors clustered by 2005 municipality are in parentheses." _n
 file write tab "`mnw_note' `star_note' `stars'}\\" _n
 file write tab "\end{longtable}" _n "\endgroup" _n
 file close tab
@@ -412,7 +414,8 @@ restore
 	* The inner loop goes over the three outcomes: HAZ, WAZ, BMIZ
 foreach t in main all3 boys girls rural urban {
     * Default settings. Note: The default output file is the appendix file and only main changes this
-    local file "$out_sumstats/Appendix/regression_tables_appendix.tex"
+    * all3 goes to the appendix in the paper, and the subgroups to the online appendix
+    local file = cond("`t'" == "all3", "$out_sumstats/Appendix/regression_tables_appendix.tex", "$out_sumstats/Online_Appendix/regression_tables_online_appendix.tex")
     local c02 "$controls02"
     local c05 "$controls05"
 	* local cond "1 == 1" puts an always-true condition in the sample-restriction spot, so the main tables use the whole estimation sample while the same run_did command still works for the subgroups
@@ -442,7 +445,7 @@ foreach t in main all3 boys girls rural urban {
         local sample_note = "The sample is " + cond("`t'" == "boys", "boys", "girls") + ", using sex reported in the 2005 household roster, with the outcome measured in both MxFLS-2 (2005) and MxFLS-3 (2009)"
         local reason "Estimating the effect separately for boys and girls tests for gender disparities in the impact of the drought, as households facing an income shock may protect the nutrition and health of sons and daughters differently."
         local sample_short = cond("`t'" == "boys", "boys", "girls") + ", using sex reported in the 2005 household roster"
-        local ctrl_diff ", without child sex in the controls"
+        local ctrl_diff ". The controls do not include child sex"
         local child_note "2005 mother controls and child full vaccination (mother's height, schooling, age at birth and employment), without child sex as it does not vary within the sample"
     }
     if "`t'" == "rural" | "`t'" == "urban" {
@@ -452,29 +455,30 @@ foreach t in main all3 boys girls rural urban {
         local sample_note = "The sample is " + cond("`t'" == "rural", "rural", "urban") + " children (2005 household locality) with the outcome measured in both MxFLS-2 (2005) and MxFLS-3 (2009)"
         local reason "Estimating the effect separately for rural and urban children tests whether the drought hits harder where household incomes depend more directly on rain-fed agriculture, while urban households are mainly exposed through food prices. `rural_note'"
         local sample_short = cond("`t'" == "rural", "rural", "urban") + " children (2005 household locality)"
-        local ctrl_diff ", without rural in the controls"
+        local ctrl_diff ". The controls do not include rural"
         local hh_note "2002 household controls (electricity, floor, roof, ventilation, sleeping rooms per person, log expenditure per capita), without rural as it barely varies within the sample"
     }
 
     foreach v in haz waz bmiz {
         local cond_v = subinstr("`cond'", "VAR", "`v'", .)
-		* This runs Models 1–5 for this outcome
+		* This runs Models 1-5 for this outcome
         run_did `v' "`cond_v'" "`c02'" "`c05'"
         * Building the top of the LaTeX document
         local ph `" `tabstart' "\begin{longtable}{l*{5}{c}}" "\caption{2009 Drought and `cap_`v'', `tcap'}\\" "\toprule" " & \multicolumn{5}{c}{`head_`v''}\\" "\cmidrule(lr){2-6}" "'
-        * Only keep BMIZ in Main, put HAZ and WAZ tables in the appendix
+        * BMIZ, HAZ and WAZ are all in the main text. The appendix file is started by the Model 3 table and the online appendix file by the boys tables
         local file_v "`file'"
-        if "`t'" == "main" & "`v'" != "bmiz" local file_v "$out_sumstats/Appendix/regression_tables_appendix.tex"
-        local first = ("`v'" == "haz" & "`t'" == "main")
+        local first = ("`v'" == "haz" & "`t'" == "boys")
         if `first' local ph `" `preamble' `ph' "'
         else local ph `" "\clearpage" `ph' "'
         local mode = cond(`first', "replace", "append")
 
         * Notes
-        local pf `" "\bottomrule" "\addlinespace[6pt]\multicolumn{6}{p{0.97\textwidth}}{\scriptsize \textit{Notes:} This table reports the effect of the 2009 drought on the WHO `low_`v'' with the binary DID. Regressions are at the child-wave level. `sample_note'," "aged `age_`v'' in both rounds. Cols. 3--5 also keep only children with all of their regressors observed. Children have a 2005 municipality. They were not measured in MxFLS-3 before November 2009. We use November 2009 as the cutoff because the 2009 rainfall deficit, the drought, had not fully occurred before then. Dropping them from both groups equalizes treated and control measurement timing. Drought equals 1 if May--October CHIRPS rainfall in 2009, the maize growing season (Jessoe et al., 2018), in the child's 2005 municipality was below its 1981--2004 20th percentile," "and post equals 1 in MxFLS-3. Remittances equal 1 if the household received cash in the last 12 months from parents, siblings, or children living outside the household in MxFLS-1 (2002), a proxy for remittances. Cols. 1--4 report the average drought" "effect. Col. 1 is the basic DID, Col. 2 adds the 2005--2008 droughts, and Col. 3 adds `hh_note' and `child_note'. Col. 4 adds the 2005 father and birth controls (father's height, schooling, age at birth and employment, birth order, oldest child," "birth weight, delivered at home, weeks predominantly breastfed, iron in pregnancy, premature), which are missing for many children, often because the father migrated. All controls are interacted with post. Col. 5 is the triple difference: it keeps the controls of Col. 3" "and adds 2002 remittances \ensuremath{\times} post and drought \ensuremath{\times} post \ensuremath{\times} 2002 remittances, the difference in the drought effect for children in 2002 remittance households. `extra_note' All regressions include child and interview year-month" "fixed effects, children in singleton cells are dropped, and standard errors are clustered by 2005 municipality, where the drought is assigned. `stars'}\\" "\end{longtable}" "\endgroup" "'
-        if "`t'" != "main" local pf `" "\bottomrule" "\addlinespace[6pt]\multicolumn{6}{p{0.97\textwidth}}{\scriptsize \textit{Notes:} `reason' The table reports the effect of the 2009 drought on the WHO `low_`v'' with the binary DID for `sample_short', aged `age_`v'' in both rounds, with a 2005 municipality. They were not measured in MxFLS-3 before November 2009. We use November 2009 as the cutoff because the 2009 rainfall deficit, the drought, had not fully occurred before then. Dropping them from both groups equalizes treated and control measurement timing." "Columns, variables and controls are as in the main binary DID tables`ctrl_diff'. All regressions include child and interview year-month fixed effects, and standard errors are clustered by 2005 municipality. `stars'}\\" "\end{longtable}" "\endgroup" "'
+        local pf `" "\bottomrule" "\addlinespace[6pt]\multicolumn{6}{p{0.97\textwidth}}{\scriptsize \textit{Notes:} This table reports the effect of the 2009 drought on the WHO `low_`v'' with the binary DID. Regressions are at the child-wave level. `sample_note'," "aged `age_`v'' in both survey waves. Cols. 3--5 also keep only children with all of their regressors observed. Children have a 2005 municipality. They were not measured in MxFLS-3 before November 2009, for the same reason as in Table~\ref{tab:sumstats}. Drought equals 1 if May--October CHIRPS rainfall in 2009, the maize growing season (Jessoe, Manning, and Taylor 2018), in the child's 2005 municipality was below its 1981--2004 20th percentile (Shah and Steinberg 2017)." "Post equals 1 in MxFLS-3. Remittances equal 1 if the household received cash in the last 12 months from parents, siblings, or children living outside the household in MxFLS-1 (2002), a proxy for remittances. Cols. 1--4 report the average drought" "effect. Col. 1 is the basic DID, Col. 2 adds the 2005--2008 droughts, and Col. 3 adds `hh_note' and `child_note'. Col. 4 adds the 2005 father and birth controls (father's height, schooling, age at birth and employment, birth order, oldest child," "birth weight, delivered at home, weeks predominantly breastfed, iron in pregnancy, premature), which are missing for many children, often because the father migrated. All controls are interacted with post. Col. 5 is the triple difference: it keeps the controls of Col. 3" "and adds 2002 remittances \ensuremath{\times} post and drought \ensuremath{\times} post \ensuremath{\times} 2002 remittances, the difference in the drought effect for children in 2002 remittance households. `extra_note' All regressions include child and interview year-month" "fixed effects, children in singleton cells are dropped, and standard errors are clustered by 2005 municipality, where the drought is assigned. `stars'}\\" "\end{longtable}" "\endgroup" "'
+        if "`t'" != "main" local pf `" "\bottomrule" "\addlinespace[6pt]\multicolumn{6}{p{0.97\textwidth}}{\scriptsize \textit{Notes:} `reason' The table reports the effect of the 2009 drought on the WHO `low_`v'' with the binary DID for `sample_short', aged `age_`v'' in both survey waves, with a 2005 municipality. They were not measured in MxFLS-3 before November 2009, for the same reason as in Table~\ref{tab:sumstats}." "Columns, variables and controls are as in the main binary DID tables`ctrl_diff'. All regressions include child and interview year-month fixed effects, and standard errors are clustered by 2005 municipality. `stars'}\\" "\end{longtable}" "\endgroup" "'
+        local abbr = strupper("`v'")
+        if "`t'" == "all3" local pf `" "\bottomrule" "\addlinespace[6pt]\multicolumn{6}{p{0.97\textwidth}}{\scriptsize \textit{Notes:} This robustness check keeps only children measured in all three waves." "The table reports the effect of the 2009 drought on `abbr' with the binary DID for these children. They are aged `age_`v'' in both survey waves. They were not measured in MxFLS-3 before November 2009, for the same reason as in Table~\ref{tab:sumstats}. Columns, variables and controls are as in the main binary DID tables. All regressions include child and interview year-month fixed effects, and standard errors are clustered by 2005 municipality. `stars'}\\" "\end{longtable}" "\endgroup" "'
 
-		* This is the line that actually writes the table. It takes the five saved regressions (m1–m5) and writes them into the .tex file as five side-by-side columns. It uses the header (ph) and notes (pf) built just before, and the Y/N rows and children count that add_rows attached to each model
+		* This is the line that actually writes the table. It takes the five saved regressions (m1-m5) and writes them into the .tex file as five side-by-side columns. It uses the header (ph) and notes (pf) built just before, and the Y/N rows and children count that add_rows attached to each model
         esttab m1 m2 m3 m4 m5 using "`file_v'", `mode' booktabs ///
             cells(b(star fmt(3)) se(par fmt(3))) star(* 0.10 ** 0.05 *** 0.01) ///
             keep(treat_post treat_post_remit02 remittance_hh_02_post) order(treat_post treat_post_remit02 remittance_hh_02_post) ///
@@ -491,9 +495,11 @@ foreach t in main all3 boys girls rural urban {
             add_rows Y Y Y N
             eststo c_`v'
         }
-        local ph `" "\clearpage" `tabstart' "\begin{longtable}{p{0.62\textwidth}ccc}" "\caption{2009 Drought and Child Anthropometrics, Binary DID Model 3 with All Covariates}\\" "\toprule" " & HAZ & WAZ & BMIZ\\" "'
-        local pf `" "\bottomrule" "\addlinespace[6pt]\multicolumn{4}{p{0.97\textwidth}}{\scriptsize \textit{Notes:} This table reports every coefficient of Model 3, Col. 3 of the main binary DID tables, for each outcome. Samples, variables and controls are as in those tables, and all controls are interacted with post. All regressions include child and interview year-month fixed effects, children in singleton cells are dropped, and standard errors are clustered by 2005 municipality. `stars'}\\" "\end{longtable}" "\endgroup" "'
-        esttab c_haz c_waz c_bmiz using "$out_sumstats/Appendix/regression_tables_appendix.tex", append booktabs ///
+        local ph `" `tabstart' "\begin{longtable}{p{0.62\textwidth}ccc}" "\caption{2009 Drought and Child Anthropometrics, Binary DID Model 3 with All Covariates}\\" "\toprule" " & HAZ & WAZ & BMIZ\\" "'
+        local pf `" "\bottomrule" "\addlinespace[6pt]\multicolumn{4}{p{0.97\textwidth}}{\scriptsize \textit{Notes:} This table reports every coefficient of Model 3, which is Col. 3 of the main binary DID tables, including all control variables. All regressions include child and interview year-month fixed effects, children in singleton cells are dropped, and standard errors are clustered by 2005 municipality. `stars'}\\" "\end{longtable}" "\endgroup" "'
+        * This table starts the appendix file, so it writes the LaTeX preamble
+        local ph `" `preamble' `ph' "'
+        esttab c_haz c_waz c_bmiz using "$out_sumstats/Appendix/regression_tables_appendix.tex", replace booktabs ///
             cells(b(star fmt(3)) se(par fmt(3))) star(* 0.10 ** 0.05 *** 0.01) ///
             keep(treat_post $did_controls $controls02 $controls05) order(treat_post $did_controls $controls02 $controls05) ///
             varlabels(treat_post "2009 drought \ensuremath{\times} post" drought2005_post "2005 drought \ensuremath{\times} post" drought2006_post "2006 drought \ensuremath{\times} post" drought2007_post "2007 drought \ensuremath{\times} post" drought2008_post "2008 drought \ensuremath{\times} post" ///
@@ -539,7 +545,7 @@ foreach v in haz waz bmiz {
 
 	* 2nd chunk is building the header and the notes
     local ph `" "\clearpage" `tabstart' "\begin{longtable}{l*{2}{c}}" "\caption{Event Study, 2009 Drought and `cap_`v''}\\" "\toprule" " & \multicolumn{2}{c}{`head_`v''}\\" "\cmidrule(lr){2-3}" "'
-    local pf `" "\bottomrule" "\addlinespace[6pt]\multicolumn{3}{p{0.97\textwidth}}{\scriptsize \textit{Notes:} This table tests for pre-trends before the 2009 drought. Regressions are at the child-wave level on MxFLS-1 (2002), MxFLS-2 (2005) and MxFLS-3 (2009), with 2005 as the" "reference wave. The sample is children aged `age_`v'' in each wave they are in, with a 2005 municipality. They were not measured in MxFLS-3 before November 2009. We use November 2009 as the cutoff because the 2009 rainfall deficit, the drought, had not fully occurred before then. Dropping them from both groups equalizes treated and control measurement timing. Col. 1 keeps the children in Model 3 of the binary DID and Col. 2 those in Model 5, so each matches its DID sample. Col. 1 regresses the outcome on the drought times the 2002 wave, known as the lead, and times the 2009" "wave, with the 2005--2008 droughts, 2002 household and 2005 child and mother controls, each times the 2002 and 2009 waves. Following the literature, baseline controls are interacted with time to allow different trends by pre-treatment characteristics (Bailey and Goodman-Bacon, 2015; Bailey et al., 2021). Col. 2 adds the drought terms times 2002 remittances, and the 2002 remittance terms on their own (not shown). The P-value of the lead tests the drought lead in Col. 1 and the triple difference lead in Col. 2." "The effect for remittance households is the sum of the two 2009 drought terms. All regressions include child and interview year-month fixed effects, and standard errors are clustered by 2005 municipality. `stars'}\\" "\end{longtable}" "\endgroup" "'
+    local pf `" "\bottomrule" "\addlinespace[6pt]\multicolumn{3}{p{0.97\textwidth}}{\scriptsize \textit{Notes:} This table tests for pre-trends before the 2009 drought. Regressions are at the child-wave level with 2005 as the" "reference wave. The sample is children aged `age_`v'' in each wave they are in. They were not measured in MxFLS-3 before November 2009, for the same reason as in Table~\ref{tab:sumstats}. Col. 1 keeps the children in Model 3 of the binary DID and Col. 2 those in Model 5, so each matches its DID sample. Col. 1 interacts the drought indicator with the 2002 and 2009 waves. The 2002 interaction is the lead." "The 2005--2008 droughts and the 2002 household and 2005 child and mother controls are each interacted with both waves. Col. 2 adds the drought terms times 2002 remittances. The 2002 remittance terms on their own are not shown. The lead p-value tests the drought lead in Col. 1 and the triple difference lead in Col. 2." "Baseline controls are interacted with time to allow different trends by pre-treatment characteristics. The effect for remittance households is the sum of the two 2009 drought terms. All regressions include child and interview year-month fixed effects, and standard errors are clustered by 2005 municipality. `stars'}\\" "\end{longtable}" "\endgroup" "'
 
 	* Here we actually writing the table
     esttab esc ddd using "$out_sumstats/Appendix/regression_tables_appendix.tex", append booktabs ///
@@ -552,12 +558,17 @@ foreach v in haz waz bmiz {
 }
 
 *******************************************************************
-* Continuous DID and remittance buffer table, main
+* Continuous DID and remittance buffer table, online appendix
 *******************************************************************
 
 * This writes the table, "Continuous DID and Remittances as a Moderator". Like the SPI table, it's written by hand with file write, because the results come from R csv files.
 use `csvs', clear
+* The binary DID tables are the last tables in the main file, so it is closed here
 file open tab using "$out_sumstats/Main/regression_tables_main.tex", write append
+file write tab "\end{document}" _n
+file close tab
+* The continuous DID and remittance table goes to the online appendix file
+file open tab using "$out_sumstats/Online_Appendix/regression_tables_online_appendix.tex", write append
 tab_head 3 "Continuous DID and Remittances as a Moderator"
 file write tab " & HAZ & WAZ & BMIZ\\" _n " & (1) & (2) & (3)\\" _n "\midrule" _n
 
@@ -614,12 +625,11 @@ foreach r of local rows {
 * Line
 file write tab "\bottomrule" _n
 * Notes
-file write tab "\addlinespace[6pt]\multicolumn{4}{p{0.97\textwidth}}{\scriptsize \textit{Notes:} This table reports the continuous DID `cgbs' and tests whether 2002 remittances moderated the effect of the 2009 drought. Regressions are at the child level, on the 2005 to 2009" _n
-file write tab "change in the WHO z-score, for the binary DID estimation samples. The dose is the 2009 rainfall deficit, max(0,~-z), where z is 2009 May--October CHIRPS rainfall, the maize growing season (Jessoe et al., 2018), in the child's 2005 municipality in standard deviations from its 1981--2004 mean. Panel A compares" _n
-file write tab "children with any 2009 deficit (z below 0) with children without one, Panel B gives the average ATT separately for children in 2002 remittance and non-remittance households and their difference, and Panel C interacts dry (z of -1 or below) vs near normal" _n
-file write tab "with 2002 remittances. Remittances are cash received in the last 12 months from parents, siblings, or children living outside the household in MxFLS-1 (2002), a proxy for remittances. `pt_note' Panel A uses the contdid package (Callaway et al., 2024). Panels B and C are regressions on the 2005 to 2009 change, and Panel C uses the discrete-dose regression in equation 4.1 (Callaway et al., 2024). The estimator does not allow controls or fixed effects." _n
-file write tab "Standard errors in parentheses are clustered by 2005 municipality, where the drought is assigned. Because the package only bootstraps at the child level, we coded a multiplier bootstrap of its influence functions that clusters by 2005 municipality, and the other rows use municipality-clustered regression standard errors. `mnw_note' `star_note' `stars'}\\" _n
-file write tab "\end{longtable}" _n "\endgroup" _n "\end{document}" _n
+file write tab "\addlinespace[6pt]\multicolumn{4}{p{0.97\textwidth}}{\scriptsize \textit{Notes:} Coefficients are effects on the 2005 to 2009 change in the WHO z-score for the binary DID estimation samples. The dose is the 2009 rainfall deficit, max(0,~-z), where z is 2009 May--October CHIRPS rainfall in the child's 2005 municipality in standard deviations from its 1981--2004 mean (Jessoe, Manning, and Taylor 2018)." _n
+file write tab "Panel A compares children with any 2009 deficit (z < 0) with children without one using the contdid package (Callaway, Goodman-Bacon, and Sant'Anna 2026). Panel B gives the average ATT for children in 2002 remittance and non-remittance households and their difference. Panel C interacts dry (\ensuremath{z\le -1}) versus near-normal rainfall with 2002 remittances using the discrete-dose regression in equation 4.1 (Callaway, Goodman-Bacon, and Sant'Anna 2024)." _n
+file write tab "Remittances are cash received in the last 12 months from parents, siblings, or children outside the household in MxFLS-1 (2002). The average ATT requires parallel trends and the average ACRT requires strong parallel trends (Callaway, Goodman-Bacon, and Sant'Anna 2024). No regression includes controls or fixed effects." _n
+file write tab "Standard errors clustered by 2005 municipality are in parentheses. For the average ACRT they come from a multiplier bootstrap of the contdid influence functions. Wild cluster bootstrap p-values are in brackets (MacKinnon, Nielsen, and Webb 2023). Stars use the clustered p-values, and where a wild bootstrap p-value is shown both must pass. `stars'}\\" _n
+file write tab "\end{longtable}" _n "\endgroup" _n
 file close tab
 
 *******************************************************************
@@ -630,7 +640,12 @@ file close tab
 * It's slightly different as the columns are the subgroups (boys, girls, rural, urban) and the rows are the estimates, this is to safe space and make less tables
 
 * Opening the appendix file 
+* Closes the appendix file after the event study tables
 file open tab using "$out_sumstats/Appendix/regression_tables_appendix.tex", write append
+file write tab "\end{document}" _n
+file close tab
+* The continuous DID subgroup tables go to the online appendix file
+file open tab using "$out_sumstats/Online_Appendix/regression_tables_online_appendix.tex", write append
 foreach v in haz waz bmiz {
 	* This writes the table's opening
     tab_head 4 "Continuous DID by Subgroup, `cap_`v''"
@@ -676,9 +691,9 @@ foreach v in haz waz bmiz {
 	* Line at the bottom 
     file write tab "\bottomrule" _n
 	* Notes
-    file write tab "\addlinespace[6pt]\multicolumn{5}{p{0.97\textwidth}}{\scriptsize \textit{Notes:} This table repeats the continuous DID and rainfall class results for the WHO `low_`v'' by subgroup. Cols. 1--2 test for gender disparities in the impact of the drought, using sex reported in the 2005 household roster," _n
-    file write tab "and Cols. 3--4 test whether it hits rural children harder, as rural household incomes depend more directly on rain-fed agriculture. `rural_note' Rows, samples and definitions are as in the main continuous DID and rainfall class" _n
-    file write tab "tables. Children are aged `age_`v'' in both rounds. The any deficit row uses the contdid package, and the rainfall class rows use the discrete-dose regression in equation 4.1 (Callaway et al., 2024). Standard errors clustered by 2005 municipality are in parentheses. `mnw_note' `star_note' `stars'}\\" _n
+    file write tab "\addlinespace[6pt]\multicolumn{5}{p{0.97\textwidth}}{\scriptsize \textit{Notes:} This table repeats the continuous DID and discrete-dose results for the WHO `low_`v'' by subgroup. Cols. 1--2 test for gender disparities in the impact of the drought, using sex reported in the 2005 household roster," _n
+    file write tab "and Cols. 3--4 test whether it hits rural children harder, as rural household incomes depend more directly on rain-fed agriculture. `rural_note' Rows, samples and definitions are as in the main continuous DID and discrete-dose" _n
+    file write tab "tables. Children are aged `age_`v'' in both survey waves. The any deficit row uses the contdid package, and the dose-group rows use the discrete-dose regression in equation 4.1 (Callaway, Goodman-Bacon, and Sant'Anna 2024). Standard errors clustered by 2005 municipality are in parentheses. `mnw_note' `star_note' `stars'}\\" _n
     file write tab "\end{longtable}" _n "\endgroup" _n
 }
 * Writing it and then end

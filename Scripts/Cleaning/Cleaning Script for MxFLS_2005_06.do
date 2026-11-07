@@ -72,7 +72,7 @@ rename sa02_2 bmonth
 rename sa02_3 byear
 
 
-* This code purely is for the missing "day" observations. It imputes a bday if we have both month and year, this allows us to keep roughly 200 observations for children get z-scores whereas before we dropped them and had no z-scores. 
+* This code purely is for the missing "day" observations. It imputes a bday if we have both month and year, this allows us to keep roughly 200 observations for children get z-scores that would otherwise be dropped with no z-scores. 
 gen byte bday_imputed = !inrange(bday, 1, 31) & inrange(bmonth, 1, 12) & inrange(byear, 1900, 2007)
 replace bday = 15 if bday_imputed == 1
 
@@ -285,7 +285,7 @@ tempfile temp_re1
 save `temp_re1'
 
 * Parent transfers + parent's country of residence (module iiib_tp)
-* NOTE: mirrors the confirmed tp18pp_1/tp18pp_2 (father) coding for mother (tp18mp_1/tp18mp_2);
+* NOTE: the mother (tp18mp_1/tp18mp_2) is coded the same way as the father (tp18pp_1/tp18pp_2)
 use "$path/hh05dta_b3b/iiib_tp.dta", clear
 * We specifically look at remmittances in the united states because it has a overwhelming frequncy of 301/310, the other countries are barely any
 * We code the missing appropiately. 1 is US, 0 is same location aka Mexico or a different country, . missing is categorized as don't know or genuinely missing. Note: Need to add upper also its Estados unidos, but in 2002 it is United States
@@ -310,9 +310,7 @@ replace recv_m = tp25 if missing(recv_m) & tp22 == 1
 gen recv_p = tp25p
 replace recv_p = tp25 if missing(recv_p) & tp22 == 1
 
-* remittance_us_family: 1 if either parent is confirmed in the US and sent help; 0 only
-* if both parents are resolved as not sending; missing if unresolved and neither side is
-* a confirmed 1 (don't silently code DK as "no"). So both parents have to fail the criteria
+* remittance_us_family: 1 if either parent is confirmed in the US and sent help. 0 only if both parents are resolved as not sending. missing if unresolved and neither side is a confirmed 1 - don't silently code DK as "no". So both parents have to fail the criteria
 gen remittance_us_family = .
 replace remittance_us_family = 1 if (mother_us==1 & recv_m==1) | (father_us==1 & recv_p==1)
 replace remittance_us_family = 0 if (mother_us==0 | (mother_us==1 & recv_m==3)) & (father_us==0 | (father_us==1 & recv_p==3))
@@ -546,7 +544,7 @@ save `temp_pidlink'
 * Demographics & Control Variables
 *******************************************************************
 
-* We keep only the state code (ent) from the Book IIIA cover, collapsed to the household, because the state fill-in block further down uses it. Same file, rows and collapse as before, so ent is unchanged
+* We keep only the state code (ent) from the Book IIIA cover, collapsed to the household, because the state fill-in block further down uses it
 use "$path/hh05dta_b3a/iiia_portad.dta", clear
 keep folio ent
 collapse (max) ent, by(folio)
@@ -1077,7 +1075,7 @@ merge 1:1 folio ls using `temp_parent_edu', keep(master match) gen(_merge_parent
 merge m:1 folio using `temp_rooms', keep(master match) gen(_merge_rooms)
 merge m:1 folio using `temp_pc_expend', keep(master match) gen(_merge_pc_expend)
 
-* Ent only came from the Book IIIA cover, iiia_portad, in the controls collapse, so a household where no adult has a Book IIIA got a missing state and was dropped from the rainfall merge. We fill this in with this book below. This matches the other waves
+* Ent comes from the Book IIIA cover, iiia_portad, in the controls collapse, so a household where no adult has a Book IIIA would get a missing state and be dropped from the rainfall merge. We fill this in with the Book C cover below. This matches the other waves
 preserve
     use "$path/hh05dta_bc/c_portad.dta", clear
     keep folio ent
@@ -1137,7 +1135,7 @@ describe age gender height_cm weight_kg_gr blood_pressure_systole blood_pressure
 
 summarize age gender height_cm weight_kg_gr blood_pressure_systole blood_pressure_diastole hemoglobin_g_dl remittance_binary val_aid_donations_gifts moved_us us_doc child_weight_kg child_height_cm
 
-* Summary stats for the new age precision / z-score variables
+* Summary stats for the age precision and z-score variables
 describe age_days age_months_exact haz waz bmiz
 summarize age_days age_months_exact haz waz bmiz
 
@@ -1147,7 +1145,7 @@ pwcorr child_height_cm remittance_binary age, sig star(0.05)
 * Testing Regressions
 regress child_weight_kg remittance_binary, robust
 regress child_weight_kg remittance_binary age, robust
-* Added test regressions on the new HAZ/WAZ/BMIZ outcomes
+* Test regressions on the HAZ/WAZ/BMIZ outcomes
 regress haz remittance_binary, robust
 regress haz remittance_binary age, robust
 regress waz remittance_binary, robust

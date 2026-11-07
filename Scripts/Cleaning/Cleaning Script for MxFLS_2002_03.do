@@ -278,7 +278,7 @@ tempfile temp_re1
 save `temp_re1'
 
 * Parent transfers + parent's country of residence (module iiib_tp)
-* NOTE: mirrors the confirmed tp18pp_1/tp18pp_2 (father) coding for mother (tp18mp_1/tp18mp_2);
+* NOTE: the mother (tp18mp_1/tp18mp_2) is coded the same way as the father (tp18pp_1/tp18pp_2)
 use "$path/hh02dta_b3b/iiib_tp.dta", clear
 * We specifically look at remmittances in the united states because it has a overwhelming frequncy of 301/310, the other countries are barely any
 * We code the missing appropiately. 1 is US, 0 is same location aka Mexico or a different country, . missing is categorized as don't know or genuinely missing. Note: Need to add upper. 
@@ -303,9 +303,7 @@ replace recv_m = tp25 if missing(recv_m) & tp22 == 1
 gen recv_p = tp25p
 replace recv_p = tp25 if missing(recv_p) & tp22 == 1
 
-* remittance_us_family: 1 if either parent is confirmed in the US and sent help; 0 only
-* if both parents are resolved as not sending; missing if unresolved and neither side is
-* a confirmed 1 (don't silently code DK as "no"). So both parents have to fail the criteria
+* remittance_us_family: 1 if either parent is confirmed in the US and sent help. 0 only if both parents are resolved as not sending. missing if unresolved and neither side is a confirmed 1 - don't silently code DK as "no". So both parents have to fail the criteria
 gen remittance_us_family = .
 replace remittance_us_family = 1 if (mother_us==1 & recv_m==1) | (father_us==1 & recv_p==1)
 replace remittance_us_family = 0 if (mother_us==0 | (mother_us==1 & recv_m==3)) & (father_us==0 | (father_us==1 & recv_p==3))
@@ -523,7 +521,7 @@ save `temp_migration_hh'
 * Demographics & Control Variables
 *******************************************************************
 
-* We keep only the state code (ent) from the Book IIIA cover, collapsed to the household, because the state fill-in block further down uses it. Same file, rows and collapse as before, so ent is unchanged
+* We keep only the state code (ent) from the Book IIIA cover, collapsed to the household, because the state fill-in block further down uses it
 use "$path/hh02dta_b3a/iiia_portad.dta", clear
 keep folio ent
 collapse (max) ent, by(folio)
@@ -990,6 +988,17 @@ keep folio pc_expend_month ln_pc_expend_month
 tempfile temp_pc_expend
 save `temp_pc_expend'
 
+* Oportunidades aka PROGRESA participation, Book II IN01 A1. Household level, asked once per household. They asked "in the last 12 months did any household member participate in PROGRESA". The 2002 questionnaire still calls it PROGRESA
+* 1 = participates and received income, 2 = participates but has not received income, 3 = no household member participates, 8 = DK
+* We code participation, not income received, because being in the program is what marks the household as poor by the program's targeting, so 1 and 2 are both 1. DK stays missing, not 0
+use "$path/hh02dta_b2/ii_in.dta", clear
+keep folio in01a1_1
+gen progresa_hh = inlist(in01a1_1, 1, 2) if inlist(in01a1_1, 1, 2, 3)
+label variable progresa_hh "Household in Oportunidades/PROGRESA (indicator)"
+keep folio progresa_hh
+tempfile temp_progresa
+save `temp_progresa'
+
 
 *******************************************************************
 * Merging all datasets
@@ -1018,9 +1027,10 @@ merge 1:1 folio ls using `temp_parent_edu', keep(master match) gen(_merge_parent
 merge m:1 folio using `temp_dwell_cvo', keep(master match) gen(_merge_dwell)
 merge m:1 folio using `temp_rooms', keep(master match) gen(_merge_rooms)
 merge m:1 folio using `temp_pc_expend', keep(master match) gen(_merge_pc_expend)
+merge m:1 folio using `temp_progresa', keep(master match) gen(_merge_progresa)
 
 
-* We add this code for the state code ent. This is because it fills in the missing for iiia_portad b3a which is at the individual level. The problem before is individuals were missing from the b3a so even though they had a state they were getting dropped. Whereas this state code (edo in the Book C cover) is the exact same but at the household level. Around 142 previously dropped households when this wasn't implemented. Now it fixes that. 
+* We add this code for the state code ent. It fills in the missing for iiia_portad b3a, which is at the individual level, so individuals missing from the b3a are not dropped even though they have a state. This state code (edo in the Book C cover) is the exact same but at the household level. This keeps around 142 households 
 preserve
     use "$path/hh02dta_bc/c_portad.dta", clear
     keep folio edo

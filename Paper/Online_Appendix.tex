@@ -1,0 +1,900 @@
+\documentclass[12pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{newtxtext,newtxmath}
+\DeclareUnicodeCharacter{2010}{-}
+\DeclareUnicodeCharacter{05F3}{'}
+\usepackage{setspace}
+\onehalfspacing
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{lscape}
+\usepackage{afterpage}
+\usepackage{placeins}
+\renewcommand{\topfraction}{0.9}
+\renewcommand{\bottomfraction}{0.8}
+\renewcommand{\textfraction}{0.07}
+\renewcommand{\floatpagefraction}{0.85}
+\setcounter{topnumber}{3}
+\setcounter{totalnumber}{4}
+\usepackage{caption}
+\usepackage{adjustbox}
+\captionsetup{font=normalsize,labelsep=colon}
+\captionsetup[figure]{position=top,justification=centering}
+\usepackage{xcolor}
+\definecolor{linkblue}{cmyk}{0.94,0.54,0,0}
+\usepackage[authordate,backend=biber,natbib=false,maxcitenames=3,mincitenames=1,maxbibnames=10,minbibnames=7]{biblatex-chicago}
+\DeclareSourcemap{\maps[datatype=bibtex]{\map{\step[typesource=software,typetarget=misc]}}}
+\AtEveryBibitem{\clearfield{issn}\clearfield{month}\clearfield{doi}\clearfield{url}\clearfield{urlyear}\clearfield{eprint}}
+\addbibresource{Text/References.bib}
+\usepackage[colorlinks=true,linkcolor=linkblue,citecolor=linkblue,urlcolor=linkblue,filecolor=linkblue,runcolor=linkblue]{hyperref}
+\usepackage{xurl}
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\setlength{\LTcapwidth}{\textwidth}
+\usepackage{microtype}
+\newsavebox{\tblbox}
+\hyphenpenalty=10000
+\exhyphenpenalty=10000
+\emergencystretch=3em
+\frenchspacing
+\pdfinterwordspaceon
+\makeatletter
+\protected\def\blx@imc@bibhyperref{\@ifnextchar[{\zs@bhr@opt}{\zs@bhr}}
+\def\zs@bhr@opt[#1]#2{\zs@bhr{#2}}
+\long\def\zs@bhr#1{\href{Paper.pdf\#cite.0@\thefield{entrykey}}{#1}}
+\makeatother
+\begin{document}
+
+% Text of the online appendix. Build_Results.R replaces each %%TABLE and %%FIGURE line with the table or figure from Output, then compiles Online_Appendix.pdf
+\begin{center}
+{\LARGE\bfseries Online Appendix\par}
+\vspace{0.15in}
+{\large Not Only Extremes: How Moderate Rainfall Deficits Affects Child Health in Mexico\par}
+\vspace{0.1in}
+{\large Zachary Serby\par}
+\end{center}
+\vspace{0.2in}
+\renewcommand{\contentsname}{Table of Contents for Online Appendix}
+\setcounter{tocdepth}{1}
+\tableofcontents
+\clearpage
+\setcounter{table}{0}
+\setcounter{figure}{0}
+\renewcommand{\thetable}{OA\arabic{table}}
+\renewcommand{\thefigure}{OA\arabic{figure}}
+\renewcommand{\thesection}{\Alph{section}}
+
+\section{Sample Sizes and Attrition}
+
+\begingroup\singlespacing
+\begingroup
+\footnotesize
+\renewcommand{\arraystretch}{0.86}
+\setlength{\tabcolsep}{4pt}
+\setlength{\LTcapwidth}{\textwidth}
+\setlength{\LTleft}{0pt}
+\setlength{\LTright}{0pt plus 1fil}
+\begin{table}[H]\centering
+\caption{Sample Sizes, Treated and Control Children}\label{tab:oa_sizes}
+\footnotesize
+\global\setbox\tblbox=\hbox{\begin{tabular}{@{\extracolsep{\fill}}lcc}
+\toprule
+ & \multicolumn{2}{c}{Panel A: Binary DID, 2009 drought}\\*
+\cmidrule(lr){2-3}
+ & Control & Treated\\*
+\midrule
+\textit{HAZ sample, children aged 15 or younger in 2005 and 2009} & & \\*
+Children, estimation sample & 1,514 & 922\\*
+Children, Model 1 (basic DID) & 1,512 & 920\\*
+Children, Model 3 (DID with controls) & 1,077 & 678\\*
+Children, Model 5 (triple difference) & 987 & 635\\*
+\quad In 2002 remittance households & 390 & 193\\*
+Households, estimation sample & 944 & 578\\*
+2005 municipalities, estimation sample & 87 & 46\\
+\addlinespace[6pt]\textit{WAZ sample, children aged 10 or younger in 2005 and 2009} & & \\*
+Children, estimation sample & 696 & 388\\*
+Children, Model 1 (basic DID) & 692 & 386\\*
+Children, Model 3 (DID with controls) & 445 & 255\\*
+Children, Model 5 (triple difference) & 400 & 234\\*
+\quad In 2002 remittance households & 168 & 90\\*
+Households, estimation sample & 565 & 316\\*
+2005 municipalities, estimation sample & 79 & 44\\
+\addlinespace[6pt]\textit{BMIZ sample, children aged 15 or younger in 2005 and 2009} & & \\*
+Children, estimation sample & 1,487 & 896\\*
+Children, Model 1 (basic DID) & 1,485 & 894\\*
+Children, Model 3 (DID with controls) & 1,057 & 657\\*
+Children, Model 5 (triple difference) & 968 & 619\\*
+\quad In 2002 remittance households & 381 & 189\\*
+Households, estimation sample & 931 & 561\\*
+2005 municipalities, estimation sample & 87 & 46\\
+\bottomrule
+\toprule
+ & \multicolumn{2}{c}{Panel B: Continuous DID, any 2009 deficit}\\*
+\cmidrule(lr){2-3}
+ & Control & Treated\\*
+\midrule
+\textit{HAZ sample, children aged 15 or younger in 2005 and 2009} & & \\*
+Children, continuous DID sample & 829 & 1,607\\*
+\quad In 2002 remittance households & 236 & 438\\*
+\quad In 2002 non-remittance households & 437 & 738\\*
+Households & 501 & 1,021\\*
+2005 municipalities & 46 & 87\\
+\addlinespace[6pt]\textit{WAZ sample, children aged 10 or younger in 2005 and 2009} & & \\*
+Children, continuous DID sample & 380 & 704\\*
+\quad In 2002 remittance households & 100 & 193\\*
+\quad In 2002 non-remittance households & 172 & 260\\*
+Households & 304 & 577\\*
+2005 municipalities & 42 & 81\\
+\addlinespace[6pt]\textit{BMIZ sample, children aged 15 or younger in 2005 and 2009} & & \\*
+Children, continuous DID sample & 815 & 1,568\\*
+\quad In 2002 remittance households & 231 & 427\\*
+\quad In 2002 non-remittance households & 430 & 720\\*
+Households & 496 & 996\\*
+2005 municipalities & 46 & 87\\
+\bottomrule
+\end{tabular}}%
+\makebox[\textwidth][c]{\usebox{\tblbox}}%
+\end{table}
+\clearpage
+\noindent
+\global\setbox\tblbox=\hbox{\begin{tabular}{@{\extracolsep{\fill}}lcc}
+\toprule
+ & \multicolumn{2}{c}{Panel C: Dose groups vs near normal}\\*
+\cmidrule(lr){2-3}
+ & Control & Treated\\*
+\midrule
+\textit{Moderately dry, \ensuremath{-1.5<z\le -1}} & & \\*
+Children, HAZ sample & 1,493 & 488\\*
+Children, WAZ sample & 683 & 217\\*
+Children, BMIZ sample & 1,464 & 472\\*
+2005 municipalities, HAZ sample & 89 & 23\\*
+2005 municipalities, WAZ sample & 80 & 23\\*
+2005 municipalities, BMIZ sample & 89 & 23\\
+\addlinespace[6pt]\textit{Severely dry or worse, \ensuremath{z\le -1.5}} & & \\*
+Children, HAZ sample & 1,493 & 370\\*
+Children, WAZ sample & 683 & 145\\*
+Children, BMIZ sample & 1,464 & 364\\*
+2005 municipalities, HAZ sample & 89 & 17\\*
+2005 municipalities, WAZ sample & 80 & 16\\*
+2005 municipalities, BMIZ sample & 89 & 17\\
+\addlinespace[6pt]\textit{Severely dry, \ensuremath{-2<z\le -1.5}} & & \\*
+Children, HAZ sample & 1,493 & 302\\*
+Children, WAZ sample & 683 & 121\\*
+Children, BMIZ sample & 1,464 & 296\\*
+2005 municipalities, HAZ sample & 89 & 15\\*
+2005 municipalities, WAZ sample & 80 & 14\\*
+2005 municipalities, BMIZ sample & 89 & 15\\
+\addlinespace[6pt]\textit{Extremely dry, \ensuremath{z\le -2}} & & \\*
+Children, HAZ sample & 1,493 & 68\\*
+Children, WAZ sample & 683 & 24\\*
+Children, BMIZ sample & 1,464 & 68\\*
+2005 municipalities, HAZ sample & 89 & 2\\*
+2005 municipalities, WAZ sample & 80 & 2\\*
+2005 municipalities, BMIZ sample & 89 & 2\\
+\bottomrule
+\end{tabular}}%
+\makebox[\textwidth][c]{\usebox{\tblbox}}%
+\par\vspace{4pt}
+\noindent\makebox[\textwidth][c]{\parbox{\wd\tblbox}{\scriptsize \textit{Notes:} Counts are children, households or 2005 municipalities in each regression sample at the 2005 baseline. Estimation samples are children with the outcome measured in both MxFLS-2 (2005) and MxFLS-3 (2009) who have a 2005 municipality. They are aged 15 or younger for HAZ and BMIZ and 10 or younger for WAZ in both survey waves. They were not measured in MxFLS-3 before November 2009, for the same reason as in \href{Paper.pdf\#tab-sumstats}{Table~1} of the paper. In Panel A, treated children's 2005 municipality had a drought in 2009, meaning May--October CHIRPS rainfall in the maize growing season was below its 1981--2004 20th percentile \parencite{jessoeClimateChangeLabour2018,shahDroughtOpportunitiesContemporaneous2017}. Model 1 drops children alone in their interview-month cell. Continuous DID uses the full sample. Model 3 adds 2005--2008 droughts and 2002 household and 2005 child and mother controls. Model 5 adds 2002 remittances times post and drought times post times 2002 remittances. Model 5 children not in remittance households are the Model 5 count minus the remittance row. In Panel B, treated children's 2005 municipality had 2009 rainfall below its 1981--2004 mean (z below 0), where z is 2009 rainfall in standard deviations from that mean. Panel B gives sample sizes for the continuous DID. Its two remittance rows are children in 2002 remittance and non-remittance households, the two groups compared in Panel B of Table~\ref{tab:oa_contdid}. Rows do not add up to the total because children with missing 2002 remittances are in neither row. Panel C compares each dose group with near normal (z between -1 and 1) in the discrete-dose analysis. Dose levels use standardized rainfall cutoffs of the SPI adopted by the World Meteorological Organization \parencite{mckeeRelationshipDroughtFrequency1993,wmoStandardizedPrecipitationIndex2012}. Children in wet municipalities (z of 1 or above) are not in the discrete-dose analysis. Remittances are cash received in the last 12 months from parents, siblings or children living outside the household, from MxFLS-1 (2002).}}%
+\par\vspace{\intextsep}
+\endgroup
+\endgroup
+
+
+\begingroup\singlespacing
+\begingroup
+\footnotesize
+\renewcommand{\arraystretch}{0.86}
+\setlength{\tabcolsep}{4pt}
+\setlength{\LTcapwidth}{\textwidth}
+\setlength{\LTleft}{0pt}
+\setlength{\LTright}{0pt plus 1fil}
+\begin{table}[!htbp]\centering
+\caption{Sample Attrition Across Waves}\label{tab:oa_attrition}
+\footnotesize
+\global\setbox\tblbox=\hbox{\begin{tabular}{@{\extracolsep{\fill}}lccc}
+\toprule
+ & \multicolumn{3}{c}{Number of children (N)}\\*
+\cmidrule(lr){2-4}
+ & MxFLS-1 (2002) & MxFLS-2 (2005) & MxFLS-3 (2009)\\*
+\midrule
+\textit{HAZ sample, children under 16} & & & \\*
+DID (2005 and 2009) & & 3,582 & 2,436\\*
+Event studies (all three waves) & 2,723 & 1,856 & 1,300\\
+\addlinespace[6pt]\textit{WAZ sample, children under 11} & & & \\*
+DID (2005 and 2009) & & 1,895 & 1,084\\*
+Event studies (all three waves) & 962 & 609 & 275\\
+\addlinespace[6pt]\textit{BMIZ sample, children under 16} & & & \\*
+DID (2005 and 2009) & & 3,511 & 2,383\\*
+Event studies (all three waves) & 2,569 & 1,719 & 1,203\\
+\bottomrule
+\end{tabular}}%
+\makebox[\textwidth][c]{\usebox{\tblbox}}%
+\par\vspace{4pt}
+\noindent\makebox[\textwidth][c]{\parbox{\wd\tblbox}{\scriptsize \textit{Notes:} Counts of children in each wave. The binary DID only uses MxFLS-2 (2005) and MxFLS-3 (2009). The continuous DID uses the same sample as the binary DID. The event studies use all three waves. Each row starts from the children who meet the regression sample rules in its first wave and could stay in the sample. They are under the age cutoff in every wave, 15 or younger for HAZ and BMIZ and 10 or younger for WAZ. They were not measured in MxFLS-3 before November 2009, for the same reason as in \href{Paper.pdf\#tab-sumstats}{Table~1} of the paper. Later columns count the children still in the sample, so the drop across columns is attrition. This is not the same as the children the regressions drop as singletons, with only one wave in the sample, as these also include children who aged out or are only in a later wave. The DID 2009 count is the estimation sample, and the event study 2009 count is the children in all three waves. For children not measured in a later wave, I estimate their age in that wave to see whether they aged out. Their age comes from their birth date and their household's MxFLS-3 interview date, since MxFLS-3 interviews ran over several years. Children not in MxFLS-3 or whose birth date does not match their reported age get their last measured age plus the median gap between waves. This gap is 4 years from 2005 to 2009 and 8 years from 2002 to 2009. Among children measured in both waves, 92 and 86 percent of gaps are within a year of the median. A one-year error only matters for children near the age cutoff. This way, children who simply aged out are not counted as attrition.}}%
+\end{table}
+\endgroup
+\endgroup
+
+
+\clearpage
+\section{Continuous Dose}
+
+\begingroup\singlespacing
+\begingroup
+\footnotesize
+\renewcommand{\arraystretch}{0.86}
+\setlength{\tabcolsep}{4pt}
+\setlength{\LTcapwidth}{\textwidth}
+\begin{table}[!htbp]\centering
+\caption{Continuous DID and Remittances as a Moderator}\label{tab:oa_contdid}
+\footnotesize
+\global\setbox\tblbox=\hbox{\begin{tabular}{l*{3}{c}}
+\toprule
+ & HAZ & WAZ & BMIZ\\
+ & (1) & (2) & (3)\\
+\midrule
+\textit{Panel A: Continuous DID, any 2009 rainfall deficit} & & & \\
+Average ATT & -0.077 & 0.028 & -0.045\\
+ & (0.101) & (0.097) & (0.069)\\
+ & [0.462] & [0.777] & [0.518]\\
+Average ACRT & -0.007 & -0.033 & 0.029\\
+ & (0.137) & (0.173) & (0.130)\\
+Children & 2,436 & 1,084 & 2,383\\
+\addlinespace[6pt]\textit{Panel B: Average ATT by 2002 remittances} & & & \\
+No 2002 remittances & -0.080 & 0.050 & -0.042\\
+ & (0.107) & (0.152) & (0.091)\\
+2002 remittances & -0.279 & -0.030 & 0.031\\
+ & (0.182) & (0.190) & (0.116)\\
+Difference, remittances minus none & -0.199 & -0.081 & 0.074\\
+ & (0.179) & (0.218) & (0.145)\\
+Children & 1,849 & 725 & 1,808\\
+\addlinespace[6pt]\textit{Panel C: Dry vs near normal by 2002 remittances} & & & \\
+Dry, \ensuremath{z\le -1} & -0.054 & -0.160 & -0.251\sym{**}\\
+ & (0.114) & (0.200) & (0.109)\\
+ & [0.657] & [0.543] & [0.027]\\
+Dry \ensuremath{\times} 2002 remittances & -0.135 & -0.220 & 0.100\\
+ & (0.133) & (0.216) & (0.207)\\
+ & [0.317] & [0.329] & [0.653]\\
+2002 remittances & -0.040 & 0.088 & 0.039\\
+ & (0.109) & (0.134) & (0.070)\\
+ & [0.722] & [0.524] & [0.577]\\
+Children & 1,773 & 693 & 1,734\\
+\bottomrule
+\end{tabular}}%
+\makebox[\textwidth][c]{\usebox{\tblbox}}%
+\par\vspace{4pt}
+\noindent\makebox[\textwidth][c]{\parbox{\wd\tblbox}{\scriptsize \textit{Notes:} Coefficients are effects on the 2005 to 2009 change in the WHO z-score for the binary DID estimation samples. The dose is the 2009 rainfall deficit, max(0,~-z), where z is 2009 May--October CHIRPS rainfall in the child's 2005 municipality in standard deviations from its 1981--2004 mean \parencite{jessoeClimateChangeLabour2018}. Panel A compares children with any 2009 deficit (z < 0) with children without one using the contdid package \parencite{callawayDifferenceinDifferencesContinuousTreatment2026}. Panel B gives the average ATT for children in 2002 remittance and non-remittance households and their difference. Panel C interacts dry (\ensuremath{z\le -1}) versus near-normal rainfall with 2002 remittances using the discrete-dose regression in equation 4.1 \parencite{callawayDifferenceinDifferencesContinuousTreatment2024}. Remittances are cash received in the last 12 months from parents, siblings, or children outside the household in MxFLS-1 (2002). The average ATT requires parallel trends and the average ACRT requires strong parallel trends \parencite{callawayDifferenceinDifferencesContinuousTreatment2024}. No regression includes controls or fixed effects. Standard errors clustered by 2005 municipality are in parentheses. For the average ACRT they come from a multiplier bootstrap of the contdid influence functions. Wild cluster bootstrap p-values are in brackets \parencite{mackinnonClusterrobustInferenceGuide2023}. Stars use the clustered p-values, and where a wild bootstrap p-value is shown both must pass. \mbox{\sym{*}\(p<.10\), \sym{**}\(p<.05\), \sym{***}\(p<.01\).}}}%
+\end{table}
+\endgroup
+\endgroup
+
+
+\begin{figure}[!htbp]
+\centering
+\caption{Change in BMI-for-Age by 2009 Rainfall Deficit, Continuous Dose}\label{fig:oa_binscatter}
+\includegraphics[width=0.49\textwidth]{/Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thesis/Proposal 3 Mexico OG/Output/Figures/Online_Appendix/contdid_binscatter_bmiz.png}
+\par\parbox{0.85\textwidth}{\singlespacing\scriptsize \textit{Notes:} Mean 2005-to-2009 change in BMIZ by decile of the 2009 rainfall deficit $D = \max(0, -z)$ for treated children with $D > 0$. Circle size is proportional to the number of children in the decile. The dashed line is the mean change for untreated children ($D = 0$).}
+\end{figure}
+
+
+\begin{figure}[!htbp]
+\centering
+\caption{Change in Height-for-Age and Weight-for-Age by 2009 Rainfall Deficit, Continuous Dose}\label{fig:oa_binscatter_hazwaz}
+\includegraphics[width=0.49\textwidth]{/Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thesis/Proposal 3 Mexico OG/Output/Figures/Online_Appendix/contdid_binscatter_haz.png}\hfill\includegraphics[width=0.49\textwidth]{/Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thesis/Proposal 3 Mexico OG/Output/Figures/Online_Appendix/contdid_binscatter_waz.png}
+\par\parbox{0.85\textwidth}{\singlespacing\scriptsize \textit{Notes:} Left: HAZ. Right: WAZ. See Figure~\ref{fig:oa_binscatter}.}
+\end{figure}
+
+
+\begin{figure}[!htbp]
+\centering
+\caption{ATT by 2009 Rainfall Deficit, BMI-for-Age, Continuous Dose}\label{fig:oa_att_bmiz}
+\includegraphics[width=0.49\textwidth]{/Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thesis/Proposal 3 Mexico OG/Output/Figures/Online_Appendix/contdid_att_clustered_bmiz.png}
+\par\parbox{0.85\textwidth}{\singlespacing\scriptsize \textit{Notes:} $ATT(d)$ is estimated with a cubic B-spline in the dose with one interior knot and evaluated over the range of treated doses using the contdid package \parencite{callawayDifferenceinDifferencesContinuousTreatment2026}. The dark band is the pointwise 95 percent confidence interval and the light band is the uniform 95 percent band. Both come from a multiplier bootstrap of the influence functions clustered by 2005 municipality.}
+\end{figure}
+
+
+\begin{figure}[!htbp]
+\centering
+\caption{ATT by 2009 Rainfall Deficit, Height-for-Age and Weight-for-Age, Continuous Dose}\label{fig:oa_att_hazwaz}
+\includegraphics[width=0.49\textwidth]{/Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thesis/Proposal 3 Mexico OG/Output/Figures/Online_Appendix/contdid_att_clustered_haz.png}\hfill\includegraphics[width=0.49\textwidth]{/Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thesis/Proposal 3 Mexico OG/Output/Figures/Online_Appendix/contdid_att_clustered_waz.png}
+\par\parbox{0.85\textwidth}{\singlespacing\scriptsize \textit{Notes:} Left: HAZ. Right: WAZ. See Figure~\ref{fig:oa_att_bmiz}.}
+\end{figure}
+
+
+\clearpage
+\section{Heterogeneity by Sex and by Rural and Urban Residence}
+
+\begingroup\singlespacing
+\begingroup
+\footnotesize
+\renewcommand{\arraystretch}{0.86}
+\setlength{\tabcolsep}{4pt}
+\setlength{\LTcapwidth}{\textwidth}
+\begin{table}[!htbp]\centering
+\caption{2009 Drought and Height-for-Age, Binary DID, Boys}\label{tab:oa_haz_boys}
+\footnotesize
+\global\setbox\tblbox=\hbox{\begin{tabular}{l*{5}{c}}
+\toprule
+ & \multicolumn{5}{c}{Height-for-age z-score (HAZ)}\\
+\cmidrule(lr){2-6}
+            &\multicolumn{1}{c}{(1)}         &\multicolumn{1}{c}{(2)}         &\multicolumn{1}{c}{(3)}         &\multicolumn{1}{c}{(4)}         &\multicolumn{1}{c}{(5)}         \\
+\midrule
+Drought \ensuremath{\times} post&      -0.123         &      -0.108         &      -0.108         &       0.228         &      -0.075         \\
+            &     (0.123)         &     (0.130)         &     (0.146)         &     (0.237)         &     (0.142)         \\
+Drought \ensuremath{\times} post \ensuremath{\times} 2002 remittances&                     &                     &                     &                     &      -0.301         \\
+            &                     &                     &                     &                     &     (0.257)         \\
+2002 remittances \ensuremath{\times} post&                     &                     &                     &                     &      -0.254\sym{**} \\
+            &                     &                     &                     &                     &     (0.123)         \\
+\midrule
+2005--2008 droughts \ensuremath{\times} post&           N         &           Y         &           Y         &           Y         &           Y         \\
+2002 household controls \ensuremath{\times} post&           N         &           N         &           Y         &           Y         &           Y         \\
+2005 child and mother controls \ensuremath{\times} post&           N         &           N         &           Y         &           Y         &           Y         \\
+2005 father and birth controls \ensuremath{\times} post&           N         &           N         &           N         &           Y         &           N         \\
+Child FE    &           Y         &           Y         &           Y         &           Y         &           Y         \\
+Interview year-month FE&           Y         &           Y         &           Y         &           Y         &           Y         \\
+Children    &       1,201         &       1,201         &         869         &         353         &         806         \\
+\bottomrule
+\end{tabular}}%
+\makebox[\textwidth][c]{\usebox{\tblbox}}%
+\par\vspace{4pt}
+\noindent\makebox[\textwidth][c]{\parbox{\wd\tblbox}{\scriptsize \textit{Notes:} Estimating the effect separately for boys and girls tests for gender disparities in the impact of the drought, as households facing an income shock may protect the nutrition and health of sons and daughters differently. The table reports the effect of the 2009 drought on the WHO height-for-age z-score (HAZ) with the binary DID for boys, using sex reported in the 2005 household roster, aged 15 or younger in both survey waves, with a 2005 municipality. They were not measured in MxFLS-3 before November 2009, for the same reason as in \href{Paper.pdf\#tab-sumstats}{Table~1} of the paper. Columns, variables and controls are as in the main binary DID tables. The controls do not include child sex. All regressions include child and interview year-month fixed effects, and standard errors are clustered by 2005 municipality. \mbox{\sym{*}\(p<.10\), \sym{**}\(p<.05\), \sym{***}\(p<.01\).}}}%
+\end{table}
+\endgroup
+\endgroup
+
+
+\begingroup\singlespacing
+\begingroup
+\footnotesize
+\renewcommand{\arraystretch}{0.86}
+\setlength{\tabcolsep}{4pt}
+\setlength{\LTcapwidth}{\textwidth}
+\begin{table}[!htbp]\centering
+\caption{2009 Drought and Weight-for-Age, Binary DID, Boys}\label{tab:oa_waz_boys}
+\footnotesize
+\global\setbox\tblbox=\hbox{\begin{tabular}{l*{5}{c}}
+\toprule
+ & \multicolumn{5}{c}{Weight-for-age z-score (WAZ)}\\
+\cmidrule(lr){2-6}
+            &\multicolumn{1}{c}{(1)}         &\multicolumn{1}{c}{(2)}         &\multicolumn{1}{c}{(3)}         &\multicolumn{1}{c}{(4)}         &\multicolumn{1}{c}{(5)}         \\
+\midrule
+Drought \ensuremath{\times} post&      -0.219         &      -0.175         &      -0.264         &      -0.330         &      -0.064         \\
+            &     (0.153)         &     (0.149)         &     (0.182)         &     (0.358)         &     (0.196)         \\
+Drought \ensuremath{\times} post \ensuremath{\times} 2002 remittances&                     &                     &                     &                     &      -0.225         \\
+            &                     &                     &                     &                     &     (0.283)         \\
+2002 remittances \ensuremath{\times} post&                     &                     &                     &                     &       0.084         \\
+            &                     &                     &                     &                     &     (0.179)         \\
+\midrule
+2005--2008 droughts \ensuremath{\times} post&           N         &           Y         &           Y         &           Y         &           Y         \\
+2002 household controls \ensuremath{\times} post&           N         &           N         &           Y         &           Y         &           Y         \\
+2005 child and mother controls \ensuremath{\times} post&           N         &           N         &           Y         &           Y         &           Y         \\
+2005 father and birth controls \ensuremath{\times} post&           N         &           N         &           N         &           Y         &           N         \\
+Child FE    &           Y         &           Y         &           Y         &           Y         &           Y         \\
+Interview year-month FE&           Y         &           Y         &           Y         &           Y         &           Y         \\
+Children    &         551         &         551         &         367         &         103         &         331         \\
+\bottomrule
+\end{tabular}}%
+\makebox[\textwidth][c]{\usebox{\tblbox}}%
+\par\vspace{4pt}
+\noindent\makebox[\textwidth][c]{\parbox{\wd\tblbox}{\scriptsize \textit{Notes:} Estimating the effect separately for boys and girls tests for gender disparities in the impact of the drought, as households facing an income shock may protect the nutrition and health of sons and daughters differently. The table reports the effect of the 2009 drought on the WHO weight-for-age z-score (WAZ) with the binary DID for boys, using sex reported in the 2005 household roster, aged 10 or younger in both survey waves, with a 2005 municipality. They were not measured in MxFLS-3 before November 2009, for the same reason as in \href{Paper.pdf\#tab-sumstats}{Table~1} of the paper. Columns, variables and controls are as in the main binary DID tables. The controls do not include child sex. All regressions include child and interview year-month fixed effects, and standard errors are clustered by 2005 municipality. \mbox{\sym{*}\(p<.10\), \sym{**}\(p<.05\), \sym{***}\(p<.01\).}}}%
+\end{table}
+\endgroup
+\endgroup
+
+
+\begingroup\singlespacing
+\begingroup
+\footnotesize
+\renewcommand{\arraystretch}{0.86}
+\setlength{\tabcolsep}{4pt}
+\setlength{\LTcapwidth}{\textwidth}
+\begin{table}[!htbp]\centering
+\caption{2009 Drought and BMI-for-Age, Binary DID, Boys}\label{tab:oa_bmiz_boys}
+\footnotesize
+\global\setbox\tblbox=\hbox{\begin{tabular}{l*{5}{c}}
+\toprule
+ & \multicolumn{5}{c}{BMI-for-age z-score (BMIZ)}\\
+\cmidrule(lr){2-6}
+            &\multicolumn{1}{c}{(1)}         &\multicolumn{1}{c}{(2)}         &\multicolumn{1}{c}{(3)}         &\multicolumn{1}{c}{(4)}         &\multicolumn{1}{c}{(5)}         \\
+\midrule
+Drought \ensuremath{\times} post&      -0.170\sym{*}  &      -0.168         &      -0.269\sym{**} &      -0.262         &      -0.336\sym{*}  \\
+            &     (0.099)         &     (0.119)         &     (0.131)         &     (0.180)         &     (0.175)         \\
+Drought \ensuremath{\times} post \ensuremath{\times} 2002 remittances&                     &                     &                     &                     &       0.416         \\
+            &                     &                     &                     &                     &     (0.322)         \\
+2002 remittances \ensuremath{\times} post&                     &                     &                     &                     &      -0.057         \\
+            &                     &                     &                     &                     &     (0.111)         \\
+\midrule
+2005--2008 droughts \ensuremath{\times} post&           N         &           Y         &           Y         &           Y         &           Y         \\
+2002 household controls \ensuremath{\times} post&           N         &           N         &           Y         &           Y         &           Y         \\
+2005 child and mother controls \ensuremath{\times} post&           N         &           N         &           Y         &           Y         &           Y         \\
+2005 father and birth controls \ensuremath{\times} post&           N         &           N         &           N         &           Y         &           N         \\
+Child FE    &           Y         &           Y         &           Y         &           Y         &           Y         \\
+Interview year-month FE&           Y         &           Y         &           Y         &           Y         &           Y         \\
+Children    &       1,170         &       1,170         &         847         &         346         &         787         \\
+\bottomrule
+\end{tabular}}%
+\makebox[\textwidth][c]{\usebox{\tblbox}}%
+\par\vspace{4pt}
+\noindent\makebox[\textwidth][c]{\parbox{\wd\tblbox}{\scriptsize \textit{Notes:} Estimating the effect separately for boys and girls tests for gender disparities in the impact of the drought, as households facing an income shock may protect the nutrition and health of sons and daughters differently. The table reports the effect of the 2009 drought on the WHO BMI-for-age z-score (BMIZ) with the binary DID for boys, using sex reported in the 2005 household roster, aged 15 or younger in both survey waves, with a 2005 municipality. They were not measured in MxFLS-3 before November 2009, for the same reason as in \href{Paper.pdf\#tab-sumstats}{Table~1} of the paper. Columns, variables and controls are as in the main binary DID tables. The controls do not include child sex. All regressions include child and interview year-month fixed effects, and standard errors are clustered by 2005 municipality. \mbox{\sym{*}\(p<.10\), \sym{**}\(p<.05\), \sym{***}\(p<.01\).}}}%
+\end{table}
+\endgroup
+\endgroup
+
+
+\begingroup\singlespacing
+\begingroup
+\footnotesize
+\renewcommand{\arraystretch}{0.86}
+\setlength{\tabcolsep}{4pt}
+\setlength{\LTcapwidth}{\textwidth}
+\begin{table}[!htbp]\centering
+\caption{2009 Drought and Height-for-Age, Binary DID, Girls}\label{tab:oa_haz_girls}
+\footnotesize
+\global\setbox\tblbox=\hbox{\begin{tabular}{l*{5}{c}}
+\toprule
+ & \multicolumn{5}{c}{Height-for-age z-score (HAZ)}\\
+\cmidrule(lr){2-6}
+            &\multicolumn{1}{c}{(1)}         &\multicolumn{1}{c}{(2)}         &\multicolumn{1}{c}{(3)}         &\multicolumn{1}{c}{(4)}         &\multicolumn{1}{c}{(5)}         \\
+\midrule
+Drought \ensuremath{\times} post&      -0.046         &       0.020         &       0.111         &      -0.055         &       0.035         \\
+            &     (0.101)         &     (0.116)         &     (0.131)         &     (0.202)         &     (0.139)         \\
+Drought \ensuremath{\times} post \ensuremath{\times} 2002 remittances&                     &                     &                     &                     &      -0.060         \\
+            &                     &                     &                     &                     &     (0.176)         \\
+2002 remittances \ensuremath{\times} post&                     &                     &                     &                     &      -0.143         \\
+            &                     &                     &                     &                     &     (0.115)         \\
+\midrule
+2005--2008 droughts \ensuremath{\times} post&           N         &           Y         &           Y         &           Y         &           Y         \\
+2002 household controls \ensuremath{\times} post&           N         &           N         &           Y         &           Y         &           Y         \\
+2005 child and mother controls \ensuremath{\times} post&           N         &           N         &           Y         &           Y         &           Y         \\
+2005 father and birth controls \ensuremath{\times} post&           N         &           N         &           N         &           Y         &           N         \\
+Child FE    &           Y         &           Y         &           Y         &           Y         &           Y         \\
+Interview year-month FE&           Y         &           Y         &           Y         &           Y         &           Y         \\
+Children    &       1,220         &       1,220         &         878         &         377         &         811         \\
+\bottomrule
+\end{tabular}}%
+\makebox[\textwidth][c]{\usebox{\tblbox}}%
+\par\vspace{4pt}
+\noindent\makebox[\textwidth][c]{\parbox{\wd\tblbox}{\scriptsize \textit{Notes:} Estimating the effect separately for boys and girls tests for gender disparities in the impact of the drought, as households facing an income shock may protect the nutrition and health of sons and daughters differently. The table reports the effect of the 2009 drought on the WHO height-for-age z-score (HAZ) with the binary DID for girls, using sex reported in the 2005 household roster, aged 15 or younger in both survey waves, with a 2005 municipality. They were not measured in MxFLS-3 before November 2009, for the same reason as in \href{Paper.pdf\#tab-sumstats}{Table~1} of the paper. Columns, variables and controls are as in the main binary DID tables. The controls do not include child sex. All regressions include child and interview year-month fixed effects, and standard errors are clustered by 2005 municipality. \mbox{\sym{*}\(p<.10\), \sym{**}\(p<.05\), \sym{***}\(p<.01\).}}}%
+\end{table}
+\endgroup
+\endgroup
+
+
+\begingroup\singlespacing
+\begingroup
+\footnotesize
+\renewcommand{\arraystretch}{0.86}
+\setlength{\tabcolsep}{4pt}
+\setlength{\LTcapwidth}{\textwidth}
+\begin{table}[!htbp]\centering
+\caption{2009 Drought and Weight-for-Age, Binary DID, Girls}\label{tab:oa_waz_girls}
+\footnotesize
+\global\setbox\tblbox=\hbox{\begin{tabular}{l*{5}{c}}
+\toprule
+ & \multicolumn{5}{c}{Weight-for-age z-score (WAZ)}\\
+\cmidrule(lr){2-6}
+            &\multicolumn{1}{c}{(1)}         &\multicolumn{1}{c}{(2)}         &\multicolumn{1}{c}{(3)}         &\multicolumn{1}{c}{(4)}         &\multicolumn{1}{c}{(5)}         \\
+\midrule
+Drought \ensuremath{\times} post&      -0.259\sym{**} &      -0.282\sym{**} &      -0.379\sym{**} &      -0.184         &      -0.265         \\
+            &     (0.111)         &     (0.119)         &     (0.167)         &     (0.288)         &     (0.197)         \\
+Drought \ensuremath{\times} post \ensuremath{\times} 2002 remittances&                     &                     &                     &                     &      -0.401         \\
+            &                     &                     &                     &                     &     (0.302)         \\
+2002 remittances \ensuremath{\times} post&                     &                     &                     &                     &       0.097         \\
+            &                     &                     &                     &                     &     (0.189)         \\
+\midrule
+2005--2008 droughts \ensuremath{\times} post&           N         &           Y         &           Y         &           Y         &           Y         \\
+2002 household controls \ensuremath{\times} post&           N         &           N         &           Y         &           Y         &           Y         \\
+2005 child and mother controls \ensuremath{\times} post&           N         &           N         &           Y         &           Y         &           Y         \\
+2005 father and birth controls \ensuremath{\times} post&           N         &           N         &           N         &           Y         &           N         \\
+Child FE    &           Y         &           Y         &           Y         &           Y         &           Y         \\
+Interview year-month FE&           Y         &           Y         &           Y         &           Y         &           Y         \\
+Children    &         520         &         520         &         324         &         115         &         295         \\
+\bottomrule
+\end{tabular}}%
+\makebox[\textwidth][c]{\usebox{\tblbox}}%
+\par\vspace{4pt}
+\noindent\makebox[\textwidth][c]{\parbox{\wd\tblbox}{\scriptsize \textit{Notes:} Estimating the effect separately for boys and girls tests for gender disparities in the impact of the drought, as households facing an income shock may protect the nutrition and health of sons and daughters differently. The table reports the effect of the 2009 drought on the WHO weight-for-age z-score (WAZ) with the binary DID for girls, using sex reported in the 2005 household roster, aged 10 or younger in both survey waves, with a 2005 municipality. They were not measured in MxFLS-3 before November 2009, for the same reason as in \href{Paper.pdf\#tab-sumstats}{Table~1} of the paper. Columns, variables and controls are as in the main binary DID tables. The controls do not include child sex. All regressions include child and interview year-month fixed effects, and standard errors are clustered by 2005 municipality. \mbox{\sym{*}\(p<.10\), \sym{**}\(p<.05\), \sym{***}\(p<.01\).}}}%
+\end{table}
+\endgroup
+\endgroup
+
+
+\begingroup\singlespacing
+\begingroup
+\footnotesize
+\renewcommand{\arraystretch}{0.86}
+\setlength{\tabcolsep}{4pt}
+\setlength{\LTcapwidth}{\textwidth}
+\begin{table}[!htbp]\centering
+\caption{2009 Drought and BMI-for-Age, Binary DID, Girls}\label{tab:oa_bmiz_girls}
+\footnotesize
+\global\setbox\tblbox=\hbox{\begin{tabular}{l*{5}{c}}
+\toprule
+ & \multicolumn{5}{c}{BMI-for-age z-score (BMIZ)}\\
+\cmidrule(lr){2-6}
+            &\multicolumn{1}{c}{(1)}         &\multicolumn{1}{c}{(2)}         &\multicolumn{1}{c}{(3)}         &\multicolumn{1}{c}{(4)}         &\multicolumn{1}{c}{(5)}         \\
+\midrule
+Drought \ensuremath{\times} post&      -0.112         &      -0.160         &      -0.313\sym{***}&      -0.200         &      -0.184         \\
+            &     (0.077)         &     (0.097)         &     (0.116)         &     (0.167)         &     (0.114)         \\
+Drought \ensuremath{\times} post \ensuremath{\times} 2002 remittances&                     &                     &                     &                     &      -0.342\sym{*}  \\
+            &                     &                     &                     &                     &     (0.200)         \\
+2002 remittances \ensuremath{\times} post&                     &                     &                     &                     &       0.065         \\
+            &                     &                     &                     &                     &     (0.098)         \\
+\midrule
+2005--2008 droughts \ensuremath{\times} post&           N         &           Y         &           Y         &           Y         &           Y         \\
+2002 household controls \ensuremath{\times} post&           N         &           N         &           Y         &           Y         &           Y         \\
+2005 child and mother controls \ensuremath{\times} post&           N         &           N         &           Y         &           Y         &           Y         \\
+2005 father and birth controls \ensuremath{\times} post&           N         &           N         &           N         &           Y         &           N         \\
+Child FE    &           Y         &           Y         &           Y         &           Y         &           Y         \\
+Interview year-month FE&           Y         &           Y         &           Y         &           Y         &           Y         \\
+Children    &       1,199         &       1,199         &         861         &         364         &         795         \\
+\bottomrule
+\end{tabular}}%
+\makebox[\textwidth][c]{\usebox{\tblbox}}%
+\par\vspace{4pt}
+\noindent\makebox[\textwidth][c]{\parbox{\wd\tblbox}{\scriptsize \textit{Notes:} Estimating the effect separately for boys and girls tests for gender disparities in the impact of the drought, as households facing an income shock may protect the nutrition and health of sons and daughters differently. The table reports the effect of the 2009 drought on the WHO BMI-for-age z-score (BMIZ) with the binary DID for girls, using sex reported in the 2005 household roster, aged 15 or younger in both survey waves, with a 2005 municipality. They were not measured in MxFLS-3 before November 2009, for the same reason as in \href{Paper.pdf\#tab-sumstats}{Table~1} of the paper. Columns, variables and controls are as in the main binary DID tables. The controls do not include child sex. All regressions include child and interview year-month fixed effects, and standard errors are clustered by 2005 municipality. \mbox{\sym{*}\(p<.10\), \sym{**}\(p<.05\), \sym{***}\(p<.01\).}}}%
+\end{table}
+\endgroup
+\endgroup
+
+
+\begingroup\singlespacing
+\begingroup
+\footnotesize
+\renewcommand{\arraystretch}{0.86}
+\setlength{\tabcolsep}{4pt}
+\setlength{\LTcapwidth}{\textwidth}
+\begin{table}[!htbp]\centering
+\caption{2009 Drought and Height-for-Age, Binary DID, Rural Children}\label{tab:oa_haz_rural}
+\footnotesize
+\global\setbox\tblbox=\hbox{\begin{tabular}{l*{5}{c}}
+\toprule
+ & \multicolumn{5}{c}{Height-for-age z-score (HAZ)}\\
+\cmidrule(lr){2-6}
+            &\multicolumn{1}{c}{(1)}         &\multicolumn{1}{c}{(2)}         &\multicolumn{1}{c}{(3)}         &\multicolumn{1}{c}{(4)}         &\multicolumn{1}{c}{(5)}         \\
+\midrule
+Drought \ensuremath{\times} post&      -0.045         &       0.189         &       0.190         &       0.472         &       0.273\sym{*}  \\
+            &     (0.162)         &     (0.173)         &     (0.163)         &     (0.289)         &     (0.159)         \\
+Drought \ensuremath{\times} post \ensuremath{\times} 2002 remittances&                     &                     &                     &                     &      -0.278         \\
+            &                     &                     &                     &                     &     (0.288)         \\
+2002 remittances \ensuremath{\times} post&                     &                     &                     &                     &      -0.006         \\
+            &                     &                     &                     &                     &     (0.130)         \\
+\midrule
+2005--2008 droughts \ensuremath{\times} post&           N         &           Y         &           Y         &           Y         &           Y         \\
+2002 household controls \ensuremath{\times} post&           N         &           N         &           Y         &           Y         &           Y         \\
+2005 child and mother controls \ensuremath{\times} post&           N         &           N         &           Y         &           Y         &           Y         \\
+2005 father and birth controls \ensuremath{\times} post&           N         &           N         &           N         &           Y         &           N         \\
+Child FE    &           Y         &           Y         &           Y         &           Y         &           Y         \\
+Interview year-month FE&           Y         &           Y         &           Y         &           Y         &           Y         \\
+Children    &       1,016         &       1,016         &         732         &         272         &         714         \\
+\bottomrule
+\end{tabular}}%
+\makebox[\textwidth][c]{\usebox{\tblbox}}%
+\par\vspace{4pt}
+\noindent\makebox[\textwidth][c]{\parbox{\wd\tblbox}{\scriptsize \textit{Notes:} Estimating the effect separately for rural and urban children tests whether the drought hits harder where household incomes depend more directly on rain-fed agriculture, while urban households are mainly exposed through food prices. Rural is a locality with fewer than 2,500 inhabitants \parencite{inegiQueHayLocalidades2024}. The table reports the effect of the 2009 drought on the WHO height-for-age z-score (HAZ) with the binary DID for rural children (2005 household locality), aged 15 or younger in both survey waves, with a 2005 municipality. They were not measured in MxFLS-3 before November 2009, for the same reason as in \href{Paper.pdf\#tab-sumstats}{Table~1} of the paper. Columns, variables and controls are as in the main binary DID tables. The controls do not include rural. All regressions include child and interview year-month fixed effects, and standard errors are clustered by 2005 municipality. \mbox{\sym{*}\(p<.10\), \sym{**}\(p<.05\), \sym{***}\(p<.01\).}}}%
+\end{table}
+\endgroup
+\endgroup
+
+
+\begingroup\singlespacing
+\begingroup
+\footnotesize
+\renewcommand{\arraystretch}{0.86}
+\setlength{\tabcolsep}{4pt}
+\setlength{\LTcapwidth}{\textwidth}
+\begin{table}[!htbp]\centering
+\caption{2009 Drought and Weight-for-Age, Binary DID, Rural Children}\label{tab:oa_waz_rural}
+\footnotesize
+\global\setbox\tblbox=\hbox{\begin{tabular}{l*{5}{c}}
+\toprule
+ & \multicolumn{5}{c}{Weight-for-age z-score (WAZ)}\\
+\cmidrule(lr){2-6}
+            &\multicolumn{1}{c}{(1)}         &\multicolumn{1}{c}{(2)}         &\multicolumn{1}{c}{(3)}         &\multicolumn{1}{c}{(4)}         &\multicolumn{1}{c}{(5)}         \\
+\midrule
+Drought \ensuremath{\times} post&      -0.178         &      -0.074         &      -0.276         &       0.532         &      -0.131         \\
+            &     (0.180)         &     (0.172)         &     (0.264)         &     (0.334)         &     (0.281)         \\
+Drought \ensuremath{\times} post \ensuremath{\times} 2002 remittances&                     &                     &                     &                     &      -0.362         \\
+            &                     &                     &                     &                     &     (0.332)         \\
+2002 remittances \ensuremath{\times} post&                     &                     &                     &                     &       0.216         \\
+            &                     &                     &                     &                     &     (0.225)         \\
+\midrule
+2005--2008 droughts \ensuremath{\times} post&           N         &           Y         &           Y         &           Y         &           Y         \\
+2002 household controls \ensuremath{\times} post&           N         &           N         &           Y         &           Y         &           Y         \\
+2005 child and mother controls \ensuremath{\times} post&           N         &           N         &           Y         &           Y         &           Y         \\
+2005 father and birth controls \ensuremath{\times} post&           N         &           N         &           N         &           Y         &           N         \\
+Child FE    &           Y         &           Y         &           Y         &           Y         &           Y         \\
+Interview year-month FE&           Y         &           Y         &           Y         &           Y         &           Y         \\
+Children    &         414         &         414         &         265         &          85         &         260         \\
+\bottomrule
+\end{tabular}}%
+\makebox[\textwidth][c]{\usebox{\tblbox}}%
+\par\vspace{4pt}
+\noindent\makebox[\textwidth][c]{\parbox{\wd\tblbox}{\scriptsize \textit{Notes:} Estimating the effect separately for rural and urban children tests whether the drought hits harder where household incomes depend more directly on rain-fed agriculture, while urban households are mainly exposed through food prices. Rural is a locality with fewer than 2,500 inhabitants \parencite{inegiQueHayLocalidades2024}. The table reports the effect of the 2009 drought on the WHO weight-for-age z-score (WAZ) with the binary DID for rural children (2005 household locality), aged 10 or younger in both survey waves, with a 2005 municipality. They were not measured in MxFLS-3 before November 2009, for the same reason as in \href{Paper.pdf\#tab-sumstats}{Table~1} of the paper. Columns, variables and controls are as in the main binary DID tables. The controls do not include rural. All regressions include child and interview year-month fixed effects, and standard errors are clustered by 2005 municipality. \mbox{\sym{*}\(p<.10\), \sym{**}\(p<.05\), \sym{***}\(p<.01\).}}}%
+\end{table}
+\endgroup
+\endgroup
+
+
+\begingroup\singlespacing
+\begingroup
+\footnotesize
+\renewcommand{\arraystretch}{0.86}
+\setlength{\tabcolsep}{4pt}
+\setlength{\LTcapwidth}{\textwidth}
+\begin{table}[!htbp]\centering
+\caption{2009 Drought and BMI-for-Age, Binary DID, Rural Children}\label{tab:oa_bmiz_rural}
+\footnotesize
+\global\setbox\tblbox=\hbox{\begin{tabular}{l*{5}{c}}
+\toprule
+ & \multicolumn{5}{c}{BMI-for-age z-score (BMIZ)}\\
+\cmidrule(lr){2-6}
+            &\multicolumn{1}{c}{(1)}         &\multicolumn{1}{c}{(2)}         &\multicolumn{1}{c}{(3)}         &\multicolumn{1}{c}{(4)}         &\multicolumn{1}{c}{(5)}         \\
+\midrule
+Drought \ensuremath{\times} post&      -0.096         &      -0.138         &      -0.208         &      -0.244         &      -0.197         \\
+            &     (0.112)         &     (0.127)         &     (0.180)         &     (0.254)         &     (0.204)         \\
+Drought \ensuremath{\times} post \ensuremath{\times} 2002 remittances&                     &                     &                     &                     &      -0.035         \\
+            &                     &                     &                     &                     &     (0.255)         \\
+2002 remittances \ensuremath{\times} post&                     &                     &                     &                     &       0.086         \\
+            &                     &                     &                     &                     &     (0.095)         \\
+\midrule
+2005--2008 droughts \ensuremath{\times} post&           N         &           Y         &           Y         &           Y         &           Y         \\
+2002 household controls \ensuremath{\times} post&           N         &           N         &           Y         &           Y         &           Y         \\
+2005 child and mother controls \ensuremath{\times} post&           N         &           N         &           Y         &           Y         &           Y         \\
+2005 father and birth controls \ensuremath{\times} post&           N         &           N         &           N         &           Y         &           N         \\
+Child FE    &           Y         &           Y         &           Y         &           Y         &           Y         \\
+Interview year-month FE&           Y         &           Y         &           Y         &           Y         &           Y         \\
+Children    &         998         &         998         &         719         &         264         &         701         \\
+\bottomrule
+\end{tabular}}%
+\makebox[\textwidth][c]{\usebox{\tblbox}}%
+\par\vspace{4pt}
+\noindent\makebox[\textwidth][c]{\parbox{\wd\tblbox}{\scriptsize \textit{Notes:} Estimating the effect separately for rural and urban children tests whether the drought hits harder where household incomes depend more directly on rain-fed agriculture, while urban households are mainly exposed through food prices. Rural is a locality with fewer than 2,500 inhabitants \parencite{inegiQueHayLocalidades2024}. The table reports the effect of the 2009 drought on the WHO BMI-for-age z-score (BMIZ) with the binary DID for rural children (2005 household locality), aged 15 or younger in both survey waves, with a 2005 municipality. They were not measured in MxFLS-3 before November 2009, for the same reason as in \href{Paper.pdf\#tab-sumstats}{Table~1} of the paper. Columns, variables and controls are as in the main binary DID tables. The controls do not include rural. All regressions include child and interview year-month fixed effects, and standard errors are clustered by 2005 municipality. \mbox{\sym{*}\(p<.10\), \sym{**}\(p<.05\), \sym{***}\(p<.01\).}}}%
+\end{table}
+\endgroup
+\endgroup
+
+
+\begingroup\singlespacing
+\begingroup
+\footnotesize
+\renewcommand{\arraystretch}{0.86}
+\setlength{\tabcolsep}{4pt}
+\setlength{\LTcapwidth}{\textwidth}
+\begin{table}[!htbp]\centering
+\caption{2009 Drought and Height-for-Age, Binary DID, Urban Children}\label{tab:oa_haz_urban}
+\footnotesize
+\global\setbox\tblbox=\hbox{\begin{tabular}{l*{5}{c}}
+\toprule
+ & \multicolumn{5}{c}{Height-for-age z-score (HAZ)}\\
+\cmidrule(lr){2-6}
+            &\multicolumn{1}{c}{(1)}         &\multicolumn{1}{c}{(2)}         &\multicolumn{1}{c}{(3)}         &\multicolumn{1}{c}{(4)}         &\multicolumn{1}{c}{(5)}         \\
+\midrule
+Drought \ensuremath{\times} post&      -0.102         &      -0.136         &      -0.088         &      -0.021         &      -0.243\sym{*}  \\
+            &     (0.106)         &     (0.110)         &     (0.125)         &     (0.200)         &     (0.122)         \\
+Drought \ensuremath{\times} post \ensuremath{\times} 2002 remittances&                     &                     &                     &                     &       0.032         \\
+            &                     &                     &                     &                     &     (0.167)         \\
+2002 remittances \ensuremath{\times} post&                     &                     &                     &                     &      -0.331\sym{***}\\
+            &                     &                     &                     &                     &     (0.121)         \\
+\midrule
+2005--2008 droughts \ensuremath{\times} post&           N         &           Y         &           Y         &           Y         &           Y         \\
+2002 household controls \ensuremath{\times} post&           N         &           N         &           Y         &           Y         &           Y         \\
+2005 child and mother controls \ensuremath{\times} post&           N         &           N         &           Y         &           Y         &           Y         \\
+2005 father and birth controls \ensuremath{\times} post&           N         &           N         &           N         &           Y         &           N         \\
+Child FE    &           Y         &           Y         &           Y         &           Y         &           Y         \\
+Interview year-month FE&           Y         &           Y         &           Y         &           Y         &           Y         \\
+Children    &       1,412         &       1,412         &       1,020         &         455         &         904         \\
+\bottomrule
+\end{tabular}}%
+\makebox[\textwidth][c]{\usebox{\tblbox}}%
+\par\vspace{4pt}
+\noindent\makebox[\textwidth][c]{\parbox{\wd\tblbox}{\scriptsize \textit{Notes:} Estimating the effect separately for rural and urban children tests whether the drought hits harder where household incomes depend more directly on rain-fed agriculture, while urban households are mainly exposed through food prices. Rural is a locality with fewer than 2,500 inhabitants \parencite{inegiQueHayLocalidades2024}. The table reports the effect of the 2009 drought on the WHO height-for-age z-score (HAZ) with the binary DID for urban children (2005 household locality), aged 15 or younger in both survey waves, with a 2005 municipality. They were not measured in MxFLS-3 before November 2009, for the same reason as in \href{Paper.pdf\#tab-sumstats}{Table~1} of the paper. Columns, variables and controls are as in the main binary DID tables. The controls do not include rural. All regressions include child and interview year-month fixed effects, and standard errors are clustered by 2005 municipality. \mbox{\sym{*}\(p<.10\), \sym{**}\(p<.05\), \sym{***}\(p<.01\).}}}%
+\end{table}
+\endgroup
+\endgroup
+
+
+\begingroup\singlespacing
+\begingroup
+\footnotesize
+\renewcommand{\arraystretch}{0.86}
+\setlength{\tabcolsep}{4pt}
+\setlength{\LTcapwidth}{\textwidth}
+\begin{table}[!htbp]\centering
+\caption{2009 Drought and Weight-for-Age, Binary DID, Urban Children}\label{tab:oa_waz_urban}
+\footnotesize
+\global\setbox\tblbox=\hbox{\begin{tabular}{l*{5}{c}}
+\toprule
+ & \multicolumn{5}{c}{Weight-for-age z-score (WAZ)}\\
+\cmidrule(lr){2-6}
+            &\multicolumn{1}{c}{(1)}         &\multicolumn{1}{c}{(2)}         &\multicolumn{1}{c}{(3)}         &\multicolumn{1}{c}{(4)}         &\multicolumn{1}{c}{(5)}         \\
+\midrule
+Drought \ensuremath{\times} post&      -0.282\sym{**} &      -0.370\sym{***}&      -0.446\sym{***}&      -0.213         &      -0.201         \\
+            &     (0.114)         &     (0.108)         &     (0.135)         &     (0.254)         &     (0.175)         \\
+Drought \ensuremath{\times} post \ensuremath{\times} 2002 remittances&                     &                     &                     &                     &      -0.486\sym{*}  \\
+            &                     &                     &                     &                     &     (0.261)         \\
+2002 remittances \ensuremath{\times} post&                     &                     &                     &                     &       0.035         \\
+            &                     &                     &                     &                     &     (0.145)         \\
+\midrule
+2005--2008 droughts \ensuremath{\times} post&           N         &           Y         &           Y         &           Y         &           Y         \\
+2002 household controls \ensuremath{\times} post&           N         &           N         &           Y         &           Y         &           Y         \\
+2005 child and mother controls \ensuremath{\times} post&           N         &           N         &           Y         &           Y         &           Y         \\
+2005 father and birth controls \ensuremath{\times} post&           N         &           N         &           N         &           Y         &           N         \\
+Child FE    &           Y         &           Y         &           Y         &           Y         &           Y         \\
+Interview year-month FE&           Y         &           Y         &           Y         &           Y         &           Y         \\
+Children    &         654         &         654         &         427         &         137         &         365         \\
+\bottomrule
+\end{tabular}}%
+\makebox[\textwidth][c]{\usebox{\tblbox}}%
+\par\vspace{4pt}
+\noindent\makebox[\textwidth][c]{\parbox{\wd\tblbox}{\scriptsize \textit{Notes:} Estimating the effect separately for rural and urban children tests whether the drought hits harder where household incomes depend more directly on rain-fed agriculture, while urban households are mainly exposed through food prices. Rural is a locality with fewer than 2,500 inhabitants \parencite{inegiQueHayLocalidades2024}. The table reports the effect of the 2009 drought on the WHO weight-for-age z-score (WAZ) with the binary DID for urban children (2005 household locality), aged 10 or younger in both survey waves, with a 2005 municipality. They were not measured in MxFLS-3 before November 2009, for the same reason as in \href{Paper.pdf\#tab-sumstats}{Table~1} of the paper. Columns, variables and controls are as in the main binary DID tables. The controls do not include rural. All regressions include child and interview year-month fixed effects, and standard errors are clustered by 2005 municipality. \mbox{\sym{*}\(p<.10\), \sym{**}\(p<.05\), \sym{***}\(p<.01\).}}}%
+\end{table}
+\endgroup
+\endgroup
+
+
+\begingroup\singlespacing
+\begingroup
+\footnotesize
+\renewcommand{\arraystretch}{0.86}
+\setlength{\tabcolsep}{4pt}
+\setlength{\LTcapwidth}{\textwidth}
+\begin{table}[!htbp]\centering
+\caption{2009 Drought and BMI-for-Age, Binary DID, Urban Children}\label{tab:oa_bmiz_urban}
+\footnotesize
+\global\setbox\tblbox=\hbox{\begin{tabular}{l*{5}{c}}
+\toprule
+ & \multicolumn{5}{c}{BMI-for-age z-score (BMIZ)}\\
+\cmidrule(lr){2-6}
+            &\multicolumn{1}{c}{(1)}         &\multicolumn{1}{c}{(2)}         &\multicolumn{1}{c}{(3)}         &\multicolumn{1}{c}{(4)}         &\multicolumn{1}{c}{(5)}         \\
+\midrule
+Drought \ensuremath{\times} post&      -0.189\sym{**} &      -0.259\sym{***}&      -0.382\sym{***}&      -0.192         &      -0.316\sym{**} \\
+            &     (0.078)         &     (0.080)         &     (0.096)         &     (0.141)         &     (0.128)         \\
+Drought \ensuremath{\times} post \ensuremath{\times} 2002 remittances&                     &                     &                     &                     &       0.043         \\
+            &                     &                     &                     &                     &     (0.327)         \\
+2002 remittances \ensuremath{\times} post&                     &                     &                     &                     &       0.049         \\
+            &                     &                     &                     &                     &     (0.107)         \\
+\midrule
+2005--2008 droughts \ensuremath{\times} post&           N         &           Y         &           Y         &           Y         &           Y         \\
+2002 household controls \ensuremath{\times} post&           N         &           N         &           Y         &           Y         &           Y         \\
+2005 child and mother controls \ensuremath{\times} post&           N         &           N         &           Y         &           Y         &           Y         \\
+2005 father and birth controls \ensuremath{\times} post&           N         &           N         &           N         &           Y         &           N         \\
+Child FE    &           Y         &           Y         &           Y         &           Y         &           Y         \\
+Interview year-month FE&           Y         &           Y         &           Y         &           Y         &           Y         \\
+Children    &       1,377         &       1,377         &         992         &         441         &         882         \\
+\bottomrule
+\end{tabular}}%
+\makebox[\textwidth][c]{\usebox{\tblbox}}%
+\par\vspace{4pt}
+\noindent\makebox[\textwidth][c]{\parbox{\wd\tblbox}{\scriptsize \textit{Notes:} Estimating the effect separately for rural and urban children tests whether the drought hits harder where household incomes depend more directly on rain-fed agriculture, while urban households are mainly exposed through food prices. Rural is a locality with fewer than 2,500 inhabitants \parencite{inegiQueHayLocalidades2024}. The table reports the effect of the 2009 drought on the WHO BMI-for-age z-score (BMIZ) with the binary DID for urban children (2005 household locality), aged 15 or younger in both survey waves, with a 2005 municipality. They were not measured in MxFLS-3 before November 2009, for the same reason as in \href{Paper.pdf\#tab-sumstats}{Table~1} of the paper. Columns, variables and controls are as in the main binary DID tables. The controls do not include rural. All regressions include child and interview year-month fixed effects, and standard errors are clustered by 2005 municipality. \mbox{\sym{*}\(p<.10\), \sym{**}\(p<.05\), \sym{***}\(p<.01\).}}}%
+\end{table}
+\endgroup
+\endgroup
+
+
+\begingroup\singlespacing
+\begingroup
+\footnotesize
+\renewcommand{\arraystretch}{0.86}
+\setlength{\tabcolsep}{4pt}
+\setlength{\LTcapwidth}{\textwidth}
+\begin{table}[!htbp]\centering
+\caption{Continuous DID by Subgroup, Height-for-Age}\label{tab:oa_cd_haz}
+\footnotesize
+\global\setbox\tblbox=\hbox{\begin{tabular}{l*{4}{c}}
+\toprule
+ & \multicolumn{4}{c}{Change in the height-for-age z-score (HAZ)}\\
+\cmidrule(lr){2-5}
+ & Boys & Girls & Rural & Urban\\
+ & (1) & (2) & (3) & (4)\\
+\midrule
+Any 2009 deficit & -0.050 & -0.108 & 0.101 & -0.180\\
+ & (0.114) & (0.116) & (0.181) & (0.101)\\
+ & [0.672] & [0.376] & [0.614] & [0.104]\\
+Dry vs near normal, \ensuremath{z\le -1} & -0.073 & -0.009 & 0.033 & -0.095\\
+ & (0.114) & (0.115) & (0.180) & (0.106)\\
+ & [0.533] & [0.937] & [0.876] & [0.406]\\
+Severely dry or worse vs near normal, \ensuremath{z\le -1.5} & -0.158 & -0.077 & 0.181 & -0.241\sym{*}\\
+ & (0.158) & (0.106) & (0.191) & (0.115)\\
+ & [0.344] & [0.488] & [0.519] & [0.065]\\
+Dry \ensuremath{\times} 2002 remittances & -0.364 & 0.089 & -0.197 & -0.098\\
+ & (0.226) & (0.168) & (0.211) & (0.175)\\
+ & [0.121] & [0.610] & [0.375] & [0.586]\\
+\midrule Children & 1,208 & 1,228 & 1,020 & 1,416\\
+Municipalities with no 2009 deficit & 42 & 41 & 27 & 24\\
+\bottomrule
+\end{tabular}}%
+\makebox[\textwidth][c]{\usebox{\tblbox}}%
+\par\vspace{4pt}
+\noindent\makebox[\textwidth][c]{\parbox{\wd\tblbox}{\scriptsize \textit{Notes:} This table repeats the continuous DID and discrete-dose results for the WHO height-for-age z-score (HAZ) by subgroup. Cols. 1--2 test for gender disparities in the impact of the drought, using sex reported in the 2005 household roster, and Cols. 3--4 test whether it hits rural children harder, as rural household incomes depend more directly on rain-fed agriculture. Rural is a locality with fewer than 2,500 inhabitants \parencite{inegiQueHayLocalidades2024}. Rows, samples and definitions are as in the main continuous DID and discrete-dose tables. Children are aged 15 or younger in both survey waves. The any deficit row uses the contdid package, and the dose-group rows use the discrete-dose regression in equation 4.1 \parencite{callawayDifferenceinDifferencesContinuousTreatment2024}. Standard errors clustered by 2005 municipality are in parentheses. Wild cluster bootstrap p-values are in brackets, which tend to be conservative with few treated municipalities \parencite{mackinnonClusterrobustInferenceGuide2023}. Stars use the clustered p-values, and where a wild bootstrap p-value is shown both must pass. \mbox{\sym{*}\(p<.10\), \sym{**}\(p<.05\), \sym{***}\(p<.01\).}}}%
+\end{table}
+\endgroup
+\endgroup
+
+
+\begingroup\singlespacing
+\begingroup
+\footnotesize
+\renewcommand{\arraystretch}{0.86}
+\setlength{\tabcolsep}{4pt}
+\setlength{\LTcapwidth}{\textwidth}
+\begin{table}[!htbp]\centering
+\caption{Continuous DID by Subgroup, Weight-for-Age}\label{tab:oa_cd_waz}
+\footnotesize
+\global\setbox\tblbox=\hbox{\begin{tabular}{l*{4}{c}}
+\toprule
+ & \multicolumn{4}{c}{Change in the weight-for-age z-score (WAZ)}\\
+\cmidrule(lr){2-5}
+ & Boys & Girls & Rural & Urban\\
+ & (1) & (2) & (3) & (4)\\
+\midrule
+Any 2009 deficit & 0.139 & -0.089 & 0.066 & 0.047\\
+ & (0.143) & (0.112) & (0.202) & (0.094)\\
+ & [0.348] & [0.436] & [0.756] & [0.622]\\
+Dry vs near normal, \ensuremath{z\le -1} & -0.221 & -0.179 & -0.143 & -0.218\sym{**}\\
+ & (0.180) & (0.111) & (0.227) & (0.103)\\
+ & [0.262] & [0.122] & [0.639] & [0.044]\\
+Severely dry or worse vs near normal, \ensuremath{z\le -1.5} & -0.152 & -0.153 & 0.013 & -0.237\\
+ & (0.198) & (0.170) & (0.124) & (0.154)\\
+ & [0.471] & [0.428] & [0.924] & [0.168]\\
+Dry \ensuremath{\times} 2002 remittances & -0.008 & -0.456 & -0.144 & -0.327\\
+ & (0.301) & (0.274) & (0.348) & (0.250)\\
+ & [0.977] & [0.102] & [0.705] & [0.209]\\
+\midrule Children & 556 & 528 & 424 & 660\\
+Municipalities with no 2009 deficit & 36 & 32 & 23 & 23\\
+\bottomrule
+\end{tabular}}%
+\makebox[\textwidth][c]{\usebox{\tblbox}}%
+\par\vspace{4pt}
+\noindent\makebox[\textwidth][c]{\parbox{\wd\tblbox}{\scriptsize \textit{Notes:} This table repeats the continuous DID and discrete-dose results for the WHO weight-for-age z-score (WAZ) by subgroup. Cols. 1--2 test for gender disparities in the impact of the drought, using sex reported in the 2005 household roster, and Cols. 3--4 test whether it hits rural children harder, as rural household incomes depend more directly on rain-fed agriculture. Rural is a locality with fewer than 2,500 inhabitants \parencite{inegiQueHayLocalidades2024}. Rows, samples and definitions are as in the main continuous DID and discrete-dose tables. Children are aged 10 or younger in both survey waves. The any deficit row uses the contdid package, and the dose-group rows use the discrete-dose regression in equation 4.1 \parencite{callawayDifferenceinDifferencesContinuousTreatment2024}. Standard errors clustered by 2005 municipality are in parentheses. Wild cluster bootstrap p-values are in brackets, which tend to be conservative with few treated municipalities \parencite{mackinnonClusterrobustInferenceGuide2023}. Stars use the clustered p-values, and where a wild bootstrap p-value is shown both must pass. \mbox{\sym{*}\(p<.10\), \sym{**}\(p<.05\), \sym{***}\(p<.01\).}}}%
+\end{table}
+\endgroup
+\endgroup
+
+
+\begingroup\singlespacing
+\begingroup
+\footnotesize
+\renewcommand{\arraystretch}{0.86}
+\setlength{\tabcolsep}{4pt}
+\setlength{\LTcapwidth}{\textwidth}
+\begin{table}[!htbp]\centering
+\caption{Continuous DID by Subgroup, BMI-for-Age}\label{tab:oa_cd_bmiz}
+\footnotesize
+\global\setbox\tblbox=\hbox{\begin{tabular}{l*{4}{c}}
+\toprule
+ & \multicolumn{4}{c}{Change in the BMI-for-age z-score (BMIZ)}\\
+\cmidrule(lr){2-5}
+ & Boys & Girls & Rural & Urban\\
+ & (1) & (2) & (3) & (4)\\
+\midrule
+Any 2009 deficit & -0.008 & -0.082 & -0.035 & -0.054\\
+ & (0.093) & (0.076) & (0.090) & (0.095)\\
+ & [0.933] & [0.294] & [0.699] & [0.593]\\
+Dry vs near normal, \ensuremath{z\le -1} & -0.202\sym{*} & -0.124 & -0.147 & -0.174\\
+ & (0.101) & (0.080) & (0.094) & (0.111)\\
+ & [0.054] & [0.138] & [0.155] & [0.141]\\
+Severely dry or worse vs near normal, \ensuremath{z\le -1.5} & -0.064 & -0.106 & -0.129 & -0.077\\
+ & (0.105) & (0.102) & (0.090) & (0.085)\\
+ & [0.548] & [0.350] & [0.309] & [0.379]\\
+Dry \ensuremath{\times} 2002 remittances & 0.506 & -0.301 & -0.030 & 0.216\\
+ & (0.324) & (0.180) & (0.263) & (0.304)\\
+ & [0.142] & [0.119] & [0.915] & [0.534]\\
+\midrule Children & 1,177 & 1,206 & 1,002 & 1,381\\
+Municipalities with no 2009 deficit & 42 & 41 & 27 & 24\\
+\bottomrule
+\end{tabular}}%
+\makebox[\textwidth][c]{\usebox{\tblbox}}%
+\par\vspace{4pt}
+\noindent\makebox[\textwidth][c]{\parbox{\wd\tblbox}{\scriptsize \textit{Notes:} This table repeats the continuous DID and discrete-dose results for the WHO BMI-for-age z-score (BMIZ) by subgroup. Cols. 1--2 test for gender disparities in the impact of the drought, using sex reported in the 2005 household roster, and Cols. 3--4 test whether it hits rural children harder, as rural household incomes depend more directly on rain-fed agriculture. Rural is a locality with fewer than 2,500 inhabitants \parencite{inegiQueHayLocalidades2024}. Rows, samples and definitions are as in the main continuous DID and discrete-dose tables. Children are aged 15 or younger in both survey waves. The any deficit row uses the contdid package, and the dose-group rows use the discrete-dose regression in equation 4.1 \parencite{callawayDifferenceinDifferencesContinuousTreatment2024}. Standard errors clustered by 2005 municipality are in parentheses. Wild cluster bootstrap p-values are in brackets, which tend to be conservative with few treated municipalities \parencite{mackinnonClusterrobustInferenceGuide2023}. Stars use the clustered p-values, and where a wild bootstrap p-value is shown both must pass. \mbox{\sym{*}\(p<.10\), \sym{**}\(p<.05\), \sym{***}\(p<.01\).}}}%
+\end{table}
+\endgroup
+\endgroup
+
+
+\end{document}

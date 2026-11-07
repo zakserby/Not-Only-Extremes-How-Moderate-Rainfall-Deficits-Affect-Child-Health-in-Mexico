@@ -4,8 +4,9 @@
 > r's Thesis/Proposal 3 Mexico OG/Output/Logs/Miscellaneous/build_did_analysis_
 > data.log
   log type:  text
- opened on:  30 Oct 2026, 03:43:52
-.     do "$scripts/Cleaning/Build_DID_Analysis_Data.do"
+ opened on:   7 Nov 2026, 03:58:19
+
+. do "$root/Scripts/Cleaning/Build_DID_Analysis_Data.do"
 
 . *******************************************************************
 . * Build the DID analysis data: 2009 drought, controls and samples
@@ -83,14 +84,15 @@
 . * Interview year
 . *******************************************************************
 . 
-. * Why interview year and not the wave label: about 18% of the 2005 wave was i
-> nterviewed in 2006-07 and 38% of the 2009 wave in 2010-13, so the drought win
-> dow between the waves is household specific
-. * Interview year = year of the last dated visit in the Book C cover file (c_c
-> onpor), the same rule the cleaning scripts use for age_days
+. * Why interview year and not the wave label: about 42% of the 2005 wave was m
+> easured in 2006 and 40% of the 2009 wave in 2010-13, so the drought window be
+> tween the waves is household specific
+. * Interview year = year of the Book S measurement date, else the last dated v
+> isit in the Book C cover file (c_conpor), the same date the cleaning scripts 
+> use for age_days
 . * The 2002, 2005 and 2009 cleaning scripts all save int_date, int_year and in
 > t_month, so we don't need to rebuild them
-. * int_date is now the Book S measurement date
+. * int_date is the Book S measurement date
 . replace int_year = year if missing(int_year)
 (3,434 real changes made)
 
@@ -175,7 +177,7 @@ xij variables:
 .     tempfile rain_wide
 
 .     save `rain_wide'
-file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St79248.000002 saved
+file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St22116.000002 saved
     as .dta format
 
 . restore
@@ -288,7 +290,8 @@ file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St79248.000002 saved
 . * NOTE: Must be two step process, first we must be at the household level and
 >  then go to the kid level that is bc some kids born in 2003
 . foreach v in remittance_hh dwell_electricity dwell_floor_good dwell_roof_good
->  dwell_ventilation_good rooms_per_person ln_pc_expend_month rural {
+>  dwell_ventilation_good rooms_per_person ln_pc_expend_month pc_expend_month r
+> ural progresa_hh {
   2.         * We create a temporary variable if the year is 2002. Then we exte
 > nd to all of its rows with max
 .     gen tmp02 = `v' if year == 2002
@@ -336,11 +339,21 @@ file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St79248.000002 saved
 (85,155 missing values generated)
 (36,008 missing values generated)
 (36,008 missing values generated)
+(80,631 missing values generated)
+(19,808 missing values generated)
+(85,153 missing values generated)
+(36,002 missing values generated)
+(36,002 missing values generated)
 (79,685 missing values generated)
 (17,195 missing values generated)
 (84,553 missing values generated)
 (34,296 missing values generated)
 (34,296 missing values generated)
+(80,743 missing values generated)
+(20,093 missing values generated)
+(85,213 missing values generated)
+(36,168 missing values generated)
+(36,168 missing values generated)
 
 .         
 .         
@@ -512,6 +525,7 @@ file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St79248.000002 saved
   variable positive_shock was long now byte
   variable negative_shock was long now byte
   variable drought was long now byte
+  variable int_ym was float now int
   variable drought2002 was long now byte
   variable drought2003 was long now byte
   variable drought2004 was long now byte
@@ -520,6 +534,67 @@ file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St79248.000002 saved
   variable drought2007 was long now byte
   variable drought2008 was long now byte
   variable drought2009 was long now byte
+  variable treat2009 was float now byte
+  variable any_deficit2009 was float now byte
+  variable early09 was float now byte
+  variable treat_early was float now byte
+  variable post was float now byte
+  variable treat_post was float now byte
+  variable drought2005_post was float now byte
+  variable drought2006_post was float now byte
+  variable drought2007_post was float now byte
+  variable drought2008_post was float now byte
+  variable remittance_hh_02 was float now byte
+  variable remittance_hh_02_post was float now byte
+  variable dwell_electricity_02 was float now byte
+  variable dwell_electricity_02_post was float now byte
+  variable dwell_floor_good_02 was float now byte
+  variable dwell_floor_good_02_post was float now byte
+  variable dwell_roof_good_02 was float now byte
+  variable dwell_roof_good_02_post was float now byte
+  variable dwell_ventilation_good_02 was float now byte
+  variable dwell_ventilation_good_02_post was float now byte
+  variable rural_02 was float now byte
+  variable rural_02_post was float now byte
+  variable progresa_hh_02 was float now byte
+  variable progresa_hh_02_post was float now byte
+  variable child_male was float now byte
+  variable child_male_05 was float now byte
+  variable child_male_05_post was float now byte
+  variable mother_edu_years_05 was float now byte
+  variable mother_edu_years_05_post was float now byte
+  variable mother_age_at_birth_05 was float now byte
+  variable mother_age_at_birth_05_post was float now byte
+  variable mother_employed_05 was float now byte
+  variable mother_employed_05_post was float now byte
+  variable fully_vaccinated_05 was float now byte
+  variable fully_vaccinated_05_post was float now byte
+  variable father_edu_years_05 was float now byte
+  variable father_edu_years_05_post was float now byte
+  variable father_age_at_birth_05 was float now byte
+  variable father_age_at_birth_05_post was float now byte
+  variable father_employed_05 was float now byte
+  variable father_employed_05_post was float now byte
+  variable birth_order_05 was float now byte
+  variable birth_order_05_post was float now byte
+  variable oldest_child_05 was float now byte
+  variable oldest_child_05_post was float now byte
+  variable delivered_home_05 was float now byte
+  variable delivered_home_05_post was float now byte
+  variable iron_pregnancy_05 was float now byte
+  variable iron_pregnancy_05_post was float now byte
+  variable premature_05 was float now byte
+  variable premature_05_post was float now byte
+  variable treat_post_remit02 was float now byte
+  variable s_haz was float now byte
+  variable s_waz was float now byte
+  variable s_bmiz was float now byte
+  variable e_haz was float now byte
+  variable e_waz was float now byte
+  variable e_bmiz was float now byte
+  variable reg_haz was float now byte
+  variable reg_waz was float now byte
+  variable reg_bmiz was float now byte
   variable int_date was double now int
   variable age_days was double now long
   variable int_year was double now int
@@ -544,68 +619,9 @@ file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St79248.000002 saved
   variable father_edu_years was double now byte
   variable rural was double now byte
   variable year was double now int
-  variable int_ym was double now int
-  variable treat2009 was double now byte
-  variable any_deficit2009 was double now byte
-  variable early09 was double now byte
-  variable treat_early was double now byte
-  variable post was double now byte
-  variable treat_post was double now byte
-  variable drought2005_post was double now byte
-  variable drought2006_post was double now byte
-  variable drought2007_post was double now byte
-  variable drought2008_post was double now byte
-  variable remittance_hh_02 was double now byte
-  variable remittance_hh_02_post was double now byte
-  variable dwell_electricity_02 was double now byte
-  variable dwell_electricity_02_post was double now byte
-  variable dwell_floor_good_02 was double now byte
-  variable dwell_floor_good_02_post was double now byte
-  variable dwell_roof_good_02 was double now byte
-  variable dwell_roof_good_02_post was double now byte
-  variable dwell_ventilation_good_02 was double now byte
-  variable dwell_ventilation_good_02_post was double now byte
-  variable rural_02 was double now byte
-  variable rural_02_post was double now byte
-  variable child_male was double now byte
-  variable child_male_05 was double now byte
-  variable child_male_05_post was double now byte
-  variable mother_edu_years_05 was double now byte
-  variable mother_edu_years_05_post was double now byte
-  variable mother_age_at_birth_05 was double now byte
-  variable mother_age_at_birth_05_post was double now byte
-  variable mother_employed_05 was double now byte
-  variable mother_employed_05_post was double now byte
-  variable fully_vaccinated_05 was double now byte
-  variable fully_vaccinated_05_post was double now byte
-  variable father_edu_years_05 was double now byte
-  variable father_edu_years_05_post was double now byte
-  variable father_age_at_birth_05 was double now byte
-  variable father_age_at_birth_05_post was double now byte
-  variable father_employed_05 was double now byte
-  variable father_employed_05_post was double now byte
-  variable birth_order_05 was double now byte
-  variable birth_order_05_post was double now byte
-  variable oldest_child_05 was double now byte
-  variable oldest_child_05_post was double now byte
-  variable delivered_home_05 was double now byte
-  variable delivered_home_05_post was double now byte
-  variable iron_pregnancy_05 was double now byte
-  variable iron_pregnancy_05_post was double now byte
-  variable premature_05 was double now byte
-  variable premature_05_post was double now byte
-  variable treat_post_remit02 was double now byte
-  variable s_haz was double now byte
-  variable s_waz was double now byte
-  variable s_bmiz was double now byte
-  variable e_haz was double now byte
-  variable e_waz was double now byte
-  variable e_bmiz was double now byte
-  variable reg_haz was double now byte
-  variable reg_waz was double now byte
-  variable reg_bmiz was double now byte
+  variable progresa_hh was double now byte
   variable pid_link was str13 now str12
-  (75,380,834 bytes saved)
+  (49,992,927 bytes saved)
 
 . save "$clean_mxfls/mxfls_did_analysis.dta", replace
 file /Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's
@@ -619,11 +635,12 @@ file /Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's
 . 
 . 
 end of do-file
-.     log close build_did
+
+. log close build_did
       name:  build_did
        log:  /Users/zakserby/Documents/Documents (MAC)/Cornell University/Maste
 > r's Thesis/Proposal 3 Mexico OG/Output/Logs/Miscellaneous/build_did_analysis_
 > data.log
   log type:  text
- closed on:  30 Oct 2026, 03:43:55
+ closed on:   7 Nov 2026, 03:58:21
 -------------------------------------------------------------------------------

@@ -1,0 +1,116 @@
+\documentclass[12pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{caption}
+\DeclareCaptionLabelSeparator{emdash}{---}
+\captionsetup{font=normalsize,labelfont=sc,textfont=sc,labelsep=emdash}
+\begin{document}
+\begingroup
+\footnotesize
+\renewcommand{\arraystretch}{0.86}
+\setlength{\tabcolsep}{4pt}
+\setlength{\LTcapwidth}{\textwidth}
+\begin{longtable}{l*{6}{c}}
+\caption{Summary Statistics, Binary DID Model 3 Samples}\\
+\toprule
+ & \multicolumn{6}{c}{Panel A: WAZ, age \ensuremath{\le}10 in 2005 and 2009}\\
+\cmidrule(lr){2-7}
+                    &        Mean&   Std. dev.&        Min.&      Median&        Max.&        Obs.\\
+\midrule
+\textit{Outcomes (MxFLS-2, 2005)}&            &            &            &            &            &            \\
+Weight-for-age z-score (WAZ)&       -0.31&        1.40&       -4.92&       -0.34&        4.51&         700\\
+\addlinespace[6pt]\textit{Binary DID treatment (CHIRPS)}&            &            &            &            &            &            \\
+2009 drought (indicator)&        0.36&        0.48&        0.00&        0.00&        1.00&         700\\
+2005 drought (indicator)&        0.68&        0.47&        0.00&        1.00&        1.00&         700\\
+2006 drought (indicator)&        0.03&        0.17&        0.00&        0.00&        1.00&         700\\
+2007 drought (indicator)&        0.15&        0.36&        0.00&        0.00&        1.00&         700\\
+2008 drought (indicator)&        0.13&        0.34&        0.00&        0.00&        1.00&         700\\
+\addlinespace[6pt]\textit{Remittances (MxFLS-1, 2002)}&            &            &            &            &            &            \\
+Household received remittances, proxy (indicator)&        0.41&        0.49&        0.00&        0.00&        1.00&         634\\
+\addlinespace[6pt]\textit{Household (MxFLS-1, 2002)}&            &            &            &            &            &            \\
+Dwelling has electricity (indicator)&        0.97&        0.16&        0.00&        1.00&        1.00&         700\\
+Good floor quality (indicator)&        0.85&        0.36&        0.00&        1.00&        1.00&         700\\
+Good roof quality (indicator)&        0.81&        0.39&        0.00&        1.00&        1.00&         700\\
+Enough ventilation (indicator)&        0.57&        0.50&        0.00&        1.00&        1.00&         700\\
+Sleeping rooms per household member&        0.41&        0.25&        0.11&        0.33&        2.33&         700\\
+Ln (monthly expenditure per capita, pesos), proxy&        6.56&        0.86&        4.21&        6.57&       11.43&         700\\
+Rural locality (indicator)&        0.43&        0.50&        0.00&        0.00&        1.00&         700\\
+\addlinespace[6pt]\textit{Child and mother (MxFLS-2, 2005)}&            &            &            &            &            &            \\
+Age (years, not in regression)&        2.52&        1.68&        0.00&        3.00&        6.00&         700\\
+Male (indicator)    &        0.53&        0.50&        0.00&        1.00&        1.00&         700\\
+Fully vaccinated (indicator)&        0.39&        0.49&        0.00&        0.00&        1.00&         700\\
+Mother's height (centimeters)&      154.79&        6.91&      136.00&      154.50&      181.00&         700\\
+Mother's years of schooling&        7.40&        3.42&        0.00&        8.00&       18.00&         700\\
+Mother's age at birth (years)&       26.93&        6.52&       14.00&       27.00&       59.00&         700\\
+Mother employed (indicator)&        0.24&        0.42&        0.00&        0.00&        1.00&         700\\
+\addlinespace[6pt]\textit{Father and birth (MxFLS-1 and MxFLS-2)}&            &            &            &            &            &            \\
+Father's height (centimeters)&      166.81&        6.98&      144.00&      167.00&      189.40&         465\\
+Father's years of schooling&        7.51&        3.77&        0.00&        8.00&       18.00&         569\\
+Father's age at birth (years)&       30.74&        7.82&       16.00&       30.00&       75.00&         581\\
+Father employed (indicator)&        0.96&        0.19&        0.00&        1.00&        1.00&         569\\
+Birth order         &        2.31&        1.68&        1.00&        2.00&       13.00&         401\\
+Oldest child (indicator)&        0.40&        0.49&        0.00&        0.00&        1.00&         401\\
+Birth weight (kilograms)&        3.26&        0.59&        1.55&        3.20&        5.50&         523\\
+Delivered at home (indicator)&        0.08&        0.27&        0.00&        0.00&        1.00&         560\\
+Weeks predominantly breastfed&       31.98&       29.20&        0.00&       26.09&      157.29&         542\\
+Iron during pregnancy (indicator)&        0.76&        0.43&        0.00&        1.00&        1.00&         549\\
+Premature, mother reported (indicator)&        0.19&        0.39&        0.00&        0.00&        1.00&         546\\
+
+\bottomrule
+\newpage
+\toprule
+ & \multicolumn{6}{c}{Panel B: HAZ and BMIZ, age \ensuremath{\le}15 in 2005 and 2009}\\
+\cmidrule(lr){2-7}
+                    &        Mean&   Std. dev.&        Min.&      Median&        Max.&        Obs.\\
+\midrule
+\textit{Outcomes (MxFLS-2, 2005)}&            &            &            &            &            &            \\
+Height-for-age z-score (HAZ)&       -0.60&        1.47&       -5.17&       -0.62&        5.20&       1,755\\
+BMI-for-age z-score (BMIZ)&        0.40&        1.41&       -4.95&        0.35&        4.86&       1,721\\
+\addlinespace[6pt]\textit{Binary DID treatment (CHIRPS)}&            &            &            &            &            &            \\
+2009 drought (indicator)&        0.39&        0.49&        0.00&        0.00&        1.00&       1,755\\
+2005 drought (indicator)&        0.66&        0.47&        0.00&        1.00&        1.00&       1,755\\
+2006 drought (indicator)&        0.03&        0.17&        0.00&        0.00&        1.00&       1,755\\
+2007 drought (indicator)&        0.16&        0.36&        0.00&        0.00&        1.00&       1,755\\
+2008 drought (indicator)&        0.14&        0.34&        0.00&        0.00&        1.00&       1,755\\
+\addlinespace[6pt]\textit{Remittances (MxFLS-1, 2002)}&            &            &            &            &            &            \\
+Household received remittances, proxy (indicator)&        0.36&        0.48&        0.00&        0.00&        1.00&       1,624\\
+\addlinespace[6pt]\textit{Household (MxFLS-1, 2002)}&            &            &            &            &            &            \\
+Dwelling has electricity (indicator)&        0.98&        0.15&        0.00&        1.00&        1.00&       1,755\\
+Good floor quality (indicator)&        0.83&        0.37&        0.00&        1.00&        1.00&       1,755\\
+Good roof quality (indicator)&        0.81&        0.39&        0.00&        1.00&        1.00&       1,755\\
+Enough ventilation (indicator)&        0.56&        0.50&        0.00&        1.00&        1.00&       1,755\\
+Sleeping rooms per household member&        0.38&        0.23&        0.11&        0.33&        2.33&       1,755\\
+Ln (monthly expenditure per capita, pesos), proxy&        6.52&        0.86&        3.75&        6.51&       12.24&       1,755\\
+Rural locality (indicator)&        0.46&        0.50&        0.00&        0.00&        1.00&       1,755\\
+\addlinespace[6pt]\textit{Child and mother (MxFLS-2, 2005)}&            &            &            &            &            &            \\
+Age (years, not in regression)&        6.08&        3.22&        0.00&        6.00&       12.00&       1,755\\
+Male (indicator)    &        0.50&        0.50&        0.00&        0.00&        1.00&       1,755\\
+Fully vaccinated (indicator)&        0.50&        0.50&        0.00&        0.00&        1.00&       1,755\\
+Mother's height (centimeters)&      154.39&        7.14&      133.40&      154.20&      190.00&       1,755\\
+Mother's years of schooling&        7.13&        3.66&        0.00&        6.00&       18.00&       1,755\\
+Mother's age at birth (years)&       26.80&        6.46&       14.00&       26.00&       59.00&       1,755\\
+Mother employed (indicator)&        0.28&        0.45&        0.00&        0.00&        1.00&       1,755\\
+\addlinespace[6pt]\textit{Father and birth (MxFLS-1 and MxFLS-2)}&            &            &            &            &            &            \\
+Father's height (centimeters)&      166.42&        7.15&      144.00&      166.30&      192.00&       1,212\\
+Father's years of schooling&        7.33&        3.92&        0.00&        7.00&       18.00&       1,443\\
+Father's age at birth (years)&       30.36&        7.85&       15.00&       29.00&       75.00&       1,482\\
+Father employed (indicator)&        0.96&        0.20&        0.00&        1.00&        1.00&       1,447\\
+Birth order         &        2.66&        1.89&        1.00&        2.00&       13.00&       1,392\\
+Oldest child (indicator)&        0.32&        0.47&        0.00&        0.00&        1.00&       1,392\\
+Birth weight (kilograms)&        3.27&        0.60&        0.85&        3.25&        6.00&       1,256\\
+Delivered at home (indicator)&        0.12&        0.32&        0.00&        0.00&        1.00&       1,544\\
+Weeks predominantly breastfed&       33.57&       33.98&        0.00&       26.09&      260.89&       1,357\\
+Iron during pregnancy (indicator)&        0.72&        0.45&        0.00&        1.00&        1.00&       1,366\\
+Premature, mother reported (indicator)&        0.14&        0.35&        0.00&        0.00&        1.00&       1,362\\
+
+\bottomrule
+\addlinespace[6pt]\multicolumn{7}{p{0.97\textwidth}}{\scriptsize \textit{Notes:} This table is for the sample of Model 3, the main binary DID with controls. Obs. counts children. The children have the outcome measured in MxFLS-2 (2005) and MxFLS-3 (2009), under the panel's age cutoff
+in both survey waves, and a 2005 municipality. They were not measured in MxFLS-3 before November 2009, for the same reason as in Table~\ref{tab:sumstats}.
+Panel A uses the WAZ sample, Panel B the HAZ and BMIZ sample. The BMIZ sample is marginally smaller than the HAZ sample shown in Panel B, at 1,714 children. Statistics are at the 2005 baseline, except remittances and household variables (2002). Remittances enter Model 5, and the father and birth controls enter Model 4. Both are observed for fewer children.
+Drought is May--October CHIRPS rainfall, the maize growing season (Jessoe, Manning, and Taylor 2018), in the 2005 municipality below its 1981--2004 20th percentile (Shah and Steinberg 2017). Remittances are cash received in the last
+12 months from parents, siblings, or children outside the household. Expenditure is in 2002 pesos per person per month.
+Rural is a locality under 2,500 inhabitants (INEGI 2024).}\\
+\end{longtable}
+\endgroup
+\end{document}

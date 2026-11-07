@@ -1,0 +1,1084 @@
+\documentclass[12pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{newtxtext,newtxmath}
+\DeclareUnicodeCharacter{2010}{-}
+\DeclareUnicodeCharacter{05F3}{'}
+\usepackage{setspace}
+\onehalfspacing
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{lscape}
+\usepackage{afterpage}
+\usepackage{placeins}
+\renewcommand{\topfraction}{0.9}
+\renewcommand{\bottomfraction}{0.8}
+\renewcommand{\textfraction}{0.07}
+\renewcommand{\floatpagefraction}{0.85}
+\setcounter{topnumber}{3}
+\setcounter{totalnumber}{4}
+\usepackage{caption}
+\usepackage{adjustbox}
+\captionsetup{font=normalsize,labelsep=colon}
+\captionsetup[figure]{position=top,justification=centering}
+\usepackage{xcolor}
+\definecolor{linkblue}{cmyk}{0.94,0.54,0,0}
+\usepackage[authordate,backend=biber,natbib=false,maxcitenames=3,mincitenames=1,maxbibnames=10,minbibnames=7]{biblatex-chicago}
+\DeclareSourcemap{\maps[datatype=bibtex]{\map{\step[typesource=software,typetarget=misc]}}}
+\AtEveryBibitem{\clearfield{issn}\clearfield{month}\clearfield{doi}\clearfield{url}\clearfield{urlyear}\clearfield{eprint}}
+\addbibresource{Text/References.bib}
+\usepackage{xr-hyper}
+\usepackage[colorlinks=true,linkcolor=linkblue,citecolor=linkblue,urlcolor=linkblue,filecolor=linkblue,runcolor=linkblue]{hyperref}
+\usepackage{xurl}
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\setlength{\LTcapwidth}{\textwidth}
+\usepackage{microtype}
+\newsavebox{\tblbox}
+\hyphenpenalty=10000
+\exhyphenpenalty=10000
+\emergencystretch=3em
+\frenchspacing
+\pdfinterwordspaceon
+\externaldocument[OA-]{Online_Appendix}[Online_Appendix.pdf]
+\begin{document}
+
+% Text of the paper. Build_Results.R replaces each %%TABLE, %%FIGURE and %%FIGROW line with the table or figure from Output, then compiles Paper.pdf
+\begin{titlepage}
+\begin{center}
+\vspace*{1.2in}
+{\LARGE\bfseries Not Only Extremes: How Moderate Rainfall Deficits Affects Child Health in Mexico\par}
+\vspace{0.3in}
+{\large Zachary Serby\par}
+\vspace{0.15in}
+{\large \today\par}
+\vspace{0.3in}
+{\bfseries Abstract\par}
+\end{center}
+\begin{quote}
+Negative rainfall shocks are among the most common sources of income risk in developing countries. Evidence remains limited, however, on whether their effects on child health vary with the severity of the deficit. Evidence is also limited for Mexico, where few studies follow the same child before and after a rainfall shock. Using a new dataset linking three survey waves of the Mexican Family Life Survey to gridded rainfall data, with a difference-in-differences design that treats rainfall severity categories as the dose levels of a multi-valued discrete treatment, I find suggestive evidence that moderate rainfall deficits reduce children's BMI-for-age. Moderate deficits of 1 to 1.5 standard deviations below the local norm reduce the 2005-to-2009 increase in BMI-for-age by 0.22 standard deviations, roughly 1.2 kg of body weight. Results for BMI-for-age are similar in sign and magnitude across alternative designs and specifications, while I find no effect on height-for-age in any specification. I find no evidence that pre-shock remittances protected children.
+
+\vspace{0.15in}
+JEL Codes: I15, J13, O15, O54, Q54, F24
+\end{quote}
+\end{titlepage}
+
+\section*{I. Introduction}\phantomsection\label{sec:I}
+
+Research on how events during early developmental stages shape later health outcomes is well established. This idea is known as the ``Fetal Origins of Adult Disease'' or ``Barker hypothesis,'' which primarily analyzes the effects of prenatal nutritional deprivation on chronic health conditions in adulthood \parencite{barkerMothersBabiesHealth1998}. Since then, a large body of evidence contributed by economists has extended this hypothesis to alternative outcomes, including educational attainment, wages, and cognitive and socioemotional skills. This literature has direct relevance for economists, as potential Pareto improvements can be made by reallocating resources to optimal periods in an individual's life cycle. This relates to a core interest of economists, as one common definition of economics centers on the allocation of scarce resources \parencite{backhouseRetrospectivesDefinitionEconomics2009}. Moreover, a better allocation of resources can potentially counterbalance existing inequalities associated with poverty, gender, and race through investments in early-life health and nutrition. Evidence further suggests that such investments generate dynamic complementarities, whereby early investments increase the productivity of subsequent investments, making disadvantages increasingly costly to remediate later in life \parencite{cunhaInterpretingEvidenceLife2006,cunhaTechnologySkillFormation2007}.
+
+I examine a related but distinct question that has received relatively limited attention in the existing literature. For children exposed to negative rainfall deviations during childhood, how do the effects on height-for-age (HAZ), weight-for-age (WAZ), and BMI-for-age (BMIZ) z-scores vary with the severity of these deviations? My question is essentially one about heterogeneous treatment effects across different dose levels of rainfall shocks experienced by children in their municipality of residence. Additionally, I am particularly interested in examining whether there is evidence to support allocating more resources toward one level of rainfall deviation compared to another. The answer to this question has important policy implications, as it may determine whether greater attention should be directed toward moderate rainfall deficits. This is particularly relevant as the \textcite{ipccSummaryPolicymakers2021} finds that human-induced climate change has already contributed to increases in agricultural droughts in some regions, with further increases in their frequency or severity projected across Central and North America. Such policies could help mitigate the negative effects on child health, among other potentially affected outcomes.
+
+My findings indicate that moderate rainfall deficits are the only dose group with a consistently statistically significant effect, reducing children's BMI-for-age z-scores relative to children in near-normal municipalities. A lower BMIZ means a child weighs less for their height and age than the reference population. After a negative income shock I interpret it as reduced nutritional intake. Rainfall 1 to 1.5 standard deviations below the municipality's norm leads children to experience a 0.22 standard deviation smaller increase in BMIZ between 2005 and 2009 (compared to an average increase of 0.23 standard deviations). For WAZ, the estimates have the same sign and similar magnitudes but are not statistically significant. For HAZ I find essentially no effect in any specification. These results follow from the idea that weight is typically a proxy for short-term nutritional status, while height reflects health and nutrition during the critical periods of growth in early life \parencite{currieEarlyLifeHealthAdult2013}. Supporting the previous findings of \textcite{almondChildhoodCircumstancesAdult2018}, my results suggest that shocks below the extreme end of the distribution also deserve the attention of policymakers. I find that moderate rainfall deficits appear to be the more prevalent problem, potentially because of their relatively greater frequency and lower likelihood of receiving support. Additionally, I find no statistically significant effect for the severely dry or worse dose group, I do not interpret this null result as evidence that severe deficits are harmless. This dose group fails pre-trend tests and exhibits imbalances in baseline characteristics that may bias the estimate toward zero and could mask a negative effect. Nonetheless, this finding could motivate further research quantifying how much more beneficial it would be to allocate resources toward mitigating one level of rainfall deficits rather than another, which I leave to future research.
+
+Two alternative difference-in-differences specifications extend my analysis. The first employs a binary rainfall shock with baseline controls and fixed effects, allowing me to account for a rich set of pre-shock characteristics. The second uses a continuous-dose specification that exploits the full distribution of rainfall shocks. The binary specification yields similar results for BMIZ and HAZ and stronger results for WAZ, corroborating my main findings. In addition, I conduct robustness checks to assess the identification assumptions and the exogeneity of rainfall. The analysis also examines remittances as a consumption-smoothing mechanism and finds no evidence that they protected children from the shock. Among children in households that did not receive remittances in 2002, living in a dry municipality reduced the change in BMIZ by 0.25 standard deviations. This effect is statistically significant. However, the remittance interaction is positive for BMIZ and negative for WAZ and HAZ, but not statistically significant for any outcome.
+
+Lastly, I examine whether households allocate resources preferentially to sons or daughters. In many developing countries, sons may be expected to earn more and support their parents in old age, so one might expect the treatment effects to differ between boys and girls. Across specifications, I find no consistent evidence of gender differences as point estimates for boys and girls are similar in magnitude, and neither sex shows consistently more significant effects. I also test whether the effects differ between rural and urban children, as rural incomes depend more directly on rain-fed agriculture, whereas urban households are exposed mainly through food prices. Contrary to my expectations, the effects on weight-based outcomes are generally larger and more often statistically significant for urban children than for rural children. Given the smaller subsamples, these estimates are less precise and should be read as suggestive.
+
+First and foremost, I contribute by estimating separate causal effects across dose levels of rainfall deficit. I construct a standardized measure of 2009 growing-season rainfall relative to each municipality's historical distribution and group it into severity categories, which I treat as dose levels. Children in municipalities that receive a given dose level form a dose group. Following \textcite{callawayDifferenceinDifferencesContinuousTreatment2024}, I model these dose levels as a multi-valued discrete treatment in a two-period difference-in-differences. I use near-normal municipalities as the reference group. Under parallel trends, each coefficient identifies the dose-specific average treatment effect on the treated. Since comparisons are made only against the near-normal group, the strong parallel trends assumption is not required.
+
+This allows me to capture adverse rainfall, an increasingly common source of income shocks in developing economies \parencite{dinkelmanLongRunHealthRepercussions2017}. In comparison, many studies focus on single large shocks that are both more extreme and less common. These related papers examine extreme shocks such as pandemics \parencite{almond1918InfluenzaPandemic2006,kellyScourgeAsianFlu2011,beach1918InfluenzaPandemic2022}, single large-scale natural disasters such as earthquakes and tropical cyclones \parencite{carusoLongRunEffects2015,fujikiDisentanglingEffectsMultiple2015,deuchertTempestShortLongterm2015,dodlovaEffects2010Haiti2023}, and extreme drought and civil war \parencite{aldermanLongTermConsequences2006}. These papers' findings may not generalize to more common shocks. Papers that start from a continuous rainfall deviation often split treated and comparison groups at a binary threshold, for example rainfall more than one standard deviation from the local mean \parencite{skoufiasClimateVariabilityChild2012,adhvaryuHelpingChildrenCatch2024} or more than two standard deviations below it \parencite{hirvonenImpactEthiopias20152020,kudamatsuWeatherInfantMortality2012}. Alternative research examining continuous rainfall deviations uses linear specifications, which impose a constant marginal effect. This assumes that each additional unit of rainfall deviation has the same effect whether the year is mildly or extremely dry \parencite{macciniWeatherHealthSchooling2009,rochaWaterScarcityBirth2015}. In both cases, a single pooled ATT estimate may overestimate treatment effects for some deviations of rainfall deficit and underestimate them for others when effects are not proportional to shock severity.
+
+In addition, to my knowledge, this research is the first to construct a dataset combining spatial weather data (\href{https://www.chc.ucsb.edu/data/chirps}{CHIRPS}) with the \href{https://ennvih-mxfls.org/english/index.html}{Mexican Family Life Survey} (MxFLS). This allows me to track the same individual's health status across three survey waves, from birth through adolescence. Compared with cross-sectional data commonly used in the literature, the panel allows me to compare the same child before and after a shock, removing time-invariant differences between children. Second, most prior literature does not address how household-level insurance mechanisms may counteract the impact of rainfall shocks on child anthropometric outcomes. Households facing liquidity constraints cannot fully smooth consumption \parencite{deatonSavingLiquidityConstraints1991}, and access to remittances can help relieve these constraints. As established in the literature, these flows of funds can function as an informal insurance mechanism, particularly for rural households in developing countries \parencite{yangMigrantRemittances2011}. For example, remittances can help households avoid selling productive assets or livestock after a disaster \parencite{mohapatraRemittancesNaturalDisasters2012}. I analyze whether these resources moderate the effects of shocks on child health outcomes.
+
+The literature on this topic is extensive. Several studies in Mexico use the MxFLS to examine how shocks such as crop loss, the Mexican drug war, exposure to air pollution, and migration affect child health and later-life outcomes \parencite{michaelsenChildrenRiskEffect2012,brownMexicanDrugWar2018,molinaPollutionAbilityGenderSpecific2021,damonChildhoodObesityMexico2014}. However, none of these studies specifically analyzes the impact of negative rainfall deviations on child outcomes. They also do not use remittances, likely because the survey has no explicit remittance variable and one must be constructed. More closely related research in Mexico relies on cross-sectional data or non-representative samples of poor, marginalized communities \parencite{agueroLongTermEffectClimate2014,skoufiasClimateVariabilityChild2012,adhvaryuHelpingChildrenCatch2024,aguilarNinoChildrenMediumterm2022}. In contrast, I use a nationally representative longitudinal panel that allows me to track the same child over time. Additionally, some papers in Mexico test whether government programs such as PROGRESA, Liconsa, and PROCAMPO help mitigate climate shocks, whereas I focus on a private, household-level buffer: remittances.
+
+Perhaps most similar to my study are those that use the Indonesian Family Life Survey (IFLS), a longitudinal panel survey conducted by RAND. These studies analyze the impact of rainfall and natural disasters on health, schooling, and cognitive and socioemotional development \parencite{webbCriticalPeriodsCognitive2024,macciniWeatherHealthSchooling2009,thamarapaniNaturalDisastersChild2021}. \textcite{thamarapaniNaturalDisastersChild2021} also investigates whether credit and remittances buffer child health outcomes. However, that study relies on self-reported, categorical disaster data from community leaders, which are subject to missing magnitudes, mismeasurement, recall error, and self-reporting bias. I improve on this by merging in gridded rainfall time-series data. \textcite{webbCriticalPeriodsCognitive2024} focuses on adult cognitive and socioemotional outcomes, and \textcite{adamsEconomicImpactInternational2010} focus on household consumption and poverty, whereas I emphasize child anthropometric outcomes. Unlike \textcite{macciniWeatherHealthSchooling2009} who study the long-run effects of rainfall on adult outcomes, I focus on the short run, examining changes in child anthropometrics mostly within one to two years after the 2009 drought. My study differs in both context and method. I aim to assess whether earlier findings hold under these differences. Additionally, I examine the role remittances can serve as informal insurance.
+
+The rest of the paper proceeds as follows. Section \hyperref[sec:II]{II} motivates the Mexican context. Sections \hyperref[sec:III]{III} and \hyperref[sec:IV]{IV} describe the data and the sample. Section \hyperref[sec:V]{V} presents my empirical strategy. Sections \hyperref[sec:VI]{VI} and \hyperref[sec:VII]{VII} present the results, including the primary specification, alternative estimators, and heterogeneity. Sections \hyperref[sec:VIII]{VIII} and \hyperref[sec:IX]{IX} present robustness checks and examine mechanisms. Section \hyperref[sec:X]{X} concludes and proposes directions for future work. Other details are in the \href{Online_Appendix.pdf}{Online Appendix}.
+
+\section*{II. Motivation: Why Mexico}\phantomsection\label{sec:II}
+
+The frequent occurrence of negative rainfall deviations, which sometimes take the form of droughts, poses a serious health risk to many countries in Latin America. Between 2000 and 2019, 1,205 natural disasters affected 152 million people in Latin America and the Caribbean. This region is the second most disaster-prone in the world, with drought being the disaster that affects the largest number of people in the region \parencite{ochaNaturalDisastersLatin2020}. These natural hazards, such as floods and droughts, are often associated with the El Ni\~no-Southern Oscillation (ENSO), a recurring climate pattern whose effects can differ in magnitude across regions.
+
+Among the groups most vulnerable to these risks are the poor and the young. Poor people suffer only a fraction of the economic losses caused by disasters, but they bear a disproportionate share of the welfare losses \parencite{hallegatteUnbreakableBuildingResilience2017}. Moreover, these risks impose health shocks with both short-run and long-run effects. In children, these shocks can lead to stunting and wasting. In Mexico, 12.8 percent of children under five were stunted in 2022 \parencite{cuevas-nasuEstadoNutricionNinas2023}. These outcomes matter later in life, as taller adult men in Mexico have been found to earn higher wages \parencite{voglHeightSkillsLabor2014}. Additionally, undernutrition in early childhood is strongly associated with shorter adult height, less schooling, and lower economic productivity \parencite{victoraMaternalChildUndernutrition2008}. Stunting and wasting can therefore lower the stock of human capital by reducing educational attainment and cognitive and socioemotional development.
+
+\section*{III. Data and Sample Composition}\phantomsection\label{sec:III}
+
+\subsection*{A. The Mexican Family Life Survey}
+
+The primary data source for this investigation is the Mexican Family Life Survey \parencite[MxFLS;][]{rubalcavaUsersGuideMexican2006,rubalcavaUsersGuideMexican2013}. The survey was developed and is managed by researchers from the Universidad Iberoamericana and the Centro de Investigaci\'on y Docencia Econ\'omicas (CIDE). It is a longitudinal panel that spans a ten-year period across three survey waves: MxFLS-1 (2002), MxFLS-2 (2005--2006), and MxFLS-3 (2009--2012). Within each survey wave, individuals can be measured at any point of the fieldwork period. I use all three survey waves and link them at the individual child level to follow the same child over time. MxFLS contains detailed information on child outcomes. In particular, my study prioritizes the variety of health variables available, ranging from objective clinical measures to more subjective self-reported measures. Anthropometric measures are utilized and collected by trained health personnel.
+
+Each survey wave of the MxFLS also records the state and municipality of residence at the time of the interview. I assign each child the municipality of their household in MxFLS-2 (2005), before the 2009 rainfall shock, and hold it fixed in both survey waves. Using the 2005 municipality prevents households from responding ex post to the shock, for example by migrating to a municipality with a smaller rainfall deficit. This choice assumes that children did not change municipality between survey waves in ways that matter for exposure. I argue that this is plausible as less than 5 percent of children in my estimation sample are recorded in a different municipality in MxFLS-3 than in MxFLS-2. Each child's 2005 municipality is then linked to rainfall data.
+
+My analysis uses a sample of Mexican children drawn from a nationally representative survey covering both rural and urban areas, supporting the external validity of my findings. The main specification includes 2,351 children for height-for-age (HAZ), 1,045 for weight-for-age (WAZ), and 2,300 for BMI-for-age (BMIZ) z-scores. These differences arise because WAZ is restricted to children aged 10 and younger, while HAZ and BMIZ include children up to age 15. The WAZ cutoff follows the WHO growth references, which provide weight-for-age measures only through age 10 \parencite{deonisDevelopmentWHOGrowth2007}. This is because WAZ cannot distinguish between relative height and body mass as children grow older. BMIZ, however, accounts for height and remains appropriate for older children. The sample is restricted to children observed in both MxFLS-2 (2005) and MxFLS-3 (2009), before and after the rainfall shock, who have a recorded municipality of residence in 2005 and meet the age restrictions for each health outcome.
+
+\subsection*{B. Rainfall Data}
+
+I obtain rainfall data from the Climate Hazards Group InfraRed Precipitation with Station data \parencite[CHIRPS;][]{funkClimateHazardsInfrared2015}. CHIRPS was created by scientists at the U.S. Geological Survey and the Climate Hazards Center. It offers over 40 years of data, spanning from 1981 to the present, and generates a gridded rainfall time series. CHIRPS combines satellite and station data to correct the sparse coverage of station data in rural areas.
+
+For my investigation, rainfall serves as an exogenous shock to household income for a given child during the May--October 2009 growing season. I maintain this assumption here and assess the exogeneity of the shock in Section \hyperref[sec:VIII]{VIII}. I chose 2009 for two reasons. First, for practical reasons, having only three survey waves means that a shock between MxFLS-2 and MxFLS-3 leaves one earlier survey wave to assess pre-trends. Additionally, the 2009 rainfall deficit was widespread enough to provide sufficient treated and comparison municipalities. Second, 2009 was regarded as one of the worst droughts in the preceding 70 years by some farmer organizations, with precipitation statistics indicating that July 2009 was the driest July since 1941 \parencite{davydova-belitskayaMexico2010}. Rather than studying a single catastrophic event, such as a major hurricane or earthquake, I examine rainfall deviations from each municipality's own norm. This more common type of shock strengthens my ability to extend my findings to other contexts.
+
+I follow the literature in using May--October rainfall to capture the spring--summer growing season for maize, Mexico's main staple crop, with over 75 percent of national maize production occurring in this season \parencite{jessoeClimateChangeLabour2018}. Rainfall during this window should therefore be most closely related to agricultural output and household income. Specifically, the variable ($z$) is calculated as 2009 May--October rainfall minus the municipality's mean May--October rainfall over 1981--2004, divided by the municipality's standard deviation of May--October rainfall over the same period. I choose to end the baseline period in 2004 to avoid overlap with the subsequent survey and treatment periods. I group rainfall deviations into dose levels using the cutoffs of the Standardized Precipitation Index (SPI). These are near normal ($-1 < z < 1$), moderately dry ($-1.5 < z \le -1$), severely dry ($-2 < z \le -1.5$), and extremely dry ($z \le -2$) \parencite{mckeeRelationshipDroughtFrequency1993,wmoStandardizedPrecipitationIndex2012}. It is important to note that my measure uses these cutoffs but is not the SPI itself. Because only two municipalities in my estimation sample are extremely dry, I combine the severely and extremely dry dose levels into one dose level, ``severely dry or worse'' ($z \le -1.5$).
+
+\begin{figure}[!htbp]
+\centering
+\caption{2009 Rainfall by Municipality, Dose Levels}\label{fig:map}
+\includegraphics[width=0.85\textwidth]{/Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thesis/Proposal 3 Mexico OG/Output/Figures/Main/drought_map_spi.png}
+\par\parbox{0.85\textwidth}{\singlespacing\scriptsize \textit{Notes:} The map shows the 2009 May--October CHIRPS rainfall z-score of each municipality, relative to its own 1981--2004 May--October mean and standard deviation, grouped into dose levels with the SPI cutoffs \parencite{mckeeRelationshipDroughtFrequency1993,wmoStandardizedPrecipitationIndex2012}. Municipalities where children in the estimation sample lived in 2005 are outlined in black.}
+\end{figure}
+
+
+In the discrete-dose analysis, I focus on negative rainfall deviations and exclude children in wet municipalities ($z \ge 1$). Additionally, to equalize measurement timing between treated and control groups, I exclude children interviewed in MxFLS-3 before November 2009, as the 2009 rainfall deficit had not yet fully occurred.
+
+\subsection*{C. Linking the Two Data Sources}
+
+Merging these datasets requires two steps. As far as I am aware, no previous research has attempted this linkage. First, municipality identifiers must be added to the MxFLS, as the variable is not readily available. I construct these identifiers by combining the household's state and municipality of residence at the time of interview. These are combined into the five-digit INEGI key, consisting of a two-digit state code and a three-digit municipality code. A small number of codes that do not appear in the INEGI catalog are corrected using the same household's municipality in other survey waves or set to missing. The linkage to municipalities is described on the MxFLS website and in the SNIEG geographic linkage guide \parencite{mxflsFrequentlyAskedQuestions,inegiGuiaParaVinculacion2025}. The next step is to combine CHIRPS spatial weather data with the MxFLS. I link these datasets by overlaying CHIRPS gridded precipitation data onto INEGI municipal boundaries, computing area-weighted May--October rainfall for each municipality and year, and merging these measures with MxFLS children by their 2005 municipality.
+
+\section*{IV. Summary Statistics}\phantomsection\label{sec:IV}
+
+I am primarily interested in capturing the anthropometric outcomes HAZ, WAZ, and BMIZ, as they are objective measures collected by trained health workers. Prior literature uses these measures to capture nutritional status and the stock of physical health \parencite{adairAgeSpecificDeterminantsStunting1997,hoddinottAdultConsequencesGrowth2013,gilesProtectingChildNutritional2015}. I provide summary statistics for my primary specification in Table~\ref{tab:sumstats}.
+
+\begingroup\singlespacing
+\begingroup
+\footnotesize
+\renewcommand{\arraystretch}{0.86}
+\setlength{\tabcolsep}{4pt}
+\setlength{\LTcapwidth}{\textwidth}
+\begin{table}[!htbp]\centering
+\caption{Summary Statistics, Discrete-Dose Samples}\label{tab:sumstats}\hypertarget{tab-sumstats}{}
+\footnotesize
+\global\setbox\tblbox=\hbox{\begin{tabular}{l*{6}{c}}
+\toprule
+ & \multicolumn{6}{c}{Panel A: WAZ, age \ensuremath{\le}10 in 2005 and 2009}\\
+\cmidrule(lr){2-7}
+                    &        Mean&   Std. dev.&        Min.&      Median&        Max.&        Obs.\\
+\midrule
+\textit{Outcomes (MxFLS-2, 2005)}&            &            &            &            &            &            \\
+Weight-for-age z-score (WAZ)&       -0.30&        1.42&       -5.07&       -0.36&        4.51&       1,045\\
+\addlinespace[6pt]\textit{Outcome change, 2005 to 2009}&            &            &            &            &            &            \\
+Change in WAZ       &        0.55&        1.41&       -4.88&        0.46&        9.10&       1,045\\
+\addlinespace[6pt]\textit{Dose levels (CHIRPS)}&            &            &            &            &            &            \\
+2009 rainfall, z    &       -0.50&        0.83&       -2.24&       -0.39&        0.96&       1,045\\
+Near normal, \ensuremath{-1<z<1}&        0.65&        0.48&        0.00&        1.00&        1.00&       1,045\\
+Moderately dry, \ensuremath{-1.5<z\le -1}&        0.21&        0.41&        0.00&        0.00&        1.00&       1,045\\
+Severely dry or worse, \ensuremath{z\le -1.5}&        0.14&        0.35&        0.00&        0.00&        1.00&       1,045\\
+
+\bottomrule
+\addlinespace[12pt]
+\toprule
+ & \multicolumn{6}{c}{Panel B: HAZ and BMIZ, age \ensuremath{\le}15 in 2005 and 2009}\\
+\cmidrule(lr){2-7}
+                    &        Mean&   Std. dev.&        Min.&      Median&        Max.&        Obs.\\
+\midrule
+\textit{Outcomes (MxFLS-2, 2005)}&            &            &            &            &            &            \\
+Height-for-age z-score (HAZ)&       -0.58&        1.49&       -5.46&       -0.63&        5.65&       2,351\\
+BMI-for-age z-score (BMIZ)&        0.36&        1.43&       -4.95&        0.30&        4.86&       2,310\\
+\addlinespace[6pt]\textit{Outcome change, 2005 to 2009}&            &            &            &            &            &            \\
+Change in HAZ       &        0.07&        1.37&       -5.93&        0.07&        6.35&       2,351\\
+Change in BMIZ      &        0.23&        1.31&       -5.90&        0.17&        7.59&       2,295\\
+\addlinespace[6pt]\textit{Dose levels (CHIRPS)}&            &            &            &            &            &            \\
+2009 rainfall, z    &       -0.55&        0.84&       -2.24&       -0.53&        0.96&       2,351\\
+Near normal, \ensuremath{-1<z<1}&        0.64&        0.48&        0.00&        1.00&        1.00&       2,351\\
+Moderately dry, \ensuremath{-1.5<z\le -1}&        0.21&        0.41&        0.00&        0.00&        1.00&       2,351\\
+Severely dry or worse, \ensuremath{z\le -1.5}&        0.16&        0.36&        0.00&        0.00&        1.00&       2,351\\
+
+\bottomrule
+\end{tabular}}%
+\makebox[\textwidth][c]{\usebox{\tblbox}}%
+\par\vspace{4pt}
+\noindent\makebox[\textwidth][c]{\parbox{\wd\tblbox}{\scriptsize \textit{Notes:} This table is for the discrete-dose specification, the main model. Obs. counts children. The sample is children with the outcome measured in MxFLS-2 (2005) and MxFLS-3 (2009), under the panel's age cutoff in both survey waves, with a 2005 municipality. They were not measured in MxFLS-3 before November 2009. I use November 2009 as the cutoff because the 2009 rainfall deficit had not fully occurred before then. Dropping them from both groups equalizes treated and control measurement timing. Children in wet municipalities (z of 1 or above) are excluded. Panel A uses the WAZ sample, Panel B the HAZ and BMIZ sample. The BMIZ sample is marginally smaller than the HAZ sample shown in Panel B, at 2,300 children. Statistics are at the 2005 baseline, except the change in WAZ, HAZ and BMIZ from 2005 to 2009, the outcome of the discrete-dose regressions, and 2009 rainfall. z is 2009 May--October CHIRPS rainfall, the maize growing season \parencite{jessoeClimateChangeLabour2018}, in the child's 2005 municipality in standard deviations from its 1981--2004 mean, grouped into dose levels with the SPI cutoffs \parencite{mckeeRelationshipDroughtFrequency1993,wmoStandardizedPrecipitationIndex2012}. The 2009 rainfall z is continuous. The three dose-group indicators have means equal to the share of children in each dose group. The discrete-dose regressions have no controls, as the contdid package does not yet accommodate covariates \parencite{callawayDifferenceinDifferencesContinuousTreatment2026}.}}%
+\end{table}
+\endgroup
+\endgroup
+
+
+In general, the variables in my study take the values one would expect for Mexican children in 2005. The anthropometric scores show modest negative deviations from the WHO reference for height and weight. For HAZ, the average child is about 0.6 standard deviations shorter than the WHO reference child of the same age and sex. Because the standard deviation of height grows with age, this corresponds to a gap of about 2 to 4 centimeters that widens as children get older. This is consistent with evidence that Mexican children in the mid-2000s were shorter than the international reference on average. Under the WHO standards, only about 2.3 percent of children in the reference population would be stunted by construction. However, 15.5 percent of Mexican children under five were stunted in 2006, suggesting that the height distribution was shifted downward \parencite{gonzalez-decossioChildMalnutritionMexico2009}. Similarly, the average WAZ in my sample is 0.30 standard deviations below the reference. In contrast, the average BMIZ shows that children in my sample have a BMI-for-age 0.36 standard deviations above the reference. This aligns with the high and rising prevalence of overweight among Mexican children at the time. In 2006, about 26 percent of Mexican children aged 5 to 11 were overweight or obese \parencite{shamah-levyResultadosNutricionENSANUT2007}. The changes in WAZ, BMIZ, and HAZ capture average differences in these outcomes between 2005 and 2009 and should not be interpreted as treatment effects. The average 2009 rainfall deviation in the HAZ and BMIZ sample is negative at $\bar{z} = -0.55$. This is consistent with 2009 being one of Mexico's worst droughts in recent decades \parencite{davydova-belitskayaMexico2010}. For most variables, the mean and median are close, indicating that the distributions are not strongly skewed.
+
+I construct HAZ, WAZ, and BMIZ using the World Health Organization (WHO) software, applying the WHO Child Growth Standards for children under five and the WHO 2007 Growth Reference for those aged five to nineteen \parencite{whomulticentregrowthreferencestudygroupWHOChildGrowth2006,deonisDevelopmentWHOGrowth2007}. Each z-score measures how many standard deviations a child's measurement lies from the median of the reference population of the same age and sex, computed with the reference's Box-Cox (LMS) parameters. Following the WHO software, I set biologically implausible values to missing: HAZ below $-6$ or above 6, WAZ below $-6$ or above 5, and BMIZ below $-5$ or above 5. I keep the outcomes as continuous z-scores rather than binary stunting, underweight, or thinness indicators, because the conventional $-2$ standard deviation stunting cutoff has no biological basis. That is, children just above and just below it are similarly affected \parencite{perumalUseMisuseStunting2018}.
+
+\section*{V. Empirical Strategy}\phantomsection\label{sec:V}
+
+\subsection*{A. Difference-in-Differences with a Multi-Valued Discrete Dose}
+
+To allow treatment effects to vary with the severity of the rainfall deficit, my main specification follows the difference-in-differences design with a continuous treatment, which accommodates both absolutely continuous and multi-valued discrete doses \parencite{callawayDifferenceinDifferencesContinuousTreatment2024}. My main specification uses a multi-valued discrete dose. Since the \href{https://bcallaway11.github.io/contdid/}{contdid package} does not yet support discrete doses, I estimate the dose groups with the discrete-dose regression in equation (4.1) of their paper \parencite{callawayDifferenceinDifferencesContinuousTreatment2024}. Each dose group is compared only with near-normal municipalities, defined by a 2009 rainfall z-score of $-1 < z < 1$, which serve as the untreated group. With three survey waves, I test for pre-trends between 2002 and 2005 and estimate the difference-in-differences between 2005 and 2009, comparing the change in each dose group's outcome with the same change for near-normal children. Identification requires only that each dose group and the near-normal group would have trended the same in the absence of the deficit. Under this assumption, each coefficient identifies the average treatment effect on the treated for its dose group. I do not compare the dose groups with each other, as doing so would require ``strong'' parallel trends \parencite{callawayDifferenceinDifferencesContinuousTreatment2024}. I also use the contdid package developed by \textcite{callawayDifferenceinDifferencesContinuousTreatment2026} to estimate the continuous specification with the 2009 rainfall deficit defined as $D_m = \max(0, -z_m)$. However, it treats any 2009 rainfall below the municipality's mean as treatment, conflating ordinary year-to-year variation with true deficits. I report it in Section \hyperref[sec:VII]{VII} and Online Appendix Figures~\ref{OA-fig:oa_binscatter} and~\ref{OA-fig:oa_att_bmiz}.
+
+Following \textcite{callawayDifferenceinDifferencesContinuousTreatment2024}, I regress the change in each outcome on indicators for every dose level, with the untreated near-normal municipalities as the omitted category. For the outcome $Y$ of child $i$ whose 2005 municipality is $m$, I estimate:
+\begin{equation}
+Y_{im,2009} - Y_{im,2005} = \beta_0 + \beta_{mod}\,\mathbf{1}\{-1.5 < z_m \le -1\} + \beta_{sev}\,\mathbf{1}\{z_m \le -1.5\} + \varepsilon_{im}, \label{eq:dose}
+\end{equation}
+where $Y$ is HAZ, WAZ, or BMIZ, and children in near-normal municipalities ($-1 < z_m < 1$) form the untreated group. I also estimate a pooled version with a single indicator for dry municipalities, $\mathbf{1}\{z_m \le -1\}$. With two periods, equation~\eqref{eq:dose} is equivalent to a two-way fixed-effects regression with child and survey wave fixed effects in which each dose-level indicator is interacted with the post period.
+
+The coefficients of interest are $\beta_{mod}$ and $\beta_{sev}$. Under the identifying assumptions, $\beta_{mod}$ estimates $ATT(d|d)$ for children in moderately dry municipalities. That is, $\beta_{mod}$ captures the average effect of moderately dry rainfall on children in moderately dry municipalities. $\beta_{sev}$ is the analogous effect for children in severely dry or worse municipalities. Differencing removes all time-invariant characteristics of the child, such as genetic potential, while changes common to all children are absorbed by the comparison with near-normal children. Standard errors are clustered by 2005 municipality, as rainfall is assigned at the municipality level and children in the same municipality share local conditions.
+
+I also report wild cluster bootstrap p-values, because with few treated municipalities in each dry dose group, conventional cluster-robust inference tends to over-reject \parencite{mackinnonClusterrobustInferenceGuide2023}. The restricted wild cluster bootstrap instead usually under-rejects when there are few treated clusters, making it a conservative test. I do not include covariates, as the contdid package does not yet accommodate them \parencite{callawayDifferenceinDifferencesContinuousTreatment2026}.
+
+\section*{VI. Results}\phantomsection\label{sec:VI}
+
+Overall, I find that children experiencing moderate rainfall deficits of 1 to 1.5 standard deviations below their municipality's norm had a decline in BMIZ relative to children in near-normal municipalities. Point estimates for WAZ have the same sign and a similar magnitude but are not statistically significant. I find no significant effect for the severely dry or worse dose group, and no evidence that HAZ responds at any level of the deficit. The key identifying assumption is parallel trends. Absent the 2009 rainfall deficit, children in near-normal municipalities would have followed the same trend as children in moderately dry municipalities. The same assumption applies to the comparison between the severely dry or worse dose group and the near-normal group.
+
+My pre-trend test is a three-period event study with 2005 as the reference survey wave, estimated on the children in Table~\ref{tab:dose} with child and survey wave fixed effects. The 2002 leads are identified from the children who were also measured in 2002. Whereas the treatment effect compares the 2005 to 2009 change in each dry dose group with the change in near-normal municipalities, the pre-trend test makes the same comparison for 2002 to 2005, before the deficit occurred. If trends were parallel before the deficit, these 2002 leads should be close to zero. Figure~\ref{fig:es_bmiz} shows that the BMIZ lead for the moderately dry dose group is $-0.24$ and not significant, but its standard error of 0.17 is large, so the lead is imprecisely estimated and the test is not very informative. The BMIZ lead for the severely dry or worse dose group is $-0.26$ with a standard error of 0.12 and fails the pre-trend test. The WAZ leads are of similar size in both dose groups and are not significant. The HAZ leads are close to zero in both dose groups. The event studies for all three outcomes are shown in Figures~\ref{fig:es_bmiz} to~\ref{fig:es_waz}, and the 2009 coefficients match those in Table~\ref{tab:dose}.
+
+\afterpage{\afterpage{\begin{landscape}
+\vspace*{\fill}
+\noindent
+\begin{minipage}[t]{0.33\linewidth}
+\centering
+\captionof{figure}{Event Study by Dose Level, BMI-for-Age}\label{fig:es_bmiz}
+\includegraphics[width=\linewidth]{/Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thesis/Proposal 3 Mexico OG/Output/Figures/Main/event_study_severity_bmiz.png}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.33\linewidth}
+\centering
+\captionof{figure}{Event Study by Dose Level, Height-for-Age}\label{fig:es_haz}
+\includegraphics[width=\linewidth]{/Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thesis/Proposal 3 Mexico OG/Output/Figures/Main/event_study_severity_haz.png}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.33\linewidth}
+\centering
+\captionof{figure}{Event Study by Dose Level, Weight-for-Age}\label{fig:es_waz}
+\includegraphics[width=\linewidth]{/Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thesis/Proposal 3 Mexico OG/Output/Figures/Main/event_study_severity_waz.png}
+\end{minipage}\hfill
+\par\vspace{6pt}
+\noindent\parbox{\linewidth}{\singlespacing\scriptsize \textit{Notes:} Moderately dry and severely dry or worse compared with near-normal. The 2009 coefficients are the same as in Table~\ref{tab:dose}. Here I include both the 2002 lead and the 2009 coefficient. Similar to Table~\ref{tab:dose}, there are no controls. Included are child and survey wave fixed effects. 2005 is the reference wave. 95\% confidence intervals use standard errors clustered by 2005 municipality.}
+\vspace*{\fill}
+\end{landscape}}}
+
+
+Regarding the remaining identifying assumptions of \textcite{callawayDifferenceinDifferencesContinuousTreatment2024}, my sample comes from a nationally representative survey, supporting the random sampling assumption. Treatment is defined as a multi-valued discrete dose, with no children treated in 2005 and each municipality assigned to a dose level following the 2009 deficit. The no-anticipation assumption is also plausible as families in 2005 were unlikely to predict rainfall conditions during the 2009 growing season. I further assess two additional concerns, stable composition and overlap, in Section \hyperref[sec:VIII]{VIII}.
+
+\begingroup\singlespacing
+\begingroup
+\footnotesize
+\renewcommand{\arraystretch}{0.86}
+\setlength{\tabcolsep}{4pt}
+\setlength{\LTcapwidth}{\textwidth}
+\begin{table}[!htbp]\centering
+\caption{2009 Rainfall Deficits and Child Anthropometrics, Discrete Dose}\label{tab:dose}
+\footnotesize
+\global\setbox\tblbox=\hbox{\begin{tabular}{l*{6}{c}}
+\toprule
+ & \multicolumn{2}{c}{HAZ} & \multicolumn{2}{c}{WAZ} & \multicolumn{2}{c}{BMIZ}\\
+\cmidrule(lr){2-3}\cmidrule(lr){4-5}\cmidrule(lr){6-7}
+ & (1) & (2) & (3) & (4) & (5) & (6)\\
+\midrule
+Dry, \ensuremath{z\le -1} & -0.041 &  & -0.197 &  & -0.163\sym{**} & \\
+ & (0.100) &  & (0.117) &  & (0.076) & \\
+ & [0.704] &  & [0.104] &  & [0.036] & \\
+Moderately dry, \ensuremath{-1.5<z\le -1} &  & 0.018 &  & -0.230 &  & -0.221\sym{*}\\
+ &  & (0.139) &  & (0.164) &  & (0.106)\\
+ &  & [0.915] &  & [0.220] &  & [0.062]\\
+Severely dry or worse, \ensuremath{z\le -1.5} &  & -0.117 &  & -0.148 &  & -0.086\\
+ &  & (0.112) &  & (0.119) &  & (0.068)\\
+ &  & [0.308] &  & [0.238] &  & [0.218]\\
+\midrule
+P-val: pre-trend 2002--2005, moderately dry & & 0.933 & & 0.393 & & 0.230\\
+P-val: pre-trend 2002--2005, severely dry or worse & & 0.791 & & 0.237 & & 0.040\\
+Children & 2,351 & 2,351 & 1,045 & 1,045 & 2,300 & 2,300\\
+Dry 2005 municipalities & 40 &  & 39 &  & 40 & \\
+Near-normal 2005 municipalities & 89 & 89 & 80 & 80 & 89 & 89\\
+\bottomrule
+\end{tabular}}%
+\makebox[\textwidth][c]{\usebox{\tblbox}}%
+\par\vspace{4pt}
+\noindent\makebox[\textwidth][c]{\parbox{\wd\tblbox}{\scriptsize \textit{Notes:} This table compares children in dry 2005 municipalities with children in near-normal ones. Regressions are at the child level, on the 2005 to 2009 change in the WHO z-score, for the binary DID estimation samples without children in wet municipalities (z of 1 or above). z is 2009 May--October CHIRPS rainfall, the maize growing season \parencite{jessoeClimateChangeLabour2018}, in the child's 2005 municipality in standard deviations from its 1981--2004 mean, grouped into dose levels with the SPI cutoffs. The SPI cutoffs are near normal for z between -1 and 1, moderately dry between -1.5 and -1, and severely dry or worse for -1.5 or below \parencite{mckeeRelationshipDroughtFrequency1993,wmoStandardizedPrecipitationIndex2012}. Cols. 1, 3 and 5 compare dry (z of -1 or below) with near normal, and Cols. 2, 4 and 6 split dry into moderately dry and severely dry or worse. Each dose group is only compared with near normal, which needs parallel trends, and not with the other dose group, which would need strong parallel trends \parencite{callawayDifferenceinDifferencesContinuousTreatment2024}. Since the contdid package does not yet support discrete doses, the dose groups are estimated with the discrete-dose regression in equation 4.1 \parencite{callawayDifferenceinDifferencesContinuousTreatment2024}. The regressions have no controls, as the contdid package does not yet accommodate covariates \parencite{callawayDifferenceinDifferencesContinuousTreatment2026}. The pre-trend p-values test the 2002 leads of the discrete-dose event study, on the same children with child and wave fixed effects. Standard errors clustered by 2005 municipality are in parentheses. Wild cluster bootstrap p-values are in brackets, which tend to be conservative with few treated municipalities \parencite{mackinnonClusterrobustInferenceGuide2023}. Stars use the clustered p-values, and where a wild bootstrap p-value is shown both must pass. \mbox{\sym{*}\(p<.10\), \sym{**}\(p<.05\), \sym{***}\(p<.01\).}}}%
+\end{table}
+\endgroup
+\endgroup
+
+
+Table~\ref{tab:dose} reports the estimates of equation~\eqref{eq:dose}. Each coefficient compares the 2005-to-2009 change in a child's z-score for a given dose group with the corresponding change among children in near-normal municipalities. Under the identifying assumptions, each dose group has its own ATT. The coefficient on dry in column 5 indicates that children in municipalities where 2009 growing-season rainfall fell at least one standard deviation below the 1981--2004 mean experienced a 0.16 standard deviation smaller increase in BMIZ between 2005 and 2009 (compared to an average increase of 0.23 standard deviations in the sample). This is similar to findings in rural Mexico, where rainfall shocks exceeding one standard deviation from the local mean reduced BMI z-scores by about 0.07 among children and adults and by 0.16 among infants \parencite{adhvaryuHelpingChildrenCatch2024}. For moderately dry municipalities in column 6, the effect is larger in absolute value and statistically significant at the 10 percent level. At the average age and height of children in the sample, the dry effect corresponds to roughly 0.9 kg or 2 percent of body weight, compared with 1.2 kg or 3 percent for the moderately dry dose group. The economic significance of these negative coefficients requires some care. BMIZ measures a child's body mass index relative to the WHO reference for their age and sex. The implications of a decline therefore depend on the child's initial nutritional status. A reduction may be harmful for a thin child but could represent an improvement for an overweight child. Given the negative income and food supply shock associated with the 2009 rainfall deficit, I interpret the BMIZ decline as potentially reflecting reduced nutritional intake rather than improved diet quality. Next steps should examine whether the decline is concentrated among children who were initially thin or overweight.
+
+For the severely dry or worse dose group, my estimate of $-0.09$ with a standard error of 0.07 is not statistically significant. This finding contrasts with studies of extreme shocks which find harmful effects on children \parencite{aldermanLongTermConsequences2006}. However, the 95 percent confidence interval of $-0.22$ to 0.05 includes zero as well as effects as large as the moderately dry estimate, so I cannot distinguish a null effect from one of similar magnitude. This dose group also fails the pre-trend test for BMIZ. I therefore do not interpret the statistically insignificant estimate as evidence that severe rainfall deficits are harmless. The WAZ coefficients have the same sign and similar absolute magnitudes as those for BMIZ but are not statistically significant. This may reflect limited statistical power rather than a true null effect, as the WAZ sample of 1,045 children is less than half the size of the BMIZ and HAZ samples due to the restriction to children aged 10 or younger. Across outcomes, the negative WAZ estimates and HAZ estimates close to zero suggest that rainfall deficits reduced weight relative to height. Since BMI is weight divided by height squared, this pattern is consistent with the decline in BMIZ.
+
+I do not find any statistically significant results for HAZ, and the point estimates are small. These findings line up with the general idea that weight is a proxy for short-term nutritional status, while height reflects nutrition over the longer period of early-life growth \parencite{currieEarlyLifeHealthAdult2013}.
+
+\section*{VII. Additional Results}\phantomsection\label{sec:VII}
+
+Here I extend my previous analysis by first examining whether the effects of rainfall shocks on child health hold under a binary-shock specification with baseline controls and fixed effects to account for observed and unobserved heterogeneity. I also briefly discuss the continuous-dose estimator of \textcite{callawayDifferenceinDifferencesContinuousTreatment2024} implemented through the contdid package as an alternative to my previous discrete-dose regression. Finally, I return to my earlier specifications and conduct subgroup analyses to examine whether treatment effects differ by gender and rural residence.
+
+\subsection*{A. Binary Difference-in-Differences with Controls}
+
+While my main specification has the advantage of estimating a separate ATT for each dose group, it does not include covariates. The binary specification takes advantage of my longitudinal panel to condition on ex ante household, parental, and child characteristics measured up to seven years before treatment. Measuring the covariates before the shock avoids the bias that arises from conditioning on characteristics that could themselves respond to the drought, such as contemporaneous household expenditure or parental employment. I use this specification as an additional check. Without controls, the discrete-dose estimates could be confounded by differences in trends that are correlated with both the deficit and baseline characteristics, for example if poorer households were both more exposed to the deficit and on different health paths. Because my dataset contains detailed baseline information, I add controls for other droughts as well as household, child, and parental controls. In addition, the child fixed effects remove all time-invariant differences between children, so the drought effect is identified from changes within the same child. The interview year-month fixed effects remove seasonal and timing differences common to all children measured in the same month.
+\begin{equation}
+\begin{split}
+Y_{imt} = {} & \beta\left(\text{Drought}_m^{2009} \times \text{Post}_t\right) + \sum_{k=2005}^{2008} \pi_k \left(\text{Drought}_m^{k} \times \text{Post}_t\right) \\
+& + \text{Post}_t \times \left(\mathbf{X}_h^{2002\prime}\boldsymbol{\delta} + \mathbf{C}_i^{2005\prime}\boldsymbol{\theta}\right) + \alpha_i + \lambda_{ym} + \varepsilon_{imt}
+\end{split}
+\label{eq:binary}
+\end{equation}
+
+The coefficient of interest is $\beta$, which captures the difference in the change in the child's z-score between municipalities that experienced a drought in 2009 and municipalities that did not. $\text{Drought}_m^{2009}$ is a binary indicator that equals one if 2009 May--October rainfall in the child's 2005 municipality was below the 20th percentile of the municipality's own 1981--2004 May--October rainfall \parencite{shahDroughtOpportunitiesContemporaneous2017}. $\text{Post}_t$ is a binary indicator that equals one for the survey wave after the 2009 drought, MxFLS-3. I then add controls for droughts between 2005 and 2008, denoted by the summation, so that $\beta$ captures the 2009 drought rather than earlier droughts that also occurred between the two survey waves. I also add household controls, denoted by the vector $\mathbf{X}_h^{2002}$, and child and mother controls, denoted by the vector $\mathbf{C}_i^{2005}$. Appendix Table~\ref{tab:model3sum} provides detailed information on these controls. All controls are interacted with $\text{Post}_t$, because they do not vary over time within a child and would otherwise be absorbed by the child fixed effects. $\alpha_i$ is a child fixed effect, which controls for time-invariant characteristics of the child. $\lambda_{ym}$ is an interview year-month fixed effect, which absorbs shocks common to all children measured in the same month. $\varepsilon_{imt}$ is a mean-zero error term. Because rainfall shocks are assigned at the 2005 municipality level and children within the same municipality share local conditions, I cluster standard errors by 2005 municipality. This allows for arbitrary correlation across children and over time within each municipality.
+
+Under this specification, I again argue that the 2009 drought is orthogonal to time-varying unobserved determinants of child health, for the same reasons discussed for the main specification. Rainfall is calculated as in the main specification, except that the treatment is a binary indicator for rainfall below the municipality's 1981--2004 20th percentile rather than a dose level of the standardized deviation. Appendix Figure~\ref{fig:mapbinary} maps drought and non-drought municipalities in the estimation sample. The two definitions do not align exactly because some municipalities below their 20th percentile have z-scores above $-1$. As a result, the binary treatment combines moderate and more severe rainfall deficits.
+
+For brevity, I discuss the identifying assumptions for the binary difference-in-differences and the event studies in \hyperref[app:binary]{Appendix B}.
+
+Across all specifications, I add controls in increments, starting with earlier droughts and then household, child, mother, and father controls. All specifications include child and interview year-month fixed effects. Looking at the outcome BMIZ, the coefficient for the BMI-for-age z-score remains negative, stable, and statistically significant throughout, as shown in Table~\ref{tab:binbmiz}. The fact that the coefficient on the 2009 drought remains negative and significant after controlling for the 2005 to 2008 droughts indicates that the 2009 drought matters in and of itself, and not simply because it is correlated with droughts in the preceding years.
+
+\begingroup\singlespacing
+\begingroup
+\footnotesize
+\renewcommand{\arraystretch}{0.86}
+\setlength{\tabcolsep}{4pt}
+\setlength{\LTcapwidth}{\textwidth}
+\begin{table}[!htbp]\centering
+\caption{2009 Drought and BMI-for-Age, Binary DID}\label{tab:binbmiz}
+\footnotesize
+\global\setbox\tblbox=\hbox{\begin{tabular}{l*{5}{c}}
+\toprule
+ & \multicolumn{5}{c}{BMI-for-age z-score (BMIZ)}\\
+\cmidrule(lr){2-6}
+            &\multicolumn{1}{c}{(1)}         &\multicolumn{1}{c}{(2)}         &\multicolumn{1}{c}{(3)}         &\multicolumn{1}{c}{(4)}         &\multicolumn{1}{c}{(5)}         \\
+\midrule
+Drought \ensuremath{\times} post&      -0.145\sym{**} &      -0.180\sym{**} &      -0.304\sym{***}&      -0.212\sym{*}  &      -0.266\sym{**} \\
+            &     (0.071)         &     (0.087)         &     (0.095)         &     (0.112)         &     (0.110)         \\
+Drought \ensuremath{\times} post \ensuremath{\times} 2002 remittances&                     &                     &                     &                     &       0.027         \\
+            &                     &                     &                     &                     &     (0.217)         \\
+2002 remittances \ensuremath{\times} post&                     &                     &                     &                     &       0.010         \\
+            &                     &                     &                     &                     &     (0.074)         \\
+\midrule
+2005--2008 droughts \ensuremath{\times} post&           N         &           Y         &           Y         &           Y         &           Y         \\
+2002 household controls \ensuremath{\times} post&           N         &           N         &           Y         &           Y         &           Y         \\
+2005 child and mother controls \ensuremath{\times} post&           N         &           N         &           Y         &           Y         &           Y         \\
+2005 father and birth controls \ensuremath{\times} post&           N         &           N         &           N         &           Y         &           N         \\
+Child FE    &           Y         &           Y         &           Y         &           Y         &           Y         \\
+Interview year-month FE&           Y         &           Y         &           Y         &           Y         &           Y         \\
+Children    &       2,379         &       2,379         &       1,714         &         712         &       1,587         \\
+\bottomrule
+\end{tabular}}%
+\makebox[\textwidth][c]{\usebox{\tblbox}}%
+\par\vspace{4pt}
+\noindent\makebox[\textwidth][c]{\parbox{\wd\tblbox}{\scriptsize \textit{Notes:} This table reports the effect of the 2009 drought on the WHO BMI-for-age z-score (BMIZ) with the binary DID. Regressions are at the child-wave level. The sample is children with the outcome measured in both MxFLS-2 (2005) and MxFLS-3 (2009), aged 15 or younger in both survey waves. Cols. 3--5 also keep only children with all of their regressors observed. Children have a 2005 municipality. They were not measured in MxFLS-3 before November 2009, for the same reason as in Table~\ref{tab:sumstats}. Drought equals 1 if May--October CHIRPS rainfall in 2009, the maize growing season \parencite{jessoeClimateChangeLabour2018}, in the child's 2005 municipality was below its 1981--2004 20th percentile \parencite{shahDroughtOpportunitiesContemporaneous2017}. Post equals 1 in MxFLS-3. Remittances equal 1 if the household received cash in the last 12 months from parents, siblings, or children living outside the household in MxFLS-1 (2002), a proxy for remittances. Cols. 1--4 report the average drought effect. Col. 1 is the basic DID, Col. 2 adds the 2005--2008 droughts, and Col. 3 adds 2002 household controls (electricity, floor, roof, ventilation, sleeping rooms per person, log expenditure per capita, rural) and 2005 child and mother controls (child sex and full vaccination, mother's height, schooling, age at birth and employment). Col. 4 adds the 2005 father and birth controls (father's height, schooling, age at birth and employment, birth order, oldest child, birth weight, delivered at home, weeks predominantly breastfed, iron in pregnancy, premature), which are missing for many children, often because the father migrated. All controls are interacted with post. Col. 5 is the triple difference: it keeps the controls of Col. 3 and adds 2002 remittances \ensuremath{\times} post and drought \ensuremath{\times} post \ensuremath{\times} 2002 remittances, the difference in the drought effect for children in 2002 remittance households. Rural is a locality with fewer than 2,500 inhabitants \parencite{inegiQueHayLocalidades2024}. All regressions include child and interview year-month fixed effects, children in singleton cells are dropped, and standard errors are clustered by 2005 municipality, where the drought is assigned. \mbox{\sym{*}\(p<.10\), \sym{**}\(p<.05\), \sym{***}\(p<.01\).}}}%
+\end{table}
+\endgroup
+\endgroup
+
+
+The basic specification in column 1 implies that children in municipalities affected by the 2009 drought experienced a 0.15 standard deviation smaller increase in BMIZ between 2005 and 2009 than children in other municipalities (compared to an average increase of 0.23 standard deviations in the sample). Converted using the WHO reference for each child's age, sex, and height, this corresponds to roughly 0.4 kg/m$^2$ lower BMI or about 0.8 kg less body weight at the average height of 139 cm. This is most comparable to my discrete-dose specification without controls. As with the discrete-dose results, BMIZ is not monotonically related to welfare, so the economic significance of this decline differs across children with different baseline nutritional status. Adding controls for droughts between 2005 and 2008 in column 2 keeps the coefficient statistically significant and increases its absolute magnitude slightly from $-0.15$ to $-0.18$. Further adding baseline household, child, and maternal controls in column 3 to address potentially confounding pre-shock differences between children roughly doubles the estimate to $-0.30$. With a standard error similar to that in column 2, it becomes statistically significant at the 1 percent level. Column 4 adds paternal and birth controls and the estimate remains negative and statistically significant. However, the sample decreases to only 712 children primarily due to missing observations associated with paternal migration. However, the primary identifying assumption of parallel pre-trends does not hold. The 2002 lead is large and statistically significant, with a coefficient of $-0.39$ and a standard error of 0.10, as shown in the BMIZ event study in Appendix Table~\ref{tab:esbmiz} and Figure~\ref{fig:esc_bmiz}. These findings therefore remain suggestive. Nonetheless, they provide some reassurance because the two designs agree on the sign and approximate magnitude of the effect. I discuss the coefficient on remittances in column 5 in Section \hyperref[sec:IX]{IX}.
+
+\begingroup\singlespacing
+\begingroup
+\footnotesize
+\renewcommand{\arraystretch}{0.86}
+\setlength{\tabcolsep}{4pt}
+\setlength{\LTcapwidth}{\textwidth}
+\begin{table}[!htbp]\centering
+\caption{2009 Drought and Weight-for-Age, Binary DID}\label{tab:binwaz}
+\footnotesize
+\global\setbox\tblbox=\hbox{\begin{tabular}{l*{5}{c}}
+\toprule
+ & \multicolumn{5}{c}{Weight-for-age z-score (WAZ)}\\
+\cmidrule(lr){2-6}
+            &\multicolumn{1}{c}{(1)}         &\multicolumn{1}{c}{(2)}         &\multicolumn{1}{c}{(3)}         &\multicolumn{1}{c}{(4)}         &\multicolumn{1}{c}{(5)}         \\
+\midrule
+Drought \ensuremath{\times} post&      -0.200\sym{**} &      -0.196\sym{**} &      -0.299\sym{**} &      -0.181         &      -0.119         \\
+            &     (0.101)         &     (0.095)         &     (0.125)         &     (0.193)         &     (0.147)         \\
+Drought \ensuremath{\times} post \ensuremath{\times} 2002 remittances&                     &                     &                     &                     &      -0.376\sym{*}  \\
+            &                     &                     &                     &                     &     (0.205)         \\
+2002 remittances \ensuremath{\times} post&                     &                     &                     &                     &       0.096         \\
+            &                     &                     &                     &                     &     (0.119)         \\
+\midrule
+2005--2008 droughts \ensuremath{\times} post&           N         &           Y         &           Y         &           Y         &           Y         \\
+2002 household controls \ensuremath{\times} post&           N         &           N         &           Y         &           Y         &           Y         \\
+2005 child and mother controls \ensuremath{\times} post&           N         &           N         &           Y         &           Y         &           Y         \\
+2005 father and birth controls \ensuremath{\times} post&           N         &           N         &           N         &           Y         &           N         \\
+Child FE    &           Y         &           Y         &           Y         &           Y         &           Y         \\
+Interview year-month FE&           Y         &           Y         &           Y         &           Y         &           Y         \\
+Children    &       1,078         &       1,078         &         700         &         224         &         634         \\
+\bottomrule
+\end{tabular}}%
+\makebox[\textwidth][c]{\usebox{\tblbox}}%
+\par\vspace{4pt}
+\noindent\makebox[\textwidth][c]{\parbox{\wd\tblbox}{\scriptsize \textit{Notes:} This table reports the effect of the 2009 drought on the WHO weight-for-age z-score (WAZ) with the binary DID. Regressions are at the child-wave level. The sample is children with the outcome measured in both MxFLS-2 (2005) and MxFLS-3 (2009), aged 10 or younger in both survey waves. Cols. 3--5 also keep only children with all of their regressors observed. Children have a 2005 municipality. They were not measured in MxFLS-3 before November 2009, for the same reason as in Table~\ref{tab:sumstats}. Drought equals 1 if May--October CHIRPS rainfall in 2009, the maize growing season \parencite{jessoeClimateChangeLabour2018}, in the child's 2005 municipality was below its 1981--2004 20th percentile \parencite{shahDroughtOpportunitiesContemporaneous2017}. Post equals 1 in MxFLS-3. Remittances equal 1 if the household received cash in the last 12 months from parents, siblings, or children living outside the household in MxFLS-1 (2002), a proxy for remittances. Cols. 1--4 report the average drought effect. Col. 1 is the basic DID, Col. 2 adds the 2005--2008 droughts, and Col. 3 adds 2002 household controls (electricity, floor, roof, ventilation, sleeping rooms per person, log expenditure per capita, rural) and 2005 child and mother controls (child sex and full vaccination, mother's height, schooling, age at birth and employment). Col. 4 adds the 2005 father and birth controls (father's height, schooling, age at birth and employment, birth order, oldest child, birth weight, delivered at home, weeks predominantly breastfed, iron in pregnancy, premature), which are missing for many children, often because the father migrated. All controls are interacted with post. Col. 5 is the triple difference: it keeps the controls of Col. 3 and adds 2002 remittances \ensuremath{\times} post and drought \ensuremath{\times} post \ensuremath{\times} 2002 remittances, the difference in the drought effect for children in 2002 remittance households. Rural is a locality with fewer than 2,500 inhabitants \parencite{inegiQueHayLocalidades2024}. All regressions include child and interview year-month fixed effects, children in singleton cells are dropped, and standard errors are clustered by 2005 municipality, where the drought is assigned. \mbox{\sym{*}\(p<.10\), \sym{**}\(p<.05\), \sym{***}\(p<.01\).}}}%
+\end{table}
+\endgroup
+\endgroup
+
+
+I find similar results for WAZ (Table~\ref{tab:binwaz}), with estimates of the same sign and similar magnitude. The estimates are statistically significant at the 5 percent level in the first three models, implying a 0.20, 0.20, and 0.30 standard deviation smaller increase in WAZ, but not once the father and birth controls are added on a much smaller sample. This aligns with my discrete-dose specification, where the WAZ estimate for dry municipalities is nearly identical in size. The difference in significance is marginal and reflects a slightly smaller standard error in the binary specification. Additionally, to be conservative, the discrete-dose table uses a stricter inference rule that requires both the clustered and the wild bootstrap p-values to pass.
+
+\begingroup\singlespacing
+\begingroup
+\footnotesize
+\renewcommand{\arraystretch}{0.86}
+\setlength{\tabcolsep}{4pt}
+\setlength{\LTcapwidth}{\textwidth}
+\begin{table}[!htbp]\centering
+\caption{2009 Drought and Height-for-Age, Binary DID}\label{tab:binhaz}
+\footnotesize
+\global\setbox\tblbox=\hbox{\begin{tabular}{l*{5}{c}}
+\toprule
+ & \multicolumn{5}{c}{Height-for-age z-score (HAZ)}\\
+\cmidrule(lr){2-6}
+            &\multicolumn{1}{c}{(1)}         &\multicolumn{1}{c}{(2)}         &\multicolumn{1}{c}{(3)}         &\multicolumn{1}{c}{(4)}         &\multicolumn{1}{c}{(5)}         \\
+\midrule
+Drought \ensuremath{\times} post&      -0.072         &      -0.035         &       0.021         &       0.101         &      -0.005         \\
+            &     (0.096)         &     (0.103)         &     (0.113)         &     (0.168)         &     (0.118)         \\
+Drought \ensuremath{\times} post \ensuremath{\times} 2002 remittances&                     &                     &                     &                     &      -0.153         \\
+            &                     &                     &                     &                     &     (0.148)         \\
+2002 remittances \ensuremath{\times} post&                     &                     &                     &                     &      -0.165\sym{*}  \\
+            &                     &                     &                     &                     &     (0.090)         \\
+\midrule
+2005--2008 droughts \ensuremath{\times} post&           N         &           Y         &           Y         &           Y         &           Y         \\
+2002 household controls \ensuremath{\times} post&           N         &           N         &           Y         &           Y         &           Y         \\
+2005 child and mother controls \ensuremath{\times} post&           N         &           N         &           Y         &           Y         &           Y         \\
+2005 father and birth controls \ensuremath{\times} post&           N         &           N         &           N         &           Y         &           N         \\
+Child FE    &           Y         &           Y         &           Y         &           Y         &           Y         \\
+Interview year-month FE&           Y         &           Y         &           Y         &           Y         &           Y         \\
+Children    &       2,432         &       2,432         &       1,755         &         734         &       1,622         \\
+\bottomrule
+\end{tabular}}%
+\makebox[\textwidth][c]{\usebox{\tblbox}}%
+\par\vspace{4pt}
+\noindent\makebox[\textwidth][c]{\parbox{\wd\tblbox}{\scriptsize \textit{Notes:} This table reports the effect of the 2009 drought on the WHO height-for-age z-score (HAZ) with the binary DID. Regressions are at the child-wave level. The sample is children with the outcome measured in both MxFLS-2 (2005) and MxFLS-3 (2009), aged 15 or younger in both survey waves. Cols. 3--5 also keep only children with all of their regressors observed. Children have a 2005 municipality. They were not measured in MxFLS-3 before November 2009, for the same reason as in Table~\ref{tab:sumstats}. Drought equals 1 if May--October CHIRPS rainfall in 2009, the maize growing season \parencite{jessoeClimateChangeLabour2018}, in the child's 2005 municipality was below its 1981--2004 20th percentile \parencite{shahDroughtOpportunitiesContemporaneous2017}. Post equals 1 in MxFLS-3. Remittances equal 1 if the household received cash in the last 12 months from parents, siblings, or children living outside the household in MxFLS-1 (2002), a proxy for remittances. Cols. 1--4 report the average drought effect. Col. 1 is the basic DID, Col. 2 adds the 2005--2008 droughts, and Col. 3 adds 2002 household controls (electricity, floor, roof, ventilation, sleeping rooms per person, log expenditure per capita, rural) and 2005 child and mother controls (child sex and full vaccination, mother's height, schooling, age at birth and employment). Col. 4 adds the 2005 father and birth controls (father's height, schooling, age at birth and employment, birth order, oldest child, birth weight, delivered at home, weeks predominantly breastfed, iron in pregnancy, premature), which are missing for many children, often because the father migrated. All controls are interacted with post. Col. 5 is the triple difference: it keeps the controls of Col. 3 and adds 2002 remittances \ensuremath{\times} post and drought \ensuremath{\times} post \ensuremath{\times} 2002 remittances, the difference in the drought effect for children in 2002 remittance households. Rural is a locality with fewer than 2,500 inhabitants \parencite{inegiQueHayLocalidades2024}. All regressions include child and interview year-month fixed effects, children in singleton cells are dropped, and standard errors are clustered by 2005 municipality, where the drought is assigned. \mbox{\sym{*}\(p<.10\), \sym{**}\(p<.05\), \sym{***}\(p<.01\).}}}%
+\end{table}
+\endgroup
+\endgroup
+
+
+As expected, the 2009 drought has no significant effect on HAZ in any model (Table~\ref{tab:binhaz}). The estimated change in HAZ for children in drought municipalities ranges from 0.07 standard deviations smaller to 0.10 standard deviations larger than for other children.
+
+\subsection*{B. Continuous Dose}
+
+In addition to the discrete-dose regression, I use the continuous-dose estimator of \textcite{callawayDifferenceinDifferencesContinuousTreatment2024}. I define the continuous 2009 rainfall deficit as $D_m = \max(0, -z_m)$, and $ATT^o$ is the average ATT across all treated children. Panel A of Online Appendix Table~\ref{OA-tab:oa_contdid} shows that $ATT^o$ is small and not statistically significant for any outcome. Relative to children with no deficit, it implies a 0.08 standard deviation smaller increase in HAZ, a 0.03 standard deviation larger increase in WAZ, and a 0.05 standard deviation smaller increase in BMIZ. As discussed in Section \hyperref[sec:V]{V}, this specification counts any deficit below the mean as treatment, so many treated children experienced deficits within the range of a normal year. This dilutes the average effect. The $ATT(d)$ curves, estimated with the contdid package, and binned scatterplots of the change in each outcome against the deficit are shown in Online Appendix Figures~\ref{OA-fig:oa_binscatter} to~\ref{OA-fig:oa_att_hazwaz}.
+
+\subsection*{C. Heterogeneity by Sex}
+
+To assess whether households allocate resources preferentially to sons or daughters, I estimate my specifications separately for boys and girls. This approach does not formally test for differences between the groups, since I do not test whether the two coefficients differ. The literature reports mixed results. \textcite{macciniWeatherHealthSchooling2009} find in Indonesia that higher early-life rainfall improves adult health, schooling, and socioeconomic outcomes for women but not for men. Multiple studies find that households often prioritize boys' welfare over girls', with differences in medical care, mortality, nutrition, and clothing \parencite{dasguptaSelectiveDiscriminationFemale1987,behrmanIntrahouseholdAllocationNutrients1988,behrmanIntrahouseholdDemandNutrients1990,roseConsumptionSmoothingExcess1999,aldermanFamilyResourcesGender1997}. Other studies find that shocks affect boys and girls similarly \parencite{levineGenderBiasIndonesian2003}.
+
+I find that drought lowers BMIZ for both boys and girls by similar magnitudes. In my preferred binary specification with drought and baseline household, mother, and child controls, the estimates are statistically significant and imply a 0.27 standard deviation smaller increase in BMIZ for boys and a 0.31 standard deviation smaller increase for girls relative to children of the same sex in non-drought municipalities. In the discrete-dose specification, the dry coefficient for boys is $-0.20$ and significant at the 10 percent level. For girls, it is $-0.12$ and not statistically significant. The binary WAZ estimates are negative for both sexes but statistically significant only for girls, and the discrete-dose WAZ estimates are not significant for either sex. Again, I find no statistically significant effect on HAZ for either sex. Thus, I find no clear evidence of gender differences. A potential explanation is that households in Latin America may have less of a preference for sons. Surveys conducted in Latin American countries such as Colombia, Honduras, Nicaragua, and Peru find that more women report a preference for daughters than for sons \parencite{fuseVariationsAttitudinalGender2010}. My findings are presented in Online Appendix Tables~\ref{OA-tab:oa_haz_boys} to~\ref{OA-tab:oa_bmiz_girls} and~\ref{OA-tab:oa_cd_haz} to~\ref{OA-tab:oa_cd_bmiz}.
+
+\subsection*{D. Heterogeneity by Rural and Urban Residence}
+
+I also examine whether the effects differ between rural and urban children, defining a child as rural if their household locality in 2005 had fewer than 2,500 inhabitants. I expected larger effects in rural areas because household incomes there depend more directly on rain-fed agriculture. In contrast, urban households are exposed mainly through food prices. Instead, I find larger effects on weight-related outcomes for urban children. In the binary specification, the BMIZ estimates for urban children are statistically significant in Models 1 through 3, implying 0.19, 0.26, and 0.38 standard deviation smaller increases in BMIZ. The rural estimates range from $-0.10$ to $-0.21$ standard deviations and are not statistically significant. The WAZ estimates follow the same pattern and no statistically significant effects are found for HAZ. In the discrete-dose specification, the BMIZ estimates are similar for rural and urban children. Relative to children in near-normal municipalities, residence in a dry municipality implies a 0.15 standard deviation smaller increase in BMIZ for rural children and a 0.17 standard deviation smaller increase for urban children. Neither estimate is statistically significant. For WAZ, only the urban estimate of $-0.22$ is statistically significant at the 5 percent level. One explanation is that the drought could have raised maize and tortilla prices, directly reducing food consumption for households that purchase their food. Rural farm households that consume what they grow may be partly insulated from these price increases. Another possible explanation is the conditional cash transfer program PROGRESA. The program began in 1997 and initially targeted rural households, potentially mitigating the effects of drought for rural families \parencite{adhvaryuHelpingChildrenCatch2024}. My findings are presented in Online Appendix Tables~\ref{OA-tab:oa_haz_rural} to~\ref{OA-tab:oa_bmiz_urban} and~\ref{OA-tab:oa_cd_haz} to~\ref{OA-tab:oa_cd_bmiz}.
+
+\section*{VIII. Robustness Checks}\phantomsection\label{sec:VIII}
+
+A causal interpretation of the discrete-dose estimates rests on the identifying assumptions of difference-in-differences with a multi-valued discrete treatment \parencite{callawayDifferenceinDifferencesContinuousTreatment2024}. The moderately dry dose group passes the pre-trend test, albeit imperfectly given the large standard errors. I supplement this test with additional checks supporting the discrete-dose results.
+
+\paragraph{Stable composition.} First, I provide evidence that my estimates of the ATT for each dose group are not driven by changes in the composition of the treated or comparison groups. I reestimate the discrete-dose specification and its event study on children observed in all three survey waves. This way, the pre-period and post-period coefficients come from the same children, and the child fixed effects compare the same children across survey waves. This follows the logic of \textcite{callawayDifferenceinDifferencesMultipleTime2021}, who note that when the set of groups does not change across event times, differences between event times cannot come from changing composition. \textcite{baileyWarPovertysExperiment2015} follow a similar approach.
+
+\begin{figure}[!htbp]
+\centering
+\caption{Event Study by Dose Level, BMI-for-Age, Children in All Three Survey Waves}\label{fig:es_bmiz_all3}
+\includegraphics[width=0.85\textwidth]{/Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thesis/Proposal 3 Mexico OG/Output/Figures/Main/event_study_severity_bmiz_all3.png}
+\par\parbox{0.85\textwidth}{\singlespacing\scriptsize \textit{Notes:} Moderately dry and severely dry or worse compared with near-normal. The sample is the children in Table~\ref{tab:dose} who were measured in all three survey waves, so the 2002 lead and the 2009 coefficient come from the same children. Similar to Table~\ref{tab:dose}, there are no controls. Included are child and survey wave fixed effects. 2005 is the reference wave. 95\% confidence intervals use standard errors clustered by 2005 municipality.}
+\end{figure}
+
+
+The BMIZ point estimates in Figure~\ref{fig:es_bmiz_all3} closely resemble the main results in Table~\ref{tab:dose}. Relative to children in near-normal municipalities, they imply a 0.27 standard deviation smaller increase in BMIZ for the moderately dry dose group and a 0.10 standard deviation smaller increase for the severely dry or worse dose group, compared with 0.22 and 0.09 in the main sample. The moderately dry estimate loses statistical significance in the smaller sample. Refer to Table~\ref{tab:dose} in Section \hyperref[sec:VI]{VI} for the interpretation. This supports that the BMIZ effects are unlikely to be driven by changes in sample composition. The HAZ estimates are also similar to the main results and show no negative effect. The WAZ estimates are close to zero in this sample, but the standard errors are large and the estimates rest on only about 270 children. The corresponding figures for HAZ and WAZ are in Appendix Figures~\ref{fig:es_haz_all3} and~\ref{fig:es_waz_all3}.
+
+\paragraph{Balance.} Next, to obtain a causal estimate of the effect of the rainfall deficit on health outcomes, rainfall must be orthogonal to the error term. I provide three tests to support the claim that 2009 rainfall was as good as randomly assigned across children, so that dry and near-normal children are comparable. First, I check whether the dose level predicts any of 31 baseline characteristics of households, children, mothers, fathers, and births shown in Table~\ref{tab:balance}.
+
+\afterpage{\afterpage{\begingroup\singlespacing
+\begin{landscape}
+\vspace*{\fill}
+\begin{table}[H]
+\centering
+\caption{Dose Groups and Baseline Characteristics, BMIZ Sample}\label{tab:balance}
+\begingroup
+\footnotesize
+\hyphenpenalty=10000
+\exhyphenpenalty=10000
+\renewcommand{\arraystretch}{0.86}
+\setlength{\tabcolsep}{1.5pt}
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{l*{16}{>{\centering\arraybackslash}p{2.2cm}}}
+\toprule
+            &         (1)         &         (2)         &         (3)         &         (4)         &         (5)         &         (6)         &         (7)         &         (8)         &         (9)         &        (10)         &        (11)         &        (12)         &        (13)         &        (14)         &        (15)         &        (16)         \\
+            & Electricity         &  Good floor         &   Good roof         &Enough ventilation         &Rooms per person         &Log expenditure         &Expenditure (pesos)         &       Rural         &    PROGRESA         & Remittances         &        Male         &         Age         &Fully vaccinated         &Mother's height (cm)         &Mother's schooling         &Mother's age at birth         \\
+\midrule
+Moderately dry&      -0.048\sym{*}  &      -0.038         &      -0.048         &       0.101\sym{*}  &      -0.026         &      -0.078         &     293.396         &       0.038         &       0.095         &      -0.087\sym{*}  &       0.018         &      -0.146         &       0.034         &       0.526         &      -0.600         &       0.818         \\
+            &     (0.028)         &     (0.074)         &     (0.060)         &     (0.053)         &     (0.027)         &     (0.168)         &   (628.937)         &     (0.165)         &     (0.094)         &     (0.049)         &     (0.025)         &     (0.160)         &     (0.054)         &     (1.051)         &     (0.641)         &     (0.507)         \\
+Severely dry or worse&      -0.011         &       0.104\sym{**} &       0.065         &       0.080         &       0.071\sym{**} &       0.204         &     433.655         &      -0.257\sym{*}  &      -0.120\sym{**} &      -0.087\sym{*}  &      -0.012         &       0.169         &       0.074         &       0.575         &       1.181\sym{**} &       0.100         \\
+            &     (0.010)         &     (0.042)         &     (0.074)         &     (0.069)         &     (0.033)         &     (0.163)         &   (590.207)         &     (0.134)         &     (0.059)         &     (0.045)         &     (0.029)         &     (0.228)         &     (0.054)         &     (1.610)         &     (0.528)         &     (0.537)         \\
+
+\addlinespace[3pt]Observations&       1,914         &       1,914         &       1,914         &       1,899         &       1,911         &       1,886         &       1,886         &       1,914         &       1,870         &       1,734         &       2,300         &       2,300         &       2,184         &       2,172         &       2,199         &       2,219         \\
+Mean of dep. var.&       0.981         &       0.828         &       0.808         &       0.565         &       0.385         &       6.514         &    1302.934         &       0.466         &       0.228         &       0.369         &       0.494         &       5.918         &       0.482         &     154.329         &       7.190         &      26.386         \\
+Fixed effects & \multicolumn{16}{c}{None}\\
+\addlinespace[8pt]
+\toprule
+            &        (17)         &        (18)         &        (19)         &        (20)         &        (21)         &        (22)         &        (23)         &        (24)         &        (25)         &        (26)         &        (27)         &        (28)         &        (29)         &        (30)         &        (31)         \\
+            &Mother employed         &Father's height (cm)         &Father's schooling         &Father's age at birth         &Father employed         & Birth order         &Oldest child         &Birth weight (kg)         &Born at home         &Weeks breastfed         &Iron in pregnancy         &   Premature         &        BMIZ         &Long-run rain mean         &Long-run rain SD         \\
+\midrule
+Moderately dry&       0.021         &      -0.467         &      -0.487         &       1.152\sym{*}  &       0.007         &       0.030         &      -0.027         &      -0.010         &       0.085         &      -1.959         &      -0.035         &       0.013         &       0.007         &     123.123         &       1.368         \\
+            &     (0.041)         &     (1.028)         &     (0.645)         &     (0.587)         &     (0.016)         &     (0.258)         &     (0.038)         &     (0.049)         &     (0.085)         &     (3.837)         &     (0.072)         &     (0.022)         &     (0.158)         &   (133.660)         &    (22.653)         \\
+Severely dry or worse&       0.071         &       0.310         &       0.852         &      -0.073         &       0.021         &      -0.345\sym{*}  &       0.034         &       0.003         &      -0.103\sym{***}&     -11.307\sym{***}&       0.124\sym{**} &       0.006         &       0.178         &     195.378\sym{**} &       2.366         \\
+            &     (0.060)         &     (1.432)         &     (0.657)         &     (0.780)         &     (0.015)         &     (0.206)         &     (0.034)         &     (0.048)         &     (0.027)         &     (3.017)         &     (0.049)         &     (0.030)         &     (0.120)         &    (89.347)         &    (17.421)         \\
+
+\addlinespace[3pt]Observations&       2,199         &       1,527         &       1,820         &       1,884         &       1,824         &       1,640         &       1,640         &       1,496         &       1,823         &       1,611         &       1,621         &       1,617         &       2,300         &       2,300         &       2,300         \\
+Mean of dep. var.&       0.288         &     166.426         &       7.398         &      29.894         &       0.958         &       2.551         &       0.359         &       3.254         &       0.111         &      33.460         &       0.745         &       0.140         &       0.354         &     723.185         &     123.855         \\
+Fixed effects & \multicolumn{15}{c}{None}\\
+\bottomrule
+\end{tabular}}
+\endgroup
+\par\vspace{6pt}\parbox{\linewidth}{\scriptsize \textit{Notes:} The sample is the 2,300 children in the BMIZ discrete-dose regressions. Each column regresses a baseline characteristic on indicators for moderately dry (\ensuremath{-1.5<z\le -1}) and severely dry or worse (\ensuremath{z\le -1.5}) municipalities. Each coefficient is the mean difference in the characteristic between children in that dry dose group and children in the near-normal dose group (\ensuremath{-1<z<1}).
+Columns 1--10 are from MxFLS-1 (2002) and columns 11--29 from MxFLS-2 (2005). Of particular interest are the measures of household poverty. Expenditure per person is a proxy for income and is shown in logs and in 2002 pesos per month. PROGRESA equals 1 if any household member was in the program in the last 12 months, which marks the household as poor by the program's targeting. The dwelling characteristics also reflect household poverty.
+Long-run rainfall is the municipality's 1981--2004 May--October mean and SD in millimeters. The table has no fixed effects because the discrete-dose regressions use each child's 2005-to-2009 change without fixed effects or covariates. Standard errors clustered by 2005 municipality are in parentheses. Wild cluster bootstrap p-values are not reported.
+\mbox{\sym{*}\(p<.10\), \sym{**}\(p<.05\), \sym{***}\(p<.01\).}}
+\end{table}
+\vspace*{\fill}
+\end{landscape}
+\endgroup}}
+
+
+I find few statistically significant differences between moderately dry and near-normal children. These include electricity, ventilation, 2002 remittances, and the father's age at birth, which differ at the 10 percent level. With 31 tests, I expect a few coefficients to be statistically significantly different from zero due to sampling variation. This does not hold for the severely dry or worse dose group, as I find that 11 of the 31 characteristics differ significantly from near normal. These include housing quality, the rural share, PROGRESA participation, mothers' schooling, delivery at home, breastfeeding, and the municipality's long-run mean rainfall.
+
+\paragraph{Poverty.} Second, I test whether the rainfall deficit simply proxies for household poverty or socioeconomic status. Poverty is a potential confounder because poorer places may be both more exposed to rainfall deficits and on a different health path, so my estimates would reflect poverty rather than the deficit. The balance table includes the main poverty measures. These are household expenditure per capita in logs and in pesos, PROGRESA participation, which marks a household as poor under the program's targeting, and dwelling characteristics. As before, these measures are largely balanced for the moderately dry dose group. The severely dry or worse dose group is less balanced, but its households appear less poor than those in near-normal municipalities, not poorer. This gives me more confidence that moderately dry municipalities were not poorer than near-normal ones.
+
+\paragraph{Overlap.} Beyond balanced averages, I also want overlap between the treated and comparison groups, so that children in dry municipalities have comparable children in near-normal municipalities. I find this to be the case. Figure~\ref{fig:overlap} plots the distributions of the propensity score, the predicted probability of being in each dry dose group from a logit on the baseline characteristics. The distributions largely share common support. None of the 364 severely dry or worse children and only 4 of the 472 moderately dry children have a propensity score outside the range of the near-normal children. The severely dry or worse distribution is shifted further from the near-normal distribution.
+
+\begin{figure}[!htbp]
+\centering
+\caption{Overlap of Baseline Characteristics, BMI-for-Age Sample}\label{fig:overlap}
+\includegraphics[width=0.85\textwidth]{/Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thesis/Proposal 3 Mexico OG/Output/Figures/Main/overlap_pscore_bmiz.png}
+\par\parbox{0.85\textwidth}{\singlespacing\scriptsize \textit{Notes:} The sample is the children in the BMIZ discrete-dose regressions. Kernel densities of the propensity score. That is, the predicted probability of being in the dry dose group from a logit on baseline characteristics. Baseline characteristics are the 2002 household controls (electricity, floor, roof, ventilation, rooms per person, log expenditure per person, rural) and the 2005 child and mother controls (sex, full vaccination, mother's height, schooling, age at birth, and employment), and the child's age. Missing values are set to the sample mean and flagged with an indicator. Each panel compares one dry dose group with near-normal ($-1<z<1$) and is estimated separately. Moderately dry is $-1.5<z\le -1$, and severely dry or worse is $z\le -1.5$. In each box, children and mean score are shown as dry dose group/near-normal. Outside support is the number of dry dose group children whose score lies below the lowest or above the highest near-normal score.}
+\end{figure}
+
+
+Overall, I find that the moderately dry and near-normal groups are balanced across observed characteristics, with no clear socioeconomic disadvantage in the moderately dry group. This is consistent with rainfall deficits being as good as randomly assigned between them. However, this is less evident for the severely dry or worse dose group. These tests examine differences in levels, whereas identification depends on parallel trends. I therefore use the event-study leads to assess pre-trends. Furthermore, balance is limited to observable characteristics and cannot account for unobserved factors such as household resilience, local institutions, or market access that may affect both exposure to the deficit and children's health trajectories.
+
+\section*{IX. Mechanisms: Remittances}\phantomsection\label{sec:IX}
+
+I argue that remittances are a plausible consumption smoothing mechanism, as they are an important source of income for Mexican households. In 2009, during my survey period, Mexico received 21.2 billion dollars in remittances from abroad \parencite{ordazdiazMigracionRemesas2011}. Furthermore, evidence suggests that these transfers helped Mexican households cope with income shocks \parencite{amuedo-dorantesRemittancesIncomeSmoothing2011} and that migration is linked to better child health in rural Mexico \parencite{hildebrandtEffectsMigrationChild2005}.
+
+These results relate to a literature on consumption smoothing through transfers within family networks \parencite{rosenzweigRiskImplicitContracts1988,rosenzweigConsumptionSmoothingMigration1989,yangAreRemittancesInsurance2007,yangCopingDisasterImpact2008,yangMigrantRemittances2011}. \textcite{yangAreRemittancesInsurance2007} use rainfall shocks as instruments for income and find that remittances from abroad replace roughly 60 percent of income declines among Philippine households with overseas migrants. To test whether remittances mitigated the effect of the deficit, I extend the pooled version of equation~\eqref{eq:dose} to include $\gamma_3$, the coefficient on the interaction between the dry indicator and an indicator for whether the child's household received remittances in 2002.
+\begin{equation}
+Y_{im,2009} - Y_{im,2005} = \gamma_0 + \gamma_1 \text{Dry}_m + \gamma_2 \text{Remit}_h^{2002} + \gamma_3 \left(\text{Dry}_m \times \text{Remit}_h^{2002}\right) + u_{im} \label{eq:remit}
+\end{equation}
+Because the outcome is already the 2005-to-2009 change, which plays the role of the $\times$ Post interaction, $\gamma_3$ is effectively a triple difference. That is, it equals the coefficient on Dry $\times$ Post $\times$ Remittances. $\gamma_3$ captures how much the effect of the deficit differs between children in 2002 remittance and non-remittance households. $\gamma_1$ captures the effect of the deficit for children in non-remittance households, and $\gamma_1 + \gamma_3$ captures the effect for children in remittance households. I also estimate a similar specification for the binary design, where the analogous term is $\text{Drought}^{2009} \times \text{Post} \times \text{Remit}^{2002}$.
+
+I am interested in whether access to remittances helps households smooth consumption. I leverage the exogeneity of rainfall and compare the effect of the deficit between remittance-receiving and non-receiving households. Since migration to nearby cities or abroad can be induced by rainfall deviations, remittances could themselves be a response to the drought. To avoid this, I measure remittances in MxFLS-1 (2002), before the 2009 shock occurred. I do not claim that remittances are orthogonal to the error term, as they may be correlated with other household traits such as income, migration networks, education, and family structure. Thus, I interpret the interaction as heterogeneity in the effect of the deficit by remittance status rather than the causal effect of remittances.
+
+MxFLS does not contain a direct measure of remittances, so I construct a proxy. While previous studies have used MxFLS to examine migration \parencite{creightonMigrantNetworksPathways2011,damonChildhoodObesityMexico2014}, to the best of my knowledge, no one has constructed a household remittance measure. The proxy combines domestic and international remittances. It is built from MxFLS Book IIIB and the Book Proxy. Including the Book Proxy prevents absent members from being falsely coded as not receiving remittances. My remittance proxy captures cash received in the last 12 months from parents, siblings, and children living outside the household. A household is coded as receiving remittances if any member aged 15 or older received cash for health, school tuition, or other purposes from these relatives.
+
+I summarize the results in Panel C of Online Appendix Table~\ref{OA-tab:oa_contdid}. Among children in households that did not receive remittances in 2002, living in a dry municipality implies a 0.25 standard deviation smaller increase in BMIZ between 2005 and 2009 than in near-normal municipalities (compared to an average increase of 0.23 standard deviations in the sample). The interaction with remittances is positive, 0.10, but not significant, so I find no evidence that remittances protected children. Results for HAZ and WAZ are negative and not significant for both the dry coefficient and the interaction. The binary DiD in column 5 of Table~\ref{tab:binbmiz} gives a similar result for BMIZ, with a 0.27 standard deviation smaller increase for children in non-remittance households and a triple-difference coefficient that is not statistically significant. Further analysis using the contdid estimator is shown in Panel B of Online Appendix Table~\ref{OA-tab:oa_contdid}, and my subgroup analyses for gender and rurality can be found in Online Appendix Tables~\ref{OA-tab:oa_haz_boys} to~\ref{OA-tab:oa_cd_bmiz}.
+
+Across all specifications, remittances do not appear to have mitigated the effects of the rainfall shock. I offer a few explanations. One reason may be that my proxy combines domestic and international remittances, and evidence suggests that domestic transfers, unlike international remittances, do not increase in response to drought \parencite{smithClimateChangeViolence2025}. Another reason is that the interaction is estimated from differences between smaller subgroups, which increases the standard errors and makes it harder to detect an effect.
+
+Measurement error is also present in the MxFLS data. My dependent variables measuring anthropometric outcomes may be subject to classical measurement error, which can inflate standard errors without biasing the estimates. On the right-hand side, the 2002 remittance indicator is an imperfect proxy for transfers at the time of the drought, since it is measured seven years before the shock. It also relies on 12-month recall and proxy reports for absent household members that may generate false zeros. Such misclassification biases a binary regressor's coefficient toward zero in a simple regression but can bias all coefficients in my specification, so it may understate any buffering effect of remittances \parencite{aignerRegressionBinaryIndependent1973}.
+
+\section*{X. Conclusion}\phantomsection\label{sec:X}
+
+This paper finds that children's short-run nutritional status in Mexico is sensitive to moderate departures of rainfall from local norms. Children whose municipalities received 2009 growing-season rainfall between 1 and 1.5 standard deviations below their historical mean experienced a smaller increase in their BMI-for-age z-score than children in near-normal municipalities, significant at the 10 percent level. Weight-for-age moves in the same direction but is not statistically significant, height-for-age does not respond, and the severely dry or worse dose group shows no significant effect. I estimate these effects with discrete-dose regressions that compare each dry dose group with near-normal municipalities, whose 2009 rainfall was within one standard deviation of their 1981--2004 mean. The samples include children aged 10 or younger for WAZ and 15 or younger for HAZ and BMIZ. However, I do not find that belonging to a household that received remittances before the shock mitigated these effects. Several factors may explain this null result. Households may have responded by sending members to migrate rather than through existing transfers, as weather shocks in Mexico and elsewhere increase migration from rural to urban areas \parencite{jessoeClimateChangeLabour2018,grogerInternalLaborMigration2016}. Remittances may also take time to respond to a shock. Since I measure outcomes in the short run, my sample does not allow me to examine lagged responses. I find no clear evidence of gender differences in household resource allocation, as the estimates for boys and girls are similar, and in the binary specification I find larger effects for urban than for rural children. Both subgroup analyses should be taken as suggestive, given the limited power of the smaller samples.
+
+This study contributes to a large literature on the short-run effects of natural disasters and weather shocks on child health \parencite{datarImpactNaturalDisasters2013,hirvonenImpactEthiopias20152020,dodlovaEffects2010Haiti2023}. Specifically, I distinguish the effects of different dose levels of negative rainfall deviations, estimating an average treatment effect on the treated for each dose group relative to near-normal rainfall. My results also make a contextual contribution. Individual-level panel data that follow the same child over time and combine gridded rainfall, constructed remittances, and measured anthropometrics are uncommon. I am not aware of this combination having been constructed for Mexico before.
+
+I believe these findings are important because they suggest that moderate rainfall deficits may still have measurable effects on child health within one to two years of a shock. This invites further research to quantify these effects, for example through cost-benefit analysis. Future work could also compare treatment effects across dose levels under the assumption of strong parallel trends. These results may also have implications for policy. My suggestive evidence of effects at moderate levels of the deficit is particularly relevant given that climate change is projected to increase agricultural droughts in several regions, including Central and North America \parencite{ipccSummaryPolicymakers2021}. This may further encourage governments to prioritize policies that protect children from such shocks. It also provides additional justification for interventions such as weather insurance and maternal and child health investments, especially in developing countries, where the economic costs of climate change are expected to be particularly acute \parencite{jessoeClimateChangeLabour2018}.
+
+This study has limitations that future work could address. My remittance analysis captures heterogeneity in the effect of the deficit by remittance status rather than the causal effect of remittances. Researchers interested in that causal effect would need exogenous variation in remittance receipt, such as historical migration or a valid instrumental variable. The data made the former infeasible, and I could not find a valid instrument. Additionally, a longer longitudinal panel would be ideal to show dynamic effects and to test parallel trends over more pre-periods. Finally, extending the analysis to other outcomes available in the MxFLS, such as hemoglobin, school enrollment and grade progression, and cognitive test scores, is a natural extension.
+
+\clearpage
+\section*{References}
+% The reference list is made from References.bib, which Zotero (Better BibTeX) keeps updated from the Thesis collection
+\begingroup
+\singlespacing
+\small
+\nocite{*}
+\printbibliography[heading=none]
+\endgroup
+
+\clearpage
+\section*{Appendix}
+\setcounter{table}{0}
+\setcounter{figure}{0}
+\setcounter{equation}{0}
+\renewcommand{\thetable}{A\arabic{table}}
+\renewcommand{\thefigure}{A\arabic{figure}}
+\renewcommand{\theequation}{A\arabic{equation}}
+
+The \href{Online_Appendix.pdf}{Online Appendix} reports sample sizes and attrition, the continuous dose results and heterogeneity by sex and by rural and urban residence.
+
+\subsection*{Appendix A. Binary Difference-in-Differences}
+
+\begin{figure}[!htbp]
+\centering
+\caption{2009 Drought by Municipality, Binary DID Treatment}\label{fig:mapbinary}
+\includegraphics[width=0.85\textwidth]{/Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thesis/Proposal 3 Mexico OG/Output/Figures/Appendix/drought_map_binary.png}
+\par\parbox{0.85\textwidth}{\singlespacing\scriptsize \textit{Notes:} Drought equals 1 if 2009 May--October CHIRPS rainfall in the municipality was below its own 1981--2004 20th percentile \parencite{shahDroughtOpportunitiesContemporaneous2017}. Municipalities where children in the estimation sample lived in 2005 are outlined in black.}
+\end{figure}
+
+\FloatBarrier
+
+\begingroup\singlespacing
+\begingroup
+\footnotesize
+\renewcommand{\arraystretch}{0.86}
+\setlength{\tabcolsep}{4pt}
+\setlength{\LTcapwidth}{\textwidth}
+\begin{table}[H]\centering
+\caption{Summary Statistics, Binary DID Model 3 Samples}\label{tab:model3sum}
+\footnotesize
+\global\setbox\tblbox=\hbox{\begin{tabular}{l*{6}{c}}
+\toprule
+ & \multicolumn{6}{c}{Panel A: WAZ, age \ensuremath{\le}10 in 2005 and 2009}\\
+\cmidrule(lr){2-7}
+                    &        Mean&   Std. dev.&        Min.&      Median&        Max.&        Obs.\\
+\midrule
+\textit{Outcomes (MxFLS-2, 2005)}&            &            &            &            &            &            \\
+Weight-for-age z-score (WAZ)&       -0.31&        1.40&       -4.92&       -0.34&        4.51&         700\\
+\addlinespace[6pt]\textit{Binary DID treatment (CHIRPS)}&            &            &            &            &            &            \\
+2009 drought (indicator)&        0.36&        0.48&        0.00&        0.00&        1.00&         700\\
+2005 drought (indicator)&        0.68&        0.47&        0.00&        1.00&        1.00&         700\\
+2006 drought (indicator)&        0.03&        0.17&        0.00&        0.00&        1.00&         700\\
+2007 drought (indicator)&        0.15&        0.36&        0.00&        0.00&        1.00&         700\\
+2008 drought (indicator)&        0.13&        0.34&        0.00&        0.00&        1.00&         700\\
+\addlinespace[6pt]\textit{Remittances (MxFLS-1, 2002)}&            &            &            &            &            &            \\
+Household received remittances, proxy (indicator)&        0.41&        0.49&        0.00&        0.00&        1.00&         634\\
+\addlinespace[6pt]\textit{Household (MxFLS-1, 2002)}&            &            &            &            &            &            \\
+Dwelling has electricity (indicator)&        0.97&        0.16&        0.00&        1.00&        1.00&         700\\
+Good floor quality (indicator)&        0.85&        0.36&        0.00&        1.00&        1.00&         700\\
+Good roof quality (indicator)&        0.81&        0.39&        0.00&        1.00&        1.00&         700\\
+Enough ventilation (indicator)&        0.57&        0.50&        0.00&        1.00&        1.00&         700\\
+Sleeping rooms per household member&        0.41&        0.25&        0.11&        0.33&        2.33&         700\\
+Ln (monthly expenditure per capita, pesos), proxy&        6.56&        0.86&        4.21&        6.57&       11.43&         700\\
+Rural locality (indicator)&        0.43&        0.50&        0.00&        0.00&        1.00&         700\\
+\addlinespace[6pt]\textit{Child and mother (MxFLS-2, 2005)}&            &            &            &            &            &            \\
+Age (years, not in regression)&        2.52&        1.68&        0.00&        3.00&        6.00&         700\\
+Male (indicator)    &        0.53&        0.50&        0.00&        1.00&        1.00&         700\\
+Fully vaccinated (indicator)&        0.39&        0.49&        0.00&        0.00&        1.00&         700\\
+Mother's height (centimeters)&      154.79&        6.91&      136.00&      154.50&      181.00&         700\\
+Mother's years of schooling&        7.40&        3.42&        0.00&        8.00&       18.00&         700\\
+Mother's age at birth (years)&       26.93&        6.52&       14.00&       27.00&       59.00&         700\\
+Mother employed (indicator)&        0.24&        0.42&        0.00&        0.00&        1.00&         700\\
+\addlinespace[6pt]\textit{Father and birth (MxFLS-1 and MxFLS-2)}&            &            &            &            &            &            \\
+Father's height (centimeters)&      166.81&        6.98&      144.00&      167.00&      189.40&         465\\
+Father's years of schooling&        7.51&        3.77&        0.00&        8.00&       18.00&         569\\
+Father's age at birth (years)&       30.74&        7.82&       16.00&       30.00&       75.00&         581\\
+Father employed (indicator)&        0.96&        0.19&        0.00&        1.00&        1.00&         569\\
+Birth order         &        2.31&        1.68&        1.00&        2.00&       13.00&         401\\
+Oldest child (indicator)&        0.40&        0.49&        0.00&        0.00&        1.00&         401\\
+Birth weight (kilograms)&        3.26&        0.59&        1.55&        3.20&        5.50&         523\\
+Delivered at home (indicator)&        0.08&        0.27&        0.00&        0.00&        1.00&         560\\
+Weeks predominantly breastfed&       31.98&       29.20&        0.00&       26.09&      157.29&         542\\
+Iron during pregnancy (indicator)&        0.76&        0.43&        0.00&        1.00&        1.00&         549\\
+Premature, mother reported (indicator)&        0.19&        0.39&        0.00&        0.00&        1.00&         546\\
+
+\bottomrule
+\end{tabular}}%
+\makebox[\textwidth][c]{\usebox{\tblbox}}%
+\end{table}
+\clearpage
+\noindent
+\global\setbox\tblbox=\hbox{\begin{tabular}{l*{6}{c}}
+\toprule
+ & \multicolumn{6}{c}{Panel B: HAZ and BMIZ, age \ensuremath{\le}15 in 2005 and 2009}\\
+\cmidrule(lr){2-7}
+                    &        Mean&   Std. dev.&        Min.&      Median&        Max.&        Obs.\\
+\midrule
+\textit{Outcomes (MxFLS-2, 2005)}&            &            &            &            &            &            \\
+Height-for-age z-score (HAZ)&       -0.60&        1.47&       -5.17&       -0.62&        5.20&       1,755\\
+BMI-for-age z-score (BMIZ)&        0.40&        1.41&       -4.95&        0.35&        4.86&       1,721\\
+\addlinespace[6pt]\textit{Binary DID treatment (CHIRPS)}&            &            &            &            &            &            \\
+2009 drought (indicator)&        0.39&        0.49&        0.00&        0.00&        1.00&       1,755\\
+2005 drought (indicator)&        0.66&        0.47&        0.00&        1.00&        1.00&       1,755\\
+2006 drought (indicator)&        0.03&        0.17&        0.00&        0.00&        1.00&       1,755\\
+2007 drought (indicator)&        0.16&        0.36&        0.00&        0.00&        1.00&       1,755\\
+2008 drought (indicator)&        0.14&        0.34&        0.00&        0.00&        1.00&       1,755\\
+\addlinespace[6pt]\textit{Remittances (MxFLS-1, 2002)}&            &            &            &            &            &            \\
+Household received remittances, proxy (indicator)&        0.36&        0.48&        0.00&        0.00&        1.00&       1,624\\
+\addlinespace[6pt]\textit{Household (MxFLS-1, 2002)}&            &            &            &            &            &            \\
+Dwelling has electricity (indicator)&        0.98&        0.15&        0.00&        1.00&        1.00&       1,755\\
+Good floor quality (indicator)&        0.83&        0.37&        0.00&        1.00&        1.00&       1,755\\
+Good roof quality (indicator)&        0.81&        0.39&        0.00&        1.00&        1.00&       1,755\\
+Enough ventilation (indicator)&        0.56&        0.50&        0.00&        1.00&        1.00&       1,755\\
+Sleeping rooms per household member&        0.38&        0.23&        0.11&        0.33&        2.33&       1,755\\
+Ln (monthly expenditure per capita, pesos), proxy&        6.52&        0.86&        3.75&        6.51&       12.24&       1,755\\
+Rural locality (indicator)&        0.46&        0.50&        0.00&        0.00&        1.00&       1,755\\
+\addlinespace[6pt]\textit{Child and mother (MxFLS-2, 2005)}&            &            &            &            &            &            \\
+Age (years, not in regression)&        6.08&        3.22&        0.00&        6.00&       12.00&       1,755\\
+Male (indicator)    &        0.50&        0.50&        0.00&        0.00&        1.00&       1,755\\
+Fully vaccinated (indicator)&        0.50&        0.50&        0.00&        0.00&        1.00&       1,755\\
+Mother's height (centimeters)&      154.39&        7.14&      133.40&      154.20&      190.00&       1,755\\
+Mother's years of schooling&        7.13&        3.66&        0.00&        6.00&       18.00&       1,755\\
+Mother's age at birth (years)&       26.80&        6.46&       14.00&       26.00&       59.00&       1,755\\
+Mother employed (indicator)&        0.28&        0.45&        0.00&        0.00&        1.00&       1,755\\
+\addlinespace[6pt]\textit{Father and birth (MxFLS-1 and MxFLS-2)}&            &            &            &            &            &            \\
+Father's height (centimeters)&      166.42&        7.15&      144.00&      166.30&      192.00&       1,212\\
+Father's years of schooling&        7.33&        3.92&        0.00&        7.00&       18.00&       1,443\\
+Father's age at birth (years)&       30.36&        7.85&       15.00&       29.00&       75.00&       1,482\\
+Father employed (indicator)&        0.96&        0.20&        0.00&        1.00&        1.00&       1,447\\
+Birth order         &        2.66&        1.89&        1.00&        2.00&       13.00&       1,392\\
+Oldest child (indicator)&        0.32&        0.47&        0.00&        0.00&        1.00&       1,392\\
+Birth weight (kilograms)&        3.27&        0.60&        0.85&        3.25&        6.00&       1,256\\
+Delivered at home (indicator)&        0.12&        0.32&        0.00&        0.00&        1.00&       1,544\\
+Weeks predominantly breastfed&       33.57&       33.98&        0.00&       26.09&      260.89&       1,357\\
+Iron during pregnancy (indicator)&        0.72&        0.45&        0.00&        1.00&        1.00&       1,366\\
+Premature, mother reported (indicator)&        0.14&        0.35&        0.00&        0.00&        1.00&       1,362\\
+
+\bottomrule
+\end{tabular}}%
+\makebox[\textwidth][c]{\usebox{\tblbox}}%
+\par\vspace{4pt}
+\noindent\makebox[\textwidth][c]{\parbox{\wd\tblbox}{\scriptsize \textit{Notes:} This table is for the sample of Model 3, the main binary DID with controls. Obs. counts children. The children have the outcome measured in MxFLS-2 (2005) and MxFLS-3 (2009), under the panel's age cutoff in both survey waves, and a 2005 municipality. They were not measured in MxFLS-3 before November 2009, for the same reason as in Table~\ref{tab:sumstats}. Panel A uses the WAZ sample, Panel B the HAZ and BMIZ sample. The BMIZ sample is marginally smaller than the HAZ sample shown in Panel B, at 1,714 children. Statistics are at the 2005 baseline, except remittances and household variables (2002). Remittances enter Model 5, and the father and birth controls enter Model 4. Both are observed for fewer children. Drought is May--October CHIRPS rainfall, the maize growing season \parencite{jessoeClimateChangeLabour2018}, in the 2005 municipality below its 1981--2004 20th percentile \parencite{shahDroughtOpportunitiesContemporaneous2017}. Remittances are cash received in the last 12 months from parents, siblings, or children outside the household. Expenditure is in 2002 pesos per person per month. Rural is a locality under 2,500 inhabitants \parencite{inegiQueHayLocalidades2024}.}}%
+\par\vspace{\intextsep}
+\endgroup
+\endgroup
+
+
+The inclusion of controls substantially reduces the sample size and statistical power. Restricting the binary regressions to children with complete data on all Model 3 controls leaves 700 children in the WAZ sample, 1,755 in the HAZ sample, and 1,714 in the BMIZ sample. Objective measures include anthropometrics collected by health personnel, parental height, dwelling characteristics, and locality information. Other variables, used only in Model 4, rely on retrospective reporting, including birth weight, prematurity, and breastfeeding, which may introduce recall error.
+
+The household controls are from 2002, and the child, mother, father, and birth controls are from 2005. I choose controls based on the existing literature. \textcite{cattaneoHousingHealthHappiness2009} find that replacing dirt floors with cement floors in Mexico reduced parasitic infestations, diarrhea, and anemia and improved children's cognitive development. This motivates my dwelling controls, such as floor and roof quality. \textcite{thomasHowDoesMothers1991} show that parental characteristics such as the mother's years of schooling are determinants of child height and health, so controlling for them helps avoid omitted variable bias. \textcite{thamarapaniNaturalDisastersChild2021} uses a similar set of controls in Indonesia. Most variables in the table are as expected. The average mother is about 154 cm tall and the average father about 166 cm. These are close to the national averages of about 154 to 155 cm for Mexican women and 167 to 168 cm for Mexican men born in the 1970s \parencite{ncdriskfactorcollaborationCenturyTrendsAdult2016}. On average, mothers were about 27 and fathers about 30 at the child's birth. Most dwellings, 97 to 98 percent, have electricity, in line with the 96.6 percent of Mexican dwellings with electricity in 2005 \parencite{inegiIIConteoPoblacion2005}.
+
+\clearpage
+\subsection*{Appendix B. Binary Difference-in-Differences}\phantomsection\label{app:binary}
+
+\begin{figure}[!htbp]
+\centering
+\caption{Event Study with Controls, BMI-for-Age, Binary Treatment}\label{fig:esc_bmiz}
+\includegraphics[width=0.85\textwidth]{/Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thesis/Proposal 3 Mexico OG/Output/Figures/Appendix/event_study_bmiz_controls.png}
+\par\parbox{0.85\textwidth}{\singlespacing\scriptsize \textit{Notes:} Drought compared with no drought. The coefficients are on the 2009 drought indicator interacted with the 2002 and 2009 survey waves. The sample is the children in Model 3 of the binary difference-in-differences, in each survey wave in which they are measured. The Model 3 controls are each interacted with the 2002 and 2009 survey waves. Included are child and interview year-month fixed effects. 2005 is the reference wave. 95\% confidence intervals use standard errors clustered by 2005 municipality.}
+\end{figure}
+
+
+\begin{figure}[!htbp]
+\centering
+\caption{Event Study with Controls, Height-for-Age, Binary Treatment}\label{fig:esc_haz}
+\includegraphics[width=0.85\textwidth]{/Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thesis/Proposal 3 Mexico OG/Output/Figures/Appendix/event_study_haz_controls.png}
+\par\parbox{0.85\textwidth}{\singlespacing\scriptsize \textit{Notes:} See Figure~\ref{fig:esc_bmiz}.}
+\end{figure}
+
+
+\begin{figure}[!htbp]
+\centering
+\caption{Event Study with Controls, Weight-for-Age, Binary Treatment}\label{fig:esc_waz}
+\includegraphics[width=0.85\textwidth]{/Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thesis/Proposal 3 Mexico OG/Output/Figures/Appendix/event_study_waz_controls.png}
+\par\parbox{0.85\textwidth}{\singlespacing\scriptsize \textit{Notes:} See Figure~\ref{fig:esc_bmiz}.}
+\end{figure}
+
+
+\begingroup\singlespacing
+\begingroup
+\footnotesize
+\renewcommand{\arraystretch}{0.86}
+\setlength{\tabcolsep}{4pt}
+\setlength{\LTcapwidth}{\textwidth}
+\begin{table}[!htbp]\centering
+\caption{Event Study, 2009 Drought and Height-for-Age}\label{tab:eshaz}
+\footnotesize
+\global\setbox\tblbox=\hbox{\begin{tabular}{l*{2}{c}}
+\toprule
+ & \multicolumn{2}{c}{Height-for-age z-score (HAZ)}\\
+\cmidrule(lr){2-3}
+            &\multicolumn{1}{c}{(1)}&\multicolumn{1}{c}{(2)}\\
+            &\multicolumn{1}{c}{Event study}&\multicolumn{1}{c}{Triple difference}\\
+\midrule
+Drought \ensuremath{\times} 2002 wave (lead)&       0.115         &       0.192         \\
+            &     (0.116)         &     (0.128)         \\
+Drought \ensuremath{\times} 2009 wave&       0.015         &      -0.008         \\
+            &     (0.110)         &     (0.114)         \\
+Drought \ensuremath{\times} 2002 remittances \ensuremath{\times} 2002 wave (lead)&                     &      -0.297         \\
+            &                     &     (0.180)         \\
+Drought \ensuremath{\times} 2002 remittances \ensuremath{\times} 2009 wave&                     &      -0.158         \\
+            &                     &     (0.147)         \\
+\midrule
+2005--2008 droughts \ensuremath{\times} wave&           Y         &           Y         \\
+2002 household controls \ensuremath{\times} wave&           Y         &           Y         \\
+2005 child and mother controls \ensuremath{\times} wave&           Y         &           Y         \\
+Child FE    &           Y         &           Y         \\
+Interview year-month FE&           Y         &           Y         \\
+P-value, lead = 0&       0.322         &       0.101         \\
+\midrule 2009 drought effect, remittance households&                     &      -0.167         \\
+\quad SE    &                     &       0.143         \\
+\quad P-value&                     &       0.245         \\
+\midrule Observations (child-waves)&       4,598         &       4,249         \\
+Children    &       1,755         &       1,622         \\
+2005 municipalities (clusters)&         116         &         114         \\
+\bottomrule
+\end{tabular}}%
+\makebox[\textwidth][c]{\usebox{\tblbox}}%
+\par\vspace{4pt}
+\noindent\makebox[\textwidth][c]{\parbox{\wd\tblbox}{\scriptsize \textit{Notes:} This table tests for pre-trends before the 2009 drought. Regressions are at the child-wave level with 2005 as the reference wave. The sample is children aged 15 or younger in each wave they are in. They were not measured in MxFLS-3 before November 2009, for the same reason as in Table~\ref{tab:sumstats}. Col. 1 keeps the children in Model 3 of the binary DID and Col. 2 those in Model 5, so each matches its DID sample. Col. 1 interacts the drought indicator with the 2002 and 2009 waves. The 2002 interaction is the lead. The 2005--2008 droughts and the 2002 household and 2005 child and mother controls are each interacted with both waves. Col. 2 adds the drought terms times 2002 remittances. The 2002 remittance terms on their own are not shown. The lead p-value tests the drought lead in Col. 1 and the triple difference lead in Col. 2. Baseline controls are interacted with time to allow different trends by pre-treatment characteristics. The effect for remittance households is the sum of the two 2009 drought terms. All regressions include child and interview year-month fixed effects, and standard errors are clustered by 2005 municipality. \mbox{\sym{*}\(p<.10\), \sym{**}\(p<.05\), \sym{***}\(p<.01\).}}}%
+\end{table}
+\endgroup
+\endgroup
+
+
+\begingroup\singlespacing
+\begingroup
+\footnotesize
+\renewcommand{\arraystretch}{0.86}
+\setlength{\tabcolsep}{4pt}
+\setlength{\LTcapwidth}{\textwidth}
+\begin{table}[!htbp]\centering
+\caption{Event Study, 2009 Drought and Weight-for-Age}\label{tab:eswaz}
+\footnotesize
+\global\setbox\tblbox=\hbox{\begin{tabular}{l*{2}{c}}
+\toprule
+ & \multicolumn{2}{c}{Weight-for-age z-score (WAZ)}\\
+\cmidrule(lr){2-3}
+            &\multicolumn{1}{c}{(1)}&\multicolumn{1}{c}{(2)}\\
+            &\multicolumn{1}{c}{Event study}&\multicolumn{1}{c}{Triple difference}\\
+\midrule
+Drought \ensuremath{\times} 2002 wave (lead)&      -0.481\sym{**} &      -0.336         \\
+            &     (0.216)         &     (0.244)         \\
+Drought \ensuremath{\times} 2009 wave&      -0.298\sym{**} &      -0.105         \\
+            &     (0.126)         &     (0.145)         \\
+Drought \ensuremath{\times} 2002 remittances \ensuremath{\times} 2002 wave (lead)&                     &      -0.078         \\
+            &                     &     (0.347)         \\
+Drought \ensuremath{\times} 2002 remittances \ensuremath{\times} 2009 wave&                     &      -0.373\sym{*}  \\
+            &                     &     (0.208)         \\
+\midrule
+2005--2008 droughts \ensuremath{\times} wave&           Y         &           Y         \\
+2002 household controls \ensuremath{\times} wave&           Y         &           Y         \\
+2005 child and mother controls \ensuremath{\times} wave&           Y         &           Y         \\
+Child FE    &           Y         &           Y         \\
+Interview year-month FE&           Y         &           Y         \\
+P-value, lead = 0&       0.028         &       0.822         \\
+\midrule 2009 drought effect, remittance households&                     &      -0.477         \\
+\quad SE    &                     &       0.200         \\
+\quad P-value&                     &       0.019         \\
+\midrule Observations (child-waves)&       1,609         &       1,454         \\
+Children    &         700         &         634         \\
+2005 municipalities (clusters)&         101         &          99         \\
+\bottomrule
+\end{tabular}}%
+\makebox[\textwidth][c]{\usebox{\tblbox}}%
+\par\vspace{4pt}
+\noindent\makebox[\textwidth][c]{\parbox{\wd\tblbox}{\scriptsize \textit{Notes:} This table tests for pre-trends before the 2009 drought. Regressions are at the child-wave level with 2005 as the reference wave. The sample is children aged 10 or younger in each wave they are in. They were not measured in MxFLS-3 before November 2009, for the same reason as in Table~\ref{tab:sumstats}. Col. 1 keeps the children in Model 3 of the binary DID and Col. 2 those in Model 5, so each matches its DID sample. Col. 1 interacts the drought indicator with the 2002 and 2009 waves. The 2002 interaction is the lead. The 2005--2008 droughts and the 2002 household and 2005 child and mother controls are each interacted with both waves. Col. 2 adds the drought terms times 2002 remittances. The 2002 remittance terms on their own are not shown. The lead p-value tests the drought lead in Col. 1 and the triple difference lead in Col. 2. Baseline controls are interacted with time to allow different trends by pre-treatment characteristics. The effect for remittance households is the sum of the two 2009 drought terms. All regressions include child and interview year-month fixed effects, and standard errors are clustered by 2005 municipality. \mbox{\sym{*}\(p<.10\), \sym{**}\(p<.05\), \sym{***}\(p<.01\).}}}%
+\end{table}
+\endgroup
+\endgroup
+
+
+\begingroup\singlespacing
+\begingroup
+\footnotesize
+\renewcommand{\arraystretch}{0.86}
+\setlength{\tabcolsep}{4pt}
+\setlength{\LTcapwidth}{\textwidth}
+\begin{table}[!htbp]\centering
+\caption{Event Study, 2009 Drought and BMI-for-Age}\label{tab:esbmiz}
+\footnotesize
+\global\setbox\tblbox=\hbox{\begin{tabular}{l*{2}{c}}
+\toprule
+ & \multicolumn{2}{c}{BMI-for-age z-score (BMIZ)}\\
+\cmidrule(lr){2-3}
+            &\multicolumn{1}{c}{(1)}&\multicolumn{1}{c}{(2)}\\
+            &\multicolumn{1}{c}{Event study}&\multicolumn{1}{c}{Triple difference}\\
+\midrule
+Drought \ensuremath{\times} 2002 wave (lead)&      -0.387\sym{***}&      -0.423\sym{***}\\
+            &     (0.104)         &     (0.120)         \\
+Drought \ensuremath{\times} 2009 wave&      -0.293\sym{***}&      -0.262\sym{**} \\
+            &     (0.097)         &     (0.114)         \\
+Drought \ensuremath{\times} 2002 remittances \ensuremath{\times} 2002 wave (lead)&                     &       0.186         \\
+            &                     &     (0.202)         \\
+Drought \ensuremath{\times} 2002 remittances \ensuremath{\times} 2009 wave&                     &       0.040         \\
+            &                     &     (0.217)         \\
+\midrule
+2005--2008 droughts \ensuremath{\times} wave&           Y         &           Y         \\
+2002 household controls \ensuremath{\times} wave&           Y         &           Y         \\
+2005 child and mother controls \ensuremath{\times} wave&           Y         &           Y         \\
+Child FE    &           Y         &           Y         \\
+Interview year-month FE&           Y         &           Y         \\
+P-value, lead = 0&       0.000         &       0.358         \\
+\midrule 2009 drought effect, remittance households&                     &      -0.222         \\
+\quad SE    &                     &       0.167         \\
+\quad P-value&                     &       0.187         \\
+\midrule Observations (child-waves)&       4,438         &       4,110         \\
+Children    &       1,714         &       1,587         \\
+2005 municipalities (clusters)&         116         &         114         \\
+\bottomrule
+\end{tabular}}%
+\makebox[\textwidth][c]{\usebox{\tblbox}}%
+\par\vspace{4pt}
+\noindent\makebox[\textwidth][c]{\parbox{\wd\tblbox}{\scriptsize \textit{Notes:} This table tests for pre-trends before the 2009 drought. Regressions are at the child-wave level with 2005 as the reference wave. The sample is children aged 15 or younger in each wave they are in. They were not measured in MxFLS-3 before November 2009, for the same reason as in Table~\ref{tab:sumstats}. Col. 1 keeps the children in Model 3 of the binary DID and Col. 2 those in Model 5, so each matches its DID sample. Col. 1 interacts the drought indicator with the 2002 and 2009 waves. The 2002 interaction is the lead. The 2005--2008 droughts and the 2002 household and 2005 child and mother controls are each interacted with both waves. Col. 2 adds the drought terms times 2002 remittances. The 2002 remittance terms on their own are not shown. The lead p-value tests the drought lead in Col. 1 and the triple difference lead in Col. 2. Baseline controls are interacted with time to allow different trends by pre-treatment characteristics. The effect for remittance households is the sum of the two 2009 drought terms. All regressions include child and interview year-month fixed effects, and standard errors are clustered by 2005 municipality. \mbox{\sym{*}\(p<.10\), \sym{**}\(p<.05\), \sym{***}\(p<.01\).}}}%
+\end{table}
+\endgroup
+\endgroup
+
+
+\begingroup\singlespacing
+\begingroup
+\footnotesize
+\renewcommand{\arraystretch}{0.86}
+\setlength{\tabcolsep}{4pt}
+\setlength{\LTcapwidth}{\textwidth}
+\begin{table}[!htbp]\centering
+\caption{2009 Drought and Height-for-Age, Binary DID, All Three Waves}\label{tab:all3haz}
+\footnotesize
+\global\setbox\tblbox=\hbox{\begin{tabular}{l*{5}{c}}
+\toprule
+ & \multicolumn{5}{c}{Height-for-age z-score (HAZ)}\\
+\cmidrule(lr){2-6}
+            &\multicolumn{1}{c}{(1)}         &\multicolumn{1}{c}{(2)}         &\multicolumn{1}{c}{(3)}         &\multicolumn{1}{c}{(4)}         &\multicolumn{1}{c}{(5)}         \\
+\midrule
+Drought \ensuremath{\times} post&       0.023         &       0.048         &       0.144         &       0.099         &       0.181\sym{*}  \\
+            &     (0.087)         &     (0.090)         &     (0.090)         &     (0.136)         &     (0.103)         \\
+Drought \ensuremath{\times} post \ensuremath{\times} 2002 remittances&                     &                     &                     &                     &      -0.166         \\
+            &                     &                     &                     &                     &     (0.141)         \\
+2002 remittances \ensuremath{\times} post&                     &                     &                     &                     &      -0.084         \\
+            &                     &                     &                     &                     &     (0.092)         \\
+\midrule
+2005--2008 droughts \ensuremath{\times} post&           N         &           Y         &           Y         &           Y         &           Y         \\
+2002 household controls \ensuremath{\times} post&           N         &           N         &           Y         &           Y         &           Y         \\
+2005 child and mother controls \ensuremath{\times} post&           N         &           N         &           Y         &           Y         &           Y         \\
+2005 father and birth controls \ensuremath{\times} post&           N         &           N         &           N         &           Y         &           N         \\
+Child FE    &           Y         &           Y         &           Y         &           Y         &           Y         \\
+Interview year-month FE&           Y         &           Y         &           Y         &           Y         &           Y         \\
+Children    &       1,293         &       1,293         &       1,084         &         559         &       1,003         \\
+\bottomrule
+\end{tabular}}%
+\makebox[\textwidth][c]{\usebox{\tblbox}}%
+\par\vspace{4pt}
+\noindent\makebox[\textwidth][c]{\parbox{\wd\tblbox}{\scriptsize \textit{Notes:} This robustness check keeps only children measured in all three waves. The table reports the effect of the 2009 drought on HAZ with the binary DID for these children. They are aged 15 or younger in both survey waves. They were not measured in MxFLS-3 before November 2009, for the same reason as in Table~\ref{tab:sumstats}. Columns, variables and controls are as in the main binary DID tables. All regressions include child and interview year-month fixed effects, and standard errors are clustered by 2005 municipality. \mbox{\sym{*}\(p<.10\), \sym{**}\(p<.05\), \sym{***}\(p<.01\).}}}%
+\end{table}
+\endgroup
+\endgroup
+
+
+\begingroup\singlespacing
+\begingroup
+\footnotesize
+\renewcommand{\arraystretch}{0.86}
+\setlength{\tabcolsep}{4pt}
+\setlength{\LTcapwidth}{\textwidth}
+\begin{table}[!htbp]\centering
+\caption{2009 Drought and Weight-for-Age, Binary DID, All Three Waves}\label{tab:all3waz}
+\footnotesize
+\global\setbox\tblbox=\hbox{\begin{tabular}{l*{5}{c}}
+\toprule
+ & \multicolumn{5}{c}{Weight-for-age z-score (WAZ)}\\
+\cmidrule(lr){2-6}
+            &\multicolumn{1}{c}{(1)}         &\multicolumn{1}{c}{(2)}         &\multicolumn{1}{c}{(3)}         &\multicolumn{1}{c}{(4)}         &\multicolumn{1}{c}{(5)}         \\
+\midrule
+Drought \ensuremath{\times} post&       0.025         &      -0.084         &       0.064         &       0.361         &       0.293         \\
+            &     (0.136)         &     (0.176)         &     (0.183)         &     (0.266)         &     (0.233)         \\
+Drought \ensuremath{\times} post \ensuremath{\times} 2002 remittances&                     &                     &                     &                     &      -0.444         \\
+            &                     &                     &                     &                     &     (0.360)         \\
+2002 remittances \ensuremath{\times} post&                     &                     &                     &                     &       0.149         \\
+            &                     &                     &                     &                     &     (0.257)         \\
+\midrule
+2005--2008 droughts \ensuremath{\times} post&           N         &           Y         &           Y         &           Y         &           Y         \\
+2002 household controls \ensuremath{\times} post&           N         &           N         &           Y         &           Y         &           Y         \\
+2005 child and mother controls \ensuremath{\times} post&           N         &           N         &           Y         &           Y         &           Y         \\
+2005 father and birth controls \ensuremath{\times} post&           N         &           N         &           N         &           Y         &           N         \\
+Child FE    &           Y         &           Y         &           Y         &           Y         &           Y         \\
+Interview year-month FE&           Y         &           Y         &           Y         &           Y         &           Y         \\
+Children    &         266         &         266         &         203         &         121         &         179         \\
+\bottomrule
+\end{tabular}}%
+\makebox[\textwidth][c]{\usebox{\tblbox}}%
+\par\vspace{4pt}
+\noindent\makebox[\textwidth][c]{\parbox{\wd\tblbox}{\scriptsize \textit{Notes:} This robustness check keeps only children measured in all three waves. The table reports the effect of the 2009 drought on WAZ with the binary DID for these children. They are aged 10 or younger in both survey waves. They were not measured in MxFLS-3 before November 2009, for the same reason as in Table~\ref{tab:sumstats}. Columns, variables and controls are as in the main binary DID tables. All regressions include child and interview year-month fixed effects, and standard errors are clustered by 2005 municipality. \mbox{\sym{*}\(p<.10\), \sym{**}\(p<.05\), \sym{***}\(p<.01\).}}}%
+\end{table}
+\endgroup
+\endgroup
+
+
+\begingroup\singlespacing
+\begingroup
+\footnotesize
+\renewcommand{\arraystretch}{0.86}
+\setlength{\tabcolsep}{4pt}
+\setlength{\LTcapwidth}{\textwidth}
+\begin{table}[!htbp]\centering
+\caption{2009 Drought and BMI-for-Age, Binary DID, All Three Waves}\label{tab:all3bmiz}
+\footnotesize
+\global\setbox\tblbox=\hbox{\begin{tabular}{l*{5}{c}}
+\toprule
+ & \multicolumn{5}{c}{BMI-for-age z-score (BMIZ)}\\
+\cmidrule(lr){2-6}
+            &\multicolumn{1}{c}{(1)}         &\multicolumn{1}{c}{(2)}         &\multicolumn{1}{c}{(3)}         &\multicolumn{1}{c}{(4)}         &\multicolumn{1}{c}{(5)}         \\
+\midrule
+Drought \ensuremath{\times} post&      -0.147         &      -0.223\sym{**} &      -0.250\sym{**} &      -0.171         &      -0.190         \\
+            &     (0.089)         &     (0.107)         &     (0.118)         &     (0.121)         &     (0.147)         \\
+Drought \ensuremath{\times} post \ensuremath{\times} 2002 remittances&                     &                     &                     &                     &      -0.032         \\
+            &                     &                     &                     &                     &     (0.247)         \\
+2002 remittances \ensuremath{\times} post&                     &                     &                     &                     &       0.012         \\
+            &                     &                     &                     &                     &     (0.098)         \\
+\midrule
+2005--2008 droughts \ensuremath{\times} post&           N         &           Y         &           Y         &           Y         &           Y         \\
+2002 household controls \ensuremath{\times} post&           N         &           N         &           Y         &           Y         &           Y         \\
+2005 child and mother controls \ensuremath{\times} post&           N         &           N         &           Y         &           Y         &           Y         \\
+2005 father and birth controls \ensuremath{\times} post&           N         &           N         &           N         &           Y         &           N         \\
+Child FE    &           Y         &           Y         &           Y         &           Y         &           Y         \\
+Interview year-month FE&           Y         &           Y         &           Y         &           Y         &           Y         \\
+Children    &       1,196         &       1,196         &       1,006         &         513         &         933         \\
+\bottomrule
+\end{tabular}}%
+\makebox[\textwidth][c]{\usebox{\tblbox}}%
+\par\vspace{4pt}
+\noindent\makebox[\textwidth][c]{\parbox{\wd\tblbox}{\scriptsize \textit{Notes:} This robustness check keeps only children measured in all three waves. The table reports the effect of the 2009 drought on BMIZ with the binary DID for these children. They are aged 15 or younger in both survey waves. They were not measured in MxFLS-3 before November 2009, for the same reason as in Table~\ref{tab:sumstats}. Columns, variables and controls are as in the main binary DID tables. All regressions include child and interview year-month fixed effects, and standard errors are clustered by 2005 municipality. \mbox{\sym{*}\(p<.10\), \sym{**}\(p<.05\), \sym{***}\(p<.01\).}}}%
+\end{table}
+\endgroup
+\endgroup
+
+
+\begingroup\singlespacing
+\begingroup
+\footnotesize
+\renewcommand{\arraystretch}{0.86}
+\setlength{\tabcolsep}{4pt}
+\setlength{\LTcapwidth}{\textwidth}
+\begin{table}[!htbp]\centering
+\caption{2009 Drought and Child Anthropometrics, Binary DID Model 3 with All Covariates}\label{tab:allcov}
+\footnotesize
+\global\setbox\tblbox=\hbox{\begin{tabular}{p{0.62\textwidth}ccc}
+\toprule
+ & HAZ & WAZ & BMIZ\\
+            &\multicolumn{1}{c}{(1)}         &\multicolumn{1}{c}{(2)}         &\multicolumn{1}{c}{(3)}         \\
+\midrule
+2009 drought \ensuremath{\times} post&       0.021         &      -0.299\sym{**} &      -0.304\sym{***}\\
+            &     (0.113)         &     (0.125)         &     (0.095)         \\
+2005 drought \ensuremath{\times} post&       0.127         &      -0.193         &      -0.129         \\
+            &     (0.114)         &     (0.124)         &     (0.085)         \\
+2006 drought \ensuremath{\times} post&      -0.254         &      -0.343         &      -0.043         \\
+            &     (0.158)         &     (0.294)         &     (0.199)         \\
+2007 drought \ensuremath{\times} post&      -0.137         &      -0.181         &      -0.202\sym{*}  \\
+            &     (0.118)         &     (0.152)         &     (0.120)         \\
+2008 drought \ensuremath{\times} post&      -0.070         &       0.037         &       0.350\sym{**} \\
+            &     (0.154)         &     (0.181)         &     (0.138)         \\
+2002 dwelling has electricity \ensuremath{\times} post&      -0.707\sym{**} &      -0.494\sym{**} &       0.016         \\
+            &     (0.321)         &     (0.211)         &     (0.239)         \\
+2002 good floor quality \ensuremath{\times} post&      -0.140         &      -0.031         &       0.137         \\
+            &     (0.114)         &     (0.156)         &     (0.102)         \\
+2002 good roof quality \ensuremath{\times} post&       0.083         &      -0.161         &      -0.155         \\
+            &     (0.093)         &     (0.160)         &     (0.099)         \\
+2002 enough ventilation \ensuremath{\times} post&       0.057         &      -0.010         &       0.140\sym{**} \\
+            &     (0.077)         &     (0.124)         &     (0.065)         \\
+2002 sleeping rooms per member \ensuremath{\times} post&       0.116         &       0.224         &       0.258\sym{*}  \\
+            &     (0.187)         &     (0.255)         &     (0.146)         \\
+2002 ln expenditure per capita \ensuremath{\times} post&       0.023         &       0.147\sym{**} &      -0.044         \\
+            &     (0.053)         &     (0.064)         &     (0.042)         \\
+2002 rural locality \ensuremath{\times} post&      -0.137         &      -0.033         &       0.016         \\
+            &     (0.096)         &     (0.115)         &     (0.073)         \\
+Male \ensuremath{\times} post&       0.089         &       0.021         &      -0.000         \\
+            &     (0.069)         &     (0.103)         &     (0.061)         \\
+2005 mother's height (cm) \ensuremath{\times} post&      -0.009         &      -0.005         &      -0.001         \\
+            &     (0.006)         &     (0.008)         &     (0.005)         \\
+2005 mother's years of schooling \ensuremath{\times} post&       0.008         &       0.023         &       0.015         \\
+            &     (0.012)         &     (0.015)         &     (0.011)         \\
+Mother's age at birth \ensuremath{\times} post&      -0.002         &       0.005         &      -0.001         \\
+            &     (0.006)         &     (0.007)         &     (0.005)         \\
+2005 mother employed \ensuremath{\times} post&      -0.033         &      -0.171         &      -0.011         \\
+            &     (0.077)         &     (0.117)         &     (0.079)         \\
+2005 fully vaccinated \ensuremath{\times} post&      -0.020         &       0.282\sym{***}&       0.053         \\
+            &     (0.086)         &     (0.105)         &     (0.064)         \\
+\midrule
+Child FE    &           Y         &           Y         &           Y         \\
+Interview year-month FE&           Y         &           Y         &           Y         \\
+Children    &       1,755         &         700         &       1,714         \\
+2005 municipalities (clusters)&         116         &         101         &         116         \\
+\bottomrule
+\end{tabular}}%
+\makebox[\textwidth][c]{\usebox{\tblbox}}%
+\par\vspace{4pt}
+\noindent\makebox[\textwidth][c]{\parbox{\wd\tblbox}{\scriptsize \textit{Notes:} This table reports every coefficient of Model 3, which is Col. 3 of the main binary DID tables, including all control variables. All regressions include child and interview year-month fixed effects, children in singleton cells are dropped, and standard errors are clustered by 2005 municipality. \mbox{\sym{*}\(p<.10\), \sym{**}\(p<.05\), \sym{***}\(p<.01\).}}}%
+\end{table}
+\endgroup
+\endgroup
+
+
+\FloatBarrier
+\subsection*{Appendix C. Discrete Dose}
+
+\begin{figure}[!htbp]
+\centering
+\caption{Event Study by Dose Level, Height-for-Age, Children in All Three Survey Waves}\label{fig:es_haz_all3}
+\includegraphics[width=0.85\textwidth]{/Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thesis/Proposal 3 Mexico OG/Output/Figures/Appendix/event_study_severity_haz_all3.png}
+\par\parbox{0.85\textwidth}{\singlespacing\scriptsize \textit{Notes:} See Figure~\ref{fig:es_bmiz_all3}.}
+\end{figure}
+
+
+\begin{figure}[!htbp]
+\centering
+\caption{Event Study by Dose Level, Weight-for-Age, Children in All Three Survey Waves}\label{fig:es_waz_all3}
+\includegraphics[width=0.85\textwidth]{/Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thesis/Proposal 3 Mexico OG/Output/Figures/Appendix/event_study_severity_waz_all3.png}
+\par\parbox{0.85\textwidth}{\singlespacing\scriptsize \textit{Notes:} See Figure~\ref{fig:es_bmiz_all3}.}
+\end{figure}
+
+
+\end{document}

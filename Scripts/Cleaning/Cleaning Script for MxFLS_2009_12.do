@@ -87,7 +87,7 @@ rename sa02_2 bmonth
 rename sa02_3 byear
 
 
-* This code purely is for the missing "day" observations. It imputes a bday if we have both month and year, this allows us to keep roughly 200 observations for children get z-scores whereas before we dropped them and had no z-scores. 
+* This code purely is for the missing "day" observations. It imputes a bday if we have both month and year, this allows us to keep roughly 200 observations for children get z-scores that would otherwise be dropped with no z-scores. 
 gen byte bday_imputed = !inrange(bday, 1, 31) & inrange(bmonth, 1, 12) & inrange(byear, 1900, 2013)
 replace bday = 15 if bday_imputed == 1
 
@@ -136,7 +136,7 @@ merge m:1 folio using `measdate', keep(master match) nogen
 * IMPORTANT NOTE: THINKING ABOUT ADDING IN AGE AS A CONTROL???? 
 gen age_days = int_date - mdy(bmonth, bday, byear)
 gen age_months_exact = age_days / 30.4375
-* CHANGED: Same rule as 2002 and 2005, for ALL interviews. Some Book S birth dates are wrong, or the Book C date is long after the measurement (2011-2013 interviews: 75% of ages disagree in 2013). If the computed age disagrees with the age reported in Book S (sa03) by more than about a year, set age_days to missing so the child gets no z-score
+* Same rule as 2002 and 2005, for ALL interviews. Some Book S birth dates are wrong, or the Book C date is long after the measurement (2011-2013 interviews: 75% of ages disagree in 2013). If the computed age disagrees with the age reported in Book S (sa03) by more than about a year, set age_days to missing so the child gets no z-score
 gen int int_year = year(int_date)
 replace age_days = . if !missing(age, age_days) & !inrange(age_days/365.25 - age, -0.5, 1.5)
 
@@ -316,7 +316,7 @@ tempfile temp_re1
 save `temp_re1'
 
 * Parent transfers + parent's country of residence (module iiib_tp)
-* NOTE: mirrors the confirmed tp18pp_1/tp18pp_2 (father) coding for mother (tp18mp_1/tp18mp_2);
+* NOTE: the mother (tp18mp_1/tp18mp_2) is coded the same way as the father (tp18pp_1/tp18pp_2)
 use "$path/hh09dta_b3b/iiib_tp.dta", clear
 * We specifically look at remmittances in the united states because it has a overwhelming frequncy of 301/310, the other countries are barely any
 * We code the missing appropiately. 1 is US, 0 is same location aka Mexico or a different country, . missing is categorized as don't know or genuinely missing. Note: Need to add upper in order to match across survey waves also its Estados unidos, but in 2002 it is United States
@@ -575,7 +575,7 @@ save `temp_pidlink'
 * Demographics & Control Variables
 *******************************************************************
 
-* We keep only the state code (ent) from the Book IIIA cover, collapsed to the household, because the state fill-in block further down uses it. Same file, rows and collapse as before, so ent is unchanged
+* We keep only the state code (ent) from the Book IIIA cover, collapsed to the household, because the state fill-in block further down uses it
 use "$path/hh09dta_b3a/iiia_portad.dta", clear
 keep folio ent
 collapse (max) ent, by(folio)
@@ -1096,7 +1096,7 @@ save `temp_pc_expend'
 ** TESTING ****
 ***************
 * Maternal/Household Child Mortality (Book 4, Reproductive Health)
-* NOTE: iv_res is a mother-level LIFETIME cumulative measure (every child she's ever borne, as of the 2009 interview) -- not a birth-year-specific outcome like. We collapse it to household level
+* NOTE: iv_res is a mother-level LIFETIME cumulative measure (every child she's ever borne, as of the 2009 interview), not a birth-year-specific outcome. We collapse it to household level
 *use "$path/hh09dta_b4/iv_res.dta", clear
 *keep folio ls res03 res04 res07 res08 res10 res11 res13
 *rename res10 sons_died
@@ -1108,9 +1108,7 @@ save `temp_pc_expend'
 *gen children_died = sons_died + daughters_died
 *tempfile temp_mortality
 *save `temp_mortality'
-* Sum numerator and denominator ACROSS all mothers in the household before
-* dividing -- summing first avoids a "ratio of ratios" mistake if a household
-* has more than one woman with a birth history.
+* Sum the numerator and denominator across all mothers in the household before dividing, in case a household has more than one woman with a birth history
 *collapse (sum) children_ever_born_alive children_died stillbirths, by(folio)
 *gen child_mortality_rate = 100 * children_died / children_ever_born_alive if children_ever_born_alive > 0
 *label variable child_mortality_rate "HH lifetime child deaths per 100 live births (mothers' birth histories, cumulative to 2009)"
@@ -1143,7 +1141,7 @@ merge 1:1 folio ls using `temp_parent_edu', keep(master match) gen(_merge_parent
 merge m:1 folio using `temp_rooms', keep(master match) gen(_merge_rooms)
 merge m:1 folio using `temp_pc_expend', keep(master match) gen(_merge_pc_expend)
 
-* Ent only came from the Book IIIA cover, iiia_portad, in the controls collapse, so a household where no adult has a Book IIIA got a missing state and was dropped from the rainfall merge. We fill this in with this book below. This matches the other waves
+* Ent comes from the Book IIIA cover, iiia_portad, in the controls collapse, so a household where no adult has a Book IIIA would get a missing state and be dropped from the rainfall merge. We fill this in with the Book C cover below. This matches the other waves
 preserve
     use "$path/hh09dta_bc/c_portad.dta", clear
     keep folio ent
@@ -1197,7 +1195,7 @@ merge m:1 folio using `temp_rural', keep(master match) nogen
 *keep if age < 15
 describe age gender height_cm weight_kg_gr blood_pressure_systole blood_pressure_diastole pulse hemoglobin_g_dl cholesterol cholesterol_hdl_good glycosylated_hemoglobin remittance_binary val_aid_donations_gifts moved_us us_doc child_weight_kg child_height_cm waist_cm hip_cm
 summarize age gender height_cm weight_kg_gr blood_pressure_systole blood_pressure_diastole pulse hemoglobin_g_dl cholesterol cholesterol_hdl_good glycosylated_hemoglobin remittance_binary val_aid_donations_gifts moved_us us_doc child_weight_kg child_height_cm waist_cm hip_cm
-* Summary stats for the new age precision / z-score variables
+* Summary stats for the age precision and z-score variables
 describe age_days age_months_exact haz waz bmiz
 summarize age_days age_months_exact haz waz bmiz
 
@@ -1209,7 +1207,7 @@ regress child_height_cm remittance_binary, robust
 regress child_height_cm remittance_binary age, robust
 regress child_weight_kg remittance_binary, robust
 regress child_weight_kg remittance_binary age, robust
-* Test regressions on the new HAZ/WAZ/BMIZ outcomes
+* Test regressions on the HAZ/WAZ/BMIZ outcomes
 regress haz remittance_binary, robust
 regress haz remittance_binary age, robust
 regress waz remittance_binary, robust
@@ -1295,7 +1293,7 @@ regress child_weight_kg remittance_binary age, robust
 regress child_height_cm remittance_binary, robust
 regress child_height_cm remittance_binary age, robust
 
-* Test regressions on the new HAZ/WAZ/BMIZ outcomes
+* Test regressions on the HAZ/WAZ/BMIZ outcomes
 regress haz remittance_binary, robust
 regress waz remittance_binary, robust
 regress bmiz remittance_binary, robust

@@ -54,7 +54,8 @@ dir.create(dir$output_regs, recursive = TRUE, showWarnings = FALSE)
 dir.create(dir$output_figure, recursive = TRUE, showWarnings = FALSE)
 dir$output_logs <- paste(dir$root,"/Output/Logs",sep="")
 for (d in c(dir$output_regs, dir$output_figure, dir$output_logs)) for (s in c("Main","Appendix")) dir.create(paste(d,"/",s,sep=""), recursive = TRUE, showWarnings = FALSE)
-for (d in c(dir$output_figure, dir$output_logs)) dir.create(paste(d,"/Miscellaneous",sep=""), recursive = TRUE, showWarnings = FALSE)
+dir.create(paste(dir$output_figure,"/Online_Appendix",sep=""), recursive = TRUE, showWarnings = FALSE)
+dir.create(paste(dir$output_logs,"/Miscellaneous",sep=""), recursive = TRUE, showWarnings = FALSE)
 
 # Save to this log
 sink(paste(dir$output_logs,"/Appendix/subanalysis_gender_contdid_regs.log",sep=""), split = TRUE)
@@ -146,8 +147,8 @@ for (s in names(misc$sexes)) {
     )
     cat("\n==================== Case 1, dose aggregation:", v, "|", s, "====================\n")
     print(summary(cd_res[[k]]))
-    save_plot(ggcont_did(cd_res[[k]], type = "att"), paste0("Miscellaneous/contdid_att_", k, ".png"))
-    save_plot(ggcont_did(cd_res[[k]], type = "acrt"), paste0("Miscellaneous/contdid_acrt_", k, ".png"))
+    save_plot(ggcont_did(cd_res[[k]], type = "att"), paste0("Online_Appendix/contdid_att_", k, ".png"))
+    save_plot(ggcont_did(cd_res[[k]], type = "acrt"), paste0("Online_Appendix/contdid_acrt_", k, ".png"))
   }
 }
 elapsed("Case 1")
@@ -207,8 +208,8 @@ for (s in names(misc$sexes)) {
     print(summary(cd_res_es_level[[k]]))
     cat("\n==================== Case 2, ACRT event study:", v, "|", s, "====================\n")
     print(summary(cd_res_es_slope[[k]]))
-    save_plot(ggcont_did(cd_res_es_level[[k]]), paste0("Miscellaneous/contdid_es_att_", k, ".png"))
-    save_plot(ggcont_did(cd_res_es_slope[[k]]), paste0("Miscellaneous/contdid_es_acrt_", k, ".png"))
+    save_plot(ggcont_did(cd_res_es_level[[k]]), paste0("Online_Appendix/contdid_es_att_", k, ".png"))
+    save_plot(ggcont_did(cd_res_es_slope[[k]]), paste0("Online_Appendix/contdid_es_acrt_", k, ".png"))
   }
 }
 elapsed("Case 2")
@@ -242,7 +243,7 @@ for (s in names(misc$sexes)) {
     trt$bin <- cut(trt$D, breaks = unique(quantile(trt$D, seq(0, 1, .1))), include.lowest = TRUE)
     bins <- aggregate(cbind(D, dY) ~ bin, data = trt, FUN = mean)
     bins$n <- as.numeric(table(trt$bin)[as.character(bins$bin)])
-    png(paste(dir$output_figure,"/Miscellaneous/contdid_binscatter_",k,".png",sep=""), width = 6.5, height = 4.5, units = "in", res = 200)
+    png(paste(dir$output_figure,"/Online_Appendix/contdid_binscatter_",k,".png",sep=""), width = 6.5, height = 4.5, units = "in", res = 200)
     plot(bins$D, bins$dY, pch = 21, bg = "grey70", cex = 1 + 2 * bins$n / max(bins$n),
          xlab = "2009 rainfall deficit (SDs below the 1981-2004 mean)", ylab = paste0("Change in ", v, ", 2005 to 2009"),
          main = paste0("Change in ", v, " by 2009 rainfall deficit, ", s), ylim = range(c(bins$dY, mean(unt$dY))))
@@ -270,9 +271,9 @@ for (s in names(misc$sexes)) {
 
     # ---- d. Plots ----
     xlab <- "2009 rainfall deficit (SDs below the 1981-2004 mean)"
-    plot_bands(res$dose, res$att.d, b_att.d$se, b_att.d$crit.val, paste0("Miscellaneous/contdid_att_clustered_", k, ".png"),
+    plot_bands(res$dose, res$att.d, b_att.d$se, b_att.d$crit.val, paste0("Online_Appendix/contdid_att_clustered_", k, ".png"),
                xlab, "ATT", paste0("ATT(d), ", v, ", ", s, ": 95% bands clustered by municipality"))
-    plot_bands(res$dose, res$acrt.d, b_acrt.d$se, b_acrt.d$crit.val, paste0("Miscellaneous/contdid_acrt_clustered_", k, ".png"),
+    plot_bands(res$dose, res$acrt.d, b_acrt.d$se, b_acrt.d$crit.val, paste0("Online_Appendix/contdid_acrt_clustered_", k, ".png"),
                xlab, "ACRT", paste0("ACRT(d), ", v, ", ", s, ": 95% bands clustered by municipality"))
   }
 }
@@ -289,7 +290,7 @@ elapsed("Clustered section")
 
 # Tests whether 2002 remittances protected children from the 2009 drought. It loops over the three outcomes HAZ, WAZ, BMIZ, and for each one does two things.
 # 1: Runs CGBS continuous DID, splits children into non-remittance and remittance households, then estimates the drought effect aka the average ATT within each group with a municipality-clustered SE.
-# 2: Puts both groups back together and estimates the difference between those two effects, remittance minus non-remittance, also clustered. If it’s positive and significant for HAZ, the drought hurt remittance children less.
+# 2: Puts both groups back together and estimates the difference between those two effects, remittance minus non-remittance, also clustered. If it's positive and significant for HAZ, the drought hurt remittance children less.
 
 
 cd_res_remit <- list()
@@ -399,7 +400,7 @@ for (s in names(misc$sexes)) {
       dvals = seq(min(d_pos), max(d_pos), length.out = 100)
     )
     print(summary(cd_res_spi[[k]]))
-    save_plot(ggcont_did(cd_res_spi[[k]], type = "att"), paste0("Miscellaneous/contdid_spi_att_", k, ".png"))
+    save_plot(ggcont_did(cd_res_spi[[k]], type = "att"), paste0("Online_Appendix/contdid_spi_att_", k, ".png"))
 
     res_spi <- cd_res_spi[[k]]
     n_trt <- sum(fd_spi$D_spi > 0)
@@ -416,9 +417,9 @@ for (s in names(misc$sexes)) {
                       untreated_municipalities = length(unique(fd_spi$cvegeo05[fd_spi$D_spi == 0])), row.names = NULL)
     spi_results <- rbind(spi_results, row)
 
-    plot_bands(res_spi$dose, res_spi$att.d, b_att_spi.d$se, b_att_spi.d$crit.val, paste0("Miscellaneous/contdid_spi_att_clustered_", k, ".png"),
+    plot_bands(res_spi$dose, res_spi$att.d, b_att_spi.d$se, b_att_spi.d$crit.val, paste0("Online_Appendix/contdid_spi_att_clustered_", k, ".png"),
                "2009 rainfall deficit (SDs below the 1981-2004 mean), z <= -1", "ATT",
-               paste0("ATT(d), SPI dose, ", v, ", ", s, ": 95% bands clustered by municipality"))
+               paste0("ATT(d), dose z <= -1, ", v, ", ", s, ": 95% bands clustered by municipality"))
 
     # ---- b. Dry vs near normal ----
     cat("b. Average ATT, dry vs near normal:\n")

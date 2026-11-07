@@ -37,7 +37,7 @@ foreach d in "$out_regs" "$out_logs" "$out_figs" {
         capture mkdir "`d'/`s'"
     }
 }
-capture mkdir "$out_figs/Miscellaneous"
+capture mkdir "$out_figs/Online_Appendix"
 
 * If the master already opened the log, the capture fails quietly and the master keeps logging. If this file is run on its own, it opens the same log here and closes it at the end, so the DID and the event study are always in the log.
 capture log using "$out_logs/Main/did_regs.log", replace text name(regs_did)
@@ -93,7 +93,7 @@ reghdfe haz treat_post if s_haz == 1, absorb($FE_month) vce(cluster cvegeo05)
 reghdfe haz treat_post $did_controls if s_haz == 1, absorb($FE_month) vce(cluster cvegeo05)
 * Model 3: DID with baseline 2002 household controls and 2005 child and mother controls
 reghdfe haz treat_post $did_controls $controls02 $controls05 if s_haz == 1, absorb($FE_month) vce(cluster cvegeo05) 
-* Model 4: Model 4 with the father and birth controls, smaller sample
+* Model 4: Model 3 with the father and birth controls, smaller sample
 * Note: We don't use this as the main model because father data is often missing when the father has migrated - often to the US, so requiring it drops migrant households, the ones most relevant to the remittance buffer
 reghdfe haz treat_post $did_controls $controls02 $controls05 $controls05_birth if s_haz == 1, absorb($FE_month) vce(cluster cvegeo05)
 * Model 5: Triple difference, does 2002 remittance receipt buffer the drought
@@ -135,7 +135,7 @@ lincom treat_post + treat_post_remit02
 *******************************************************************
 
 * Event study sample. Here we use the same restrictions as the main DID, but all three waves
-* e_haz, e_waz and e_bmiz are now built in Build_DID_Analysis_Data.do
+* e_haz, e_waz and e_bmiz are built in Build_DID_Analysis_Data.do
 
 * a. Average outcome by wave for treated and control, just a simple parallel trends
 foreach v in haz waz bmiz {
@@ -151,7 +151,7 @@ foreach v in haz waz bmiz {
         xtitle("Wave") ytitle("Mean `v'") ///
         title("Mean `v' by wave, treated vs control")
     * Saved to the Figures folder
-    graph export "$out_figs/Miscellaneous/trends_`v'.png", replace
+    graph export "$out_figs/Online_Appendix/trends_`v'.png", replace
     restore
 }
 
@@ -197,7 +197,7 @@ foreach v in haz waz bmiz {
         xtitle("Event time (wave)") ytitle("Coefficient") ///
         title("Event study: `v'") legend(off)
     * Saved to the Figures folder
-    graph export "$out_figs/Miscellaneous/event_study_`v'.png", replace
+    graph export "$out_figs/Online_Appendix/event_study_`v'.png", replace
     restore
 }
 
@@ -230,7 +230,7 @@ foreach v in haz waz bmiz {
         xline(-1, lpattern(dash) lcolor(red)) ///
         yline(0, lpattern(dash) lcolor(black)) ///
         xtitle("Event time (wave)") ytitle("Coefficient") ///
-        title("Event study with controls: `v'") legend(off)
+        legend(off)
     graph export "$out_figs/Appendix/event_study_`v'_controls.png", replace
     restore
 }
@@ -275,9 +275,8 @@ foreach v in haz waz bmiz {
         xline(-1, lpattern(dash) lcolor(red)) ///
         yline(0, lpattern(dash) lcolor(black)) ///
         xtitle("Event time (wave)") ytitle("Coefficient") ///
-        title("Event study by drought severity: `v'") ///
         legend(order(2 "Moderately dry (-1.5 < z <= -1)" 4 "Severely dry or worse (z <= -1.5)") pos(6) row(1))
-    local f = cond("`v'" == "bmiz", "Main", "Appendix")
+    local f "Main"
     graph export "$out_figs/`f'/event_study_severity_`v'.png", replace
     restore
 }
@@ -317,7 +316,7 @@ foreach v in haz waz bmiz {
         yline(0, lpattern(dash) lcolor(black)) ///
         xtitle("Event time (wave)") ytitle("Coefficient") ///
         title("DDD event study (drought x 2002 remittances): `v'") legend(off)
-    graph export "$out_figs/Miscellaneous/event_study_ddd_`v'.png", replace
+    graph export "$out_figs/Online_Appendix/event_study_ddd_`v'.png", replace
     restore
 }
 
@@ -370,7 +369,7 @@ foreach v in haz waz bmiz {
         legend(order(1 "Control" 2 "Treated (2009 drought)") pos(6) row(1)) ///
         xtitle("Wave") ytitle("Mean `v'") ///
         title("Mean `v' by wave, children in all 3 waves")
-    graph export "$out_figs/Miscellaneous/trends_`v'_all3.png", replace
+    graph export "$out_figs/Online_Appendix/trends_`v'_all3.png", replace
     restore
 
     reghdfe `v' lead_2_treat lag_0_treat if e_`v'_all3 == 1, absorb($FE_month) vce(cluster cvegeo05) 
@@ -397,7 +396,49 @@ foreach v in haz waz bmiz {
         xtitle("Event time (wave)") ytitle("Coefficient") ///
         title("Event study, children in all 3 waves: `v'") legend(off)
     * Saved to the Figures folder
-    graph export "$out_figs/Miscellaneous/event_study_`v'_all3.png", replace
+    graph export "$out_figs/Online_Appendix/event_study_`v'_all3.png", replace
+    restore
+}
+
+* Same robustness check for the SPI classes. Same as the SPI table and the event study by SPI class above, but only the children in all three waves
+foreach v in haz waz bmiz {
+    * DID: moderately dry and severely dry or worse vs near normal, 2005 and 2009 only. Child and wave FE, no controls, same as the SPI table
+    quietly areg `v' lag_0_mod lag_0_sev i.year if s_`v' == 1 & spi_`v' == 1 & e_`v'_all3 == 1, absorb(pid_link_canonical) vce(cluster cvegeo05)
+    boottest lag_0_mod, reps(9999) weighttype(webb) seed(1234) nograph
+    boottest lag_0_sev, reps(9999) weighttype(webb) seed(1234) nograph
+    reghdfe `v' lag_0_mod lag_0_sev if s_`v' == 1 & spi_`v' == 1 & e_`v'_all3 == 1, absorb(pid_link_canonical year) vce(cluster cvegeo05)
+
+    * Event study by SPI class for the children in all 3 waves
+    quietly areg `v' lead_2_mod lag_0_mod lead_2_sev lag_0_sev i.year if spi_`v' == 1 & e_`v'_all3 == 1, absorb(pid_link_canonical) vce(cluster cvegeo05)
+    boottest lead_2_mod, reps(9999) weighttype(webb) seed(1234) nograph
+    boottest lead_2_sev, reps(9999) weighttype(webb) seed(1234) nograph
+    reghdfe `v' lead_2_mod lag_0_mod lead_2_sev lag_0_sev if spi_`v' == 1 & e_`v'_all3 == 1, absorb(pid_link_canonical year) vce(cluster cvegeo05)
+
+    * The two classes are moved a little left and right of each wave so their CIs don't overlap
+    preserve
+    postfile handle str3 cls double etime b se lb ub using "$out_regs/Appendix/es_severity_`v'_all3.dta", replace
+    foreach c in mod sev {
+        local off = cond("`c'" == "mod", -0.06, 0.06)
+        post handle ("`c'") (-2 + `off') (_b[lead_2_`c']) (_se[lead_2_`c']) (_b[lead_2_`c'] - 1.96*_se[lead_2_`c']) (_b[lead_2_`c'] + 1.96*_se[lead_2_`c'])
+        post handle ("`c'") (-1 + `off') (0) (0) (0) (0)
+        post handle ("`c'") (0 + `off') (_b[lag_0_`c']) (_se[lag_0_`c']) (_b[lag_0_`c'] - 1.96*_se[lag_0_`c']) (_b[lag_0_`c'] + 1.96*_se[lag_0_`c'])
+    }
+    postclose handle
+
+    use "$out_regs/Appendix/es_severity_`v'_all3.dta", clear
+    sort cls etime
+    twoway ///
+        (rcap ub lb etime if cls == "mod", lcolor(gs9)) ///
+        (scatter b etime if cls == "mod", mcolor(orange) msymbol(O)) ///
+        (rcap ub lb etime if cls == "sev", lcolor(black)) ///
+        (scatter b etime if cls == "sev", mcolor(cranberry) msymbol(T)), ///
+        xlabel(-2 "2002" -1 "2005 (ref)" 0 "2009") ///
+        xline(-1, lpattern(dash) lcolor(red)) ///
+        yline(0, lpattern(dash) lcolor(black)) ///
+        xtitle("Event time (wave)") ytitle("Coefficient") ///
+        legend(order(2 "Moderately dry (-1.5 < z <= -1)" 4 "Severely dry or worse (z <= -1.5)") pos(6) row(1))
+    local f = cond("`v'" == "bmiz", "Main", "Appendix")
+    graph export "$out_figs/`f'/event_study_severity_`v'_all3.png", replace
     restore
 }
 

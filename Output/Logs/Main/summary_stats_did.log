@@ -3,8 +3,9 @@
        log:  /Users/zakserby/Documents/Documents (MAC)/Cornell University/Maste
 > r's Thesis/Proposal 3 Mexico OG/Output/Logs/Main/summary_stats_did.log
   log type:  text
- opened on:  30 Oct 2026, 03:43:55
-.     do "$scripts/Statistics/Summary Stats DID.do"
+ opened on:   7 Nov 2026, 03:58:59
+
+. do "$root/Scripts/Statistics/Summary Stats DID.do"
 
 . *******************************************************************
 . * Summary statistics for the 2009 drought DID
@@ -48,6 +49,8 @@
 
 . global out_logs      "$root/Output/Logs"
 
+. global out_figs      "$root/Output/Figures" 
+
 . 
 . * Create the folders this project writes to (capture skips quietly if a folde
 > r already exists)
@@ -62,6 +65,21 @@
   3.         capture mkdir "`d'/`s'"
   4.     }
   5. }
+
+. * 
+. * Tables and figures go to the folder of where they are placed, Main (paper),
+>  Appendix (appendix in the paper) or Online_Appendix
+. * The dose summary table and the BMIZ balance table and overlap figure are in
+>  the main text, the Model 3 summary table in the appendix, and the sample siz
+> e, attrition, HAZ and WAZ balance tables and overlap figures in the online ap
+> pendix
+. capture mkdir "$out_sumstats/Online_Appendix"
+
+. capture mkdir "$out_figs"
+
+. foreach s in Main Appendix Online_Appendix {
+  2.     capture mkdir "$out_figs/`s'"
+  3. }
 
 . 
 . *******************************************************************
@@ -265,7 +283,7 @@
 > "Obs.") noobs nonumber nomtitle ///
 >         refcat(waz "\textit{Outcomes (MxFLS-2, 2005)}" d_waz "\addlinespace[6
 > pt]\textit{Outcome change, 2005 to 2009}" rain_z2009 "\addlinespace[6pt]\text
-> it{Rainfall classes (CHIRPS)}", nolabel) ///
+> it{Dose levels (CHIRPS)}", nolabel) ///
 >         prehead("\documentclass[12pt]{article}" "\usepackage[margin=1in]{geom
 > etry}" "\usepackage{booktabs}" "\usepackage{longtable}" "\usepackage{caption}
 > " ///
@@ -273,8 +291,8 @@
 > normalsize,labelfont=sc,textfont=sc,labelsep=emdash}" "\begin{document}" ///
 >             "\begingroup" "\footnotesize" "\renewcommand{\arraystretch}{0.86}
 > " "\setlength{\tabcolsep}{4pt}" "\setlength{\LTcapwidth}{\textwidth}" ///
->             "\begin{longtable}{l*{6}{c}}" "\caption{Summary Statistics, Rainf
-> all Class Samples}\\" ///
+>             "\begin{longtable}{l*{6}{c}}" "\caption{Summary Statistics, Discr
+> ete-Dose Samples}\\" ///
 >             "\toprule" " & \multicolumn{6}{c}{Panel A: WAZ, age \ensuremath{\
 > le}10 in 2005 and 2009}\\" "\cmidrule(lr){2-7}") ///
 >         posthead("\midrule") prefoot("") postfoot("\bottomrule" "\addlinespac
@@ -301,32 +319,34 @@
 > "Obs.") noobs nonumber nomtitle ///
 >         refcat(haz "\textit{Outcomes (MxFLS-2, 2005)}" d_haz "\addlinespace[6
 > pt]\textit{Outcome change, 2005 to 2009}" rain_z2009 "\addlinespace[6pt]\text
-> it{Rainfall classes (CHIRPS)}", nolabel) ///
+> it{Dose levels (CHIRPS)}", nolabel) ///
 >         prehead("\toprule" " & \multicolumn{6}{c}{Panel B: HAZ and BMIZ, age 
 > \ensuremath{\le}15 in 2005 and 2009}\\" "\cmidrule(lr){2-7}") ///
 >         posthead("\midrule") prefoot("") ///
 >         postfoot("\bottomrule" ///
 >             "\addlinespace[6pt]\multicolumn{7}{p{0.97\textwidth}}{\scriptsize
->  \textit{Notes:} This table is for the rainfall class specification, the main
->  model. Obs. counts children. The sample is children with the outcome measure
-> d in MxFLS-2 (2005) and MxFLS-3 (2009), under the panel's age cutoff" ///
->             "in both rounds, with a 2005 municipality. They were not measured
->  in MxFLS-3 before November 2009. We use November 2009 as the cutoff because 
-> the 2009 rainfall deficit, the drought, had not fully occurred before then. D
-> ropping them from both groups equalizes treated and control measurement timin
-> g. Children in wet municipalities (z of 1 or above) are excluded." ///
+>  \textit{Notes:} This table is for the discrete-dose specification, the main 
+> model. Obs. counts children. The sample is children with the outcome measured
+>  in MxFLS-2 (2005) and MxFLS-3 (2009), under the panel's age cutoff" ///
+>             "in both survey waves, with a 2005 municipality. They were not me
+> asured in MxFLS-3 before November 2009. I use November 2009 as the cutoff bec
+> ause the 2009 rainfall deficit had not fully occurred before then. Dropping t
+> hem from both groups equalizes treated and control measurement timing. Childr
+> en in wet municipalities (z of 1 or above) are excluded." ///
 >             "Panel A uses the WAZ sample, Panel B the HAZ and BMIZ sample. Th
 > e BMIZ sample is marginally smaller than the HAZ sample shown in Panel B, at 
 > `spi_bmiz' children. Statistics are at the 2005 baseline, except the change i
-> n WAZ, HAZ and BMIZ from 2005 to 2009, the outcome of the rainfall class regr
-> essions, and 2009 rainfall. z is 2009 May--October CHIRPS rainfall, the maize
->  growing season (Jessoe et al., 2018), in the child's 2005 municipality in st
-> andard deviations" ///
->             "from its 1981--2004 mean, grouped into standardized rainfall cla
-> sses with the SPI cutoffs (McKee et al., 1993). The rainfall class regression
-> s have no controls, as the contdid package does not yet support covariates (C
-> allaway et al., 2024).}\\" ///
->             "\end{longtable}" "\endgroup")
+> n WAZ, HAZ and BMIZ from 2005 to 2009, the outcome of the discrete-dose regre
+> ssions, and 2009 rainfall. z is 2009 May--October CHIRPS rainfall, the maize 
+> growing season (Jessoe, Manning, and Taylor 2018), in the child's 2005 munici
+> pality in standard deviations" ///
+>             "from its 1981--2004 mean, grouped into dose levels with the SPI 
+> cutoffs (McKee, Doesken, and Kleist 1993; WMO 2012). The 2009 rainfall z is c
+> ontinuous. The three dose-group indicators have means equal to the share of c
+> hildren in each dose group. The discrete-dose regressions have no controls, a
+> s the contdid package does not yet accommodate covariates (Callaway, Goodman-
+> Bacon, and Sant'Anna 2026).}\\" ///
+>             "\end{longtable}" "\endgroup" "\end{document}")
 (output written to /Users/zakserby/Documents/Documents (MAC)/Cornell University
 > /Master's Thesis/Proposal 3 Mexico OG/Output/Tables/Main/summary_stats_did_ta
 > ble.tex)
@@ -335,8 +355,8 @@
 
 . 
 . * Summary table for the Model 3 sample of the binary DID, the same rows as th
-> e main table had before, without the continuous DID treatment. It goes in Mai
-> n right after the SPI table
+> e main table, without the continuous DID treatment. It goes in Tables/Appendi
+> x
 . * Panel A: WAZ sample
 . preserve
 
@@ -345,22 +365,27 @@
 
 .     quietly estpost summarize waz $table_vars, detail
 
-.     esttab using "$out_sumstats/Main/summary_stats_did_table.tex", append boo
-> ktabs label ///
+.     * The Model 3 summary table is its own file in Tables/Appendix
+.     esttab using "$out_sumstats/Appendix/summary_stats_model3_table.tex", rep
+> lace booktabs label ///
 >         cells("`cells'") collabels("Mean" "Std. dev." "Min." "Median" "Max." 
 > "Obs.") noobs nonumber nomtitle ///
 >         refcat(waz "\textit{Outcomes (MxFLS-2, 2005)}" `groups', nolabel) ///
->         prehead("\clearpage" "\begingroup" "\footnotesize" "\renewcommand{\ar
-> raystretch}{0.86}" "\setlength{\tabcolsep}{4pt}" "\setlength{\LTcapwidth}{\te
-> xtwidth}" ///
+>         prehead("\documentclass[12pt]{article}" "\usepackage[margin=1in]{geom
+> etry}" "\usepackage{booktabs}" "\usepackage{longtable}" "\usepackage{caption}
+> " ///
+>             "\DeclareCaptionLabelSeparator{emdash}{---}" "\captionsetup{font=
+> normalsize,labelfont=sc,textfont=sc,labelsep=emdash}" "\begin{document}" ///
+>             "\begingroup" "\footnotesize" "\renewcommand{\arraystretch}{0.86}
+> " "\setlength{\tabcolsep}{4pt}" "\setlength{\LTcapwidth}{\textwidth}" ///
 >             "\begin{longtable}{l*{6}{c}}" "\caption{Summary Statistics, Binar
 > y DID Model 3 Samples}\\" ///
 >             "\toprule" " & \multicolumn{6}{c}{Panel A: WAZ, age \ensuremath{\
 > le}10 in 2005 and 2009}\\" "\cmidrule(lr){2-7}") ///
 >         posthead("\midrule") prefoot("") postfoot("\bottomrule" "\newpage")
 (output written to /Users/zakserby/Documents/Documents (MAC)/Cornell University
-> /Master's Thesis/Proposal 3 Mexico OG/Output/Tables/Main/summary_stats_did_ta
-> ble.tex)
+> /Master's Thesis/Proposal 3 Mexico OG/Output/Tables/Appendix/summary_stats_mo
+> del3_table.tex)
 
 . restore
 
@@ -373,8 +398,8 @@
 
 .     quietly estpost summarize haz bmiz $table_vars, detail
 
-.     esttab using "$out_sumstats/Main/summary_stats_did_table.tex", append boo
-> ktabs label ///
+.     esttab using "$out_sumstats/Appendix/summary_stats_model3_table.tex", app
+> end booktabs label ///
 >         cells("`cells'") collabels("Mean" "Std. dev." "Min." "Median" "Max." 
 > "Obs.") noobs nonumber nomtitle ///
 >         refcat(haz "\textit{Outcomes (MxFLS-2, 2005)}" `groups', nolabel) ///
@@ -386,29 +411,26 @@
 >  \textit{Notes:} This table is for the sample of Model 3, the main binary DID
 >  with controls. Obs. counts children. The children have the outcome measured 
 > in MxFLS-2 (2005) and MxFLS-3 (2009), under the panel's age cutoff" ///
->             "in both rounds, and a 2005 municipality. They were not measured 
-> in MxFLS-3 before November 2009. We use November 2009 as the cutoff because t
-> he 2009 rainfall deficit, the drought, had not fully occurred before then. Dr
-> opping them from both groups equalizes treated and control measurement timing
-> . Children also have all Model 3 controls observed and are not alone in their
->  interview-month cell." ///
+>             "in both survey waves, and a 2005 municipality. They were not mea
+> sured in MxFLS-3 before November 2009, for the same reason as in Table~\ref{t
+> ab:sumstats}." ///
 >             "Panel A uses the WAZ sample, Panel B the HAZ and BMIZ sample. Th
 > e BMIZ sample is marginally smaller than the HAZ sample shown in Panel B, at 
 > `m3_bmiz' children. Statistics are at the 2005 baseline, except remittances a
 > nd household variables (2002). Remittances enter Model 5, and the father and 
 > birth controls enter Model 4. Both are observed for fewer children." ///
->             "Drought is May--October CHIRPS rainfall in the 2005 municipality
->  below its 1981--2004 20th percentile (Jessoe et al., 2018). Remittances, a p
-> roxy, are cash received in the last" ///
+>             "Drought is May--October CHIRPS rainfall, the maize growing seaso
+> n (Jessoe, Manning, and Taylor 2018), in the 2005 municipality below its 1981
+> --2004 20th percentile (Shah and Steinberg 2017). Remittances are cash receiv
+> ed in the last" ///
 >             "12 months from parents, siblings, or children outside the househ
-> old. Expenditure, a proxy for income, is in 2002 pesos per person per month."
->  ///
->             "Rural is a locality under 2,500 inhabitants (INEGI, 2024).}\\" /
-> //
->             "\end{longtable}" "\endgroup")
+> old. Expenditure is in 2002 pesos per person per month." ///
+>             "Rural is a locality under 2,500 inhabitants (INEGI 2024).}\\" //
+> /
+>             "\end{longtable}" "\endgroup" "\end{document}")
 (output written to /Users/zakserby/Documents/Documents (MAC)/Cornell University
-> /Master's Thesis/Proposal 3 Mexico OG/Output/Tables/Main/summary_stats_did_ta
-> ble.tex)
+> /Master's Thesis/Proposal 3 Mexico OG/Output/Tables/Appendix/summary_stats_mo
+> del3_table.tex)
 
 . restore
 
@@ -550,15 +572,24 @@
 . 
 . capture file close cnt
 
-. file open cnt using "$out_sumstats/Main/summary_stats_did_table.tex", write a
-> ppend 
+. * The sample size and attrition tables are their own file in Tables/Online_Ap
+> pendix
+. file open cnt using "$out_sumstats/Online_Appendix/sample_size_attrition_tabl
+> es.tex", write replace
+
+. foreach l in "\documentclass[12pt]{article}" "\usepackage[margin=1in]{geometr
+> y}" "\usepackage{booktabs}" "\usepackage{longtable}" "\usepackage{caption}" "
+> \DeclareCaptionLabelSeparator{emdash}{---}" "\captionsetup{font=normalsize,la
+> belfont=sc,textfont=sc,labelsep=emdash}" "\begin{document}" {
+  2.     file write cnt `"`l'"' _n
+  3. }
 
 . 
 . * LaTex
-. file write cnt "\clearpage" _n "\begingroup" _n "\footnotesize" _n "\renewcom
-> mand{\arraystretch}{0.86}" _n "\setlength{\tabcolsep}{4pt}" _n "\setlength{\L
-> Tcapwidth}{\textwidth}" _n "\setlength{\LTleft}{0pt}" _n "\setlength{\LTright
-> }{0pt plus 1fil}" _n
+. file write cnt "\begingroup" _n "\footnotesize" _n "\renewcommand{\arraystret
+> ch}{0.86}" _n "\setlength{\tabcolsep}{4pt}" _n "\setlength{\LTcapwidth}{\text
+> width}" _n "\setlength{\LTleft}{0pt}" _n "\setlength{\LTright}{0pt plus 1fil}
+> " _n
 
 . file write cnt "\begin{longtable}{@{\extracolsep{\fill}}lcc}" _n "\caption{Sa
 > mple Sizes, Treated and Control Children}\\" _n 
@@ -674,9 +705,9 @@ Households: 496 control, 996 treated
 . 
 . * Panel C starts on a new page like Panel B of the summary statistics table, 
 > so its header is not left at the bottom of a page
-. file write cnt "\newpage" _n "\toprule" _n " & \multicolumn{2}{c}{Panel C: Ra
-> infall classes vs near normal}\\*" _n "\cmidrule(lr){2-3}" _n " & Control & T
-> reated\\*" _n "\midrule" _n
+. file write cnt "\newpage" _n "\toprule" _n " & \multicolumn{2}{c}{Panel C: Do
+> se groups vs near normal}\\*" _n "\cmidrule(lr){2-3}" _n " & Control & Treate
+> d\\*" _n "\midrule" _n
 
 . * Each class with its z range, in the order of the SPI regressions in Contdid
 > _regs.R
@@ -733,51 +764,47 @@ Children, BMIZ sample: 1,464 control, 68 treated
 . file write cnt "\bottomrule" _n
 
 . file write cnt "\addlinespace[6pt]\multicolumn{3}{p{0.97\textwidth}}{\scripts
-> ize \textit{Notes:} Counts are children, households, or 2005 municipalities i
-> n each regression sample, at the 2005 baseline." _n
+> ize \textit{Notes:} Counts are children, households or 2005 municipalities in
+>  each regression sample at the 2005 baseline." _n
 
-. file write cnt "The estimation samples are children with the outcome measured
->  in both MxFLS-2 (2005) and MxFLS-3 (2009), aged 15 or younger for HAZ and BM
-> IZ and 10 or younger for WAZ in both rounds." _n
+. file write cnt "Estimation samples are children with the outcome measured in 
+> both MxFLS-2 (2005) and MxFLS-3 (2009) who have a 2005 municipality. They are
+>  aged 15 or younger for HAZ and BMIZ and 10 or younger for WAZ in both survey
+>  waves." _n
 
-. file write cnt "Children have a 2005 municipality. They were not measured in 
-> MxFLS-3 before November 2009. We use November 2009 as the cutoff because the 
-> 2009 rainfall deficit, the drought, had not fully occurred before then. Dropp
-> ing them from both groups equalizes treated and control measurement timing. I
-> n Panel A, treated children's 2005 municipality had a drought in 2009, with M
-> ay--October CHIRPS" _n 
+. file write cnt "They were not measured in MxFLS-3 before November 2009, for t
+> he same reason as in Table~\ref{tab:sumstats}. In Panel A, treated children's
+>  2005 municipality had a drought in 2009, meaning May--October CHIRPS rainfal
+> l in the maize growing season was below its 1981--2004 20th percentile" _n
 
-. file write cnt "rainfall below its 1981--2004 20th percentile (Jessoe et al.,
->  2018). Model 1 drops children alone in their interview-month cell, and the c
-> ontinuous DID, with no interview-month fixed effects, uses the full sample. M
-> odel 3 adds the 2005--2008 droughts and 2002 household" _n 
+. file write cnt "(Jessoe, Manning, and Taylor 2018; Shah and Steinberg 2017). 
+> Model 1 drops children alone in their interview-month cell. Continuous DID us
+> es the full sample. Model 3 adds 2005--2008 droughts and 2002 household and 2
+> 005 child and mother controls." _n
 
-. file write cnt "and 2005 child and mother controls, and keeps children with a
-> ll of them observed. Model 5 adds 2002 remittances times post and the drought
->  times post times 2002 remittances, and keeps children" _n
-
-. file write cnt "with 2002 remittances observed, so Model 5 children not in re
-> mittance households are the Model 5 count minus the remittance row. In Panel 
-> B, treated children's 2005 municipality had 2009" _n
+. file write cnt "Model 5 adds 2002 remittances times post and drought times po
+> st times 2002 remittances. Model 5 children not in remittance households are 
+> the Model 5 count minus the remittance row. In Panel B, treated children's 20
+> 05 municipality had 2009" _n
 
 . file write cnt "rainfall below its 1981--2004 mean (z below 0), where z is 20
-> 09 rainfall in standard deviations from that mean. These are the continuous D
-> ID samples, and the two remittance rows are the groups" _n
+> 09 rainfall in standard deviations from that mean. Panel B gives sample sizes
+>  for the continuous DID. Its two remittance rows are children in 2002 remitta
+> nce and non-remittance households, the two groups compared in Panel B of Tabl
+> e~\ref{tab:oa_contdid}." _n
 
-. file write cnt "of the remittance split. They do not add up to the total, as 
-> children with missing 2002 remittances are in neither row. Panel C compares e
-> ach rainfall class with near normal (z between -1 and 1)" _n
+. file write cnt "Rows do not add up to the total because children with missing
+>  2002 remittances are in neither row. Panel C compares each dose group with n
+> ear normal (z between -1 and 1) in the discrete-dose analysis." _n
 
-. file write cnt "in the continuous DID. The classes use standardized rainfall 
-> with the SPI cutoffs defined by McKee et al. and adopted by the World Meteoro
-> logical Organization (McKee et al., 1993; WMO, 2012). Children in wet municip
-> alities (z of 1 or above)" _n
+. file write cnt "Dose levels use standardized rainfall cutoffs of the SPI adop
+> ted by the World Meteorological Organization (McKee, Doesken, and Kleist 1993
+> ; WMO 2012). Children in wet municipalities (z of 1 or above) are not in the 
+> discrete-dose analysis." _n
 
-. file write cnt "are not in the rainfall class analysis. Remittances are cash 
-> received in the last 12 months" _n
-
-. file write cnt "from parents, siblings, or children living outside the househ
-> old, from MxFLS-1 (2002).}\\" _n
+. file write cnt "Remittances are cash received in the last 12 months from pare
+> nts, siblings or children living outside the household, from MxFLS-1 (2002).}
+> \\" _n
 
 . file write cnt "\end{longtable}" _n "\endgroup" _n
 
@@ -898,8 +925,8 @@ Children, BMIZ sample: 1,464 control, 68 treated
 . 
 . capture file close cnt
 
-. file open cnt using "$out_sumstats/Main/summary_stats_did_table.tex", write a
-> ppend
+. file open cnt using "$out_sumstats/Online_Appendix/sample_size_attrition_tabl
+> es.tex", write append
 
 . 
 . * LaTeX
@@ -969,44 +996,43 @@ BMIZ: DID 2005 3,511, 2009 2,383 | event studies 2002 2,569, 2005 1,719, 2009 1
 . file write cnt "\bottomrule" _n
 
 . file write cnt "\addlinespace[6pt]\multicolumn{4}{p{0.97\textwidth}}{\scripts
-> ize \textit{Notes:} Counts of children in each wave. The DID only uses MxFLS-
-> 2 (2005) and MxFLS-3 (2009), and the event studies" _n
+> ize \textit{Notes:} Counts of children in each wave. The binary DID only uses
+>  MxFLS-2 (2005) and MxFLS-3 (2009)." _n
 
-. file write cnt "use all three waves. The continuous DID uses the same samples
-> . Each row starts from the children who meet the regression sample rules in i
-> ts first wave and could stay in the sample, not" _n
+. file write cnt "The continuous DID uses the same sample as the binary DID. Th
+> e event studies use all three waves. Each row starts from the children who me
+> et the regression sample rules in its first wave and could stay in the sample
+> ." _n
 
-. file write cnt "from all children measured. They are under the age cutoff in 
-> every wave, 15 or younger for HAZ and BMIZ and 10 or younger for WAZ, and hav
-> e a municipality. They were not measured in MxFLS-3 before" _n 
+. file write cnt "They are under the age cutoff in every wave, 15 or younger fo
+> r HAZ and BMIZ and 10 or younger for WAZ. They were not measured in MxFLS-3 b
+> efore" _n 
 
-. file write cnt "November 2009. We use November 2009 as the cutoff because the
->  2009 rainfall deficit, the drought, had not fully occurred before then. Drop
-> ping them from both groups equalizes treated and control measurement timing. 
-> Later columns count the children still in the sample, so the drop across colu
-> mns is attrition. This is not the same as the children the regressions drop a
-> s singletons, with" _n
+. file write cnt "November 2009, for the same reason as in Table~\ref{tab:sumst
+> ats}. Later columns count the children still in the sample, so the drop acros
+> s columns is attrition. This is not the same as the children the regressions 
+> drop as singletons, with" _n
 
 . file write cnt "only one wave in the sample, as these also include children w
 > ho aged out or are only in a later wave. The DID 2009 count is the estimation
 >  sample, and the event study 2009 count is the" _n
 
 . file write cnt "children in all three waves. For children not measured in a l
-> ater wave, the age then comes from their birth date and their household's MxF
-> LS-3 measurement date, as MxFLS-3 interviews ran" _n 
+> ater wave, I estimate their age in that wave to see whether they aged out. Th
+> eir age comes from their birth date and their household's MxFLS-3 interview d
+> ate," _n
 
-. file write cnt "over several years. Children not in MxFLS-3, or whose birth d
-> ate does not agree with their reported age, get their last measured age plus 
-> the median age gap between the waves, `gap0509' years" _n
+. file write cnt "since MxFLS-3 interviews ran over several years. Children not
+>  in MxFLS-3 or whose birth date does not match their reported age get their l
+> ast measured age plus the median gap between waves." _n
 
-. file write cnt "from 2005 to 2009 and `gap0209' years from 2002 to 2009. This
->  is an estimate, but `sh0509' and `sh0209' percent of these gaps are within a
->  year of the median among children measured in both" _n
+. file write cnt "This gap is `gap0509' years from 2005 to 2009 and `gap0209' y
+> ears from 2002 to 2009. Among children measured in both waves, `sh0509' and `
+> sh0209' percent of gaps are within a year of the median." _n
 
-. file write cnt "waves, and a guess off by a year only matters for children ne
-> ar the age cutoff, who could be counted as attrition when they aged out or th
-> e other way around. So those who would have aged out anyway are not counted a
-> s attrition.}\\" _n
+. file write cnt "A one-year error only matters for children near the age cutof
+> f. This way, children who simply aged out are not counted as attrition.}\\" _
+> n
 
 . file write cnt "\end{longtable}" _n "\endgroup" _n
 
@@ -1020,6 +1046,585 @@ BMIZ: DID 2005 3,511, 2009 2,383 | event studies 2002 2,569, 2005 1,719, 2009 1
 
 . 
 . 
+. *****************************************************************************
+> *************************************
+. * Exogeneity/Robustness of Rainfall
+. *****************************************************************************
+> *************************************
+. 
+. * IN GENERAL HERE WE ARE MAKING SURE RAINFALL ISN'T UNBALANCED BETWEEN COVARI
+> ATES
+. 
+. * This table looks at if children in dry municipalities  differ from near nor
+> mal ones before the 2009 drought
+. * Same children as the rainfall class regressions in Contdid_regs.R
+. * NOTE: No fixed effects, bc the rainfall class regressions and contdid use t
+> he 2005 to 2009 change with no fixed effects or covariates, so we test the sa
+> me comparison
+. 
+. * Column variables and their headers, in the order of the table. Two rows of 
+> 16 columns like Table D4
+. local bal_vars "dwell_electricity_02 dwell_floor_good_02 dwell_roof_good_02 d
+> well_ventilation_good_02 rooms_per_person_02 ln_pc_expend_month_02 pc_expend_
+> month_02 rural_02 progresa_hh_02 remittance_hh_02 child_male_05 age fully_vac
+> cinated_05 mother_height_cm_05 mother_edu_years_05 mother_age_at_birth_05 mot
+> her_employed_05 father_height_cm_05 father_edu_years_05 father_age_at_birth_0
+> 5 father_employed_05 birth_order_05 oldest_child_05 birth_weight_kg_05 delive
+> red_home_05 predominant_breastfed_05 iron_pregnancy_05 premature_05 outcome05
+>  long_run_mean long_run_sd"
+
+. * This is for the headers for the 1st row of columns, 2nd row of columns up t
+> o premature. And then for col. 30 and after they are added in by a loop below
+> , not here
+. local bal_h1 `""Electricity" "Good floor" "Good roof" "Enough ventilation" "R
+> ooms per person" "Log expenditure" "Expenditure (pesos)" "Rural" "PROGRESA" "
+> Remittances" "Male" "Age" "Fully vaccinated" "Mother's height (cm)" "Mother's
+>  schooling" "Mother's age at birth""'
+
+. local bal_h2 `""Mother employed" "Father's height (cm)" "Father's schooling" 
+> "Father's age at birth" "Father employed" "Birth order" "Oldest child" "Birth
+>  weight (kg)" "Born at home" "Weeks breastfed" "Iron in pregnancy" "Premature
+> ""'
+
+. 
+. * Baseline characteristics for the propensity score of the overlap figure, th
+> e Model 3 controls and the child's age
+. local ps_vars "dwell_electricity_02 dwell_floor_good_02 dwell_roof_good_02 dw
+> ell_ventilation_good_02 rooms_per_person_02 ln_pc_expend_month_02 rural_02 ch
+> ild_male_05 mother_height_cm_05 mother_edu_years_05 mother_age_at_birth_05 mo
+> ther_employed_05 fully_vaccinated_05 age"
+
+. 
+. * Column numbers and the names of the stored regressions, for the 1st row of 
+> columns 1 to 16 and the 2nd row of columns 17 to 31
+. * Adding column numbers above each title
+. forvalues j = 1/16 {
+  2.     local nums1 `"`nums1' "(`j')""'
+  3.     local mods1 "`mods1' b`j'"
+  4. }
+
+. * 31 columns in total
+. forvalues j = 17/31 {
+  2.     local nums2 `"`nums2' "(`j')""'
+  3.     local mods2 "`mods2' b`j'"
+  4. }
+
+. 
+. * Looping over outcomes
+. foreach o in bmiz haz waz {
+  2.     local O = upper("`o'")
+  3.     preserve
+  4.     * Keeping rainfall class sample
+.     keep if reg_`o' == 1 & year == 2005 & rain_z2009 < 1
+  5.     gen mod_dry = (rain_z2009 <= -1 & rain_z2009 > -1.5)
+  6.     gen sev_dry = (rain_z2009 <= -1.5)
+  7.     * Listing outcomes 
+.     gen outcome05 = `o'
+  8.     quietly count
+  9.     * Formatting
+.     local n_all : display %9.0fc r(N)
+ 10.     local n_all = strtrim("`n_all'")
+ 11. 
+.     * Running one regression per column. Similar to add_rows in Regression St
+> ats.do, estadd attaches each column's mean to its regression so esttab can wr
+> ite it
+.     eststo clear
+ 12.     * Starts a counter at 0. It numbers the columns
+.     local k = 0
+ 13.     * Looping over the covariates
+.     foreach v of local bal_vars {
+ 14.         local ++k
+ 15.         quietly regress `v' mod_dry sev_dry, vce(cluster cvegeo05)
+ 16.         quietly summarize `v' if e(sample)
+ 17.         estadd scalar mean = r(mean)
+ 18.         eststo b`k'
+ 19.     }
+ 20. 
+.     * LaTeX, creating a landscape table with two rows of 16 columns
+.     * The BMIZ balance table is in the main text, and the HAZ and WAZ ones ar
+> e in the online appendix
+.     local file = cond("`o'" == "bmiz", "$out_sumstats/Main/balance_table.tex"
+> , "$out_sumstats/Online_Appendix/balance_table_online_appendix.tex")
+ 21.     local mode = cond("`o'" == "waz", "append", "replace")
+ 22.     local doc `" "\documentclass[12pt]{article}" "\usepackage[margin=1in]{
+> geometry}" "\usepackage{booktabs}" "\usepackage{longtable}" "\usepackage{capt
+> ion}" "\usepackage{graphicx}" "\usepackage{array}" "\usepackage{pdflscape}" "
+> \DeclareCaptionLabelSeparator{emdash}{---}" "\captionsetup{font=normalsize,la
+> belfont=sc,textfont=sc,labelsep=emdash}" "\def\sym#1{\ifmmode^{#1}\else\(^{#1
+> }\)\fi}" "\begin{document}" "'
+ 23.     if "`o'" == "waz" local doc ""
+ 24.     local end = cond("`o'" == "haz", "\clearpage", "\end{document}")
+ 25.     * Specifications
+.     local ph `" `doc' "\begin{landscape}" "\begin{table}[!h]" "\centering" "\
+> caption{Dose Groups and Baseline Characteristics, `O' Sample}" "\begingroup" 
+> "\footnotesize" "\hyphenpenalty=10000" "\exhyphenpenalty=10000" "\renewcomman
+> d{\arraystretch}{0.86}" "\setlength{\tabcolsep}{1.5pt}" "\resizebox{\linewidt
+> h}{!}{%" "\begin{tabular}{l*{16}{>{\centering\arraybackslash}p{2.2cm}}}" "\to
+> prule" "'
+ 26. 
+.     * Notes
+.     local pf `" "\bottomrule" "\end{tabular}}" "\endgroup" "\par\vspace{6pt}\
+> parbox{\linewidth}{\scriptsize \textit{Notes:} The sample is the `n_all' chil
+> dren in the `O' discrete-dose regressions. Each column regresses a baseline c
+> haracteristic on indicators for moderately dry (\ensuremath{-1.5<z\le -1}) an
+> d severely dry or worse (\ensuremath{z\le -1.5}) municipalities. Each coeffic
+> ient is the mean difference in the characteristic between children in that dr
+> y dose group and children in the near-normal dose group (\ensuremath{-1<z<1})
+> ." "Columns 1--10 are from MxFLS-1 (2002) and columns 11--29 from MxFLS-2 (20
+> 05). Of particular interest are the measures of household poverty. Expenditur
+> e per person is a proxy for income and is shown in logs and in 2002 pesos per
+>  month. PROGRESA equals 1 if any household member was in the program in the l
+> ast 12 months, which marks the household as poor by the program's targeting. 
+> The dwelling characteristics also reflect household poverty." "Long-run rainf
+> all is the municipality's 1981--2004 May--October mean and SD in millimeters.
+>  The table has no fixed effects because the discrete-dose regressions use eac
+> h child's 2005-to-2009 change without fixed effects or covariates. Standard e
+> rrors clustered by 2005 municipality are in parentheses. Wild cluster bootstr
+> ap p-values are not reported." "\mbox{\sym{*}\(p<.10\), \sym{**}\(p<.05\), \s
+> ym{***}\(p<.01\).}}" "\end{table}" "\end{landscape}" "`end'" "'
+ 27. 
+.     * Writes the table into .tex
+.     * We save a local with text saying no fixed effects, this is just a long 
+> row at the bottom of the table 
+.     local heads2 `"`bal_h2' "`O'" "Long-run rain mean" "Long-run rain SD""'
+ 28.     forvalues r = 1/2 {
+ 29.         local a = 16 * (`r' - 1) + 1
+ 30.         local z = 16 * `r'
+ 31.         * Settings for the first row == 1
+.         * The first row has 16 columns and the second row 15
+.         local nc = cond(`r' == 1, 16, 15)
+ 32.         local fe `""Fixed effects & \multicolumn{`nc'}{c}{None}\\""'
+ 33.         local pat ""
+ 34.         forvalues j = 1/`nc' {
+ 35.             local pat "`pat' 1"
+ 36.         }
+ 37.         if `r' == 1 {
+ 38.             local heads `"`bal_h1'"'
+ 39.             local top `"`ph'"'
+ 40.             local bottom `"`fe'"'
+ 41.         }
+ 42.         * Settings for the second row
+.         else {
+ 43.             local heads `"`heads2'"'
+ 44.             local top `""\addlinespace[8pt]" "\toprule""'
+ 45.             local bottom `"`fe' `pf'"'
+ 46.             local mode "append"
+ 47.         }
+ 48.         * Writes the results and formatting
+.         esttab `mods`r'' using "`file'", `mode' booktabs ///
+>             cells(b(star fmt(3)) se(par fmt(3))) star(* 0.10 ** 0.05 *** 0.01
+> ) keep(mod_dry sev_dry) varlabels(mod_dry "Moderately dry" sev_dry "Severely 
+> dry or worse") ///
+>             stats(N mean, labels("\addlinespace[3pt]Observations" "Mean of de
+> p. var.") fmt(%9.0fc 3)) ///
+>             mgroups(`nums`r'', pattern(`pat')) mlabels(`heads', prefix("") su
+> ffix("")) ///
+>             collabels(none) nonumbers nonotes noobs nodepvars ///
+>             prehead(`top') posthead("\midrule") prefoot("") postfoot(`bottom'
+> )
+ 49.     }
+ 50. 
+.     * Overlap figure. This is the propensity score of each dry class vs near 
+> normal. contdid has no controls
+.         * NOTE: A logit drops every child with any missing variable, but the 
+> contdid regressions keep all children. So for each variable with missing valu
+> es, the code fills the gaps with the sample mean and adds a 0/1 flag marking 
+> which children were filled in, as Adhvaryu et al. do.
+.     local Xf ""
+ 51.     foreach v of local ps_vars {
+ 52.         quietly count if missing(`v')
+ 53.         if r(N) > 0 {
+ 54.             gen m_`v' = missing(`v')
+ 55.             quietly summarize `v'
+ 56.             gen f_`v' = cond(missing(`v'), r(mean), `v')
+ 57.             local Xf "`Xf' f_`v' m_`v'"
+ 58.         }
+ 59.         else local Xf "`Xf' `v'"
+ 60.     }
+ 61.     * Creating the two panels that are comparing sev dry to normal and als
+> o mod dry to normal 
+.         * Severely dry vs near normal
+.     gen d1 = sev_dry if mod_dry == 0
+ 62.         * Moderately dry vs near normal
+.     gen d2 = mod_dry if sev_dry == 0
+ 63.     foreach c in 1 2 {
+ 64.                 * Labels
+.                 * This goes into legend
+.         local lab = cond(`c' == 1, "Severely dry or worse", "Moderately dry")
+ 65.         * This label goes into title 
+.         local xt = cond(`c' == 1, "severely dry or worse", "moderately dry")
+ 66.         * Propensity score run here. Which is the predicted chance of bein
+> g in the dry class from the baseline characteristics
+.         quietly logit d`c' `Xf'
+ 67.         predict ps`c' if e(sample), pr
+ 68.         * This is for numbers for the box in the figure. We are just doing
+>  simple formatting, and calling upon. Note: Outside support counts dry childr
+> en whose score is below the lowest or above the highest near normal score
+.         quietly summarize ps`c' if d`c' == 1
+ 69.         local mt : display %4.2f r(mean)
+ 70.         local nt : display %9.0fc r(N)
+ 71.         local nt = strtrim("`nt'")
+ 72.         quietly summarize ps`c' if d`c' == 0
+ 73.         local mc : display %4.2f r(mean)
+ 74.         local nc : display %9.0fc r(N)
+ 75.         local nc = strtrim("`nc'")
+ 76.         quietly count if d`c' == 1 & (ps`c' < r(min) | ps`c' > r(max))
+ 77.         local out = r(N)
+ 78.         local box `""Children  `nt' / `nc'" "Mean score  `mt' / `mc'" "Out
+> side support  `out'""'
+ 79.         * Create twoway graph
+.         twoway ///
+>             (kdensity ps`c' if d`c' == 1, range(0 1) lc(black) lw(medthick)) 
+> ///
+>             (kdensity ps`c' if d`c' == 0, range(0 1) lc(black) lw(medthick) l
+> p(dash)), ///
+>             graphregion(color(white)) plotregion(color(white) lcolor(black) l
+> width(thin) margin(zero)) ///
+>             ylabel(0 "0" 1 "1" 2 "2" 3 "3" 4 "4" 5 "5" 6 "6", angle(0) labsiz
+> e(medsmall) glcolor(gs14) glwidth(vthin) glpattern(solid) tlcolor(black)) ///
+>             xlabel(0 "0" 0.2 ".2" 0.4 ".4" 0.6 ".6" 0.8 ".8" 1 "1", labsize(m
+> edsmall) grid glcolor(gs14) glwidth(vthin) glpattern(solid) tlcolor(black)) /
+> //
+>             xscale(range(0 1) lcolor(black)) yscale(range(0 6) lcolor(black))
+>  ///
+>             text(4.56 0.665 `box', placement(se) justification(left) box bcol
+> or(white) lcolor(black) lwidth(thin) margin(small) size(medsmall)) ///
+>             legend(order(1 "`lab'" 2 "Near normal") ring(0) pos(1) cols(1) re
+> gion(lcolor(black) lwidth(thin)) size(medsmall) symxsize(8) keygap(1)) ///
+>             xtitle("Predicted chance of being `xt'", size(medium)) ytitle("De
+> nsity", size(medium)) name(overlap`c', replace)
+ 80.     }
+ 81.     * Exporting to Main or Online_Appendix
+.     * The BMIZ overlap figure is in the main text
+.     local f = cond("`o'" == "bmiz", "Main", "Online_Appendix")
+ 82.     graph combine overlap1 overlap2, rows(1) xsize(13) ysize(5) graphregio
+> n(color(white)) imargin(small)
+ 83.     graph export "$out_figs/`f'/overlap_pscore_`o'.png", replace width(260
+> 0)
+ 84.     restore
+ 85. }
+(109,541 observations deleted)
+
+added scalar:
+               e(mean) =  .98066876
+
+added scalar:
+               e(mean) =  .82810867
+
+added scalar:
+               e(mean) =  .80825496
+
+added scalar:
+               e(mean) =  .56503423
+
+added scalar:
+               e(mean) =  .38474345
+
+added scalar:
+               e(mean) =  6.5137485
+
+added scalar:
+               e(mean) =  1302.9342
+
+added scalar:
+               e(mean) =  .46551724
+
+added scalar:
+               e(mean) =  .22780749
+
+added scalar:
+               e(mean) =  .36851211
+
+added scalar:
+               e(mean) =  .49434783
+
+added scalar:
+               e(mean) =  5.9182609
+
+added scalar:
+               e(mean) =  .48168498
+
+added scalar:
+               e(mean) =  154.32924
+
+added scalar:
+               e(mean) =  7.1900864
+
+added scalar:
+               e(mean) =  26.38621
+
+added scalar:
+               e(mean) =  .28831287
+
+added scalar:
+               e(mean) =  166.42626
+
+added scalar:
+               e(mean) =  7.3983516
+
+added scalar:
+               e(mean) =  29.894374
+
+added scalar:
+               e(mean) =  .95833333
+
+added scalar:
+               e(mean) =  2.5506098
+
+added scalar:
+               e(mean) =  .35914634
+
+added scalar:
+               e(mean) =  3.2541791
+
+added scalar:
+               e(mean) =  .11135491
+
+added scalar:
+               e(mean) =  33.459929
+
+added scalar:
+               e(mean) =  .745219
+
+added scalar:
+               e(mean) =  .139765
+
+added scalar:
+               e(mean) =  .35441739
+
+added scalar:
+               e(mean) =  723.18502
+
+added scalar:
+               e(mean) =  123.85528
+(output written to /Users/zakserby/Documents/Documents (MAC)/Cornell University
+> /Master's Thesis/Proposal 3 Mexico OG/Output/Tables/Main/balance_table.tex)
+(output written to /Users/zakserby/Documents/Documents (MAC)/Cornell University
+> /Master's Thesis/Proposal 3 Mexico OG/Output/Tables/Main/balance_table.tex)
+(472 missing values generated)
+(364 missing values generated)
+(472 missing values generated)
+(364 missing values generated)
+file /Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thes
+> is/Proposal 3 Mexico OG/Output/Figures/Main/overlap_pscore_bmiz.png written i
+> n PNG format
+(109,490 observations deleted)
+
+added scalar:
+               e(mean) =  .98060235
+
+added scalar:
+               e(mean) =  .82695253
+
+added scalar:
+               e(mean) =  .80806534
+
+added scalar:
+               e(mean) =  .56841564
+
+added scalar:
+               e(mean) =  .38417789
+
+added scalar:
+               e(mean) =  6.5127751
+
+added scalar:
+               e(mean) =  1292.3148
+
+added scalar:
+               e(mean) =  .46401225
+
+added scalar:
+               e(mean) =  .22751046
+
+added scalar:
+               e(mean) =  .36830231
+
+added scalar:
+               e(mean) =  .49595917
+
+added scalar:
+               e(mean) =  5.8851553
+
+added scalar:
+               e(mean) =  .48005379
+
+added scalar:
+               e(mean) =  154.3753
+
+added scalar:
+               e(mean) =  7.1967067
+
+added scalar:
+               e(mean) =  26.407228
+
+added scalar:
+               e(mean) =  .28793947
+
+added scalar:
+               e(mean) =  166.46489
+
+added scalar:
+               e(mean) =  7.3843264
+
+added scalar:
+               e(mean) =  29.896319
+
+added scalar:
+               e(mean) =  .95822175
+
+added scalar:
+               e(mean) =  2.5480597
+
+added scalar:
+               e(mean) =  .36
+
+added scalar:
+               e(mean) =  3.2556422
+
+added scalar:
+               e(mean) =  .11135019
+
+added scalar:
+               e(mean) =  33.31975
+
+added scalar:
+               e(mean) =  .74335749
+
+added scalar:
+               e(mean) =  .13801453
+
+added scalar:
+               e(mean) =  -.5801829
+
+added scalar:
+               e(mean) =  723.77482
+
+added scalar:
+               e(mean) =  123.67172
+(output written to /Users/zakserby/Documents/Documents (MAC)/Cornell University
+> /Master's Thesis/Proposal 3 Mexico OG/Output/Tables/Online_Appendix/balance_t
+> able_online_appendix.tex)
+(output written to /Users/zakserby/Documents/Documents (MAC)/Cornell University
+> /Master's Thesis/Proposal 3 Mexico OG/Output/Tables/Online_Appendix/balance_t
+> able_online_appendix.tex)
+(488 missing values generated)
+(370 missing values generated)
+(488 missing values generated)
+(370 missing values generated)
+file /Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thes
+> is/Proposal 3 Mexico OG/Output/Figures/Online_Appendix/overlap_pscore_haz.png
+>  written in PNG format
+(110,796 observations deleted)
+
+added scalar:
+               e(mean) =  .98091603
+
+added scalar:
+               e(mean) =  .8307888
+
+added scalar:
+               e(mean) =  .81806616
+
+added scalar:
+               e(mean) =  .57051282
+
+added scalar:
+               e(mean) =  .40870714
+
+added scalar:
+               e(mean) =  6.5672914
+
+added scalar:
+               e(mean) =  1279.1522
+
+added scalar:
+               e(mean) =  .44274809
+
+added scalar:
+               e(mean) =  .18489583
+
+added scalar:
+               e(mean) =  .41269841
+
+added scalar:
+               e(mean) =  .51291866
+
+added scalar:
+               e(mean) =  2.4421053
+
+added scalar:
+               e(mean) =  .36125126
+
+added scalar:
+               e(mean) =  154.77344
+
+added scalar:
+               e(mean) =  7.567889
+
+added scalar:
+               e(mean) =  26.026575
+
+added scalar:
+               e(mean) =  .24007937
+
+added scalar:
+               e(mean) =  166.76206
+
+added scalar:
+               e(mean) =  7.6901073
+
+added scalar:
+               e(mean) =  29.55814
+
+added scalar:
+               e(mean) =  .95589988
+
+added scalar:
+               e(mean) =  2.0717863
+
+added scalar:
+               e(mean) =  .48747913
+
+added scalar:
+               e(mean) =  3.2473199
+
+added scalar:
+               e(mean) =  .07304786
+
+added scalar:
+               e(mean) =  32.082929
+
+added scalar:
+               e(mean) =  .79123711
+
+added scalar:
+               e(mean) =  .17723157
+
+added scalar:
+               e(mean) =  -.29786603
+
+added scalar:
+               e(mean) =  715.43474
+
+added scalar:
+               e(mean) =  122.35509
+(output written to /Users/zakserby/Documents/Documents (MAC)/Cornell University
+> /Master's Thesis/Proposal 3 Mexico OG/Output/Tables/Online_Appendix/balance_t
+> able_online_appendix.tex)
+(output written to /Users/zakserby/Documents/Documents (MAC)/Cornell University
+> /Master's Thesis/Proposal 3 Mexico OG/Output/Tables/Online_Appendix/balance_t
+> able_online_appendix.tex)
+(217 missing values generated)
+(145 missing values generated)
+(217 missing values generated)
+(145 missing values generated)
+file /Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thes
+> is/Proposal 3 Mexico OG/Output/Figures/Online_Appendix/overlap_pscore_waz.png
+>  written in PNG format
+
+. 
+. 
 . 
 . 
 . 
@@ -1030,10 +1635,11 @@ BMIZ: DID 2005 3,511, 2009 2,383 | event studies 2002 2,569, 2005 1,719, 2009 1
 . 
 . 
 end of do-file
-.     log close sumstats_did
+
+. log close sumstats_did
       name:  sumstats_did
        log:  /Users/zakserby/Documents/Documents (MAC)/Cornell University/Maste
 > r's Thesis/Proposal 3 Mexico OG/Output/Logs/Main/summary_stats_did.log
   log type:  text
- closed on:  30 Oct 2026, 03:43:58
+ closed on:   7 Nov 2026, 03:59:06
 -------------------------------------------------------------------------------

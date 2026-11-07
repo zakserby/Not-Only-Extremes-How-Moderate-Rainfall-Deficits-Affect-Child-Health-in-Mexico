@@ -1,0 +1,70 @@
+% Text of the online appendix. Build_Results.R replaces each %%TABLE and %%FIGURE line with the table or figure from Output, then compiles Online_Appendix.pdf
+\begin{center}
+{\LARGE\bfseries Online Appendix\par}
+\vspace{0.15in}
+{\large Not Only Extremes: How Moderate Rainfall Deficits Affects Child Health in Mexico\par}
+\vspace{0.1in}
+{\large Zachary Serby\par}
+\end{center}
+\vspace{0.2in}
+\renewcommand{\contentsname}{Table of Contents for Online Appendix}
+\setcounter{tocdepth}{1}
+\tableofcontents
+\clearpage
+\setcounter{table}{0}
+\setcounter{figure}{0}
+\renewcommand{\thetable}{OA\arabic{table}}
+\renewcommand{\thefigure}{OA\arabic{figure}}
+\renewcommand{\thesection}{\Alph{section}}
+
+\section{Sample Sizes and Attrition}
+
+%%TABLE|Online_Appendix/sample_size_attrition_tables.tex|Sample Sizes, Treated and Control Children|tab:oa_sizes
+
+%%TABLE|Online_Appendix/sample_size_attrition_tables.tex|Sample Attrition Across Waves|tab:oa_attrition
+
+\clearpage
+\section{Continuous Dose}
+
+%%TABLE|Online_Appendix/regression_tables_online_appendix.tex|Continuous DID and Remittances as a Moderator|tab:oa_contdid
+
+%%FIGURE|contdid_binscatter_bmiz.png|fig:oa_binscatter|Change in BMI-for-Age by 2009 Rainfall Deficit, Continuous Dose|Mean 2005-to-2009 change in BMIZ by decile of the 2009 rainfall deficit $D = \max(0, -z)$ for treated children with $D > 0$. Circle size is proportional to the number of children in the decile. The dashed line is the mean change for untreated children ($D = 0$).
+
+%%FIGURE|contdid_binscatter_haz.png;contdid_binscatter_waz.png|fig:oa_binscatter_hazwaz|Change in Height-for-Age and Weight-for-Age by 2009 Rainfall Deficit, Continuous Dose|Left: HAZ. Right: WAZ. See Figure~\ref{fig:oa_binscatter}.
+
+%%FIGURE|contdid_att_clustered_bmiz.png|fig:oa_att_bmiz|ATT by 2009 Rainfall Deficit, BMI-for-Age, Continuous Dose|$ATT(d)$ is estimated with a cubic B-spline in the dose with one interior knot and evaluated over the range of treated doses using the contdid package \parencite{callawayDifferenceinDifferencesContinuousTreatment2026}. The dark band is the pointwise 95 percent confidence interval and the light band is the uniform 95 percent band. Both come from a multiplier bootstrap of the influence functions clustered by 2005 municipality.
+
+%%FIGURE|contdid_att_clustered_haz.png;contdid_att_clustered_waz.png|fig:oa_att_hazwaz|ATT by 2009 Rainfall Deficit, Height-for-Age and Weight-for-Age, Continuous Dose|Left: HAZ. Right: WAZ. See Figure~\ref{fig:oa_att_bmiz}.
+
+\clearpage
+\section{Heterogeneity by Sex and by Rural and Urban Residence}
+
+%%TABLE|Online_Appendix/regression_tables_online_appendix.tex|Height-for-Age, Binary DID, Boys|tab:oa_haz_boys
+
+%%TABLE|Online_Appendix/regression_tables_online_appendix.tex|Weight-for-Age, Binary DID, Boys|tab:oa_waz_boys
+
+%%TABLE|Online_Appendix/regression_tables_online_appendix.tex|BMI-for-Age, Binary DID, Boys|tab:oa_bmiz_boys
+
+%%TABLE|Online_Appendix/regression_tables_online_appendix.tex|Height-for-Age, Binary DID, Girls|tab:oa_haz_girls
+
+%%TABLE|Online_Appendix/regression_tables_online_appendix.tex|Weight-for-Age, Binary DID, Girls|tab:oa_waz_girls
+
+%%TABLE|Online_Appendix/regression_tables_online_appendix.tex|BMI-for-Age, Binary DID, Girls|tab:oa_bmiz_girls
+
+%%TABLE|Online_Appendix/regression_tables_online_appendix.tex|Height-for-Age, Binary DID, Rural Children|tab:oa_haz_rural
+
+%%TABLE|Online_Appendix/regression_tables_online_appendix.tex|Weight-for-Age, Binary DID, Rural Children|tab:oa_waz_rural
+
+%%TABLE|Online_Appendix/regression_tables_online_appendix.tex|BMI-for-Age, Binary DID, Rural Children|tab:oa_bmiz_rural
+
+%%TABLE|Online_Appendix/regression_tables_online_appendix.tex|Height-for-Age, Binary DID, Urban Children|tab:oa_haz_urban
+
+%%TABLE|Online_Appendix/regression_tables_online_appendix.tex|Weight-for-Age, Binary DID, Urban Children|tab:oa_waz_urban
+
+%%TABLE|Online_Appendix/regression_tables_online_appendix.tex|BMI-for-Age, Binary DID, Urban Children|tab:oa_bmiz_urban
+
+%%TABLE|Online_Appendix/regression_tables_online_appendix.tex|Continuous DID by Subgroup, Height-for-Age|tab:oa_cd_haz
+
+%%TABLE|Online_Appendix/regression_tables_online_appendix.tex|Continuous DID by Subgroup, Weight-for-Age|tab:oa_cd_waz
+
+%%TABLE|Online_Appendix/regression_tables_online_appendix.tex|Continuous DID by Subgroup, BMI-for-Age|tab:oa_cd_bmiz

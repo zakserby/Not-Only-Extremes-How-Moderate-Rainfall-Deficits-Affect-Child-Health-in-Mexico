@@ -33,7 +33,7 @@ foreach d in "$out_regs" "$out_logs" "$out_figs" {
         capture mkdir "`d'/`s'"
     }
 }
-capture mkdir "$out_figs/Miscellaneous"
+capture mkdir "$out_figs/Online_Appendix"
 
 * If the master already opened the log, the capture fails quietly and the master keeps logging. If this file is run on its own, it opens the same log here and closes it at the end, so the DID and the event study are always in the log.
 capture log using "$out_logs/Appendix/subanalysis_gender_did_regs.log", replace text name(sub_gender_did)
@@ -74,6 +74,14 @@ global did_controls "drought2005_post drought2006_post drought2007_post drought2
 global controls02 "dwell_electricity_02_post dwell_floor_good_02_post dwell_roof_good_02_post dwell_ventilation_good_02_post rooms_per_person_02_post ln_pc_expend_month_02_post rural_02_post"
 global controls05 "mother_height_cm_05_post mother_edu_years_05_post mother_age_at_birth_05_post mother_employed_05_post fully_vaccinated_05_post"
 global controls05_birth "father_height_cm_05_post father_edu_years_05_post father_age_at_birth_05_post father_employed_05_post birth_order_05_post oldest_child_05_post birth_weight_kg_05_post delivered_home_05_post predominant_breastfed_05_post iron_pregnancy_05_post premature_05_post"
+
+* Event study controls, the Model 3 controls each interacted with the 2002 and 2009 waves, same as DID_Regs.do except child_male_05 is taken out because sex does not vary within a subsample
+global es_controls ""
+foreach c in drought2005 drought2006 drought2007 drought2008 dwell_electricity_02 dwell_floor_good_02 dwell_roof_good_02 dwell_ventilation_good_02 rooms_per_person_02 ln_pc_expend_month_02 rural_02 mother_height_cm_05 mother_edu_years_05 mother_age_at_birth_05 mother_employed_05 fully_vaccinated_05 {
+    gen `c'_w02 = `c' * (year == 2002)
+    gen `c'_w09 = `c' * (year == 2009)
+    global es_controls "$es_controls `c'_w02 `c'_w09"
+}
 
 * reghdfe and its dependencies, same as DID_Regs.do
 capture which reghdfe
@@ -131,13 +139,27 @@ foreach v in haz waz bmiz {
         legend(order(1 "Control" 2 "Treated (2009 drought)") pos(6) row(1)) ///
         xtitle("Wave") ytitle("Mean `v'") ///
         title("Mean `v' by wave, treated vs control, `s'")
-    graph export "$out_figs/Miscellaneous/trends_`v'_`s'.png", replace
+    graph export "$out_figs/Online_Appendix/trends_`v'_`s'.png", replace
     restore
+}
+
+* Model 3 and Model 5 children of this subsample, so the event studies use the same children as the DID tables, same as DID_Regs.do
+foreach v in haz waz bmiz {
+    capture drop m3_`v' m5_`v'
+    quietly reghdfe `v' treat_post $did_controls $controls02 $controls05 if s_`v' == 1 & `sex', absorb($FE_month) vce(cluster cvegeo05)
+    gen tmp = e(sample)
+    bysort pid_link_canonical: egen m3_`v' = max(tmp)
+    drop tmp
+    quietly reghdfe `v' treat_post remittance_hh_02_post treat_post_remit02 $did_controls $controls02 $controls05 if s_`v' == 1 & `sex', absorb($FE_month) vce(cluster cvegeo05)
+    gen tmp = e(sample)
+    bysort pid_link_canonical: egen m5_`v' = max(tmp)
+    drop tmp
 }
 
 * Event-study TWFE DID
 foreach v in haz waz bmiz {
-    reghdfe `v' lead_2_treat lag_0_treat if e_`v' == 1 & `sex', absorb($FE_month) vce(cluster cvegeo05)
+    * We restrict to the Model 3 children
+    reghdfe `v' lead_2_treat lag_0_treat if e_`v' == 1 & m3_`v' == 1 & `sex', absorb($FE_month) vce(cluster cvegeo05)
     test lead_2_treat
 
     preserve
@@ -157,13 +179,14 @@ foreach v in haz waz bmiz {
         yline(0, lpattern(dash) lcolor(black)) ///
         xtitle("Event time (wave)") ytitle("Coefficient") ///
         title("Event study: `v', `s'") legend(off)
-    graph export "$out_figs/Miscellaneous/event_study_`v'_`s'.png", replace
+    graph export "$out_figs/Online_Appendix/event_study_`v'_`s'.png", replace
     restore
 }
 
 * c. Triple-difference event study
 foreach v in haz waz bmiz {
-    reghdfe `v' lead_2_ddd lag_0_ddd lead_2_treat lag_0_treat lead_2_remit lag_0_remit if e_`v' == 1 & !missing(remittance_hh_02) & `sex', absorb($FE_month) vce(cluster cvegeo05)
+    * We restrict to the Model 5 children
+    reghdfe `v' lead_2_ddd lag_0_ddd lead_2_treat lag_0_treat lead_2_remit lag_0_remit $es_controls if e_`v' == 1 & m5_`v' == 1 & `sex', absorb($FE_month) vce(cluster cvegeo05)
     test lead_2_ddd
     lincom lag_0_treat + lag_0_ddd
 
@@ -184,7 +207,7 @@ foreach v in haz waz bmiz {
         yline(0, lpattern(dash) lcolor(black)) ///
         xtitle("Event time (wave)") ytitle("Coefficient") ///
         title("DDD event study (drought x 2002 remittances): `v', `s'") legend(off)
-    graph export "$out_figs/Miscellaneous/event_study_ddd_`v'_`s'.png", replace
+    graph export "$out_figs/Online_Appendix/event_study_ddd_`v'_`s'.png", replace
     restore
 }
 
@@ -217,7 +240,7 @@ foreach v in haz waz bmiz {
         legend(order(1 "Control" 2 "Treated (2009 drought)") pos(6) row(1)) ///
         xtitle("Wave") ytitle("Mean `v'") ///
         title("Mean `v' by wave, children in all 3 waves, `s'")
-    graph export "$out_figs/Miscellaneous/trends_`v'_all3_`s'.png", replace
+    graph export "$out_figs/Online_Appendix/trends_`v'_all3_`s'.png", replace
     restore
 
     reghdfe `v' lead_2_treat lag_0_treat if e_`v'_all3 == 1 & `sex', absorb($FE_month) vce(cluster cvegeo05)
@@ -240,7 +263,7 @@ foreach v in haz waz bmiz {
         yline(0, lpattern(dash) lcolor(black)) ///
         xtitle("Event time (wave)") ytitle("Coefficient") ///
         title("Event study, children in all 3 waves: `v', `s'") legend(off)
-    graph export "$out_figs/Miscellaneous/event_study_`v'_all3_`s'.png", replace
+    graph export "$out_figs/Online_Appendix/event_study_`v'_all3_`s'.png", replace
     restore
 }
 }

@@ -1,23 +1,23 @@
-# Rainfall Shocks, Child Anthropometrics, and Remittances (MS Thesis)
+# Not Only Extremes: How Moderate Rainfall Deficits Affects Child Health in Mexico (MS Thesis)
 
 **Zachary Serby, Cornell University**
 
-> **This project is fully reproducible. All data needed to run the analysis are included in this repository, and every file path is relative. The project can be downloaded and run on any computer without changing file paths or settings. Running the single master file `Scripts/00_Master.do` rebuilds the cleaned survey data from the raw data and produces all regressions, tables, and figures along with the results PDF.**
+> **This project is fully reproducible. All data needed to run the analysis are included in this repository, and every file path is relative. The project can be downloaded and run on any computer without changing file paths or settings. Running the single master file `Scripts/00_Master.do` rebuilds the cleaned survey data from the raw data and produces all regressions, tables, and figures along with the paper, online appendix and results PDFs.**
 
-**Paper:** [Writing Sample.pdf](Writing%20Sample.pdf) (current draft of the results, also at [Paper/Results.pdf](Paper/Results.pdf))
+**Paper:** [Paper/Paper.pdf](Paper/Paper.pdf) (the paper and its appendix), with the [online appendix](Paper/Online_Appendix.pdf) and every table and figure in [Paper/Results.pdf](Paper/Results.pdf)
 **Code:** [Scripts/](Scripts) (start with [Scripts/00_Master.do](Scripts/00_Master.do))
 
 ---
 
 ## Overview
 
-This thesis studies how the 2009 drought in Mexico affected child health, measured by WHO height-for-age (HAZ), weight-for-age (WAZ), and BMI-for-age (BMIZ) z-scores, and whether household remittances buffered the shock. It combines the Mexican Family Life Survey (2002, 2005, 2009) with municipality-level CHIRPS rainfall over the May-October growing season and estimates binary difference-in-differences, triple differences with 2002 remittances, event studies, and the continuous difference-in-differences of Callaway, Goodman-Bacon and Sant'Anna (2024), with subanalyses by child sex and by rural vs urban locality.
+This thesis studies how the effects of the 2009 rainfall deficit in Mexico on child health vary with the severity of the deficit, measured by WHO height-for-age (HAZ), weight-for-age (WAZ), and BMI-for-age (BMIZ) z-scores, and whether household remittances buffered the shock. It combines the Mexican Family Life Survey (2002, 2005, 2009) with municipality-level CHIRPS rainfall over the May-October growing season. The main design is a difference-in-differences that treats rainfall severity categories (SPI cutoffs) as the dose levels of a multi-valued discrete treatment, following Callaway, Goodman-Bacon and Sant'Anna (2024), with near-normal municipalities as the comparison group. It also estimates a binary difference-in-differences with baseline controls, triple differences with 2002 remittances, event studies, and the continuous difference-in-differences, with subanalyses by child sex and by rural vs urban locality.
 
 ## How to run
 
 1. Download or clone this repository.
 2. Open `Scripts/00_Master.do` (double-clicking it sets Stata's working folder to `Scripts`; if Stata is already open, `cd` to the project or `Scripts` folder first). The project root is found automatically.
-3. Run it. The full pipeline takes about 7 minutes and runs, in order: MxFLS cleaning (2002, 2005, 2009), the DID analysis data, summary statistics, the drought map (R), DID/DDD and event studies, continuous DID (R), subanalyses by sex and by rural vs urban (Stata, then R), the regression tables, and the results document (R, compiled to `Paper/Results.pdf`).
+3. Run it. The full pipeline runs, in order: MxFLS cleaning (2002, 2005, 2009), the DID analysis data, summary statistics and balance tables, the drought map (R), DID/DDD and event studies, continuous DID (R), subanalyses by sex and by rural vs urban (Stata, then R), the regression tables, and the paper (R, compiled to `Paper/Paper.pdf`, `Paper/Online_Appendix.pdf` and `Paper/Results.pdf`). The continuous DID steps are the slowest because of the wild cluster bootstrap.
 
 Each step can be switched on or off with the `run_*` switches at the top of `00_Master.do` (all are on). The master calls R through `Rscript` and finds it automatically in the usual Mac locations; on another system, set `global Rscript` in `00_Master.do`.
 
@@ -35,6 +35,7 @@ place it at `Data/Raw/Rainfall/chirps-v2.0.monthly.nc`, and set `run_R` to 1 in 
 Scripts/
   00_Master.do                      Runs everything in order
   MS Thesis.Rproj                   R project (R scripts take the project root as one folder up from Scripts)
+  .Rprofile                         Saves the R console history to Output/Logs/Miscellaneous when R closes
   Cleaning/
     Cleaned_rainfall_municipality_drought.R   CHIRPS to a municipality-year May-October rainfall panel and drought indicator
     Cleaning Script for MxFLS_2002_03.do      Cleans each MxFLS wave: WHO z-scores, remittances, controls
@@ -42,17 +43,17 @@ Scripts/
     Cleaning Script for MxFLS_2009_12.do      Also appends the three waves into the panel
     Build_DID_Analysis_Data.do                Merges the panel with rainfall, builds treatment, controls, samples
   Statistics/
-    Summary Stats DID.do            Summary statistics, sample sizes, attrition tables
+    Summary Stats DID.do            Summary statistics, sample sizes, attrition, balance tables and overlap figures
     Regression Stats.do             All regression tables in LaTeX
     Drought_map.R                   Maps of the 2009 drought by municipality
   Regressions/
     DID_Regs.do                     Binary DID, triple difference, event studies, robustness
-    Contdid_regs.R                  Continuous DID, rainfall classes (SPI cutoffs), remittance buffer
+    Contdid_regs.R                  Continuous DID, rainfall dose groups (SPI cutoffs), remittance buffer
     functions.R                     Functions used by the R scripts
     Subanalysis_Gender_*            Same analyses for boys and girls
     Subanalysis_Rural_*             Same analyses for rural and urban children
   Paper/
-    Build_Results.R                 Writes Paper/Results.tex and compiles Paper/Results.pdf
+    Build_Results.R                 Writes Paper.tex, Online_Appendix.tex and Results.tex and compiles the PDFs
 
 Data/
   Raw/        MxFLS data and documentation (codebooks, questionnaires, user guides),
@@ -61,18 +62,19 @@ Data/
               WHO z-score files, municipality rainfall panel
 
 Output/
-  Tables/                 Summary statistics and regression tables (.tex), Main and Appendix
+  Tables/                 Summary statistics, balance and regression tables (.tex)
   Regression_Estimates/   Event study coefficients (.dta) and continuous DID estimates (.csv)
-  Figures/                Trends, event studies, continuous DID figures, 2009 drought maps (.png).
-                          Main and Appendix are in the paper, Miscellaneous is not
-  Logs/                   Every Stata and R log
+  Figures/                Trends, event studies, continuous DID figures, overlap figures, 2009 drought maps (.png)
+                          Main and Appendix are in the paper, Online_Appendix is in the online appendix
+  Logs/                   Every Stata, R and LaTeX log
 
 Paper/
-  Results.tex, Results.pdf          All main and appendix tables and figures
-  Proposal.pdf                      Thesis proposal
+  Paper.tex, Paper.pdf              The paper and its appendix
+  Online_Appendix.tex, .pdf         Online appendix (subanalyses and additional figures)
+  Results.tex, Results.pdf          Every table and figure
+  Text/                             Text of the paper and online appendix, and References.bib
 
 README.rtf                          Detailed project readme
-Writing Sample.pdf                  Copy of Paper/Results.pdf
 ```
 
 ## Data sources
@@ -86,6 +88,6 @@ Writing Sample.pdf                  Copy of Paper/Results.pdf
 
 - **Stata** (tested with Stata 19 MP). reghdfe, ftools, require, estout, distinct and boottest install automatically.
 - **R** 4.x (tested with R 4.4.2). terra, sf, data.table, readxl, haven, did (>= 2.5.0), BMisc, sandwich, RColorBrewer and tinytex install automatically. contdid 0.1.1 installs from GitHub (bcallaway11/contdid) and needs ptetools >= 1.0.1. fwildclusterboot 0.13.0 and summclust 0.7.2 install from the CRAN archive and need the Xcode command line tools and gfortran on a Mac.
-- **TinyTeX** compiles Results.pdf; `Build_Results.R` installs it if no LaTeX is found.
+- **TinyTeX** compiles Paper.pdf, Online_Appendix.pdf and Results.pdf; `Build_Results.R` installs it if no LaTeX is found, and missing LaTeX packages (including biblatex-chicago and biber for the references) install automatically.
 
 Bootstrap results are reproducible: `set.seed(1234)` is set before every bootstrap in R, and `seed(1234)` for every `boottest` in Stata.

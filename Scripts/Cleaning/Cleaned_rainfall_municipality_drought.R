@@ -2,7 +2,7 @@
 # MS Thesis
 #===============================================================================
 
-# MUNICIPALITY level instead of the state level, extends the years for the DID, and adds a binary drought shock.
+# Builds May to October rainfall at the MUNICIPALITY level for the DID years, and adds a binary drought shock.
 
 #===============================================================================
 # 1). Preliminary 
@@ -67,7 +67,7 @@ chirps <- mask(chirps, mexico_mun)
 cat("Mask done, elapsed:", round(difftime(Sys.time(), start_time, units = "mins"), 1), "min\n") 
 
 # Check rainfall raster via plot, it looks good
-# Note there was a proj_identify warning but I think its okay, you checked it out a bit
+# Note there was a proj_identify warning but I checked it and I think its okay
 nlyr(chirps)
 if (interactive()) plot(chirps[[1]]) 
 
@@ -101,7 +101,7 @@ head(rainfall_extract[,c("cvegeo","lon","lat")])
 
 # Convert to data.table so data.table::melt is used and variable.name/value.name are respected
 setDT(rainfall_extract)
-# Reshape the columns to only be the listed ones below and put all the values in these columns. Cvegeo and fraction are used instead of the previous State
+# Reshape the columns to only be the listed ones below and put all the values in these columns. Cvegeo and fraction identify the municipality
 rainfall_long <- melt(rainfall_extract, id.vars=c("ID","cell","cvegeo","fraction","lon","lat"), variable.name="date", value.name="rainfall", variable.factor=FALSE)
 # Convert "YYYY-MM" text to a proper Date, first of the month
 rainfall_long[, date := as.Date(paste0(date, "-01"))]

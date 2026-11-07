@@ -12,7 +12,7 @@
 \setlength{\tabcolsep}{4pt}
 \setlength{\LTcapwidth}{\textwidth}
 \begin{longtable}{l*{6}{c}}
-\caption{Summary Statistics, Rainfall Class Samples}\\
+\caption{Summary Statistics, Discrete-Dose Samples}\\
 \toprule
  & \multicolumn{6}{c}{Panel A: WAZ, age \ensuremath{\le}10 in 2005 and 2009}\\
 \cmidrule(lr){2-7}
@@ -22,7 +22,7 @@
 Weight-for-age z-score (WAZ)&       -0.30&        1.42&       -5.07&       -0.36&        4.51&       1,045\\
 \addlinespace[6pt]\textit{Outcome change, 2005 to 2009}&            &            &            &            &            &            \\
 Change in WAZ       &        0.55&        1.41&       -4.88&        0.46&        9.10&       1,045\\
-\addlinespace[6pt]\textit{Rainfall classes (CHIRPS)}&            &            &            &            &            &            \\
+\addlinespace[6pt]\textit{Dose levels (CHIRPS)}&            &            &            &            &            &            \\
 2009 rainfall, z    &       -0.50&        0.83&       -2.24&       -0.39&        0.96&       1,045\\
 Near normal, \ensuremath{-1<z<1}&        0.65&        0.48&        0.00&        1.00&        1.00&       1,045\\
 Moderately dry, \ensuremath{-1.5<z\le -1}&        0.21&        0.41&        0.00&        0.00&        1.00&       1,045\\
@@ -41,274 +41,17 @@ BMI-for-age z-score (BMIZ)&        0.36&        1.43&       -4.95&        0.30& 
 \addlinespace[6pt]\textit{Outcome change, 2005 to 2009}&            &            &            &            &            &            \\
 Change in HAZ       &        0.07&        1.37&       -5.93&        0.07&        6.35&       2,351\\
 Change in BMIZ      &        0.23&        1.31&       -5.90&        0.17&        7.59&       2,295\\
-\addlinespace[6pt]\textit{Rainfall classes (CHIRPS)}&            &            &            &            &            &            \\
+\addlinespace[6pt]\textit{Dose levels (CHIRPS)}&            &            &            &            &            &            \\
 2009 rainfall, z    &       -0.55&        0.84&       -2.24&       -0.53&        0.96&       2,351\\
 Near normal, \ensuremath{-1<z<1}&        0.64&        0.48&        0.00&        1.00&        1.00&       2,351\\
 Moderately dry, \ensuremath{-1.5<z\le -1}&        0.21&        0.41&        0.00&        0.00&        1.00&       2,351\\
 Severely dry or worse, \ensuremath{z\le -1.5}&        0.16&        0.36&        0.00&        0.00&        1.00&       2,351\\
 
 \bottomrule
-\addlinespace[6pt]\multicolumn{7}{p{0.97\textwidth}}{\scriptsize \textit{Notes:} This table is for the rainfall class specification, the main model. Obs. counts children. The sample is children with the outcome measured in MxFLS-2 (2005) and MxFLS-3 (2009), under the panel's age cutoff
-in both rounds, with a 2005 municipality. They were not measured in MxFLS-3 before November 2009. We use November 2009 as the cutoff because the 2009 rainfall deficit, the drought, had not fully occurred before then. Dropping them from both groups equalizes treated and control measurement timing. Children in wet municipalities (z of 1 or above) are excluded.
-Panel A uses the WAZ sample, Panel B the HAZ and BMIZ sample. The BMIZ sample is marginally smaller than the HAZ sample shown in Panel B, at 2,300 children. Statistics are at the 2005 baseline, except the change in WAZ, HAZ and BMIZ from 2005 to 2009, the outcome of the rainfall class regressions, and 2009 rainfall. z is 2009 May--October CHIRPS rainfall, the maize growing season (Jessoe et al., 2018), in the child's 2005 municipality in standard deviations
-from its 1981--2004 mean, grouped into standardized rainfall classes with the SPI cutoffs (McKee et al., 1993). The rainfall class regressions have no controls, as the contdid package does not yet support covariates (Callaway et al., 2024).}\\
-\end{longtable}
-\endgroup
-\clearpage
-\begingroup
-\footnotesize
-\renewcommand{\arraystretch}{0.86}
-\setlength{\tabcolsep}{4pt}
-\setlength{\LTcapwidth}{\textwidth}
-\begin{longtable}{l*{6}{c}}
-\caption{Summary Statistics, Binary DID Model 3 Samples}\\
-\toprule
- & \multicolumn{6}{c}{Panel A: WAZ, age \ensuremath{\le}10 in 2005 and 2009}\\
-\cmidrule(lr){2-7}
-                    &        Mean&   Std. dev.&        Min.&      Median&        Max.&        Obs.\\
-\midrule
-\textit{Outcomes (MxFLS-2, 2005)}&            &            &            &            &            &            \\
-Weight-for-age z-score (WAZ)&       -0.31&        1.40&       -4.92&       -0.34&        4.51&         700\\
-\addlinespace[6pt]\textit{Binary DID treatment (CHIRPS)}&            &            &            &            &            &            \\
-2009 drought (indicator)&        0.36&        0.48&        0.00&        0.00&        1.00&         700\\
-2005 drought (indicator)&        0.68&        0.47&        0.00&        1.00&        1.00&         700\\
-2006 drought (indicator)&        0.03&        0.17&        0.00&        0.00&        1.00&         700\\
-2007 drought (indicator)&        0.15&        0.36&        0.00&        0.00&        1.00&         700\\
-2008 drought (indicator)&        0.13&        0.34&        0.00&        0.00&        1.00&         700\\
-\addlinespace[6pt]\textit{Remittances (MxFLS-1, 2002)}&            &            &            &            &            &            \\
-Household received remittances, proxy (indicator)&        0.41&        0.49&        0.00&        0.00&        1.00&         634\\
-\addlinespace[6pt]\textit{Household (MxFLS-1, 2002)}&            &            &            &            &            &            \\
-Dwelling has electricity (indicator)&        0.97&        0.16&        0.00&        1.00&        1.00&         700\\
-Good floor quality (indicator)&        0.85&        0.36&        0.00&        1.00&        1.00&         700\\
-Good roof quality (indicator)&        0.81&        0.39&        0.00&        1.00&        1.00&         700\\
-Enough ventilation (indicator)&        0.57&        0.50&        0.00&        1.00&        1.00&         700\\
-Sleeping rooms per household member&        0.41&        0.25&        0.11&        0.33&        2.33&         700\\
-Ln (monthly expenditure per capita, pesos), proxy&        6.56&        0.86&        4.21&        6.57&       11.43&         700\\
-Rural locality (indicator)&        0.43&        0.50&        0.00&        0.00&        1.00&         700\\
-\addlinespace[6pt]\textit{Child and mother (MxFLS-2, 2005)}&            &            &            &            &            &            \\
-Age (years, not in regression)&        2.52&        1.68&        0.00&        3.00&        6.00&         700\\
-Male (indicator)    &        0.53&        0.50&        0.00&        1.00&        1.00&         700\\
-Fully vaccinated (indicator)&        0.39&        0.49&        0.00&        0.00&        1.00&         700\\
-Mother's height (centimeters)&      154.79&        6.91&      136.00&      154.50&      181.00&         700\\
-Mother's years of schooling&        7.40&        3.42&        0.00&        8.00&       18.00&         700\\
-Mother's age at birth (years)&       26.93&        6.52&       14.00&       27.00&       59.00&         700\\
-Mother employed (indicator)&        0.24&        0.42&        0.00&        0.00&        1.00&         700\\
-\addlinespace[6pt]\textit{Father and birth (MxFLS-1 and MxFLS-2)}&            &            &            &            &            &            \\
-Father's height (centimeters)&      166.81&        6.98&      144.00&      167.00&      189.40&         465\\
-Father's years of schooling&        7.51&        3.77&        0.00&        8.00&       18.00&         569\\
-Father's age at birth (years)&       30.74&        7.82&       16.00&       30.00&       75.00&         581\\
-Father employed (indicator)&        0.96&        0.19&        0.00&        1.00&        1.00&         569\\
-Birth order         &        2.31&        1.68&        1.00&        2.00&       13.00&         401\\
-Oldest child (indicator)&        0.40&        0.49&        0.00&        0.00&        1.00&         401\\
-Birth weight (kilograms)&        3.26&        0.59&        1.55&        3.20&        5.50&         523\\
-Delivered at home (indicator)&        0.08&        0.27&        0.00&        0.00&        1.00&         560\\
-Weeks predominantly breastfed&       31.98&       29.20&        0.00&       26.09&      157.29&         542\\
-Iron during pregnancy (indicator)&        0.76&        0.43&        0.00&        1.00&        1.00&         549\\
-Premature, mother reported (indicator)&        0.19&        0.39&        0.00&        0.00&        1.00&         546\\
-
-\bottomrule
-\newpage
-\toprule
- & \multicolumn{6}{c}{Panel B: HAZ and BMIZ, age \ensuremath{\le}15 in 2005 and 2009}\\
-\cmidrule(lr){2-7}
-                    &        Mean&   Std. dev.&        Min.&      Median&        Max.&        Obs.\\
-\midrule
-\textit{Outcomes (MxFLS-2, 2005)}&            &            &            &            &            &            \\
-Height-for-age z-score (HAZ)&       -0.60&        1.47&       -5.17&       -0.62&        5.20&       1,755\\
-BMI-for-age z-score (BMIZ)&        0.40&        1.41&       -4.95&        0.35&        4.86&       1,721\\
-\addlinespace[6pt]\textit{Binary DID treatment (CHIRPS)}&            &            &            &            &            &            \\
-2009 drought (indicator)&        0.39&        0.49&        0.00&        0.00&        1.00&       1,755\\
-2005 drought (indicator)&        0.66&        0.47&        0.00&        1.00&        1.00&       1,755\\
-2006 drought (indicator)&        0.03&        0.17&        0.00&        0.00&        1.00&       1,755\\
-2007 drought (indicator)&        0.16&        0.36&        0.00&        0.00&        1.00&       1,755\\
-2008 drought (indicator)&        0.14&        0.34&        0.00&        0.00&        1.00&       1,755\\
-\addlinespace[6pt]\textit{Remittances (MxFLS-1, 2002)}&            &            &            &            &            &            \\
-Household received remittances, proxy (indicator)&        0.36&        0.48&        0.00&        0.00&        1.00&       1,624\\
-\addlinespace[6pt]\textit{Household (MxFLS-1, 2002)}&            &            &            &            &            &            \\
-Dwelling has electricity (indicator)&        0.98&        0.15&        0.00&        1.00&        1.00&       1,755\\
-Good floor quality (indicator)&        0.83&        0.37&        0.00&        1.00&        1.00&       1,755\\
-Good roof quality (indicator)&        0.81&        0.39&        0.00&        1.00&        1.00&       1,755\\
-Enough ventilation (indicator)&        0.56&        0.50&        0.00&        1.00&        1.00&       1,755\\
-Sleeping rooms per household member&        0.38&        0.23&        0.11&        0.33&        2.33&       1,755\\
-Ln (monthly expenditure per capita, pesos), proxy&        6.52&        0.86&        3.75&        6.51&       12.24&       1,755\\
-Rural locality (indicator)&        0.46&        0.50&        0.00&        0.00&        1.00&       1,755\\
-\addlinespace[6pt]\textit{Child and mother (MxFLS-2, 2005)}&            &            &            &            &            &            \\
-Age (years, not in regression)&        6.08&        3.22&        0.00&        6.00&       12.00&       1,755\\
-Male (indicator)    &        0.50&        0.50&        0.00&        0.00&        1.00&       1,755\\
-Fully vaccinated (indicator)&        0.50&        0.50&        0.00&        0.00&        1.00&       1,755\\
-Mother's height (centimeters)&      154.39&        7.14&      133.40&      154.20&      190.00&       1,755\\
-Mother's years of schooling&        7.13&        3.66&        0.00&        6.00&       18.00&       1,755\\
-Mother's age at birth (years)&       26.80&        6.46&       14.00&       26.00&       59.00&       1,755\\
-Mother employed (indicator)&        0.28&        0.45&        0.00&        0.00&        1.00&       1,755\\
-\addlinespace[6pt]\textit{Father and birth (MxFLS-1 and MxFLS-2)}&            &            &            &            &            &            \\
-Father's height (centimeters)&      166.42&        7.15&      144.00&      166.30&      192.00&       1,212\\
-Father's years of schooling&        7.33&        3.92&        0.00&        7.00&       18.00&       1,443\\
-Father's age at birth (years)&       30.36&        7.85&       15.00&       29.00&       75.00&       1,482\\
-Father employed (indicator)&        0.96&        0.20&        0.00&        1.00&        1.00&       1,447\\
-Birth order         &        2.66&        1.89&        1.00&        2.00&       13.00&       1,392\\
-Oldest child (indicator)&        0.32&        0.47&        0.00&        0.00&        1.00&       1,392\\
-Birth weight (kilograms)&        3.27&        0.60&        0.85&        3.25&        6.00&       1,256\\
-Delivered at home (indicator)&        0.12&        0.32&        0.00&        0.00&        1.00&       1,544\\
-Weeks predominantly breastfed&       33.57&       33.98&        0.00&       26.09&      260.89&       1,357\\
-Iron during pregnancy (indicator)&        0.72&        0.45&        0.00&        1.00&        1.00&       1,366\\
-Premature, mother reported (indicator)&        0.14&        0.35&        0.00&        0.00&        1.00&       1,362\\
-
-\bottomrule
-\addlinespace[6pt]\multicolumn{7}{p{0.97\textwidth}}{\scriptsize \textit{Notes:} This table is for the sample of Model 3, the main binary DID with controls. Obs. counts children. The children have the outcome measured in MxFLS-2 (2005) and MxFLS-3 (2009), under the panel's age cutoff
-in both rounds, and a 2005 municipality. They were not measured in MxFLS-3 before November 2009. We use November 2009 as the cutoff because the 2009 rainfall deficit, the drought, had not fully occurred before then. Dropping them from both groups equalizes treated and control measurement timing. Children also have all Model 3 controls observed and are not alone in their interview-month cell.
-Panel A uses the WAZ sample, Panel B the HAZ and BMIZ sample. The BMIZ sample is marginally smaller than the HAZ sample shown in Panel B, at 1,714 children. Statistics are at the 2005 baseline, except remittances and household variables (2002). Remittances enter Model 5, and the father and birth controls enter Model 4. Both are observed for fewer children.
-Drought is May--October CHIRPS rainfall in the 2005 municipality below its 1981--2004 20th percentile (Jessoe et al., 2018). Remittances, a proxy, are cash received in the last
-12 months from parents, siblings, or children outside the household. Expenditure, a proxy for income, is in 2002 pesos per person per month.
-Rural is a locality under 2,500 inhabitants (INEGI, 2024).}\\
-\end{longtable}
-\endgroup
-\clearpage
-\begingroup
-\footnotesize
-\renewcommand{\arraystretch}{0.86}
-\setlength{\tabcolsep}{4pt}
-\setlength{\LTcapwidth}{\textwidth}
-\setlength{\LTleft}{0pt}
-\setlength{\LTright}{0pt plus 1fil}
-\begin{longtable}{@{\extracolsep{\fill}}lcc}
-\caption{Sample Sizes, Treated and Control Children}\\
-\toprule
- & \multicolumn{2}{c}{Panel A: Binary DID, 2009 drought}\\*
-\cmidrule(lr){2-3}
- & Control & Treated\\*
-\midrule
-\textit{HAZ sample, children aged 15 or younger in 2005 and 2009} & & \\*
-Children, estimation sample & 1,514 & 922\\*
-Children, Model 1 (basic DID) & 1,512 & 920\\*
-Children, Model 3 (DID with controls) & 1,077 & 678\\*
-Children, Model 5 (triple difference) & 987 & 635\\*
-\quad In 2002 remittance households & 390 & 193\\*
-Households, estimation sample & 944 & 578\\*
-2005 municipalities, estimation sample & 87 & 46\\
-\addlinespace[6pt]\textit{WAZ sample, children aged 10 or younger in 2005 and 2009} & & \\*
-Children, estimation sample & 696 & 388\\*
-Children, Model 1 (basic DID) & 692 & 386\\*
-Children, Model 3 (DID with controls) & 445 & 255\\*
-Children, Model 5 (triple difference) & 400 & 234\\*
-\quad In 2002 remittance households & 168 & 90\\*
-Households, estimation sample & 565 & 316\\*
-2005 municipalities, estimation sample & 79 & 44\\
-\addlinespace[6pt]\textit{BMIZ sample, children aged 15 or younger in 2005 and 2009} & & \\*
-Children, estimation sample & 1,487 & 896\\*
-Children, Model 1 (basic DID) & 1,485 & 894\\*
-Children, Model 3 (DID with controls) & 1,057 & 657\\*
-Children, Model 5 (triple difference) & 968 & 619\\*
-\quad In 2002 remittance households & 381 & 189\\*
-Households, estimation sample & 931 & 561\\*
-2005 municipalities, estimation sample & 87 & 46\\
-\bottomrule
-\addlinespace[12pt]
-\toprule
- & \multicolumn{2}{c}{Panel B: Continuous DID, any 2009 deficit}\\*
-\cmidrule(lr){2-3}
- & Control & Treated\\*
-\midrule
-\textit{HAZ sample, children aged 15 or younger in 2005 and 2009} & & \\*
-Children, continuous DID sample & 829 & 1,607\\*
-\quad In 2002 remittance households & 236 & 438\\*
-\quad In 2002 non-remittance households & 437 & 738\\*
-Households & 501 & 1,021\\*
-2005 municipalities & 46 & 87\\
-\addlinespace[6pt]\textit{WAZ sample, children aged 10 or younger in 2005 and 2009} & & \\*
-Children, continuous DID sample & 380 & 704\\*
-\quad In 2002 remittance households & 100 & 193\\*
-\quad In 2002 non-remittance households & 172 & 260\\*
-Households & 304 & 577\\*
-2005 municipalities & 42 & 81\\
-\addlinespace[6pt]\textit{BMIZ sample, children aged 15 or younger in 2005 and 2009} & & \\*
-Children, continuous DID sample & 815 & 1,568\\*
-\quad In 2002 remittance households & 231 & 427\\*
-\quad In 2002 non-remittance households & 430 & 720\\*
-Households & 496 & 996\\*
-2005 municipalities & 46 & 87\\
-\bottomrule
-\newpage
-\toprule
- & \multicolumn{2}{c}{Panel C: Rainfall classes vs near normal}\\*
-\cmidrule(lr){2-3}
- & Control & Treated\\*
-\midrule
-\textit{Moderately dry, \ensuremath{-1.5<z\le -1}} & & \\*
-Children, HAZ sample & 1,493 & 488\\*
-Children, WAZ sample & 683 & 217\\*
-Children, BMIZ sample & 1,464 & 472\\*
-2005 municipalities, HAZ sample & 89 & 23\\*
-2005 municipalities, WAZ sample & 80 & 23\\*
-2005 municipalities, BMIZ sample & 89 & 23\\
-\addlinespace[6pt]\textit{Severely dry or worse, \ensuremath{z\le -1.5}} & & \\*
-Children, HAZ sample & 1,493 & 370\\*
-Children, WAZ sample & 683 & 145\\*
-Children, BMIZ sample & 1,464 & 364\\*
-2005 municipalities, HAZ sample & 89 & 17\\*
-2005 municipalities, WAZ sample & 80 & 16\\*
-2005 municipalities, BMIZ sample & 89 & 17\\
-\addlinespace[6pt]\textit{Severely dry, \ensuremath{-2<z\le -1.5}} & & \\*
-Children, HAZ sample & 1,493 & 302\\*
-Children, WAZ sample & 683 & 121\\*
-Children, BMIZ sample & 1,464 & 296\\*
-2005 municipalities, HAZ sample & 89 & 15\\*
-2005 municipalities, WAZ sample & 80 & 14\\*
-2005 municipalities, BMIZ sample & 89 & 15\\
-\addlinespace[6pt]\textit{Extremely dry, \ensuremath{z\le -2}} & & \\*
-Children, HAZ sample & 1,493 & 68\\*
-Children, WAZ sample & 683 & 24\\*
-Children, BMIZ sample & 1,464 & 68\\*
-2005 municipalities, HAZ sample & 89 & 2\\*
-2005 municipalities, WAZ sample & 80 & 2\\*
-2005 municipalities, BMIZ sample & 89 & 2\\
-\bottomrule
-\addlinespace[6pt]\multicolumn{3}{p{0.97\textwidth}}{\scriptsize \textit{Notes:} Counts are children, households, or 2005 municipalities in each regression sample, at the 2005 baseline.
-The estimation samples are children with the outcome measured in both MxFLS-2 (2005) and MxFLS-3 (2009), aged 15 or younger for HAZ and BMIZ and 10 or younger for WAZ in both rounds.
-Children have a 2005 municipality. They were not measured in MxFLS-3 before November 2009. We use November 2009 as the cutoff because the 2009 rainfall deficit, the drought, had not fully occurred before then. Dropping them from both groups equalizes treated and control measurement timing. In Panel A, treated children's 2005 municipality had a drought in 2009, with May--October CHIRPS
-rainfall below its 1981--2004 20th percentile (Jessoe et al., 2018). Model 1 drops children alone in their interview-month cell, and the continuous DID, with no interview-month fixed effects, uses the full sample. Model 3 adds the 2005--2008 droughts and 2002 household
-and 2005 child and mother controls, and keeps children with all of them observed. Model 5 adds 2002 remittances times post and the drought times post times 2002 remittances, and keeps children
-with 2002 remittances observed, so Model 5 children not in remittance households are the Model 5 count minus the remittance row. In Panel B, treated children's 2005 municipality had 2009
-rainfall below its 1981--2004 mean (z below 0), where z is 2009 rainfall in standard deviations from that mean. These are the continuous DID samples, and the two remittance rows are the groups
-of the remittance split. They do not add up to the total, as children with missing 2002 remittances are in neither row. Panel C compares each rainfall class with near normal (z between -1 and 1)
-in the continuous DID. The classes use standardized rainfall with the SPI cutoffs defined by McKee et al. and adopted by the World Meteorological Organization (McKee et al., 1993; WMO, 2012). Children in wet municipalities (z of 1 or above)
-are not in the rainfall class analysis. Remittances are cash received in the last 12 months
-from parents, siblings, or children living outside the household, from MxFLS-1 (2002).}\\
-\end{longtable}
-\endgroup
-\clearpage
-\begingroup
-\footnotesize
-\renewcommand{\arraystretch}{0.86}
-\setlength{\tabcolsep}{4pt}
-\setlength{\LTcapwidth}{\textwidth}
-\setlength{\LTleft}{0pt}
-\setlength{\LTright}{0pt plus 1fil}
-\begin{longtable}{@{\extracolsep{\fill}}lccc}
-\caption{Sample Attrition Across Waves}\\
-\toprule
- & \multicolumn{3}{c}{Number of children (N)}\\*
-\cmidrule(lr){2-4}
- & MxFLS-1 (2002) & MxFLS-2 (2005) & MxFLS-3 (2009)\\*
-\midrule
-\textit{HAZ sample, children under 16} & & & \\*
-DID (2005 and 2009) & & 3,582 & 2,436\\*
-Event studies (all three waves) & 2,723 & 1,856 & 1,300\\
-\addlinespace[6pt]\textit{WAZ sample, children under 11} & & & \\*
-DID (2005 and 2009) & & 1,895 & 1,084\\*
-Event studies (all three waves) & 962 & 609 & 275\\
-\addlinespace[6pt]\textit{BMIZ sample, children under 16} & & & \\*
-DID (2005 and 2009) & & 3,511 & 2,383\\*
-Event studies (all three waves) & 2,569 & 1,719 & 1,203\\
-\bottomrule
-\addlinespace[6pt]\multicolumn{4}{p{0.97\textwidth}}{\scriptsize \textit{Notes:} Counts of children in each wave. The DID only uses MxFLS-2 (2005) and MxFLS-3 (2009), and the event studies
-use all three waves. The continuous DID uses the same samples. Each row starts from the children who meet the regression sample rules in its first wave and could stay in the sample, not
-from all children measured. They are under the age cutoff in every wave, 15 or younger for HAZ and BMIZ and 10 or younger for WAZ, and have a municipality. They were not measured in MxFLS-3 before
-November 2009. We use November 2009 as the cutoff because the 2009 rainfall deficit, the drought, had not fully occurred before then. Dropping them from both groups equalizes treated and control measurement timing. Later columns count the children still in the sample, so the drop across columns is attrition. This is not the same as the children the regressions drop as singletons, with
-only one wave in the sample, as these also include children who aged out or are only in a later wave. The DID 2009 count is the estimation sample, and the event study 2009 count is the
-children in all three waves. For children not measured in a later wave, the age then comes from their birth date and their household's MxFLS-3 measurement date, as MxFLS-3 interviews ran
-over several years. Children not in MxFLS-3, or whose birth date does not agree with their reported age, get their last measured age plus the median age gap between the waves, 4 years
-from 2005 to 2009 and 8 years from 2002 to 2009. This is an estimate, but 92 and 86 percent of these gaps are within a year of the median among children measured in both
-waves, and a guess off by a year only matters for children near the age cutoff, who could be counted as attrition when they aged out or the other way around. So those who would have aged out anyway are not counted as attrition.}\\
+\addlinespace[6pt]\multicolumn{7}{p{0.97\textwidth}}{\scriptsize \textit{Notes:} This table is for the discrete-dose specification, the main model. Obs. counts children. The sample is children with the outcome measured in MxFLS-2 (2005) and MxFLS-3 (2009), under the panel's age cutoff
+in both survey waves, with a 2005 municipality. They were not measured in MxFLS-3 before November 2009. I use November 2009 as the cutoff because the 2009 rainfall deficit had not fully occurred before then. Dropping them from both groups equalizes treated and control measurement timing. Children in wet municipalities (z of 1 or above) are excluded.
+Panel A uses the WAZ sample, Panel B the HAZ and BMIZ sample. The BMIZ sample is marginally smaller than the HAZ sample shown in Panel B, at 2,300 children. Statistics are at the 2005 baseline, except the change in WAZ, HAZ and BMIZ from 2005 to 2009, the outcome of the discrete-dose regressions, and 2009 rainfall. z is 2009 May--October CHIRPS rainfall, the maize growing season (Jessoe, Manning, and Taylor 2018), in the child's 2005 municipality in standard deviations
+from its 1981--2004 mean, grouped into dose levels with the SPI cutoffs (McKee, Doesken, and Kleist 1993; WMO 2012). The 2009 rainfall z is continuous. The three dose-group indicators have means equal to the share of children in each dose group. The discrete-dose regressions have no controls, as the contdid package does not yet accommodate covariates (Callaway, Goodman-Bacon, and Sant'Anna 2026).}\\
 \end{longtable}
 \endgroup
 \end{document}

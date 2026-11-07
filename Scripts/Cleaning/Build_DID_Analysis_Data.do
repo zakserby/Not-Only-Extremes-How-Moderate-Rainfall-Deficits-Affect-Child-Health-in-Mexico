@@ -47,10 +47,10 @@ drop _merge
 * Interview year
 *******************************************************************
 
-* Why interview year and not the wave label: about 18% of the 2005 wave was interviewed in 2006-07 and 38% of the 2009 wave in 2010-13, so the drought window between the waves is household specific
-* Interview year = year of the last dated visit in the Book C cover file (c_conpor), the same rule the cleaning scripts use for age_days
+* Why interview year and not the wave label: about 42% of the 2005 wave was measured in 2006 and 40% of the 2009 wave in 2010-13, so the drought window between the waves is household specific
+* Interview year = year of the Book S measurement date, else the last dated visit in the Book C cover file (c_conpor), the same date the cleaning scripts use for age_days
 * The 2002, 2005 and 2009 cleaning scripts all save int_date, int_year and int_month, so we don't need to rebuild them
-* int_date is now the Book S measurement date
+* int_date is the Book S measurement date
 replace int_year = year if missing(int_year)
 
 
@@ -149,7 +149,7 @@ foreach y in 2005 2006 2007 2008 {
 * Remittances in 2002 are kept here too. Then we interact it with post in order for it not to drop out of the regression
 * NOTE: We use the child's 2005 household only to find which household they belong to, then give the child that household's 2002 values on all their rows. This is only bc some kids are born in 2003 etc..
 * NOTE: Must be two step process, first we must be at the household level and then go to the kid level that is bc some kids born in 2003
-foreach v in remittance_hh dwell_electricity dwell_floor_good dwell_roof_good dwell_ventilation_good rooms_per_person ln_pc_expend_month rural {
+foreach v in remittance_hh dwell_electricity dwell_floor_good dwell_roof_good dwell_ventilation_good rooms_per_person ln_pc_expend_month pc_expend_month rural progresa_hh {
 	* We create a temporary variable if the year is 2002. Then we extend to all of its rows with max
     gen tmp02 = `v' if year == 2002
     bysort folio_canonical: egen hh02 = max(tmp02)

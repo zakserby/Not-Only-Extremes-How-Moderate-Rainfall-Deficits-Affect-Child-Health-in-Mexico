@@ -1,0 +1,5 @@
+.DS_Store
+.Rproj.user/
+.Rhistory
+*.Rhistory
+Data/Raw/Rainfall/chirps-v2.0.monthly.nc

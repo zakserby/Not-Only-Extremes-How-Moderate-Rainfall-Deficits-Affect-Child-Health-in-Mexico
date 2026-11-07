@@ -701,7 +701,7 @@ f. Remittance buffer, dry x 2002 remittances:
  dry:remittance_hh_02          -0.301 (0.180)  p clustered = 0.098 | p wild bootstrap = 0.119 | 101 children in 22 municipalities
 g. Wild bootstrap check of the main average ATT (any deficit vs none):
  D_any                         -0.082 (0.076)  p clustered = 0.281 | p wild bootstrap = 0.294 | 783 children in 80 municipalities
-SPI section done, elapsed: 0.9 min
+SPI section done, elapsed: 0.8 min
 
 ==================== Summary ====================
  outcome           sample
@@ -1067,4 +1067,4 @@ SPI section done, elapsed: 0.9 min
                        76
                        76
                        41
-Total runtime: 0.9 min
+Total runtime: 0.8 min

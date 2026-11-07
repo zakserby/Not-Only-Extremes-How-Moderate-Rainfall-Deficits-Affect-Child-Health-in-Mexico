@@ -68,14 +68,14 @@ count_children <- function(df) {
 # 6). Paper's binned scatter and municipality-clustered SEs -----
 # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 
-# first_diff() turns each child’s before-and-after rows into a single row holding how much the child’s outcome changed between the two periods for example HAZ in 2009 minus HAZ in 2005
+# first_diff() turns each child's before-and-after rows into a single row holding how much the child's outcome changed between the two periods for example HAZ in 2009 minus HAZ in 2005
 # This follows Callaway's code exactly
 first_diff <- function(df) {
   df <- BMisc::make_balanced_panel(df, "id", "time_period")
   df$.dy <- BMisc::get_first_difference(df, "id", "Y", "time_period")
   maxT <- max(df[["time_period"]])
   post_data <- subset(df, df[["time_period"]] == maxT)
-  # Renamed to dY, the name the rest of this script uses
+  # Renamed to dY, the name the scripts use
   post_data$dY <- post_data$.dy
   post_data
 }
@@ -155,7 +155,7 @@ spi_reg <- function(fd, terms, v, label, untreated) {
     dqrng::dqset.seed(1234)
     bt <- fwildclusterboot::boottest(fit, param = term, clustid = "cvegeo05", B = 9999, type = "webb", impose_null = TRUE, conf_int = FALSE)
     p_wb <- fwildclusterboot::pval(bt)
-    # Count how many children are in the group a coefficient belongs to, for the children_in_group and municipalities_in_group columns of the output. They don’t affect any estimate
+    # Count how many children are in the group a coefficient belongs to, for the children_in_group and municipalities_in_group columns of the output. They don't affect any estimate
     parts <- strsplit(term, ":")[[1]]
     in_group <- rowSums(fd[, parts, drop = FALSE] == 1) == length(parts)
     n_mun <- length(unique(fd$cvegeo05[in_group]))

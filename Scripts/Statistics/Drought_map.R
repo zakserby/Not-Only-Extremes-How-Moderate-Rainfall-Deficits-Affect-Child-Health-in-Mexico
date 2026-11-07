@@ -37,7 +37,8 @@ if (!dir.exists(paste(dir$root,"/Data",sep=""))) {
 dir$raw <- paste(dir$root,"/Data/Raw",sep="")
 dir$clean <- paste(dir$root,"/Data/Cleaned",sep="")
 dir$output_figure <- paste(dir$root,"/Output/Figures",sep="")
-dir.create(paste(dir$output_figure,"/Main",sep=""), recursive = TRUE, showWarnings = FALSE)
+# The dose level map is in the main text and the binary drought map is in the appendix
+for (s in c("Main","Appendix")) dir.create(paste(dir$output_figure,"/",s,sep=""), recursive = TRUE, showWarnings = FALSE)
 
 # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 # 2). Load the municipalities, rainfall and sample -----
@@ -75,25 +76,25 @@ spi_colors <- c(brewer.pal(11, "BrBG")[c(2, 4, 5)], "grey90", brewer.pal(11, "Br
 # Note: right = TRUE so z = -1 counts as moderately dry and z = -1.5 as severely dry, the same as add_spi()
 mun$spi_class <- cut(mun$rain_z, breaks = breaks, labels = FALSE, right = TRUE)
 
-# Function that draws one map: municipalities filled by color, sample municipalities outlined, then states. Each map is its own png in Figures/Main
-draw_map <- function(fill, title, name) {
-  png(paste(dir$output_figure,"/Main/",name,sep=""), width = 6.5, height = 4.5, units = "in", res = 300)
-  par(mar = c(0.5, 0.5, 2, 0.5))
-  plot(st_geometry(mun), col = fill, border = NA, main = title, cex.main = 0.9)
+# Function that draws one map: municipalities filled by color, sample municipalities outlined, then states. Each map is its own png in Figures/Main or Figures/Appendix
+draw_map <- function(fill, name, folder = "Main") {
+  png(paste(dir$output_figure,"/",folder,"/",name,sep=""), width = 6.5, height = 4.5, units = "in", res = 300)
+  par(mar = c(0.5, 0.5, 0.5, 0.5))
+  plot(st_geometry(mun), col = fill, border = NA)
   plot(st_geometry(mun[mun$in_sample, ]), col = NA, border = "black", lwd = 0.8, add = TRUE)
   plot(st_geometry(states), col = NA, border = "grey40", lwd = 0.4, add = TRUE)
 }
 
-# SPI classes
+# Dose levels, the SPI cutoffs
 # NOTE: The wet municipalities (z >= 1) are almost all in central Mexico, so the any deficit continuous DID compares against mostly one region
-draw_map(ifelse(is.na(mun$spi_class), "white", spi_colors[mun$spi_class]), "2009 rainfall classes", "drought_map_spi.png")
+draw_map(ifelse(is.na(mun$spi_class), "white", spi_colors[mun$spi_class]), "drought_map_spi.png")
 legend("bottomleft", legend = c(labels, "Municipality in the estimation sample"), fill = c(spi_colors, NA),
        border = c(rep(NA, 5), "black"), bty = "n", cex = 0.65)
 dev.off()
 
 # Binary drought, the DID treatment
 # NOTE: The binary treatment and the SPI classes don't line up. About a sixth of the 2009 droughts have z above -1, near normal in the SPI classes, so the binary treatment mixes mild and severe deficits
-draw_map(ifelse(is.na(mun$drought), "white", ifelse(mun$drought == 1, "#A6611A", "grey90")), "2009 drought, rainfall below the 1981-2004 20th percentile", "drought_map_binary.png")
+draw_map(ifelse(is.na(mun$drought), "white", ifelse(mun$drought == 1, "#A6611A", "grey90")), "drought_map_binary.png", "Appendix")
 legend("bottomleft", legend = c("Drought", "No drought", "Municipality in the estimation sample"), fill = c("#A6611A", "grey90", NA),
        border = c(NA, NA, "black"), bty = "n", cex = 0.65)
 dev.off()

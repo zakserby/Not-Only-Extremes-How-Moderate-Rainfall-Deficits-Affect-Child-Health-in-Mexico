@@ -6,7 +6,7 @@
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
 
 \f0\fs24 \cf0 # README ------------------------------------------------------------------------\
-# Generated on: 2026-10-23, updated on 2026-10-29\
+# Generated on: 2026-10-23, updated on 2026-11-07\
 \
 # GENERAL INFORMATION -----------------------------------------------------------\
 # Title of Analysis: Drought, Remittances, and Child Health in Mexico\
@@ -32,7 +32,7 @@
 #      2009 (later waves read earlier ones), DID analysis data, summary stats,\
 #      drought map (R), DID/DDD, continuous DID (R), subanalyses by sex and by rural\
 #      vs urban (Stata, then R), regression tables, results document (R).\
-#   3. The rainfall step reads the 7.2 GB CHIRPS file, and its output is already in\
+#   3. The rainfall step reads the 7.7 GB CHIRPS file, and its output is already in\
 #      Data/Cleaned, so run_R can stay 0. If that file is missing (e.g. Data/Cleaned\
 #      was deleted), the master runs the rainfall step anyway. The continuous DID\
 #      steps are slow because of the wild cluster bootstrap.\
@@ -44,6 +44,8 @@
 #   - 00_Master.do : runs everything in order.\
 #   - MS Thesis.Rproj : R project. The R scripts take the project root as one folder\
 #     up from Scripts.\
+#   - .Rprofile : saves the R console history to Output/Logs/Miscellaneous/R.Rhistory\
+#     when R closes (replacing the last one), so no .Rhistory files are left in the folders.\
 #   - Cleaning/ : Cleaned_rainfall_municipality_drought.R (CHIRPS to a\
 #     municipality-year May-October rainfall panel with z-scores and a drought indicator), the\
 #     Cleaning Script for MxFLS_2002_03.do, _2005_06.do and _2009_12.do (clean each\
@@ -51,13 +53,23 @@
 #     Build_DID_Analysis_Data.do (merges the panel and the rainfall on the child's\
 #     2005 municipality and builds the treatment, controls and samples).\
 #   - Statistics/ : Summary Stats DID.do (summary statistics, sample sizes and\
-#     attrition tables), Regression Stats.do (all regression tables) and\
+#     attrition tables, and the balance table and overlap figure of the rainfall\
+#     classes), Regression Stats.do (all regression tables) and\
 #     Drought_map.R (maps of the 2009 drought by municipality).\
 #   - Regressions/ : DID_Regs.do (DID, DDD, event studies, robustness),\
 #     Contdid_regs.R (continuous DID, SPI drought classes, remittances), functions.R\
 #     (used by the R scripts), and the Subanalysis_Gender_* and Subanalysis_Rural_*\
-#     versions of both.\
-#   - Paper/Build_Results.R : writes Paper/Results.tex and compiles Results.pdf.\
+#     versions of both. Their event studies use each subsample's Model 3 children, and the\
+#     DDD event studies its Model 5 children with the event study controls, as in DID_Regs.do.\
+#   - Paper/Build_Results.R : writes and compiles Paper/Paper.tex (the paper with its\
+#     appendix), Paper/Online_Appendix.tex (the separate online appendix) and Paper/Results.tex\
+#     (every table and figure). The text is in Paper/Text, where each %%TABLE or %%FIGURE line\
+#     is replaced by that table or figure from Output.\
+#     Citations and the reference list come from Paper/Text/References.bib in Chicago\
+#     17th edition author-date style (biblatex-chicago, run with biber; TinyTeX installs both\
+#     if they are missing). References.bib is exported from the Zotero Thesis collection with\
+#     Better BibTeX (Better BibLaTeX, keep updated), so the build runs without Zotero. In the\
+#     online appendix, a citation opens that entry in the reference list of Paper.pdf.\
 #\
 # Data/Raw/ (never edited by any script): MxFLS data and documentation (codebooks,\
 #   questionnaires, user guides), CHIRPS, INEGI shapefiles, WHO macros.\
@@ -66,35 +78,46 @@
 #   - WHO_zscores/ : z-score files written by the WHO macros.\
 #   - Rainfall/ : municipality_year_rainfall.dta.\
 #\
-# Output/ : each folder has Main (thesis body) and Appendix (robustness and\
-#   subanalyses), and Logs and Figures also have Miscellaneous (not for the thesis).\
-#   - Tables/ : summary_stats_did_table.tex (SPI and Model 3 samples, sample sizes,\
-#     attrition), regression_tables_main.tex (SPI, BMIZ binary DID, continuous DID),\
-#     regression_tables_appendix.tex (HAZ and WAZ binary DID, Model 3 with all covariates,\
-#     robustness, subanalyses, event studies).\
+# Output/ : Figures and Tables follow where things are placed: Main (paper), Appendix\
+#   (appendix within the paper) and Online_Appendix (separate online appendix and everything\
+#   else). Logs and Regression_Estimates have Main, Appendix and Miscellaneous.\
+#   - Tables/Main : summary_stats_did_table.tex (discrete-dose samples), regression_tables_main.tex\
+#     (discrete dose groups, BMIZ, HAZ and WAZ binary DID, continuous DID and remittances) and\
+#     balance_table.tex (BMIZ balance of the dose groups, landscape).\
+#   - Tables/Appendix : summary_stats_model3_table.tex (Model 3 samples) and\
+#     regression_tables_appendix.tex (Model 3 with all covariates, all three waves, event studies).\
+#   - Tables/Online_Appendix : sample_size_attrition_tables.tex, regression_tables_online_appendix.tex\
+#     (subanalyses by sex and rural vs urban) and balance_table_online_appendix.tex (HAZ and WAZ).\
 #   - Regression_Estimates/ : event study coefficients (.dta) and continuous DID csv files.\
-#   - Figures/ : trends_*, event_study_*, contdid_* and drought_map_* (.png).\
-#     Main has the drought maps and the BMIZ SPI event study and binned scatter.\
-#     Appendix has the HAZ and WAZ SPI event studies and binned scatters, the ATT figures\
-#     and the binary event studies with controls (_controls), on the Model 3 children.\
-#     SPI event studies use the SPI table children, and its pre-trend p-values come from them.\
-#     Everything else, including subanalysis figures, is in Miscellaneous.\
+#   - Figures/ : trends_*, event_study_*, contdid_*, drought_map_* and overlap_pscore_* (.png).\
+#     Main has the dose level map, the dose event studies of all three outcomes, the BMIZ dose\
+#     event study of children in all three waves (_all3) and the BMIZ overlap figure.\
+#     Appendix has the binary drought map, the binary event studies with controls (_controls)\
+#     on the Model 3 children, and the HAZ and WAZ dose event studies of children in all three waves.\
+#     Dose event studies use the discrete-dose table children, and its pre-trend p-values come from them.\
+#     Everything else, including the continuous dose figures and the subanalysis figures,\
+#     is in Online_Appendix.\
 #   - Logs/ : every log, and nowhere else.\
 #\
-# Paper/ : Proposal.pdf, and Results.tex and Results.pdf with every main and\
-#   appendix table and the main and appendix figures, with notes.\
+# Paper/ : Paper.tex and Paper.pdf (the paper and its appendix), Online_Appendix.tex and\
+#   Online_Appendix.pdf (separate online appendix), Results.tex and Results.pdf (every table\
+#   and figure) and Text/ (the written text the paper and online appendix are built from).\
 \
 # DATA-SPECIFIC INFORMATION -----------------------------------------------------\
-# mxfls_panel_2002_2005_2009.dta: 111,841 person-wave rows, 99 variables.\
+# mxfls_panel_2002_2005_2009.dta: 111,841 person-wave rows, 101 variables.\
 #   - IDs: pid_link_canonical (person across waves), folio_canonical (household),\
 #     wave, cvegeo (5-digit INEGI code, state + municipality).\
 #   - Outcomes: haz, waz, bmiz (WHO z-scores).\
 #   - remittance_hh: household got cash from a parent, sibling or child outside the\
 #     household in the last 12 months, 1 = Yes 0 = No, missing if unresolved.\
+#   - progresa_hh: household in Oportunidades aka PROGRESA in the last 12 months\
+#     (Book II IN01 A1), 2002 only, 1 = Yes 0 = No, missing if DK. Used only in the\
+#     robustness checks, not in the regressions.\
 #   - int_date, int_year, int_month: measurement date (Book S, else Book C).\
 #\
 # mxfls_did_analysis.dta: the panel, wave renamed year, plus cvegeo05, droughts and\
-#   rain_z 2002-2009, treat2009, rain_deficit2009, post, the _02 and _05 controls\
+#   rain_z 2002-2009, treat2009, rain_deficit2009, post, the _02 and _05 controls,\
+#   progresa_hh_02, pc_expend_month_02 (2002 expenditure in pesos, balance table only)\
 #   and the samples s_*, e_* and reg_*.\
 #\
 # municipality_year_rainfall.dta: 2,456 municipalities x 2001-2013.\
@@ -106,6 +129,7 @@
 #     GitHub (bcallaway11/contdid) and needs ptetools >= 1.0.1. fwildclusterboot\
 #     0.13.0 and summclust 0.7.2 install from the CRAN archive and need the Xcode\
 #     command line tools and gfortran on a Mac.\
-#   - TinyTeX compiles Results.pdf. Build_Results.R installs it if there is no LaTeX.\
+#   - TinyTeX compiles Paper.pdf, Online_Appendix.pdf and Results.pdf. Build_Results.R installs it if there is no LaTeX,\
+#     and missing LaTeX packages (e.g. pdflscape) install automatically.\
 #\
 # END OF README ----------------------------------------------------------------}

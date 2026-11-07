@@ -1,0 +1,155 @@
+\documentclass[12pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{caption}
+\DeclareCaptionLabelSeparator{emdash}{---}
+\captionsetup{font=normalsize,labelfont=sc,textfont=sc,labelsep=emdash}
+\begin{document}
+\begingroup
+\footnotesize
+\renewcommand{\arraystretch}{0.86}
+\setlength{\tabcolsep}{4pt}
+\setlength{\LTcapwidth}{\textwidth}
+\setlength{\LTleft}{0pt}
+\setlength{\LTright}{0pt plus 1fil}
+\begin{longtable}{@{\extracolsep{\fill}}lcc}
+\caption{Sample Sizes, Treated and Control Children}\\
+\toprule
+ & \multicolumn{2}{c}{Panel A: Binary DID, 2009 drought}\\*
+\cmidrule(lr){2-3}
+ & Control & Treated\\*
+\midrule
+\textit{HAZ sample, children aged 15 or younger in 2005 and 2009} & & \\*
+Children, estimation sample & 1,514 & 922\\*
+Children, Model 1 (basic DID) & 1,512 & 920\\*
+Children, Model 3 (DID with controls) & 1,077 & 678\\*
+Children, Model 5 (triple difference) & 987 & 635\\*
+\quad In 2002 remittance households & 390 & 193\\*
+Households, estimation sample & 944 & 578\\*
+2005 municipalities, estimation sample & 87 & 46\\
+\addlinespace[6pt]\textit{WAZ sample, children aged 10 or younger in 2005 and 2009} & & \\*
+Children, estimation sample & 696 & 388\\*
+Children, Model 1 (basic DID) & 692 & 386\\*
+Children, Model 3 (DID with controls) & 445 & 255\\*
+Children, Model 5 (triple difference) & 400 & 234\\*
+\quad In 2002 remittance households & 168 & 90\\*
+Households, estimation sample & 565 & 316\\*
+2005 municipalities, estimation sample & 79 & 44\\
+\addlinespace[6pt]\textit{BMIZ sample, children aged 15 or younger in 2005 and 2009} & & \\*
+Children, estimation sample & 1,487 & 896\\*
+Children, Model 1 (basic DID) & 1,485 & 894\\*
+Children, Model 3 (DID with controls) & 1,057 & 657\\*
+Children, Model 5 (triple difference) & 968 & 619\\*
+\quad In 2002 remittance households & 381 & 189\\*
+Households, estimation sample & 931 & 561\\*
+2005 municipalities, estimation sample & 87 & 46\\
+\bottomrule
+\addlinespace[12pt]
+\toprule
+ & \multicolumn{2}{c}{Panel B: Continuous DID, any 2009 deficit}\\*
+\cmidrule(lr){2-3}
+ & Control & Treated\\*
+\midrule
+\textit{HAZ sample, children aged 15 or younger in 2005 and 2009} & & \\*
+Children, continuous DID sample & 829 & 1,607\\*
+\quad In 2002 remittance households & 236 & 438\\*
+\quad In 2002 non-remittance households & 437 & 738\\*
+Households & 501 & 1,021\\*
+2005 municipalities & 46 & 87\\
+\addlinespace[6pt]\textit{WAZ sample, children aged 10 or younger in 2005 and 2009} & & \\*
+Children, continuous DID sample & 380 & 704\\*
+\quad In 2002 remittance households & 100 & 193\\*
+\quad In 2002 non-remittance households & 172 & 260\\*
+Households & 304 & 577\\*
+2005 municipalities & 42 & 81\\
+\addlinespace[6pt]\textit{BMIZ sample, children aged 15 or younger in 2005 and 2009} & & \\*
+Children, continuous DID sample & 815 & 1,568\\*
+\quad In 2002 remittance households & 231 & 427\\*
+\quad In 2002 non-remittance households & 430 & 720\\*
+Households & 496 & 996\\*
+2005 municipalities & 46 & 87\\
+\bottomrule
+\newpage
+\toprule
+ & \multicolumn{2}{c}{Panel C: Dose groups vs near normal}\\*
+\cmidrule(lr){2-3}
+ & Control & Treated\\*
+\midrule
+\textit{Moderately dry, \ensuremath{-1.5<z\le -1}} & & \\*
+Children, HAZ sample & 1,493 & 488\\*
+Children, WAZ sample & 683 & 217\\*
+Children, BMIZ sample & 1,464 & 472\\*
+2005 municipalities, HAZ sample & 89 & 23\\*
+2005 municipalities, WAZ sample & 80 & 23\\*
+2005 municipalities, BMIZ sample & 89 & 23\\
+\addlinespace[6pt]\textit{Severely dry or worse, \ensuremath{z\le -1.5}} & & \\*
+Children, HAZ sample & 1,493 & 370\\*
+Children, WAZ sample & 683 & 145\\*
+Children, BMIZ sample & 1,464 & 364\\*
+2005 municipalities, HAZ sample & 89 & 17\\*
+2005 municipalities, WAZ sample & 80 & 16\\*
+2005 municipalities, BMIZ sample & 89 & 17\\
+\addlinespace[6pt]\textit{Severely dry, \ensuremath{-2<z\le -1.5}} & & \\*
+Children, HAZ sample & 1,493 & 302\\*
+Children, WAZ sample & 683 & 121\\*
+Children, BMIZ sample & 1,464 & 296\\*
+2005 municipalities, HAZ sample & 89 & 15\\*
+2005 municipalities, WAZ sample & 80 & 14\\*
+2005 municipalities, BMIZ sample & 89 & 15\\
+\addlinespace[6pt]\textit{Extremely dry, \ensuremath{z\le -2}} & & \\*
+Children, HAZ sample & 1,493 & 68\\*
+Children, WAZ sample & 683 & 24\\*
+Children, BMIZ sample & 1,464 & 68\\*
+2005 municipalities, HAZ sample & 89 & 2\\*
+2005 municipalities, WAZ sample & 80 & 2\\*
+2005 municipalities, BMIZ sample & 89 & 2\\
+\bottomrule
+\addlinespace[6pt]\multicolumn{3}{p{0.97\textwidth}}{\scriptsize \textit{Notes:} Counts are children, households or 2005 municipalities in each regression sample at the 2005 baseline.
+Estimation samples are children with the outcome measured in both MxFLS-2 (2005) and MxFLS-3 (2009) who have a 2005 municipality. They are aged 15 or younger for HAZ and BMIZ and 10 or younger for WAZ in both survey waves.
+They were not measured in MxFLS-3 before November 2009, for the same reason as in Table~\ref{tab:sumstats}. In Panel A, treated children's 2005 municipality had a drought in 2009, meaning May--October CHIRPS rainfall in the maize growing season was below its 1981--2004 20th percentile
+(Jessoe, Manning, and Taylor 2018; Shah and Steinberg 2017). Model 1 drops children alone in their interview-month cell. Continuous DID uses the full sample. Model 3 adds 2005--2008 droughts and 2002 household and 2005 child and mother controls.
+Model 5 adds 2002 remittances times post and drought times post times 2002 remittances. Model 5 children not in remittance households are the Model 5 count minus the remittance row. In Panel B, treated children's 2005 municipality had 2009
+rainfall below its 1981--2004 mean (z below 0), where z is 2009 rainfall in standard deviations from that mean. Panel B gives sample sizes for the continuous DID. Its two remittance rows are children in 2002 remittance and non-remittance households, the two groups compared in Panel B of Table~\ref{tab:oa_contdid}.
+Rows do not add up to the total because children with missing 2002 remittances are in neither row. Panel C compares each dose group with near normal (z between -1 and 1) in the discrete-dose analysis.
+Dose levels use standardized rainfall cutoffs of the SPI adopted by the World Meteorological Organization (McKee, Doesken, and Kleist 1993; WMO 2012). Children in wet municipalities (z of 1 or above) are not in the discrete-dose analysis.
+Remittances are cash received in the last 12 months from parents, siblings or children living outside the household, from MxFLS-1 (2002).}\\
+\end{longtable}
+\endgroup
+\clearpage
+\begingroup
+\footnotesize
+\renewcommand{\arraystretch}{0.86}
+\setlength{\tabcolsep}{4pt}
+\setlength{\LTcapwidth}{\textwidth}
+\setlength{\LTleft}{0pt}
+\setlength{\LTright}{0pt plus 1fil}
+\begin{longtable}{@{\extracolsep{\fill}}lccc}
+\caption{Sample Attrition Across Waves}\\
+\toprule
+ & \multicolumn{3}{c}{Number of children (N)}\\*
+\cmidrule(lr){2-4}
+ & MxFLS-1 (2002) & MxFLS-2 (2005) & MxFLS-3 (2009)\\*
+\midrule
+\textit{HAZ sample, children under 16} & & & \\*
+DID (2005 and 2009) & & 3,582 & 2,436\\*
+Event studies (all three waves) & 2,723 & 1,856 & 1,300\\
+\addlinespace[6pt]\textit{WAZ sample, children under 11} & & & \\*
+DID (2005 and 2009) & & 1,895 & 1,084\\*
+Event studies (all three waves) & 962 & 609 & 275\\
+\addlinespace[6pt]\textit{BMIZ sample, children under 16} & & & \\*
+DID (2005 and 2009) & & 3,511 & 2,383\\*
+Event studies (all three waves) & 2,569 & 1,719 & 1,203\\
+\bottomrule
+\addlinespace[6pt]\multicolumn{4}{p{0.97\textwidth}}{\scriptsize \textit{Notes:} Counts of children in each wave. The binary DID only uses MxFLS-2 (2005) and MxFLS-3 (2009).
+The continuous DID uses the same sample as the binary DID. The event studies use all three waves. Each row starts from the children who meet the regression sample rules in its first wave and could stay in the sample.
+They are under the age cutoff in every wave, 15 or younger for HAZ and BMIZ and 10 or younger for WAZ. They were not measured in MxFLS-3 before
+November 2009, for the same reason as in Table~\ref{tab:sumstats}. Later columns count the children still in the sample, so the drop across columns is attrition. This is not the same as the children the regressions drop as singletons, with
+only one wave in the sample, as these also include children who aged out or are only in a later wave. The DID 2009 count is the estimation sample, and the event study 2009 count is the
+children in all three waves. For children not measured in a later wave, I estimate their age in that wave to see whether they aged out. Their age comes from their birth date and their household's MxFLS-3 interview date,
+since MxFLS-3 interviews ran over several years. Children not in MxFLS-3 or whose birth date does not match their reported age get their last measured age plus the median gap between waves.
+This gap is 4 years from 2005 to 2009 and 8 years from 2002 to 2009. Among children measured in both waves, 92 and 86 percent of gaps are within a year of the median.
+A one-year error only matters for children near the age cutoff. This way, children who simply aged out are not counted as attrition.}\\
+\end{longtable}
+\endgroup
+\end{document}
