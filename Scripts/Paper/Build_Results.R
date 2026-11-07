@@ -308,13 +308,13 @@ table_block <- function(file, key, label) {
   
 
   # Tables keep single spacing in a one and a half spaced document
-  # A landscape table always starts a new page, so afterpage puts it after the current page and the text keeps going on the page before. It is centered on its page
+  # A landscape table is a sideways table on its own page (sidewaystable). It goes after the current page and the text keeps going on the page before. It is centered on its page
+  # It is single spaced like every float, so it does not need the \singlespacing group
   if (land) {
-    block <- sub("\\begin{table}[!h]", "\\begin{table}[H]", block, fixed = TRUE)
-    bl <- grep("^\\\\begin\\{landscape\\}", block)[1]
-    el <- grep("^\\\\end\\{landscape\\}", block)[1]
-    block <- c(block[1:bl], "\\vspace*{\\fill}", block[(bl + 1):(el - 1)], "\\vspace*{\\fill}", block[el:length(block)])
-    return(c("\\afterpage{\\begingroup\\singlespacing", block, "\\endgroup}", ""))
+    block <- sub("\\begin{table}[!h]", "\\begin{sidewaystable}[p]", block, fixed = TRUE)
+    block <- sub("\\end{table}", "\\end{sidewaystable}", block, fixed = TRUE)
+    block <- block[!grepl("^\\\\(begin|end)\\{landscape\\}", block)]
+    return(c(block, ""))
   }
   c("\\begingroup\\singlespacing", block, "\\endgroup", "")
 }
@@ -341,16 +341,16 @@ paper_figrow <- function(files, labels, titles, notes) {
               paste("\\captionof{figure}{", titles[i], "}\\label{", labels[i], "}", sep=""),
               paste("\\includegraphics[width=\\linewidth]{", figure_path(files[i]), "}", sep=""), "\\end{minipage}\\hfill")
   }
-  # Same as the landscape tables, afterpage puts the page after the current one so the text keeps going
-  c("\\afterpage{\\begin{landscape}", "\\vspace*{\\fill}", "\\noindent", rows, "\\par\\vspace{6pt}",
+  # Same as the landscape tables, a sideways figure on its own page after the current one, so the text keeps going
+  c("\\begin{sidewaysfigure}[p]", "\\noindent", rows, "\\par\\vspace{6pt}",
     if (notes != "") paste("\\noindent\\parbox{\\linewidth}{\\singlespacing\\scriptsize \\textit{Notes:} ", notes, "}", sep=""),
-    "\\vspace*{\\fill}", "\\end{landscape}}", "")
+    "\\end{sidewaysfigure}", "")
 }
 
 # Makes a landscape page wait one more page, so a nearby table or figure isn't left alone on a page
 wait_one_page <- function(x) {
-  # Adds a second \afterpage{ at the start
-  x[1] <- sub("^\\\\afterpage\\{", "\\\\afterpage{\\\\afterpage{", x[1])
+  # Adds \afterpagefloat{ at the start
+  x[1] <- paste("\\afterpagefloat{", x[1], sep="")
   # Finds the last line that isn't blank and adds a } to close it
   k <- max(which(x != ""))
   x[k] <- paste(x[k], "}", sep="")
@@ -376,7 +376,7 @@ fill_text <- function(file) {
     if (p[1] == "%%TABLE") {
       tb <- table_block(p[2], p[3], p[4])
       # If it's landscape and a table or figure is within 10 lines, it waits one more page
-      landscape <- grepl("^\\\\afterpage\\{", tb[1])
+      landscape <- any(grepl("\\begin{sidewaystable}", tb, fixed = TRUE))
       if (landscape && (j - last_float <= 10 || near_next(j))) tb <- wait_one_page(tb)
       if (!landscape) last_float <- j
       out[[length(out) + 1]] <- tb
@@ -398,23 +398,28 @@ fill_text <- function(file) {
 }
 
 # Document setup shared by the paper and the online appendix, formatted like the reference paper
-# lscape turns a wide table sideways but keeps the page itself upright in the PDF
+# rotating turns a wide table or a row of figures sideways on its own page but keeps the page itself upright in the PDF
 paper_preamble <- c("\\documentclass[12pt]{article}", "\\usepackage[margin=1in]{geometry}", "\\usepackage[T1]{fontenc}", "\\usepackage{newtxtext,newtxmath}",
                     # Some publishers put an odd hyphen or apostrophe in their titles, so these print as the normal ones
                     "\\DeclareUnicodeCharacter{2010}{-}", "\\DeclareUnicodeCharacter{05F3}{'}",
                     # An em dash in a reference title can end a line, so a long title does not run past the margin
                     "\\DeclareUnicodeCharacter{2014}{\\textemdash\\allowbreak}",
                     "\\usepackage{setspace}", "\\onehalfspacing", "\\usepackage{amsmath}", "\\usepackage{booktabs}", "\\usepackage{longtable}", "\\usepackage{array}",
-                    "\\usepackage{graphicx}", "\\usepackage{float}", "\\usepackage{lscape}", "\\usepackage{afterpage}", "\\usepackage{placeins}", "\\renewcommand{\\topfraction}{0.9}", "\\renewcommand{\\bottomfraction}{0.8}", "\\renewcommand{\\textfraction}{0.07}", "\\renewcommand{\\floatpagefraction}{0.85}", "\\setcounter{topnumber}{3}", "\\setcounter{totalnumber}{4}", "\\usepackage{caption}", "\\usepackage{adjustbox}",
+                    "\\usepackage{graphicx}", "\\usepackage{float}", "\\usepackage{lscape}", "\\usepackage{rotating}", "\\usepackage{placeins}", "\\renewcommand{\\topfraction}{0.9}", "\\renewcommand{\\bottomfraction}{0.8}", "\\renewcommand{\\textfraction}{0.07}", "\\renewcommand{\\floatpagefraction}{0.85}", "\\setcounter{topnumber}{3}", "\\setcounter{totalnumber}{4}", "\\usepackage{caption}", "\\usepackage{adjustbox}",
+                    # A sideways page that waits one more page is added at the end of the first paragraph after the next page is printed, so the paragraph keeps its indent
+                    # If that paragraph is inside a box or another float, it waits for the next paragraph
+                    "\\makeatletter", "\\newcommand{\\afterpagefloat}[1]{\\AddToHookNext{shipout/after}{\\AddToHookNext{para/end}{\\floatinmaintext{#1}}}}",
+                    "\\newcommand{\\floatinmaintext}[1]{\\ifnum\\@floatpenalty<\\z@\\AddToHookNext{para/end}{\\floatinmaintext{#1}}\\else\\ifinner\\AddToHookNext{para/end}{\\floatinmaintext{#1}}\\else#1\\fi\\fi}", "\\makeatother",
                     "\\captionsetup{font=normalsize,labelsep=colon}", "\\captionsetup[figure]{position=top,justification=centering}",
                     # The link color is the same blue as the reference paper
                     "\\usepackage{xcolor}", "\\definecolor{linkblue}{cmyk}{0.94,0.54,0,0}",
                     # Citations and the reference list come from Paper/Text/References.bib, in Chicago 17th edition author-date style
                     # The ISSNs, months, access dates and handles are left out of the reference list (References.bib still has them)
                     # Each reference shows its DOI or URL as in Chicago style, and only the DOI when it has both (doi=only)
-                    "\\usepackage[authordate,backend=biber,natbib=false,maxcitenames=3,mincitenames=1,maxbibnames=10,minbibnames=7,doi=only]{biblatex-chicago}",
+                    # In a citation, both the author names and the year link to the reference (hyperall)
+                    "\\usepackage[authordate,backend=biber,natbib=false,maxcitenames=3,mincitenames=1,maxbibnames=10,minbibnames=7,doi=only,hyperall]{biblatex-chicago}",
                     "\\DeclareSourcemap{\\maps[datatype=bibtex]{\\map{\\step[typesource=software,typetarget=misc]}}}",
-                    "\\AtEveryBibitem{\\clearfield{issn}\\clearfield{month}\\clearfield{urlyear}\\clearfield{eprint}}",
+                    "\\AtEveryBibitem{\\clearfield{issn}\\clearfield{month}\\clearfield{urlyear}\\clearfield{urlmonth}\\clearfield{urlday}\\clearfield{eprint}}",
                     # In the reference list, a line with a long title or link stretches its spaces instead of running past the margin, and the letters in a link keep their normal spacing
                     "\\AtBeginBibliography{\\sloppy}", "\\biburlbigskip=0mu",
                     "\\addbibresource{Text/References.bib}",

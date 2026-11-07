@@ -14,7 +14,7 @@
 \usepackage{graphicx}
 \usepackage{float}
 \usepackage{lscape}
-\usepackage{afterpage}
+\usepackage{rotating}
 \usepackage{placeins}
 \renewcommand{\topfraction}{0.9}
 \renewcommand{\bottomfraction}{0.8}
@@ -24,13 +24,17 @@
 \setcounter{totalnumber}{4}
 \usepackage{caption}
 \usepackage{adjustbox}
+\makeatletter
+\newcommand{\afterpagefloat}[1]{\AddToHookNext{shipout/after}{\AddToHookNext{para/end}{\floatinmaintext{#1}}}}
+\newcommand{\floatinmaintext}[1]{\ifnum\@floatpenalty<\z@\AddToHookNext{para/end}{\floatinmaintext{#1}}\else\ifinner\AddToHookNext{para/end}{\floatinmaintext{#1}}\else#1\fi\fi}
+\makeatother
 \captionsetup{font=normalsize,labelsep=colon}
 \captionsetup[figure]{position=top,justification=centering}
 \usepackage{xcolor}
 \definecolor{linkblue}{cmyk}{0.94,0.54,0,0}
-\usepackage[authordate,backend=biber,natbib=false,maxcitenames=3,mincitenames=1,maxbibnames=10,minbibnames=7,doi=only]{biblatex-chicago}
+\usepackage[authordate,backend=biber,natbib=false,maxcitenames=3,mincitenames=1,maxbibnames=10,minbibnames=7,doi=only,hyperall]{biblatex-chicago}
 \DeclareSourcemap{\maps[datatype=bibtex]{\map{\step[typesource=software,typetarget=misc]}}}
-\AtEveryBibitem{\clearfield{issn}\clearfield{month}\clearfield{urlyear}\clearfield{eprint}}
+\AtEveryBibitem{\clearfield{issn}\clearfield{month}\clearfield{urlyear}\clearfield{urlmonth}\clearfield{urlday}\clearfield{eprint}}
 \AtBeginBibliography{\sloppy}
 \biburlbigskip=0mu
 \addbibresource{Text/References.bib}
@@ -89,7 +93,7 @@ First and foremost, I contribute by estimating separate causal effects across do
 
 This allows me to capture adverse rainfall, an increasingly common source of income shocks in developing economies \parencite{dinkelmanLongRunHealthRepercussions2017}. In comparison, many studies focus on single large shocks that are both more extreme and less common. These related papers examine extreme shocks such as pandemics \parencite{almond1918InfluenzaPandemic2006,kellyScourgeAsianFlu2011,beach1918InfluenzaPandemic2022}, single large-scale natural disasters such as earthquakes and tropical cyclones \parencite{carusoLongRunEffects2015,fujikiDisentanglingEffectsMultiple2015,deuchertTempestShortLongterm2015,dodlovaEffects2010Haiti2023}, and extreme drought and civil war \parencite{aldermanLongTermConsequences2006}. These papers' findings may not generalize to more common shocks. Papers that start from a continuous rainfall deviation often split treated and comparison groups at a binary threshold, for example rainfall more than one standard deviation from the local mean \parencite{skoufiasClimateVariabilityChild2012,adhvaryuHelpingChildrenCatch2024} or more than two standard deviations below it \parencite{hirvonenImpactEthiopias20152020,kudamatsuWeatherInfantMortality2012}. Alternative research examining continuous rainfall deviations uses linear specifications, which impose a constant marginal effect. This assumes that each additional unit of rainfall deviation has the same effect whether the year is mildly or extremely dry \parencite{macciniWeatherHealthSchooling2009,rochaWaterScarcityBirth2015}. In both cases, a single pooled ATT estimate may overestimate treatment effects for some deviations of rainfall deficit and underestimate them for others when effects are not proportional to shock severity.
 
-In addition, to my knowledge, this research is the first to construct a dataset combining \href{https://www.chc.ucsb.edu/data/chirps}{CHIRPS} gridded rainfall data with the \href{https://ennvih-mxfls.org/english/index.html}{Mexican Family Life Survey} (MxFLS). This allows me to track the same individual's health status across three survey waves, from birth through adolescence. Compared with cross-sectional data commonly used in the literature, the panel allows me to compare the same child before and after a shock, removing time-invariant differences between children. Second, most prior literature does not address how household-level insurance mechanisms may counteract the impact of rainfall shocks on child anthropometric outcomes. Households facing liquidity constraints cannot fully smooth consumption \parencite{deatonSavingLiquidityConstraints1991}, and access to remittances can help relieve these constraints. As established in the literature, these flows of funds can function as an informal insurance mechanism, particularly for rural households in developing countries \parencite{yangMigrantRemittances2011}. For example, remittances can help households avoid selling productive assets or livestock after a disaster \parencite{mohapatraRemittancesNaturalDisasters2012}. I analyze whether these resources moderate the effects of shocks on child health outcomes.
+In addition, to my knowledge, this research is the first to construct a dataset combining \href{https://www.chc.ucsb.edu/data/chirps}{CHIRPS} gridded rainfall data with the \href{https://ennvih-mxfls.org/english/index.html}{Mexican Family Life Survey} (MxFLS). This allows me to track the same individual's health status across three survey waves, from birth through adolescence. Compared with cross-sectional data commonly used in the literature, the panel allows me to compare the same child before and after a shock, removing time-invariant differences between children. Second, most prior literature does not address how household-level insurance mechanisms may counteract the impact of rainfall shocks on child anthropometric outcomes. Households facing liquidity constraints cannot fully smooth consumption \parencite{deatonSavingLiquidityConstraints1991}, and access to remittances can help relieve these constraints. As established in the literature, these flows of funds can function as an informal insurance mechanism, particularly for rural households in developing countries \parencite{yangMigrantRemittances2011}. For example, remittances can help cover costs associated with injuries following natural disasters that require prolonged rehabilitation and institutional care. They can also prevent households from having to sell productive assets or livestock, while supporting the maintenance of nutrition, health, mental well-being, and educational investments \parencite{cook10thAnniversaryReview2008a}. I analyze whether these resources moderate the effect of shocks on child health outcomes.
 
 The literature on this topic is extensive. Several studies in Mexico use the MxFLS to examine how shocks such as crop loss, the Mexican drug war, exposure to air pollution, and migration affect child health and later-life outcomes \parencite{michaelsenChildrenRiskEffect2012,brownMexicanDrugWar2018,molinaPollutionAbilityGenderSpecific2021,damonChildhoodObesityMexico2014}. However, none of these studies specifically analyzes the impact of negative rainfall deviations on child outcomes. They also do not use remittances, likely because the survey has no explicit remittance variable and one must be constructed. More closely related research in Mexico relies on cross-sectional data or non-representative samples of poor, marginalized communities \parencite{agueroLongTermEffectClimate2014,skoufiasClimateVariabilityChild2012,adhvaryuHelpingChildrenCatch2024,aguilarNinoChildrenMediumterm2022}. In contrast, I use a nationally representative longitudinal panel that allows me to track the same child over time. Additionally, some papers in Mexico test whether government programs such as PROGRESA, Liconsa, and PROCAMPO help mitigate climate shocks, whereas I focus on a private, household-level buffer: remittances.
 
@@ -219,8 +223,7 @@ Overall, I find that children experiencing moderate rainfall deficits of 1 to 1.
 
 My pre-trend test is a three-period event study with 2005 as the reference survey wave, estimated on the children in Table~\ref{tab:dose} with child and survey wave fixed effects. The 2002 leads are identified from the children who were also measured in 2002. Whereas the treatment effect compares the 2005 to 2009 change in each dry dose group with the change in near-normal municipalities, the pre-trend test makes the same comparison for 2002 to 2005, before the deficit occurred. If trends were parallel before the deficit, these 2002 leads should be close to zero. Figure~\ref{fig:es_bmiz} shows that the BMIZ lead for the moderately dry dose group is $-0.24$ and not significant, but its standard error of 0.17 is large, so the lead is imprecisely estimated and the test is not very informative. The BMIZ lead for the severely dry or worse dose group is $-0.26$ with a standard error of 0.12 and fails the pre-trend test. The WAZ leads are of similar size in both dose groups and are not significant. The HAZ leads are close to zero in both dose groups. The event studies for all three outcomes are shown in Figures~\ref{fig:es_bmiz} to~\ref{fig:es_waz}, and the 2009 coefficients match those in Table~\ref{tab:dose}.
 
-\afterpage{\afterpage{\begin{landscape}
-\vspace*{\fill}
+\afterpagefloat{\begin{sidewaysfigure}[p]
 \noindent
 \begin{minipage}[t]{0.33\linewidth}
 \centering
@@ -239,8 +242,7 @@ My pre-trend test is a three-period event study with 2005 as the reference surve
 \end{minipage}\hfill
 \par\vspace{6pt}
 \noindent\parbox{\linewidth}{\singlespacing\scriptsize \textit{Notes:} Moderately dry and severely dry or worse compared with near-normal. The 2009 coefficients are the same as in Table~\ref{tab:dose}. Here I include both the 2002 lead and the 2009 coefficient. Similar to Table~\ref{tab:dose}, there are no controls. Included are child and survey wave fixed effects. 2005 is the reference wave. 95\% confidence intervals use standard errors clustered by 2005 municipality.}
-\vspace*{\fill}
-\end{landscape}}}
+\end{sidewaysfigure}}
 
 
 Regarding the remaining identifying assumptions of \textcite{callawayDifferenceinDifferencesContinuousTreatment2024}, my sample comes from a nationally representative survey, supporting the random sampling assumption. Treatment is defined as a multi-valued discrete dose, with no children treated in 2005 and each municipality assigned to a dose level following the 2009 deficit. The no-anticipation assumption is also plausible as families in 2005 were unlikely to predict rainfall conditions during the 2009 growing season. I further assess two additional concerns, stable composition and overlap, in Section \hyperref[sec:VIII]{VIII}.
@@ -469,10 +471,7 @@ The BMIZ point estimates in Figure~\ref{fig:es_bmiz_all3} closely resemble the m
 
 \paragraph{Balance.} Next, to obtain a causal estimate of the effect of the rainfall deficit on health outcomes, rainfall must be orthogonal to the error term. I provide three tests to support the claim that 2009 rainfall was as good as randomly assigned across children, so that dry and near-normal children are comparable. First, I check whether the dose level predicts any of 31 baseline characteristics of households, children, mothers, fathers, and births shown in Table~\ref{tab:balance}.
 
-\afterpage{\afterpage{\begingroup\singlespacing
-\begin{landscape}
-\vspace*{\fill}
-\begin{table}[H]
+\afterpagefloat{\begin{sidewaystable}[p]
 \centering
 \caption{Dose Groups and Baseline Characteristics, BMIZ Sample}\label{tab:balance}
 \begingroup
@@ -515,10 +514,7 @@ Fixed effects & \multicolumn{15}{c}{None}\\
 Columns 1--10 are from MxFLS-1 (2002) and columns 11--29 from MxFLS-2 (2005). Of particular interest are the measures of household poverty. Expenditure per person is a proxy for income and is shown in logs and in 2002 pesos per month. PROGRESA equals 1 if any household member was in the program in the last 12 months, which marks the household as poor by the program's targeting. The dwelling characteristics also reflect household poverty.
 Long-run rainfall is the municipality's 1981--2004 May--October mean and SD in millimeters. The table has no fixed effects because the discrete-dose regressions use each child's 2005-to-2009 change without fixed effects or covariates. Standard errors clustered by 2005 municipality are in parentheses. Wild cluster bootstrap p-values are not reported.
 \mbox{\sym{*}\(p<.10\), \sym{**}\(p<.05\), \sym{***}\(p<.01\).}}
-\end{table}
-\vspace*{\fill}
-\end{landscape}
-\endgroup}}
+\end{sidewaystable}}
 
 
 I find few statistically significant differences between moderately dry and near-normal children. These include electricity, ventilation, 2002 remittances, and the father's age at birth, which differ at the 10 percent level. With 31 tests, I expect a few coefficients to be statistically significantly different from zero due to sampling variation. This does not hold for the severely dry or worse dose group, as I find that 11 of the 31 characteristics differ significantly from near normal. These include housing quality, the rural share, PROGRESA participation, mothers' schooling, delivery at home, breastfeeding, and the municipality's long-run mean rainfall.
