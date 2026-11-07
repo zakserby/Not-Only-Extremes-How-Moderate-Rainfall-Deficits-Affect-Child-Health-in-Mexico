@@ -5,6 +5,32 @@ Loading required package: tinytex
 Warning message:
 package 'tinytex' was built under R version 4.4.3 
 Results.tex written with 6 main figures
+Warning: LaTeX Warning: Reference `tab:sumstats' on page 4 undefined on input line 147.
+Warning: LaTeX Warning: Reference `tab:sumstats' on page 5 undefined on input line 184.
+Warning: LaTeX Warning: Reference `tab:sumstats' on page 6 undefined on input line 221.
+Warning: LaTeX Warning: Reference `tab:sumstats' on page 11 undefined on input line 422.
+Warning: LaTeX Warning: Reference `tab:sumstats' on page 14 undefined on input line 512.
+Warning: LaTeX Warning: Reference `tab:sumstats' on page 15 undefined on input line 544.
+Warning: LaTeX Warning: Reference `tab:sumstats' on page 16 undefined on input line 576.
+Warning: LaTeX Warning: Reference `tab:sumstats' on page 17 undefined on input line 618.
+Warning: LaTeX Warning: Reference `tab:sumstats' on page 18 undefined on input line 660.
+Warning: LaTeX Warning: Reference `tab:sumstats' on page 19 undefined on input line 702.
+Warning: LaTeX Warning: Reference `tab:sumstats' on page 23 undefined on input line 858.
+Warning: LaTeX Warning: Reference `tab:oa_contdid' on page 23 undefined on input line 858.
+Warning: LaTeX Warning: Reference `tab:sumstats' on page 25 undefined on input line 894.
+Warning: LaTeX Warning: Reference `tab:sumstats' on page 26 undefined on input line 927.
+Warning: LaTeX Warning: Reference `tab:sumstats' on page 27 undefined on input line 959.
+Warning: LaTeX Warning: Reference `tab:sumstats' on page 28 undefined on input line 991.
+Warning: LaTeX Warning: Reference `tab:sumstats' on page 29 undefined on input line 1023.
+Warning: LaTeX Warning: Reference `tab:sumstats' on page 30 undefined on input line 1055.
+Warning: LaTeX Warning: Reference `tab:sumstats' on page 31 undefined on input line 1087.
+Warning: LaTeX Warning: Reference `tab:sumstats' on page 32 undefined on input line 1119.
+Warning: LaTeX Warning: Reference `tab:sumstats' on page 33 undefined on input line 1151.
+Warning: LaTeX Warning: Reference `tab:sumstats' on page 34 undefined on input line 1183.
+Warning: LaTeX Warning: Reference `tab:sumstats' on page 35 undefined on input line 1215.
+Warning: LaTeX Warning: Reference `tab:sumstats' on page 36 undefined on input line 1247.
+Warning: LaTeX Warning: Reference `tab:sumstats' on page 37 undefined on input line 1279.
+Warning: LaTeX Warning: There were undefined references.
 Results.pdf written to /Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thesis/Proposal 3 Mexico OG/Paper 
 Online_Appendix.pdf written to /Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thesis/Proposal 3 Mexico OG/Paper 
 Paper.pdf written to /Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thesis/Proposal 3 Mexico OG/Paper 

@@ -1,4 +1,4 @@
-# Not Only Extremes: How Moderate Rainfall Deficits Affects Child Health in Mexico (MS Thesis)
+# Not Only Extremes: How Moderate Rainfall Deficits Affect Child Health in Mexico (MS Thesis)
 
 **Zachary Serby, Cornell University**
 
