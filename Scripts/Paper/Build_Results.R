@@ -417,9 +417,7 @@ paper_preamble <- c("\\documentclass[12pt]{article}", "\\usepackage[margin=1in]{
                     "\\def\\sym#1{\\ifmmode^{#1}\\else\\(^{#1}\\)\\fi}",
                     "\\setlength{\\LTcapwidth}{\\textwidth}",
                     # No words broken across lines with a hyphen, and normal spaces after periods (e.g. "Obs." and "et al.")
-                    "\\usepackage{microtype}", "\\newsavebox{\\tblbox}", "\\hyphenpenalty=10000", "\\exhyphenpenalty=10000", "\\emergencystretch=3em", "\\frenchspacing",
-                    # So text copied from the PDF keeps its spaces
-                    "\\pdfinterwordspaceon")
+                    "\\usepackage{microtype}", "\\newsavebox{\\tblbox}", "\\hyphenpenalty=10000", "\\exhyphenpenalty=10000", "\\emergencystretch=3em", "\\frenchspacing")
 
 # The table and figure notes from the Stata and R scripts have their citations typed out
 # This chunk changes them to \parencite{...} and \textcite{...}, so they print and link like the citations in the text. The names, years and keys all come from References.bib

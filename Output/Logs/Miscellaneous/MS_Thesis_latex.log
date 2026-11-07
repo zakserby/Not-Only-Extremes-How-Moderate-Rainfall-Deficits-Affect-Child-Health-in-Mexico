@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.11.6)  7 NOV 2026 06:06
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.11.6)  7 NOV 2026 06:30
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -781,56 +781,56 @@ File: microtype.cfg 2026/03/01 v3.2d microtype main configuration file (RS)
 LaTeX Info: Redefining \microtypesetup on input line 3065.
 )
 \tblbox=\box68
-Package xr Info: IMPORTING LABELS FROM Online_Appendix.aux on input line 46.
-LaTeX Font Info:    Trying to load font information for T1+ntxtlf on input line 47.
+Package xr Info: IMPORTING LABELS FROM Online_Appendix.aux on input line 45.
+LaTeX Font Info:    Trying to load font information for T1+ntxtlf on input line 46.
 (/Users/zakserby/Library/TinyTeX/texmf-dist/tex/latex/newtx/t1ntxtlf.fd
 File: t1ntxtlf.fd 2021/05/24 v1.1 font definition file for T1/ntx/tlf
 )
 LaTeX Font Info:    Font shape `T1/ntxtlf/m/n' will be
-(Font)              scaled to size 12.0pt on input line 47.
+(Font)              scaled to size 12.0pt on input line 46.
 \@quotelevel=\count463
 \@quotereset=\count464
 (./MS_Thesis.aux)
 \openout1 = `MS_Thesis.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/ntxmi/m/it on input line 47.
-LaTeX Font Info:    Trying to load font information for OML+ntxmi on input line 47.
+LaTeX Font Info:    Checking defaults for OML/ntxmi/m/it on input line 46.
+LaTeX Font Info:    Trying to load font information for OML+ntxmi on input line 46.
 (/Users/zakserby/Library/TinyTeX/texmf-dist/tex/latex/newtx/omlntxmi.fd
 File: omlntxmi.fd 2015/08/25 Fontinst v1.933 font definitions for OML/ntxmi.
 )
-LaTeX Font Info:    ... okay on input line 47.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 47.
-LaTeX Font Info:    ... okay on input line 47.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 47.
-LaTeX Font Info:    ... okay on input line 47.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 47.
-LaTeX Font Info:    ... okay on input line 47.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 47.
-LaTeX Font Info:    ... okay on input line 47.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 47.
-LaTeX Font Info:    ... okay on input line 47.
-LaTeX Font Info:    Checking defaults for U/ntxexa/m/n on input line 47.
-LaTeX Font Info:    Trying to load font information for U+ntxexa on input line 47.
+LaTeX Font Info:    ... okay on input line 46.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 46.
+LaTeX Font Info:    ... okay on input line 46.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 46.
+LaTeX Font Info:    ... okay on input line 46.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 46.
+LaTeX Font Info:    ... okay on input line 46.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 46.
+LaTeX Font Info:    ... okay on input line 46.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 46.
+LaTeX Font Info:    ... okay on input line 46.
+LaTeX Font Info:    Checking defaults for U/ntxexa/m/n on input line 46.
+LaTeX Font Info:    Trying to load font information for U+ntxexa on input line 46.
 (/Users/zakserby/Library/TinyTeX/texmf-dist/tex/latex/newtx/untxexa.fd
 File: untxexa.fd 2012/04/16 Fontinst v1.933 font definitions for U/ntxexa.
 )
-LaTeX Font Info:    ... okay on input line 47.
-LaTeX Font Info:    Checking defaults for LMS/ntxsy/m/n on input line 47.
-LaTeX Font Info:    Trying to load font information for LMS+ntxsy on input line 47.
+LaTeX Font Info:    ... okay on input line 46.
+LaTeX Font Info:    Checking defaults for LMS/ntxsy/m/n on input line 46.
+LaTeX Font Info:    Trying to load font information for LMS+ntxsy on input line 46.
 (/Users/zakserby/Library/TinyTeX/texmf-dist/tex/latex/newtx/lmsntxsy.fd
 File: lmsntxsy.fd 2016/07/02 Fontinst v1.933 font definitions for LMS/ntxsy.
 )
-LaTeX Font Info:    ... okay on input line 47.
-LaTeX Font Info:    Checking defaults for LMX/ntxexx/m/n on input line 47.
-LaTeX Font Info:    Trying to load font information for LMX+ntxexx on input line 47.
+LaTeX Font Info:    ... okay on input line 46.
+LaTeX Font Info:    Checking defaults for LMX/ntxexx/m/n on input line 46.
+LaTeX Font Info:    Trying to load font information for LMX+ntxexx on input line 46.
 (/Users/zakserby/Library/TinyTeX/texmf-dist/tex/latex/newtx/lmxntxexx.fd
 File: lmxntxexx.fd 2016/07/03 Fontinst v1.933 font definitions for LMX/ntxexx.
 )
-LaTeX Font Info:    ... okay on input line 47.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 47.
-LaTeX Font Info:    ... okay on input line 47.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 47.
-LaTeX Font Info:    ... okay on input line 47.
+LaTeX Font Info:    ... okay on input line 46.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 46.
+LaTeX Font Info:    ... okay on input line 46.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 46.
+LaTeX Font Info:    ... okay on input line 46.
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
 *geometry* verbose mode - [ preamble ] result:
@@ -873,8 +873,8 @@ File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 ))
 \c@mv@tabular=\count465
 \c@mv@boldtabular=\count466
-LaTeX Info: Command `\dddot' is already robust on input line 47.
-LaTeX Info: Command `\ddddot' is already robust on input line 47.
+LaTeX Info: Command `\dddot' is already robust on input line 46.
+LaTeX Info: Command `\ddddot' is already robust on input line 46.
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: hyperref package is loaded.
 Package caption Info: End \AtBeginDocument code.
@@ -904,20 +904,20 @@ Package biblatex Info: Automatic encoding selection.
 Package biblatex Info: Trying to load bibliographic data...
 Package biblatex Info: ... file 'MS_Thesis.bbl' found.
 (./MS_Thesis.bbl)
-Package biblatex Info: Reference section=0 on input line 47.
-Package biblatex Info: Reference segment=0 on input line 47.
-Package hyperref Info: Link coloring ON on input line 47.
+Package biblatex Info: Reference section=0 on input line 46.
+Package biblatex Info: Reference segment=0 on input line 46.
+Package hyperref Info: Link coloring ON on input line 46.
 (./MS_Thesis.out) (./MS_Thesis.out)
 \@outlinefile=\write4
 \openout4 = `MS_Thesis.out'.
 
-LaTeX Info: Redefining \microtypecontext on input line 47.
-Package microtype Info: Applying patch `item' on input line 47.
-Package microtype Info: Applying patch `toc' on input line 47.
-Package microtype Info: Applying patch `eqnum' on input line 47.
-Package microtype Info: Applying patch `footnote' on input line 47.
-Package microtype Info: Applying patch `verbatim' on input line 47.
-LaTeX Info: Redefining \microtypesetup on input line 47.
+LaTeX Info: Redefining \microtypecontext on input line 46.
+Package microtype Info: Applying patch `item' on input line 46.
+Package microtype Info: Applying patch `toc' on input line 46.
+Package microtype Info: Applying patch `eqnum' on input line 46.
+Package microtype Info: Applying patch `footnote' on input line 46.
+Package microtype Info: Applying patch `verbatim' on input line 46.
+LaTeX Info: Redefining \microtypesetup on input line 46.
 Package microtype Info: Generating PDF output.
 Package microtype Info: Character protrusion enabled (level 2).
 Package microtype Info: Using default protrusion set `alltext'.
@@ -932,309 +932,309 @@ Package microtype Info: No adjustment of character kerning.
 File: mt-ptm.cfg 2006/04/20 v1.7 microtype config. file: Times (RS)
 )
 LaTeX Font Info:    Font shape `T1/ntxtlf/m/n' will be
-(Font)              scaled to size 20.74pt on input line 53.
+(Font)              scaled to size 20.74pt on input line 52.
 LaTeX Font Info:    Font shape `T1/ntxtlf/b/n' will be
-(Font)              scaled to size 20.74pt on input line 53.
+(Font)              scaled to size 20.74pt on input line 52.
 LaTeX Font Info:    Font shape `T1/ntxtlf/m/n' will be
-(Font)              scaled to size 14.4pt on input line 55.
+(Font)              scaled to size 14.4pt on input line 54.
 LaTeX Font Info:    Font shape `T1/ntxtlf/b/n' will be
-(Font)              scaled to size 12.0pt on input line 59.
+(Font)              scaled to size 12.0pt on input line 58.
 [1
 
 {/Users/zakserby/Library/TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{/Users/zakserby/Library/TinyTeX/texmf-dist/fonts/enc/dvips/newtx/ntx-ec-tlf.enc}]
 LaTeX Font Info:    Font shape `T1/ntxtlf/m/n' will be
-(Font)              scaled to size 17.28pt on input line 69.
+(Font)              scaled to size 17.28pt on input line 68.
 LaTeX Font Info:    Font shape `T1/ntxtlf/b/n' will be
-(Font)              scaled to size 17.28pt on input line 69.
+(Font)              scaled to size 17.28pt on input line 68.
 
 pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.76 
+l.75 
       [1] [2] [3] [4]
 LaTeX Font Info:    Font shape `T1/ntxtlf/b/n' will be
-(Font)              scaled to size 14.4pt on input line 101.
+(Font)              scaled to size 14.4pt on input line 100.
 [5]
-LaTeX Font Info:    Trying to load font information for OT1+minntx on input line 115.
+LaTeX Font Info:    Trying to load font information for OT1+minntx on input line 114.
 (/Users/zakserby/Library/TinyTeX/texmf-dist/tex/latex/newtx/ot1minntx.fd
 File: ot1minntx.fd 2023/09/09 v1.1 font definition file for OT1/minntx
 )
 LaTeX Font Info:    Font shape `OT1/minntx/m/n' will be
-(Font)              scaled to size 12.0pt on input line 115.
+(Font)              scaled to size 12.0pt on input line 114.
 Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `minntx' (encoding: OT1).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
 LaTeX Font Info:    Font shape `OT1/minntx/m/n' will be
-(Font)              scaled to size 8.8pt on input line 115.
+(Font)              scaled to size 8.8pt on input line 114.
 LaTeX Font Info:    Font shape `OT1/minntx/m/n' will be
-(Font)              scaled to size 6.6pt on input line 115.
+(Font)              scaled to size 6.6pt on input line 114.
 LaTeX Font Info:    Font shape `OML/ntxmi/m/it' will be
-(Font)              scaled to size 12.0pt on input line 115.
+(Font)              scaled to size 12.0pt on input line 114.
 LaTeX Font Info:    Font shape `OML/ntxmi/m/it' will be
-(Font)              scaled to size 8.8pt on input line 115.
+(Font)              scaled to size 8.8pt on input line 114.
 LaTeX Font Info:    Font shape `OML/ntxmi/m/it' will be
-(Font)              scaled to size 6.6pt on input line 115.
+(Font)              scaled to size 6.6pt on input line 114.
 LaTeX Font Info:    Font shape `LMS/ntxsy/m/n' will be
-(Font)              scaled to size 12.0pt on input line 115.
+(Font)              scaled to size 12.0pt on input line 114.
 LaTeX Font Info:    Font shape `LMS/ntxsy/m/n' will be
-(Font)              scaled to size 8.8pt on input line 115.
+(Font)              scaled to size 8.8pt on input line 114.
 LaTeX Font Info:    Font shape `LMS/ntxsy/m/n' will be
-(Font)              scaled to size 6.6pt on input line 115.
+(Font)              scaled to size 6.6pt on input line 114.
 LaTeX Font Info:    Font shape `LMX/ntxexx/m/n' will be
-(Font)              scaled to size 12.0pt on input line 115.
+(Font)              scaled to size 12.0pt on input line 114.
 LaTeX Font Info:    Font shape `LMX/ntxexx/m/n' will be
-(Font)              scaled to size 8.8pt on input line 115.
+(Font)              scaled to size 8.8pt on input line 114.
 LaTeX Font Info:    Font shape `LMX/ntxexx/m/n' will be
-(Font)              scaled to size 6.6pt on input line 115.
-LaTeX Font Info:    Trying to load font information for U+ntxmia on input line 115.
+(Font)              scaled to size 6.6pt on input line 114.
+LaTeX Font Info:    Trying to load font information for U+ntxmia on input line 114.
 (/Users/zakserby/Library/TinyTeX/texmf-dist/tex/latex/newtx/untxmia.fd
 File: untxmia.fd 2024/04/09 Fontinst v1.933 font definitions for U/ntxmia.
 )
 LaTeX Font Info:    Font shape `U/ntxmia/m/it' will be
-(Font)              scaled to size 12.0pt on input line 115.
+(Font)              scaled to size 12.0pt on input line 114.
 LaTeX Font Info:    Font shape `U/ntxmia/m/it' will be
-(Font)              scaled to size 8.8pt on input line 115.
+(Font)              scaled to size 8.8pt on input line 114.
 LaTeX Font Info:    Font shape `U/ntxmia/m/it' will be
-(Font)              scaled to size 6.6pt on input line 115.
-LaTeX Font Info:    Trying to load font information for U+ntxsym on input line 115.
+(Font)              scaled to size 6.6pt on input line 114.
+LaTeX Font Info:    Trying to load font information for U+ntxsym on input line 114.
 (/Users/zakserby/Library/TinyTeX/texmf-dist/tex/latex/newtx/untxsym.fd
 File: untxsym.fd 2023/08/16 Fontinst v1.933 font definitions for U/ntxsym.
 )
 LaTeX Font Info:    Font shape `U/ntxsym/m/n' will be
-(Font)              scaled to size 12.0pt on input line 115.
+(Font)              scaled to size 12.0pt on input line 114.
 LaTeX Font Info:    Font shape `U/ntxsym/m/n' will be
-(Font)              scaled to size 8.8pt on input line 115.
+(Font)              scaled to size 8.8pt on input line 114.
 LaTeX Font Info:    Font shape `U/ntxsym/m/n' will be
-(Font)              scaled to size 6.6pt on input line 115.
-LaTeX Font Info:    Trying to load font information for U+ntxsyc on input line 115.
+(Font)              scaled to size 6.6pt on input line 114.
+LaTeX Font Info:    Trying to load font information for U+ntxsyc on input line 114.
 (/Users/zakserby/Library/TinyTeX/texmf-dist/tex/latex/newtx/untxsyc.fd
 File: untxsyc.fd 2012/04/12 Fontinst v1.933 font definitions for U/ntxsyc.
 )
 LaTeX Font Info:    Font shape `U/ntxsyc/m/n' will be
-(Font)              scaled to size 12.0pt on input line 115.
+(Font)              scaled to size 12.0pt on input line 114.
 LaTeX Font Info:    Font shape `U/ntxsyc/m/n' will be
-(Font)              scaled to size 8.8pt on input line 115.
+(Font)              scaled to size 8.8pt on input line 114.
 LaTeX Font Info:    Font shape `U/ntxsyc/m/n' will be
-(Font)              scaled to size 6.6pt on input line 115.
+(Font)              scaled to size 6.6pt on input line 114.
 LaTeX Font Info:    Font shape `U/ntxexa/m/n' will be
-(Font)              scaled to size 12.0pt on input line 115.
+(Font)              scaled to size 12.0pt on input line 114.
 LaTeX Font Info:    Font shape `U/ntxexa/m/n' will be
-(Font)              scaled to size 8.8pt on input line 115.
+(Font)              scaled to size 8.8pt on input line 114.
 LaTeX Font Info:    Font shape `U/ntxexa/m/n' will be
-(Font)              scaled to size 6.6pt on input line 115.
+(Font)              scaled to size 6.6pt on input line 114.
 [6]
-</Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thesis/Proposal 3 Mexico OG/Output/Figures/Main/drought_map_spi.png, id=166, 1957.3125pt x 1355.0625pt>
+</Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thesis/Proposal 3 Mexico OG/Output/Figures/Main/drought_map_spi.png, id=165, 1957.3125pt x 1355.0625pt>
 File: /Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thesis/Proposal 3 Mexico OG/Output/Figures/Main/drought_map_spi.png Graphic file (type png)
 <use /Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thesis/Proposal 3 Mexico OG/Output/Figures/Main/drought_map_spi.png>
-Package pdftex.def Info: /Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thesis/Proposal 3 Mexico OG/Output/Figures/Main/drought_map_spi.png  used on input line 120.
+Package pdftex.def Info: /Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thesis/Proposal 3 Mexico OG/Output/Figures/Main/drought_map_spi.png  used on input line 119.
 (pdftex.def)             Requested size: 399.29463pt x 276.42496pt.
 LaTeX Font Info:    Font shape `T1/ntxtlf/m/n' will be
-(Font)              scaled to size 8.0pt on input line 121.
+(Font)              scaled to size 8.0pt on input line 120.
 LaTeX Font Info:    Font shape `T1/ntxtlf/m/it' will be
-(Font)              scaled to size 8.0pt on input line 121.
+(Font)              scaled to size 8.0pt on input line 120.
 [7{/Users/zakserby/Library/TinyTeX/texmf-dist/fonts/enc/dvips/newtx/ntx-ot1-tlf.enc} </Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thesis/Proposal 3 Mexico OG/Output/Figures/Main/drought_map_spi.png>]
 LaTeX Font Info:    Font shape `T1/ntxtlf/m/n' will be
-(Font)              scaled to size 10.0pt on input line 137.
+(Font)              scaled to size 10.0pt on input line 136.
 LaTeX Font Info:    Font shape `OT1/minntx/m/n' will be
-(Font)              scaled to size 10.0pt on input line 144.
+(Font)              scaled to size 10.0pt on input line 143.
 LaTeX Font Info:    Font shape `OT1/minntx/m/n' will be
-(Font)              scaled to size 7.3pt on input line 144.
+(Font)              scaled to size 7.3pt on input line 143.
 LaTeX Font Info:    Font shape `OT1/minntx/m/n' will be
-(Font)              scaled to size 5.5pt on input line 144.
+(Font)              scaled to size 5.5pt on input line 143.
 LaTeX Font Info:    Font shape `OML/ntxmi/m/it' will be
-(Font)              scaled to size 10.0pt on input line 144.
+(Font)              scaled to size 10.0pt on input line 143.
 LaTeX Font Info:    Font shape `OML/ntxmi/m/it' will be
-(Font)              scaled to size 7.3pt on input line 144.
+(Font)              scaled to size 7.3pt on input line 143.
 LaTeX Font Info:    Font shape `OML/ntxmi/m/it' will be
-(Font)              scaled to size 5.5pt on input line 144.
+(Font)              scaled to size 5.5pt on input line 143.
 LaTeX Font Info:    Font shape `LMS/ntxsy/m/n' will be
-(Font)              scaled to size 10.0pt on input line 144.
+(Font)              scaled to size 10.0pt on input line 143.
 LaTeX Font Info:    Font shape `LMS/ntxsy/m/n' will be
-(Font)              scaled to size 7.3pt on input line 144.
+(Font)              scaled to size 7.3pt on input line 143.
 LaTeX Font Info:    Font shape `LMS/ntxsy/m/n' will be
-(Font)              scaled to size 5.5pt on input line 144.
+(Font)              scaled to size 5.5pt on input line 143.
 LaTeX Font Info:    Font shape `LMX/ntxexx/m/n' will be
-(Font)              scaled to size 10.0pt on input line 144.
+(Font)              scaled to size 10.0pt on input line 143.
 LaTeX Font Info:    Font shape `LMX/ntxexx/m/n' will be
-(Font)              scaled to size 7.3pt on input line 144.
+(Font)              scaled to size 7.3pt on input line 143.
 LaTeX Font Info:    Font shape `LMX/ntxexx/m/n' will be
-(Font)              scaled to size 5.5pt on input line 144.
+(Font)              scaled to size 5.5pt on input line 143.
 LaTeX Font Info:    Font shape `U/ntxmia/m/it' will be
-(Font)              scaled to size 10.0pt on input line 144.
+(Font)              scaled to size 10.0pt on input line 143.
 LaTeX Font Info:    Font shape `U/ntxmia/m/it' will be
-(Font)              scaled to size 7.3pt on input line 144.
+(Font)              scaled to size 7.3pt on input line 143.
 LaTeX Font Info:    Font shape `U/ntxmia/m/it' will be
-(Font)              scaled to size 5.5pt on input line 144.
+(Font)              scaled to size 5.5pt on input line 143.
 LaTeX Font Info:    Font shape `U/ntxsym/m/n' will be
-(Font)              scaled to size 10.0pt on input line 144.
+(Font)              scaled to size 10.0pt on input line 143.
 LaTeX Font Info:    Font shape `U/ntxsym/m/n' will be
-(Font)              scaled to size 7.3pt on input line 144.
+(Font)              scaled to size 7.3pt on input line 143.
 LaTeX Font Info:    Font shape `U/ntxsym/m/n' will be
-(Font)              scaled to size 5.5pt on input line 144.
+(Font)              scaled to size 5.5pt on input line 143.
 LaTeX Font Info:    Font shape `U/ntxsyc/m/n' will be
-(Font)              scaled to size 10.0pt on input line 144.
+(Font)              scaled to size 10.0pt on input line 143.
 LaTeX Font Info:    Font shape `U/ntxsyc/m/n' will be
-(Font)              scaled to size 7.3pt on input line 144.
+(Font)              scaled to size 7.3pt on input line 143.
 LaTeX Font Info:    Font shape `U/ntxsyc/m/n' will be
-(Font)              scaled to size 5.5pt on input line 144.
+(Font)              scaled to size 5.5pt on input line 143.
 LaTeX Font Info:    Font shape `U/ntxexa/m/n' will be
-(Font)              scaled to size 10.0pt on input line 144.
+(Font)              scaled to size 10.0pt on input line 143.
 LaTeX Font Info:    Font shape `U/ntxexa/m/n' will be
-(Font)              scaled to size 7.3pt on input line 144.
+(Font)              scaled to size 7.3pt on input line 143.
 LaTeX Font Info:    Font shape `U/ntxexa/m/n' will be
-(Font)              scaled to size 5.5pt on input line 144.
+(Font)              scaled to size 5.5pt on input line 143.
 LaTeX Font Info:    Font shape `T1/ntxtlf/m/it' will be
-(Font)              scaled to size 10.0pt on input line 150.
+(Font)              scaled to size 10.0pt on input line 149.
 [8] [9]
 
-Package biblatex-chicago Warning: Empty Ibidem citation on input line 197.
+Package biblatex-chicago Warning: Empty Ibidem citation on input line 196.
 
 
-Package biblatex-chicago Warning: Empty Ibidem citation on input line 197.
+Package biblatex-chicago Warning: Empty Ibidem citation on input line 196.
 
 LaTeX Font Info:    Font shape `OT1/minntx/b/n' will be
-(Font)              scaled to size 12.0pt on input line 201.
+(Font)              scaled to size 12.0pt on input line 200.
 LaTeX Font Info:    Font shape `OT1/minntx/b/n' will be
-(Font)              scaled to size 8.8pt on input line 201.
+(Font)              scaled to size 8.8pt on input line 200.
 LaTeX Font Info:    Font shape `OT1/minntx/b/n' will be
-(Font)              scaled to size 6.6pt on input line 201.
+(Font)              scaled to size 6.6pt on input line 200.
 [10] [11]
 LaTeX Font Info:    Font shape `OT1/minntx/b/n' will be
-(Font)              scaled to size 10.0pt on input line 250.
+(Font)              scaled to size 10.0pt on input line 249.
 LaTeX Font Info:    Font shape `OT1/minntx/b/n' will be
-(Font)              scaled to size 7.3pt on input line 250.
+(Font)              scaled to size 7.3pt on input line 249.
 LaTeX Font Info:    Font shape `OT1/minntx/b/n' will be
-(Font)              scaled to size 5.5pt on input line 250.
+(Font)              scaled to size 5.5pt on input line 249.
 LaTeX Font Info:    Font shape `OT1/minntx/m/n' will be
-(Font)              scaled to size 8.0pt on input line 275.
+(Font)              scaled to size 8.0pt on input line 274.
 LaTeX Font Info:    Font shape `OT1/minntx/m/n' will be
-(Font)              scaled to size 6.0pt on input line 275.
+(Font)              scaled to size 6.0pt on input line 274.
 LaTeX Font Info:    Font shape `OML/ntxmi/m/it' will be
-(Font)              scaled to size 8.0pt on input line 275.
+(Font)              scaled to size 8.0pt on input line 274.
 LaTeX Font Info:    Font shape `OML/ntxmi/m/it' will be
-(Font)              scaled to size 6.0pt on input line 275.
+(Font)              scaled to size 6.0pt on input line 274.
 LaTeX Font Info:    Font shape `LMS/ntxsy/m/n' will be
-(Font)              scaled to size 8.0pt on input line 275.
+(Font)              scaled to size 8.0pt on input line 274.
 LaTeX Font Info:    Font shape `LMS/ntxsy/m/n' will be
-(Font)              scaled to size 6.0pt on input line 275.
+(Font)              scaled to size 6.0pt on input line 274.
 LaTeX Font Info:    Font shape `LMX/ntxexx/m/n' will be
-(Font)              scaled to size 8.0pt on input line 275.
+(Font)              scaled to size 8.0pt on input line 274.
 LaTeX Font Info:    Font shape `LMX/ntxexx/m/n' will be
-(Font)              scaled to size 6.0pt on input line 275.
+(Font)              scaled to size 6.0pt on input line 274.
 LaTeX Font Info:    Font shape `OT1/minntx/b/n' will be
-(Font)              scaled to size 8.0pt on input line 275.
+(Font)              scaled to size 8.0pt on input line 274.
 LaTeX Font Info:    Font shape `OT1/minntx/b/n' will be
-(Font)              scaled to size 6.0pt on input line 275.
+(Font)              scaled to size 6.0pt on input line 274.
 LaTeX Font Info:    Font shape `U/ntxmia/m/it' will be
-(Font)              scaled to size 8.0pt on input line 275.
+(Font)              scaled to size 8.0pt on input line 274.
 LaTeX Font Info:    Font shape `U/ntxmia/m/it' will be
-(Font)              scaled to size 6.0pt on input line 275.
+(Font)              scaled to size 6.0pt on input line 274.
 LaTeX Font Info:    Font shape `U/ntxsym/m/n' will be
-(Font)              scaled to size 8.0pt on input line 275.
+(Font)              scaled to size 8.0pt on input line 274.
 LaTeX Font Info:    Font shape `U/ntxsym/m/n' will be
-(Font)              scaled to size 6.0pt on input line 275.
+(Font)              scaled to size 6.0pt on input line 274.
 LaTeX Font Info:    Font shape `U/ntxsyc/m/n' will be
-(Font)              scaled to size 8.0pt on input line 275.
+(Font)              scaled to size 8.0pt on input line 274.
 LaTeX Font Info:    Font shape `U/ntxsyc/m/n' will be
-(Font)              scaled to size 6.0pt on input line 275.
+(Font)              scaled to size 6.0pt on input line 274.
 LaTeX Font Info:    Font shape `U/ntxexa/m/n' will be
-(Font)              scaled to size 8.0pt on input line 275.
+(Font)              scaled to size 8.0pt on input line 274.
 LaTeX Font Info:    Font shape `U/ntxexa/m/n' will be
-(Font)              scaled to size 6.0pt on input line 275.
+(Font)              scaled to size 6.0pt on input line 274.
 [12] [13]
 
 Package caption Warning: The option `hypcap=true' will be ignored for this
-(caption)                particular \caption on input line 286.
+(caption)                particular \caption on input line 285.
 See the caption package documentation for explanation.
 
-</Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thesis/Proposal 3 Mexico OG/Output/Figures/Main/event_study_severity_bmiz.png, id=293, 542.025pt x 325.215pt>
+</Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thesis/Proposal 3 Mexico OG/Output/Figures/Main/event_study_severity_bmiz.png, id=292, 542.025pt x 325.215pt>
 File: /Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thesis/Proposal 3 Mexico OG/Output/Figures/Main/event_study_severity_bmiz.png Graphic file (type png)
 <use /Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thesis/Proposal 3 Mexico OG/Output/Figures/Main/event_study_severity_bmiz.png>
-Package pdftex.def Info: /Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thesis/Proposal 3 Mexico OG/Output/Figures/Main/event_study_severity_bmiz.png  used on input line 286.
+Package pdftex.def Info: /Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thesis/Proposal 3 Mexico OG/Output/Figures/Main/event_study_severity_bmiz.png  used on input line 285.
 (pdftex.def)             Requested size: 214.64308pt x 128.78354pt.
 
 Package caption Warning: The option `hypcap=true' will be ignored for this
-(caption)                particular \caption on input line 286.
+(caption)                particular \caption on input line 285.
 See the caption package documentation for explanation.
 
-</Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thesis/Proposal 3 Mexico OG/Output/Figures/Main/event_study_severity_haz.png, id=294, 542.025pt x 325.215pt>
+</Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thesis/Proposal 3 Mexico OG/Output/Figures/Main/event_study_severity_haz.png, id=293, 542.025pt x 325.215pt>
 File: /Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thesis/Proposal 3 Mexico OG/Output/Figures/Main/event_study_severity_haz.png Graphic file (type png)
 <use /Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thesis/Proposal 3 Mexico OG/Output/Figures/Main/event_study_severity_haz.png>
-Package pdftex.def Info: /Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thesis/Proposal 3 Mexico OG/Output/Figures/Main/event_study_severity_haz.png  used on input line 286.
+Package pdftex.def Info: /Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thesis/Proposal 3 Mexico OG/Output/Figures/Main/event_study_severity_haz.png  used on input line 285.
 (pdftex.def)             Requested size: 214.64308pt x 128.78354pt.
 
 Package caption Warning: The option `hypcap=true' will be ignored for this
-(caption)                particular \caption on input line 286.
+(caption)                particular \caption on input line 285.
 See the caption package documentation for explanation.
 
-</Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thesis/Proposal 3 Mexico OG/Output/Figures/Main/event_study_severity_waz.png, id=295, 542.025pt x 325.215pt>
+</Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thesis/Proposal 3 Mexico OG/Output/Figures/Main/event_study_severity_waz.png, id=294, 542.025pt x 325.215pt>
 File: /Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thesis/Proposal 3 Mexico OG/Output/Figures/Main/event_study_severity_waz.png Graphic file (type png)
 <use /Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thesis/Proposal 3 Mexico OG/Output/Figures/Main/event_study_severity_waz.png>
-Package pdftex.def Info: /Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thesis/Proposal 3 Mexico OG/Output/Figures/Main/event_study_severity_waz.png  used on input line 286.
+Package pdftex.def Info: /Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thesis/Proposal 3 Mexico OG/Output/Figures/Main/event_study_severity_waz.png  used on input line 285.
 (pdftex.def)             Requested size: 214.64308pt x 128.78354pt.
 [14
 
  </Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thesis/Proposal 3 Mexico OG/Output/Figures/Main/event_study_severity_bmiz.png> </Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thesis/Proposal 3 Mexico OG/Output/Figures/Main/event_study_severity_haz.png> </Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thesis/Proposal 3 Mexico OG/Output/Figures/Main/event_study_severity_waz.png>]
 LaTeX Font Info:    Font shape `T1/ntxtlf/m/n' will be
-(Font)              scaled to size 8.8pt on input line 298.
+(Font)              scaled to size 8.8pt on input line 297.
 LaTeX Font Info:    Font shape `T1/ntxtlf/m/n' will be
-(Font)              scaled to size 6.6pt on input line 298.
+(Font)              scaled to size 6.6pt on input line 297.
 LaTeX Font Info:    Font shape `OML/ntxmi/b/it' will be
-(Font)              scaled to size 12.0pt on input line 298.
+(Font)              scaled to size 12.0pt on input line 297.
 LaTeX Font Info:    Font shape `OML/ntxmi/b/it' will be
-(Font)              scaled to size 8.8pt on input line 298.
+(Font)              scaled to size 8.8pt on input line 297.
 LaTeX Font Info:    Font shape `OML/ntxmi/b/it' will be
-(Font)              scaled to size 6.6pt on input line 298.
+(Font)              scaled to size 6.6pt on input line 297.
 LaTeX Font Info:    Font shape `LMS/ntxsy/b/n' will be
-(Font)              scaled to size 12.0pt on input line 298.
+(Font)              scaled to size 12.0pt on input line 297.
 LaTeX Font Info:    Font shape `LMS/ntxsy/b/n' will be
-(Font)              scaled to size 8.8pt on input line 298.
+(Font)              scaled to size 8.8pt on input line 297.
 LaTeX Font Info:    Font shape `LMS/ntxsy/b/n' will be
-(Font)              scaled to size 6.6pt on input line 298.
+(Font)              scaled to size 6.6pt on input line 297.
 LaTeX Font Info:    Font shape `LMX/ntxexx/b/n' will be
-(Font)              scaled to size 12.0pt on input line 298.
+(Font)              scaled to size 12.0pt on input line 297.
 LaTeX Font Info:    Font shape `LMX/ntxexx/b/n' will be
-(Font)              scaled to size 8.8pt on input line 298.
+(Font)              scaled to size 8.8pt on input line 297.
 LaTeX Font Info:    Font shape `LMX/ntxexx/b/n' will be
-(Font)              scaled to size 6.6pt on input line 298.
+(Font)              scaled to size 6.6pt on input line 297.
 LaTeX Font Info:    Font shape `U/ntxmia/b/it' will be
-(Font)              scaled to size 12.0pt on input line 298.
+(Font)              scaled to size 12.0pt on input line 297.
 LaTeX Font Info:    Font shape `U/ntxmia/b/it' will be
-(Font)              scaled to size 8.8pt on input line 298.
+(Font)              scaled to size 8.8pt on input line 297.
 LaTeX Font Info:    Font shape `U/ntxmia/b/it' will be
-(Font)              scaled to size 6.6pt on input line 298.
+(Font)              scaled to size 6.6pt on input line 297.
 LaTeX Font Info:    Font shape `U/ntxsym/b/n' will be
-(Font)              scaled to size 12.0pt on input line 298.
+(Font)              scaled to size 12.0pt on input line 297.
 LaTeX Font Info:    Font shape `U/ntxsym/b/n' will be
-(Font)              scaled to size 8.8pt on input line 298.
+(Font)              scaled to size 8.8pt on input line 297.
 LaTeX Font Info:    Font shape `U/ntxsym/b/n' will be
-(Font)              scaled to size 6.6pt on input line 298.
+(Font)              scaled to size 6.6pt on input line 297.
 LaTeX Font Info:    Font shape `U/ntxsyc/b/n' will be
-(Font)              scaled to size 12.0pt on input line 298.
+(Font)              scaled to size 12.0pt on input line 297.
 LaTeX Font Info:    Font shape `U/ntxsyc/b/n' will be
-(Font)              scaled to size 8.8pt on input line 298.
+(Font)              scaled to size 8.8pt on input line 297.
 LaTeX Font Info:    Font shape `U/ntxsyc/b/n' will be
-(Font)              scaled to size 6.6pt on input line 298.
+(Font)              scaled to size 6.6pt on input line 297.
 LaTeX Font Info:    Font shape `U/ntxexa/b/n' will be
-(Font)              scaled to size 12.0pt on input line 298.
+(Font)              scaled to size 12.0pt on input line 297.
 LaTeX Font Info:    Font shape `U/ntxexa/b/n' will be
-(Font)              scaled to size 8.8pt on input line 298.
+(Font)              scaled to size 8.8pt on input line 297.
 LaTeX Font Info:    Font shape `U/ntxexa/b/n' will be
-(Font)              scaled to size 6.6pt on input line 298.
+(Font)              scaled to size 6.6pt on input line 297.
 [15
 
 ] [16] [17] [18] [19] [20]
-</Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thesis/Proposal 3 Mexico OG/Output/Figures/Main/event_study_severity_bmiz_all3.png, id=409, 542.025pt x 325.215pt>
+</Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thesis/Proposal 3 Mexico OG/Output/Figures/Main/event_study_severity_bmiz_all3.png, id=408, 542.025pt x 325.215pt>
 File: /Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thesis/Proposal 3 Mexico OG/Output/Figures/Main/event_study_severity_bmiz_all3.png Graphic file (type png)
 <use /Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thesis/Proposal 3 Mexico OG/Output/Figures/Main/event_study_severity_bmiz_all3.png>
-Package pdftex.def Info: /Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thesis/Proposal 3 Mexico OG/Output/Figures/Main/event_study_severity_bmiz_all3.png  used on input line 456.
+Package pdftex.def Info: /Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thesis/Proposal 3 Mexico OG/Output/Figures/Main/event_study_severity_bmiz_all3.png  used on input line 455.
 (pdftex.def)             Requested size: 399.29463pt x 239.58345pt.
 [21] [22 </Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thesis/Proposal 3 Mexico OG/Output/Figures/Main/event_study_severity_bmiz_all3.png>]
-</Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thesis/Proposal 3 Mexico OG/Output/Figures/Main/overlap_pscore_bmiz.png, id=440, 1957.3125pt x 752.8125pt>
+</Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thesis/Proposal 3 Mexico OG/Output/Figures/Main/overlap_pscore_bmiz.png, id=439, 1957.3125pt x 752.8125pt>
 File: /Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thesis/Proposal 3 Mexico OG/Output/Figures/Main/overlap_pscore_bmiz.png Graphic file (type png)
 <use /Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thesis/Proposal 3 Mexico OG/Output/Figures/Main/overlap_pscore_bmiz.png>
-Package pdftex.def Info: /Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thesis/Proposal 3 Mexico OG/Output/Figures/Main/overlap_pscore_bmiz.png  used on input line 526.
+Package pdftex.def Info: /Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thesis/Proposal 3 Mexico OG/Output/Figures/Main/overlap_pscore_bmiz.png  used on input line 525.
 (pdftex.def)             Requested size: 399.29463pt x 153.56941pt.
 [23 </Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thesis/Proposal 3 Mexico OG/Output/Figures/Main/overlap_pscore_bmiz.png>] [24
 
@@ -1242,64 +1242,64 @@ Package pdftex.def Info: /Users/zakserby/Documents/Documents (MAC)/Cornell Unive
 
 ] [26] [27] [28]
 LaTeX Font Info:    Font shape `T1/ntxtlf/m/n' will be
-(Font)              scaled to size 10.95pt on input line 568.
+(Font)              scaled to size 10.95pt on input line 567.
 LaTeX Font Info:    Font shape `T1/ntxtlf/m/it' will be
-(Font)              scaled to size 12.0pt on input line 570.
+(Font)              scaled to size 12.0pt on input line 569.
 [29
 
 ]
-Overfull \hbox (17.01767pt too wide) in paragraph at lines 570--570
+Overfull \hbox (17.01767pt too wide) in paragraph at lines 569--569
 [][]\T1/ntxtlf/m/n/12 (-20) Callaway, Brantly, An-drew Goodman-Bacon, and Pe-dro H. C. Sant'Anna. 2024. \T1/ntxtlf/m/it/12 (-20) Difference-in-Differences
  []
 
 LaTeX Font Info:    Font shape `T1/ntxtlf/m/sc' will be
-(Font)              scaled to size 12.0pt on input line 570.
+(Font)              scaled to size 12.0pt on input line 569.
 Package microtype Info: Character `029' is missing
 (microtype)             in font `T1/ntxtlf/m/sc/12'.
 (microtype)             Ignoring protrusion settings for this character.
 [30{/Users/zakserby/Library/TinyTeX/texmf-dist/fonts/enc/dvips/newtx/ntx-ec-tlf-pc.enc}]
-Overfull \hbox (6.75565pt too wide) in paragraph at lines 570--570
+Overfull \hbox (6.75565pt too wide) in paragraph at lines 569--569
 [][]\T1/ntxtlf/m/n/12 (-20) Fujiki, Hi-roshi, and Cheng Hsiao. 2015. ``Dis-en-tan-gling the Ef-fects of Mul-ti-ple Treat-ments^^VMeasuring
  []
 
 [31] [32] [33] [34]
-</Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thesis/Proposal 3 Mexico OG/Output/Figures/Appendix/drought_map_binary.png, id=544, 1957.3125pt x 1355.0625pt>
+</Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thesis/Proposal 3 Mexico OG/Output/Figures/Appendix/drought_map_binary.png, id=543, 1957.3125pt x 1355.0625pt>
 File: /Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thesis/Proposal 3 Mexico OG/Output/Figures/Appendix/drought_map_binary.png Graphic file (type png)
 <use /Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thesis/Proposal 3 Mexico OG/Output/Figures/Appendix/drought_map_binary.png>
-Package pdftex.def Info: /Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thesis/Proposal 3 Mexico OG/Output/Figures/Appendix/drought_map_binary.png  used on input line 589.
+Package pdftex.def Info: /Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thesis/Proposal 3 Mexico OG/Output/Figures/Appendix/drought_map_binary.png  used on input line 588.
 (pdftex.def)             Requested size: 399.29463pt x 276.42496pt.
 [35
 
  </Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thesis/Proposal 3 Mexico OG/Output/Figures/Appendix/drought_map_binary.png>] [36] [37
 
 ] [38]
-</Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thesis/Proposal 3 Mexico OG/Output/Figures/Appendix/event_study_bmiz_controls.png, id=575, 542.025pt x 325.215pt>
+</Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thesis/Proposal 3 Mexico OG/Output/Figures/Appendix/event_study_bmiz_controls.png, id=574, 542.025pt x 325.215pt>
 File: /Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thesis/Proposal 3 Mexico OG/Output/Figures/Appendix/event_study_bmiz_controls.png Graphic file (type png)
 <use /Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thesis/Proposal 3 Mexico OG/Output/Figures/Appendix/event_study_bmiz_controls.png>
-Package pdftex.def Info: /Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thesis/Proposal 3 Mexico OG/Output/Figures/Appendix/event_study_bmiz_controls.png  used on input line 721.
+Package pdftex.def Info: /Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thesis/Proposal 3 Mexico OG/Output/Figures/Appendix/event_study_bmiz_controls.png  used on input line 720.
 (pdftex.def)             Requested size: 399.29463pt x 239.58345pt.
-</Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thesis/Proposal 3 Mexico OG/Output/Figures/Appendix/event_study_haz_controls.png, id=576, 542.025pt x 325.215pt>
+</Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thesis/Proposal 3 Mexico OG/Output/Figures/Appendix/event_study_haz_controls.png, id=575, 542.025pt x 325.215pt>
 File: /Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thesis/Proposal 3 Mexico OG/Output/Figures/Appendix/event_study_haz_controls.png Graphic file (type png)
 <use /Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thesis/Proposal 3 Mexico OG/Output/Figures/Appendix/event_study_haz_controls.png>
-Package pdftex.def Info: /Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thesis/Proposal 3 Mexico OG/Output/Figures/Appendix/event_study_haz_controls.png  used on input line 729.
+Package pdftex.def Info: /Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thesis/Proposal 3 Mexico OG/Output/Figures/Appendix/event_study_haz_controls.png  used on input line 728.
 (pdftex.def)             Requested size: 399.29463pt x 239.58345pt.
-</Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thesis/Proposal 3 Mexico OG/Output/Figures/Appendix/event_study_waz_controls.png, id=578, 542.025pt x 325.215pt>
+</Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thesis/Proposal 3 Mexico OG/Output/Figures/Appendix/event_study_waz_controls.png, id=577, 542.025pt x 325.215pt>
 File: /Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thesis/Proposal 3 Mexico OG/Output/Figures/Appendix/event_study_waz_controls.png Graphic file (type png)
 <use /Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thesis/Proposal 3 Mexico OG/Output/Figures/Appendix/event_study_waz_controls.png>
-Package pdftex.def Info: /Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thesis/Proposal 3 Mexico OG/Output/Figures/Appendix/event_study_waz_controls.png  used on input line 737.
+Package pdftex.def Info: /Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thesis/Proposal 3 Mexico OG/Output/Figures/Appendix/event_study_waz_controls.png  used on input line 736.
 (pdftex.def)             Requested size: 399.29463pt x 239.58345pt.
 [39
 
  </Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thesis/Proposal 3 Mexico OG/Output/Figures/Appendix/event_study_bmiz_controls.png>] [40 </Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thesis/Proposal 3 Mexico OG/Output/Figures/Appendix/event_study_haz_controls.png> </Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thesis/Proposal 3 Mexico OG/Output/Figures/Appendix/event_study_waz_controls.png>] [41] [42] [43] [44] [45] [46]
-</Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thesis/Proposal 3 Mexico OG/Output/Figures/Appendix/event_study_severity_haz_all3.png, id=632, 542.025pt x 325.215pt>
+</Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thesis/Proposal 3 Mexico OG/Output/Figures/Appendix/event_study_severity_haz_all3.png, id=631, 542.025pt x 325.215pt>
 File: /Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thesis/Proposal 3 Mexico OG/Output/Figures/Appendix/event_study_severity_haz_all3.png Graphic file (type png)
 <use /Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thesis/Proposal 3 Mexico OG/Output/Figures/Appendix/event_study_severity_haz_all3.png>
-Package pdftex.def Info: /Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thesis/Proposal 3 Mexico OG/Output/Figures/Appendix/event_study_severity_haz_all3.png  used on input line 1071.
+Package pdftex.def Info: /Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thesis/Proposal 3 Mexico OG/Output/Figures/Appendix/event_study_severity_haz_all3.png  used on input line 1070.
 (pdftex.def)             Requested size: 399.29463pt x 239.58345pt.
-</Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thesis/Proposal 3 Mexico OG/Output/Figures/Appendix/event_study_severity_waz_all3.png, id=634, 542.025pt x 325.215pt>
+</Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thesis/Proposal 3 Mexico OG/Output/Figures/Appendix/event_study_severity_waz_all3.png, id=633, 542.025pt x 325.215pt>
 File: /Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thesis/Proposal 3 Mexico OG/Output/Figures/Appendix/event_study_severity_waz_all3.png Graphic file (type png)
 <use /Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thesis/Proposal 3 Mexico OG/Output/Figures/Appendix/event_study_severity_waz_all3.png>
-Package pdftex.def Info: /Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thesis/Proposal 3 Mexico OG/Output/Figures/Appendix/event_study_severity_waz_all3.png  used on input line 1079.
+Package pdftex.def Info: /Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thesis/Proposal 3 Mexico OG/Output/Figures/Appendix/event_study_severity_waz_all3.png  used on input line 1078.
 (pdftex.def)             Requested size: 399.29463pt x 239.58345pt.
 [47
 
@@ -1319,14 +1319,14 @@ Here is how much of TeX's memory you used:
  531342 string characters out of 5453337
  1797364 words of memory out of 5000000
  57230 multiletter control sequences out of 15000+600000
- 751868 words of font info for 316 fonts, out of 8000000 for 9000
+ 751855 words of font info for 315 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  84i,20n,117p,2496b,4041s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</Users/zakserby/Library/TinyTeX/texmf-dist/fonts/type1/public/newtx/NewTXBMI.pfb></Users/zakserby/Library/TinyTeX/texmf-dist/fonts/type1/public/newtx/NewTXMI.pfb></Users/zakserby/Library/TinyTeX/texmf-dist/fonts/type1/public/newtx/NewTXMI7.pfb></Users/zakserby/Library/TinyTeX/texmf-dist/fonts/type1/public/pdftex/pdftexspace.pfb></Users/zakserby/Library/TinyTeX/texmf-dist/fonts/type1/public/newtx/txexs.pfb></Users/zakserby/Library/TinyTeX/texmf-dist/fonts/type1/public/newtx/txmiaX.pfb></Users/zakserby/Library/TinyTeX/texmf-dist/fonts/type1/public/newtx/txsys.pfb></Users/zakserby/Library/TinyTeX/texmf-dist/fonts/type1/public/newtx/ztmb.pfb></Users/zakserby/Library/TinyTeX/texmf-dist/fonts/type1/public/newtx/ztmr.pfb></Users/zakserby/Library/TinyTeX/texmf-dist/fonts/type1/public/newtx/ztmri.pfb>
-Output written on MS_Thesis.pdf (48 pages, 1498960 bytes).
+</Users/zakserby/Library/TinyTeX/texmf-dist/fonts/type1/public/newtx/NewTXBMI.pfb></Users/zakserby/Library/TinyTeX/texmf-dist/fonts/type1/public/newtx/NewTXMI.pfb></Users/zakserby/Library/TinyTeX/texmf-dist/fonts/type1/public/newtx/NewTXMI7.pfb></Users/zakserby/Library/TinyTeX/texmf-dist/fonts/type1/public/newtx/txexs.pfb></Users/zakserby/Library/TinyTeX/texmf-dist/fonts/type1/public/newtx/txmiaX.pfb></Users/zakserby/Library/TinyTeX/texmf-dist/fonts/type1/public/newtx/txsys.pfb></Users/zakserby/Library/TinyTeX/texmf-dist/fonts/type1/public/newtx/ztmb.pfb></Users/zakserby/Library/TinyTeX/texmf-dist/fonts/type1/public/newtx/ztmr.pfb></Users/zakserby/Library/TinyTeX/texmf-dist/fonts/type1/public/newtx/ztmri.pfb>
+Output written on MS_Thesis.pdf (48 pages, 1401628 bytes).
 PDF statistics:
- 740 PDF objects out of 1000 (max. 8388607)
- 636 compressed objects within 7 object streams
+ 735 PDF objects out of 1000 (max. 8388607)
+ 633 compressed objects within 7 object streams
  202 named destinations out of 1000 (max. 500000)
  43069 words of extra memory for PDF output out of 51595 (max. 10000000)
 
