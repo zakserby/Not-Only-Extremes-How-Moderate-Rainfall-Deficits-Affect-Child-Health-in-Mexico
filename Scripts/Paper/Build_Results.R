@@ -546,8 +546,8 @@ convert_cites <- function(doc) {
   doc
 }
 
-# The PDFs are also on GitHub Pages. Links between the paper and the online appendix go there, so they open at the right spot even in a downloaded copy
-pages <- "https://zakserby.github.io/Not-Only-Extremes-How-Moderate-Rainfall-Deficits-Affect-Child-Health-in-Mexico"
+# The PDFs are also on GitHub Pages, where they open in the pdf.js viewer. Links between the paper and the online appendix go there, so they open at the right spot in any browser, even from a downloaded copy
+pages <- "https://zakserby.github.io/Not-Only-Extremes-How-Moderate-Rainfall-Deficits-Affect-Child-Health-in-Mexico/viewer/web/viewer.html?file=../.."
 
 # The online appendix is built first, so the paper can use its table and figure numbers and link to them
 online <- c(paper_preamble, "\\begin{document}", "", fill_text("Online_Appendix_Text.tex"), "", "\\end{document}")
