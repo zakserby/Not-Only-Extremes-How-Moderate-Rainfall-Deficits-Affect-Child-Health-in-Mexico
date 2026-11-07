@@ -316,7 +316,8 @@ table_block <- function(file, key, label) {
     block <- block[!grepl("^\\\\(begin|end)\\{landscape\\}", block)]
     return(c(block, ""))
   }
-  c("\\begingroup\\singlespacing", block, "\\endgroup", "")
+  # \setstretch{1} is single spacing like \singlespacing, but without the blank line \singlespacing adds, which left a gap in the text where the table is
+  c("\\begingroup\\setstretch{1}", block, "\\endgroup", "")
 }
 
 # One figure with its title on top and its notes below. If the line has two files, they are put side by side

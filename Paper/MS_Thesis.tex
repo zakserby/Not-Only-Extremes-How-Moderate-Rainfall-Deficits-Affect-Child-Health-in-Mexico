@@ -142,7 +142,7 @@ Merging these datasets requires two steps. As far as I am aware, no previous res
 
 I am primarily interested in capturing the anthropometric outcomes HAZ, WAZ, and BMIZ, as they are objective measures collected by trained health workers. Prior literature uses these measures to capture nutritional status and the stock of physical health \parencite{adairAgeSpecificDeterminantsStunting1997,hoddinottAdultConsequencesGrowth2013,gilesProtectingChildNutritional2015}. I provide summary statistics for my primary specification in Table~\ref{tab:sumstats}.
 
-\begingroup\singlespacing
+\begingroup\setstretch{1}
 \begingroup
 \footnotesize
 \renewcommand{\arraystretch}{0.86}
@@ -246,7 +246,7 @@ My pre-trend test is a three-period event study with 2005 as the reference surve
 
 Regarding the remaining identifying assumptions of \textcite{callawayDifferenceinDifferencesContinuousTreatment2024}, my sample comes from a nationally representative survey, supporting the random sampling assumption. Treatment is defined as a multi-valued discrete dose, with no children treated in 2005 and each municipality assigned to a dose level following the 2009 deficit. The no-anticipation assumption is also plausible as families in 2005 were unlikely to predict rainfall conditions during the 2009 growing season. I further assess two additional concerns, stable composition and overlap, in Section \hyperref[sec:VIII]{VIII}.
 
-\begingroup\singlespacing
+\begingroup\setstretch{1}
 \begingroup
 \footnotesize
 \renewcommand{\arraystretch}{0.86}
@@ -315,7 +315,7 @@ For brevity, I discuss the identifying assumptions for the binary difference-in-
 
 Across all specifications, I add controls in increments, starting with earlier droughts and then household, child, mother, and father controls. All specifications include child and interview year-month fixed effects. Looking at the outcome BMIZ, the coefficient for the BMI-for-age z-score remains negative, stable, and statistically significant throughout, as shown in Table~\ref{tab:binbmiz}. The fact that the coefficient on the 2009 drought remains negative and significant after controlling for the 2005 to 2008 droughts indicates that the 2009 drought matters in and of itself, and not simply because it is correlated with droughts in the preceding years.
 
-\begingroup\singlespacing
+\begingroup\setstretch{1}
 \begingroup
 \footnotesize
 \renewcommand{\arraystretch}{0.86}
@@ -356,7 +356,7 @@ Children    &       2,379         &       2,379         &       1,714         & 
 
 The basic specification in column 1 implies that children in municipalities affected by the 2009 drought experienced a 0.15 standard deviation smaller increase in BMIZ between 2005 and 2009 than children in other municipalities (compared to an average increase of 0.23 standard deviations in the sample). Converted using the WHO reference for each child's age, sex, and height, this corresponds to roughly 0.4 kg/m$^2$ lower BMI or about 0.8 kg less body weight at the average height of 139 cm. This is most comparable to my discrete-dose specification without controls. As with the discrete-dose results, BMIZ is not monotonically related to welfare, so the economic significance of this decline differs across children with different baseline nutritional status. Adding controls for droughts between 2005 and 2008 in column 2 keeps the coefficient statistically significant and increases its absolute magnitude slightly from $-0.15$ to $-0.18$. Further adding baseline household, child, and maternal controls in column 3 to address potentially confounding pre-shock differences between children roughly doubles the estimate to $-0.30$. With a standard error similar to that in column 2, it becomes statistically significant at the 1 percent level. Column 4 adds paternal and birth controls and the estimate remains negative and statistically significant. However, the sample decreases to only 712 children primarily due to missing observations associated with paternal migration. However, the primary identifying assumption of parallel pre-trends does not hold. The 2002 lead is large and statistically significant, with a coefficient of $-0.39$ and a standard error of 0.10, as shown in the BMIZ event study in Appendix Table~\ref{tab:esbmiz} and Figure~\ref{fig:esc_bmiz}. These findings therefore remain suggestive. Nonetheless, they provide some reassurance because the two designs agree on the sign and approximate magnitude of the effect. I discuss the coefficient on remittances in column 5 in Section \hyperref[sec:IX]{IX}.
 
-\begingroup\singlespacing
+\begingroup\setstretch{1}
 \begingroup
 \footnotesize
 \renewcommand{\arraystretch}{0.86}
@@ -397,7 +397,7 @@ Children    &       1,078         &       1,078         &         700         & 
 
 I find similar results for WAZ (Table~\ref{tab:binwaz}), with estimates of the same sign and similar magnitude. The estimates are statistically significant at the 5 percent level in the first three models, implying a 0.20, 0.20, and 0.30 standard deviation smaller increase in WAZ, but not once the father and birth controls are added on a much smaller sample. This aligns with my discrete-dose specification, where the WAZ estimate for dry municipalities is nearly identical in size. The difference in significance is marginal and reflects a slightly smaller standard error in the binary specification. Additionally, to be conservative, the discrete-dose table uses a stricter inference rule that requires both the clustered and the wild bootstrap p-values to pass.
 
-\begingroup\singlespacing
+\begingroup\setstretch{1}
 \begingroup
 \footnotesize
 \renewcommand{\arraystretch}{0.86}
@@ -594,7 +594,7 @@ The \href{https://zakserby.github.io/Not-Only-Extremes-How-Moderate-Rainfall-Def
 
 \FloatBarrier
 
-\begingroup\singlespacing
+\begingroup\setstretch{1}
 \begingroup
 \footnotesize
 \renewcommand{\arraystretch}{0.86}
@@ -740,7 +740,7 @@ The household controls are from 2002, and the child, mother, father, and birth c
 \end{figure}
 
 
-\begingroup\singlespacing
+\begingroup\setstretch{1}
 \begingroup
 \footnotesize
 \renewcommand{\arraystretch}{0.86}
@@ -787,7 +787,7 @@ Children    &       1,755         &       1,622         \\
 \endgroup
 
 
-\begingroup\singlespacing
+\begingroup\setstretch{1}
 \begingroup
 \footnotesize
 \renewcommand{\arraystretch}{0.86}
@@ -834,7 +834,7 @@ Children    &         700         &         634         \\
 \endgroup
 
 
-\begingroup\singlespacing
+\begingroup\setstretch{1}
 \begingroup
 \footnotesize
 \renewcommand{\arraystretch}{0.86}
@@ -881,7 +881,7 @@ Children    &       1,714         &       1,587         \\
 \endgroup
 
 
-\begingroup\singlespacing
+\begingroup\setstretch{1}
 \begingroup
 \footnotesize
 \renewcommand{\arraystretch}{0.86}
@@ -920,7 +920,7 @@ Children    &       1,293         &       1,293         &       1,084         & 
 \endgroup
 
 
-\begingroup\singlespacing
+\begingroup\setstretch{1}
 \begingroup
 \footnotesize
 \renewcommand{\arraystretch}{0.86}
@@ -959,7 +959,7 @@ Children    &         266         &         266         &         203         & 
 \endgroup
 
 
-\begingroup\singlespacing
+\begingroup\setstretch{1}
 \begingroup
 \footnotesize
 \renewcommand{\arraystretch}{0.86}
@@ -998,7 +998,7 @@ Children    &       1,196         &       1,196         &       1,006         & 
 \endgroup
 
 
-\begingroup\singlespacing
+\begingroup\setstretch{1}
 \begingroup
 \footnotesize
 \renewcommand{\arraystretch}{0.86}
