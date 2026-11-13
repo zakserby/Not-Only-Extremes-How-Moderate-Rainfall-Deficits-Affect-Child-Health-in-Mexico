@@ -6,7 +6,7 @@
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
 
 \f0\fs24 \cf0 # README ------------------------------------------------------------------------\
-# Generated on: 2026-10-23, updated on 2026-11-07\
+# Generated on: 2026-10-23, updated on 2026-11-13\
 \
 # GENERAL INFORMATION -----------------------------------------------------------\
 # Title of Analysis: Not Only Extremes: How Moderate Rainfall Deficits Affect Child Health in Mexico\
@@ -53,18 +53,20 @@
 #     Build_DID_Analysis_Data.do (merges the panel and the rainfall on the child's\
 #     2005 municipality and builds the treatment, controls and samples).\
 #   - Statistics/ : Summary Stats DID.do (summary statistics, sample sizes and\
-#     attrition tables, and the balance table and overlap figure of the rainfall\
-#     classes), Regression Stats.do (all regression tables) and\
+#     attrition tables, attrition tests on the 2009 deficit and on baseline outcomes, and the\
+#     balance table and overlap figure of the rainfall classes), Regression Stats.do (all regression tables) and\
 #     Drought_map.R (maps of the 2009 drought by municipality).\
 #   - Regressions/ : DID_Regs.do (DID, DDD, event studies, robustness),\
 #     Contdid_regs.R (continuous DID, SPI drought classes, remittances), functions.R\
 #     (used by the R scripts), and the Subanalysis_Gender_* and Subanalysis_Rural_*\
 #     versions of both. Their event studies use each subsample's Model 3 children, and the\
 #     DDD event studies its Model 5 children with the event study controls, as in DID_Regs.do.\
+#     They also run a triple difference with child sex or the 2005 rural locality on all children,\
+#     binary (Model 5 with sex or rural instead of 2002 remittances) and dry vs near normal.\
 #   - Paper/Build_Results.R : writes and compiles Paper/MS_Thesis.tex (the paper with its\
 #     appendix), Paper/Online_Appendix.tex (the separate online appendix) and Paper/Results.tex\
 #     (every table and figure). The text is in Paper/Text, where each %%TABLE or %%FIGURE line\
-#     is replaced by that table or figure from Output.\
+#     is replaced by that table or figure from Output (%%TABROW and %%FIGROW put two side by side, and %%TABROW starts a new row after every two).\
 #     Citations and the reference list come from Paper/Text/References.bib in Chicago\
 #     17th edition author-date style (biblatex-chicago, run with biber; TinyTeX installs both\
 #     if they are missing). References.bib is exported from the Zotero Thesis collection with\
@@ -86,14 +88,15 @@
 #     balance_table.tex (BMIZ balance of the dose groups, landscape).\
 #   - Tables/Appendix : summary_stats_model3_table.tex (Model 3 samples) and\
 #     regression_tables_appendix.tex (Model 3 with all covariates, all three waves, event studies).\
-#   - Tables/Online_Appendix : sample_size_attrition_tables.tex, regression_tables_online_appendix.tex\
-#     (subanalyses by sex and rural vs urban) and balance_table_online_appendix.tex (HAZ and WAZ).\
+#   - Tables/Online_Appendix : sample_size_attrition_tables.tex (with the attrition tests, shown in the appendix of the paper), regression_tables_online_appendix.tex\
+#     (subanalyses by sex and rural vs urban, and their triple differences) and\
+#     balance_table_online_appendix.tex (HAZ and WAZ).\
 #   - Regression_Estimates/ : event study coefficients (.dta) and continuous DID csv files.\
 #   - Figures/ : trends_*, event_study_*, contdid_*, drought_map_* and overlap_pscore_* (.png).\
 #     Main has the dose level map, the dose event studies of all three outcomes, the BMIZ dose\
 #     event study of children in all three waves (_all3) and the BMIZ overlap figure.\
 #     Appendix has the binary drought map, the binary event studies with controls (_controls)\
-#     on the Model 3 children, and the HAZ and WAZ dose event studies of children in all three waves.\
+#     on the Model 3 children, the HAZ and WAZ dose event studies of children in all three waves, and the pooled dry event studies (_dry).\
 #     Dose event studies use the discrete-dose table children, and its pre-trend p-values come from them.\
 #     Everything else, including the continuous dose figures and the subanalysis figures,\
 #     is in Online_Appendix.\

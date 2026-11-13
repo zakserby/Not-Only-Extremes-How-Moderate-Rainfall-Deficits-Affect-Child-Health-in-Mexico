@@ -1,71 +1,3 @@
--------------------------------------------------------------------------------
-      name:  sub_gender_did
-       log:  /Users/zakserby/Documents/Documents (MAC)/Cornell University/Maste
-> r's Thesis/Proposal 3 Mexico OG/Output/Logs/Appendix/subanalysis_gender_did_r
-> egs.log
-  log type:  text
- opened on:   7 Nov 2026, 03:58:37
-
-. do "$root/Scripts/Regressions/Subanalysis_Gender_DID_Regs.do"
-
-. *******************************************************************
-. * Subanalyses: DID by child sex 
-. * Project: MS Thesis
-. *******************************************************************
-. 
-. * Same DID, triple difference, event studies and robustness checks as DID_Reg
-> s.do, run separately for boys and girls
-. * Sex is the child's roster sex in 2005 "child_male_05", the same variable DI
-> D_Regs.do uses as a control
-. 
-. clear all
-
-. set more off
-
-. 
-. *******************************************************************
-. * Directories
-. *******************************************************************
-. * The root folder is set once in 00_Master.do. If this file is run on its own
-> , the root is found by going up from Stata's working folder until the folder 
-> that has Scripts/00_Master.do
-. if "$root" == "" {
-.     local r = subinstr("`c(pwd)'", "\", "/", .)
-.     while "`r'" != "" & !fileexists("`r'/Scripts/00_Master.do") {
-  2.         local r = substr("`r'", 1, strrpos("`r'", "/") - 1)
-  3.     }
-.     global root "`r'"
-. }
-
-. global clean_mxfls   "$root/Data/Cleaned/MxFLS"
-
-. global clean_rain    "$root/Data/Cleaned/Rainfall"
-
-. global out_regs      "$root/Output/Regression_Estimates"
-
-. global out_figs      "$root/Output/Figures"
-
-. global out_logs      "$root/Output/Logs"
-
-. foreach d in "$root/Output" "$out_regs" "$out_figs" "$out_logs" {
-  2.     capture mkdir "`d'"
-  3. }
-
-. foreach d in "$out_regs" "$out_logs" "$out_figs" {
-  2.     foreach s in Main Appendix {
-  3.         capture mkdir "`d'/`s'"
-  4.     }
-  5. }
-
-. capture mkdir "$out_figs/Online_Appendix"
-
-. 
-. * If the master already opened the log, the capture fails quietly and the mas
-> ter keeps logging. If this file is run on its own, it opens the same log here
->  and closes it at the end, so the DID and the event study are always in the l
-> og.
-. capture log using "$out_logs/Appendix/subanalysis_gender_did_regs.log", repla
-> ce text name(sub_gender_did)
 
 . local own_log = (_rc == 0)
 
@@ -3948,16 +3880,486 @@ file /Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thes
 > girls.png written in PNG format
 
 . 
-. if `own_log' log close sub_gender_did
+. *******************************************************************
+. * Triple difference by sex, all children
+. *******************************************************************
+. 
+. * Same as Model 5 of DID_Regs.do, but with child sex
+. gen treat_post_male05 = treat_post * child_male_05
+(25,453 missing values generated)
+
+. label variable treat_post_male05 "2009 drought x post x male"
+
+. foreach v in haz waz bmiz {
+  2.     reghdfe `v' treat_post child_male_05_post treat_post_male05 $did_contr
+> ols $controls02 $controls05 if s_`v' == 1, absorb($FE_month) vce(cluster cveg
+> eo05)
+  3.     * Total drought effect for boys
+.     lincom treat_post + treat_post_male05
+  4.     * Children in this regression, for the event study below
+.     gen tmp = e(sample)
+  5.     bysort pid_link_canonical: egen mddd_`v' = max(tmp)
+  6.     drop tmp
+  7. }
+(dropped 1454 singleton observations)
+(MWFE estimator converged in 14 iterations)
+
+HDFE Linear regression                            Number of obs   =      3,510
+Absorbing 2 HDFE groups                           F(  19,    115) =       1.82
+Statistics robust to heteroskedasticity           Prob > F        =     0.0285
+                                                  R-squared       =     0.7577
+                                                  Adj R-squared   =     0.4971
+                                                  Within R-sq.    =     0.0171
+Number of clusters (cvegeo05) =        116        Root MSE        =     0.9286
+
+                             (Std. err. adjusted for 116 clusters in cvegeo05)
+------------------------------------------------------------------------------
+             |               Robust
+         haz | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+  treat_post |   .1042619   .1349478     0.77   0.441    -.1630436    .3715675
+child_male~t |   .1516554   .0809007     1.87   0.063    -.0085933    .3119042
+treat_pos~05 |   -.162869   .1460995    -1.11   0.267     -.452264    .1265261
+droug~5_post |   .1256106   .1147191     1.09   0.276    -.1016259    .3528471
+droug~6_post |  -.2611413   .1631654    -1.60   0.112    -.5843405     .062058
+droug~7_post |  -.1368594   .1191346    -1.15   0.253    -.3728423    .0991234
+droug~8_post |  -.0734431   .1538028    -0.48   0.634    -.3780969    .2312107
+dwell_elec~t |   -.704337    .325166    -2.17   0.032    -1.348428   -.0602458
+dwell_floo~t |   -.139454   .1135832    -1.23   0.222    -.3644405    .0855326
+dwell_roof~t |   .0813308   .0931407     0.87   0.384    -.1031631    .2658246
+dwell_vent~t |   .0517786   .0770153     0.67   0.503    -.1007739    .2043311
+rooms_per_~t |   .1261604   .1877305     0.67   0.503    -.2456977    .4980184
+ln_pc_expe~t |   .0215698   .0532685     0.40   0.686    -.0839448    .1270845
+rural_02_p~t |  -.1368727   .0959668    -1.43   0.157    -.3269645    .0532191
+mother_hei~t |  -.0089433   .0062753    -1.43   0.157    -.0213734    .0034869
+mother_edu~t |   .0081376    .012223     0.67   0.507    -.0160738    .0323489
+mother_age~t |  -.0022624      .0057    -0.40   0.692     -.013553    .0090281
+mother_emp~t |  -.0347921    .076664    -0.45   0.651    -.1866487    .1170645
+fully_vacc~t |  -.0192179   .0859862    -0.22   0.824    -.1895399    .1511042
+       _cons |   .3762541   .5510034     0.68   0.496    -.7151777    1.467686
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+------------------------------------------------------------+
+        Absorbed FE | Categories  - Redundant  = Num. Coefs |
+--------------------+---------------------------------------|
+ pid_link_canonical |      1755        1755           0    *|
+             int_ym |        46           1          45     |
+------------------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+
+ ( 1)  treat_post + treat_post_male05 = 0
+
+------------------------------------------------------------------------------
+         haz | Coefficient  Std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+         (1) |   -.058607    .134826    -0.43   0.665    -.3256713    .2084573
+------------------------------------------------------------------------------
+(dropped 1554 singleton observations)
+(MWFE estimator converged in 14 iterations)
+
+HDFE Linear regression                            Number of obs   =      1,400
+Absorbing 2 HDFE groups                           F(  19,    100) =       2.03
+Statistics robust to heteroskedasticity           Prob > F        =     0.0130
+                                                  R-squared       =     0.7786
+                                                  Adj R-squared   =     0.5189
+                                                  Within R-sq.    =     0.0427
+Number of clusters (cvegeo05) =        101        Root MSE        =     0.9657
+
+                             (Std. err. adjusted for 101 clusters in cvegeo05)
+------------------------------------------------------------------------------
+             |               Robust
+         waz | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+  treat_post |  -.2413989   .1749179    -1.38   0.171    -.5884311    .1056333
+child_male~t |    .059499   .1234951     0.48   0.631    -.1855118    .3045098
+treat_pos~05 |  -.1070008   .2357915    -0.45   0.651    -.5748044    .3608028
+droug~5_post |  -.1954327   .1249315    -1.56   0.121    -.4432933    .0524279
+droug~6_post |  -.3490598   .2969406    -1.18   0.243    -.9381814    .2400618
+droug~7_post |  -.1758277   .1529186    -1.15   0.253    -.4792139    .1275584
+droug~8_post |    .037293   .1805959     0.21   0.837    -.3210041      .39559
+dwell_elec~t |  -.4866019   .2127393    -2.29   0.024    -.9086706   -.0645332
+dwell_floo~t |  -.0305502   .1555193    -0.20   0.845     -.339096    .2779957
+dwell_roof~t |  -.1683464   .1622495    -1.04   0.302    -.4902447    .1535519
+dwell_vent~t |  -.0159799    .126098    -0.13   0.899    -.2661547    .2341949
+rooms_per_~t |   .2284795   .2536329     0.90   0.370    -.2747208    .7316799
+ln_pc_expe~t |   .1460932   .0635963     2.30   0.024       .01992    .2722664
+rural_02_p~t |   -.033063   .1156229    -0.29   0.776    -.2624556    .1963296
+mother_hei~t |  -.0045306   .0075766    -0.60   0.551    -.0195622    .0105011
+mother_edu~t |   .0223649   .0152123     1.47   0.145    -.0078157    .0525456
+mother_age~t |   .0049322   .0072132     0.68   0.496    -.0093787     .019243
+mother_emp~t |  -.1701481   .1179037    -1.44   0.152    -.4040658    .0637696
+fully_vacc~t |   .2802881   .1046351     2.68   0.009     .0726951    .4878811
+       _cons |   .0592303   .6262286     0.09   0.925    -1.183189     1.30165
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+------------------------------------------------------------+
+        Absorbed FE | Categories  - Redundant  = Num. Coefs |
+--------------------+---------------------------------------|
+ pid_link_canonical |       700         700           0    *|
+             int_ym |        38           1          37     |
+------------------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+
+ ( 1)  treat_post + treat_post_male05 = 0
+
+------------------------------------------------------------------------------
+         waz | Coefficient  Std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+         (1) |  -.3483997   .1692122    -2.06   0.042     -.684112   -.0126875
+------------------------------------------------------------------------------
+(dropped 1467 singleton observations)
+(MWFE estimator converged in 14 iterations)
+
+HDFE Linear regression                            Number of obs   =      3,428
+Absorbing 2 HDFE groups                           F(  19,    115) =       2.34
+Statistics robust to heteroskedasticity           Prob > F        =     0.0030
+                                                  R-squared       =     0.7764
+                                                  Adj R-squared   =     0.5360
+                                                  Within R-sq.    =     0.0212
+Number of clusters (cvegeo05) =        116        Root MSE        =     0.9075
+
+                             (Std. err. adjusted for 116 clusters in cvegeo05)
+------------------------------------------------------------------------------
+             |               Robust
+        bmiz | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+  treat_post |  -.3057227    .109715    -2.79   0.006     -.523047   -.0883985
+child_male~t |  -.0017874    .076383    -0.02   0.981    -.1530875    .1495127
+treat_pos~05 |   .0038456   .1298927     0.03   0.976    -.2534469     .261138
+droug~5_post |  -.1284737   .0850508    -1.51   0.134     -.296943    .0399955
+droug~6_post |  -.0425849   .1984407    -0.21   0.830    -.4356578     .350488
+droug~7_post |  -.2024203   .1204428    -1.68   0.096    -.4409944    .0361538
+droug~8_post |   .3497053   .1382533     2.53   0.013      .075852    .6235585
+dwell_elec~t |   .0155653   .2389087     0.07   0.948    -.4576668    .4887974
+dwell_floo~t |   .1368528   .1023391     1.34   0.184    -.0658612    .3395669
+dwell_roof~t |  -.1548828   .0989394    -1.57   0.120    -.3508627     .041097
+dwell_vent~t |   .1400847   .0654186     2.14   0.034     .0105031    .2696664
+rooms_per_~t |   .2578539   .1453167     1.77   0.079    -.0299905    .5456983
+ln_pc_expe~t |   -.044265   .0421504    -1.05   0.296    -.1277568    .0392267
+rural_02_p~t |   .0162941   .0730605     0.22   0.824    -.1284247    .1610129
+mother_hei~t |  -.0006548   .0046134    -0.14   0.887     -.009793    .0084834
+mother_edu~t |   .0146156   .0112849     1.30   0.198    -.0077377    .0369689
+mother_age~t |   -.001219    .005158    -0.24   0.814     -.011436     .008998
+mother_emp~t |  -.0114392    .078838    -0.15   0.885    -.1676022    .1447237
+fully_vacc~t |   .0525168   .0644527     0.81   0.417    -.0751517    .1801853
+       _cons |   .6490933    .397027     1.63   0.105    -.1373408    1.435527
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+------------------------------------------------------------+
+        Absorbed FE | Categories  - Redundant  = Num. Coefs |
+--------------------+---------------------------------------|
+ pid_link_canonical |      1714        1714           0    *|
+             int_ym |        45           1          44     |
+------------------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+
+ ( 1)  treat_post + treat_post_male05 = 0
+
+------------------------------------------------------------------------------
+        bmiz | Coefficient  Std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+         (1) |  -.3018772   .1203443    -2.51   0.014    -.5402561   -.0634983
+------------------------------------------------------------------------------
 
 . 
-end of do-file
+. * Triple difference event study, same as DID_Regs.do but with child sex
+. * NOTE: This figure is not being in the paper or online appendix used but the
+>  pretrend is in a table in the online appendix
+. gen lead_2_male = child_male_05 * (year == 2002)
+(25,441 missing values generated)
 
-. log close sub_gender_did
+. gen lag_0_male  = child_male_05 * (year == 2009)
+(25,441 missing values generated)
+
+. gen lead_2_dddm = treat2009 * child_male_05 * (year == 2002)
+(25,453 missing values generated)
+
+. gen lag_0_dddm  = treat2009 * child_male_05 * (year == 2009)
+(25,453 missing values generated)
+
+. 
+. foreach v in haz waz bmiz {
+  2.     reghdfe `v' lead_2_dddm lag_0_dddm lead_2_treat lag_0_treat lead_2_mal
+> e lag_0_male $es_controls if e_`v' == 1 & mddd_`v' == 1, absorb($FE_month) vc
+> e(cluster cvegeo05)
+  3.     * Pre-trend test for the DDD. The lead should be about 0
+.     test lead_2_dddm
+  4.     lincom lag_0_treat + lag_0_dddm
+  5. 
+.     preserve
+  6.     postfile handle int etime double b se lb ub using "$out_regs/Appendix/
+> es_ddd_sex_`v'.dta", replace
+  7.     post handle (-2) (_b[lead_2_dddm]) (_se[lead_2_dddm]) (_b[lead_2_dddm]
+>  - 1.96*_se[lead_2_dddm]) (_b[lead_2_dddm] + 1.96*_se[lead_2_dddm])
+  8.     post handle (-1) (0) (0) (0) (0)
+  9.     post handle (0) (_b[lag_0_dddm]) (_se[lag_0_dddm]) (_b[lag_0_dddm] - 1
+> .96*_se[lag_0_dddm]) (_b[lag_0_dddm] + 1.96*_se[lag_0_dddm])
+ 10.     postclose handle
+ 11. 
+.     use "$out_regs/Appendix/es_ddd_sex_`v'.dta", clear
+ 12.     sort etime
+ 13.     twoway ///
+>         (rcap ub lb etime, lcolor(black)) ///
+>         (scatter b etime, mcolor(blue) msymbol(O)), ///
+>         xlabel(-2 "2002" -1 "2005 (ref)" 0 "2009") ///
+>         xline(-1, lpattern(dash) lcolor(red)) ///
+>         yline(0, lpattern(dash) lcolor(black)) ///
+>         xtitle("Event time (wave)") ytitle("Coefficient") ///
+>         title("DDD event study (drought x male): `v'") legend(off)
+ 14.     graph export "$out_figs/Online_Appendix/event_study_ddd_sex_`v'.png", 
+> replace
+ 15.     restore
+ 16. }
+(MWFE estimator converged in 12 iterations)
+
+HDFE Linear regression                            Number of obs   =      4,598
+Absorbing 2 HDFE groups                           F(  38,    115) =       1.79
+Statistics robust to heteroskedasticity           Prob > F        =     0.0097
+                                                  R-squared       =     0.7066
+                                                  Adj R-squared   =     0.5108
+                                                  Within R-sq.    =     0.0171
+Number of clusters (cvegeo05) =        116        Root MSE        =     0.9118
+
+                             (Std. err. adjusted for 116 clusters in cvegeo05)
+------------------------------------------------------------------------------
+             |               Robust
+         haz | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+ lead_2_dddm |   .0632944   .1787547     0.35   0.724    -.2907843     .417373
+  lag_0_dddm |  -.1720947   .1454819    -1.18   0.239    -.4602664    .1160769
+lead_2_treat |   .0827674   .1410585     0.59   0.559    -.1966424    .3621772
+ lag_0_treat |    .103393     .13573     0.76   0.448     -.165462     .372248
+ lead_2_male |  -.1212588   .0918937    -1.32   0.190    -.3032825    .0607648
+  lag_0_male |    .155999   .0789482     1.98   0.051    -.0003822    .3123803
+drough~5_w02 |   .1986757   .1182278     1.68   0.096    -.0355108    .4328621
+drough~5_w09 |   .1185579    .112009     1.06   0.292    -.1033104    .3404262
+drough~6_w02 |  -.1512002   .2652293    -0.57   0.570    -.6765684    .3741681
+drough~6_w09 |  -.2330947   .1553855    -1.50   0.136    -.5408835    .0746941
+drough~7_w02 |  -.0403427   .1132966    -0.36   0.722    -.2647614     .184076
+drough~7_w09 |  -.1043116   .1187036    -0.88   0.381    -.3394406    .1308174
+drough~8_w02 |  -.2725957   .1832684    -1.49   0.140    -.6356151    .0904237
+drough~8_w09 |  -.1164127    .150444    -0.77   0.441    -.4144133    .1815878
+dwell_el~w02 |   -.584566   .2957178    -1.98   0.050    -1.170326     .001194
+dwell_ele~09 |  -.7267319   .3208119    -2.27   0.025    -1.362199   -.0912652
+dwell_fl~w02 |  -.0313812   .1384374    -0.23   0.821     -.305599    .2428367
+dwell_flo~09 |  -.1311784   .1139414    -1.15   0.252    -.3568745    .0945176
+dwell_ro~w02 |   .0036113   .1421601     0.03   0.980    -.2779805     .285203
+dwell_roo~09 |   .0641482   .0918023     0.70   0.486    -.1176944    .2459908
+dwell_ve~w02 |   .0800896   .0897951     0.89   0.374    -.0977771    .2579564
+dwell_ven~09 |     .03996   .0767393     0.52   0.604    -.1120458    .1919657
+rooms_pe~w02 |   .3168528   .2337003     1.36   0.178    -.1460626    .7797682
+rooms_per~09 |   .1296929   .1904161     0.68   0.497    -.2474847    .5068704
+ln_pc_ex~w02 |   .0421066    .056347     0.75   0.456     -.069506    .1537192
+ln_pc_exp~09 |   .0221494   .0526168     0.42   0.675    -.0820744    .1263731
+rural_02_w02 |  -.0816875    .112641    -0.73   0.470    -.3048077    .1414327
+rural_02_w09 |  -.1277298   .0957408    -1.33   0.185    -.3173738    .0619142
+mother_he~02 |  -.0081112   .0065983    -1.23   0.221    -.0211811    .0049587
+mother_he~09 |   -.007478   .0062515    -1.20   0.234    -.0198611     .004905
+mother_ed~02 |  -.0151614   .0133422    -1.14   0.258    -.0415897    .0112668
+mother_ed~09 |   .0067578   .0119222     0.57   0.572    -.0168577    .0303733
+mother_ag~02 |   .0000835   .0067578     0.01   0.990    -.0133025    .0134694
+mother_ag~09 |  -.0020391   .0057496    -0.35   0.724     -.013428    .0093498
+mother_em~02 |  -.0919603   .0949686    -0.97   0.335    -.2800748    .0961543
+mother_em~09 |   -.030759   .0736571    -0.42   0.677    -.1766596    .1151416
+fully_vac~02 |   .0362609    .095433     0.38   0.705    -.1527735    .2252953
+fully_vac~09 |  -.0222425   .0861164    -0.26   0.797    -.1928226    .1483375
+       _cons |   .4180291   .6065425     0.69   0.492    -.7834149    1.619473
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+------------------------------------------------------------+
+        Absorbed FE | Categories  - Redundant  = Num. Coefs |
+--------------------+---------------------------------------|
+ pid_link_canonical |      1755        1755           0    *|
+             int_ym |        49           1          48     |
+------------------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+
+ ( 1)  lead_2_dddm = 0
+
+       F(  1,   115) =    0.13
+            Prob > F =    0.7239
+
+ ( 1)  lag_0_dddm + lag_0_treat = 0
+
+------------------------------------------------------------------------------
+         haz | Coefficient  Std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+         (1) |  -.0687017   .1273687    -0.54   0.591    -.3209946    .1835911
+------------------------------------------------------------------------------
+file /Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thes
+> is/Proposal 3 Mexico OG/Output/Figures/Online_Appendix/event_study_ddd_sex_ha
+> z.png written in PNG format
+(MWFE estimator converged in 13 iterations)
+
+HDFE Linear regression                            Number of obs   =      1,609
+Absorbing 2 HDFE groups                           F(  38,    100) =       2.65
+Statistics robust to heteroskedasticity           Prob > F        =     0.0001
+                                                  R-squared       =     0.7350
+                                                  Adj R-squared   =     0.4872
+                                                  Within R-sq.    =     0.0548
+Number of clusters (cvegeo05) =        101        Root MSE        =     0.9700
+
+                             (Std. err. adjusted for 101 clusters in cvegeo05)
+------------------------------------------------------------------------------
+             |               Robust
+         waz | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+ lead_2_dddm |   -.629743   .3950321    -1.59   0.114    -1.413475    .1539894
+  lag_0_dddm |  -.1065879   .2351251    -0.45   0.651    -.5730694    .3598935
+lead_2_treat |  -.1899623   .2634585    -0.72   0.473    -.7126565     .332732
+ lag_0_treat |   -.240798   .1754612    -1.37   0.173     -.588908    .1073119
+ lead_2_male |    .015398   .2417421     0.06   0.949    -.4642115    .4950075
+  lag_0_male |    .061627   .1230987     0.50   0.618    -.1825973    .3058514
+drough~5_w02 |  -.1667202   .1726217    -0.97   0.336    -.5091968    .1757564
+drough~5_w09 |   -.168335   .1242793    -1.35   0.179    -.4149015    .0782315
+drough~6_w02 |   .5545082   .2951683     1.88   0.063    -.0310974    1.140114
+drough~6_w09 |  -.3032059   .2918106    -1.04   0.301    -.8821499    .2757381
+drough~7_w02 |   .3257551   .3826301     0.85   0.397    -.4333721    1.084882
+drough~7_w09 |  -.1723616   .1527352    -1.13   0.262    -.4753838    .1306606
+drough~8_w02 |    .086145   .4575989     0.19   0.851    -.8217182    .9940082
+drough~8_w09 |   .0059821   .1815111     0.03   0.974    -.3541307     .366095
+dwell_el~w02 |  -.3410863   .6494597    -0.53   0.601    -1.629596    .9474232
+dwell_ele~09 |  -.5192927   .2040778    -2.54   0.012    -.9241773    -.114408
+dwell_fl~w02 |  -.4501555   .2334315    -1.93   0.057     -.913277     .012966
+dwell_flo~09 |  -.0205371   .1564586    -0.13   0.896    -.3309466    .2898724
+dwell_ro~w02 |  -.0850774   .2289272    -0.37   0.711    -.5392625    .3691076
+dwell_roo~09 |  -.1586388   .1624053    -0.98   0.331    -.4808463    .1635687
+dwell_ve~w02 |   .2930151   .1749129     1.68   0.097     -.054007    .6400372
+dwell_ven~09 |  -.0243337   .1229464    -0.20   0.844    -.2682559    .2195886
+rooms_pe~w02 |  -.2244665   .5024571    -0.45   0.656    -1.221327     .772394
+rooms_per~09 |   .2072409   .2537405     0.82   0.416    -.2961731    .7106548
+ln_pc_ex~w02 |   .0310131   .1416903     0.22   0.827    -.2500965    .3121227
+ln_pc_exp~09 |   .1438595     .06544     2.20   0.030     .0140283    .2736906
+rural_02_w02 |  -.0499467   .1858096    -0.27   0.789    -.4185876    .3186941
+rural_02_w09 |  -.0505297   .1187895    -0.43   0.671    -.2862046    .1851452
+mother_he~02 |   .0008514   .0131618     0.06   0.949    -.0252612     .026964
+mother_he~09 |  -.0031332   .0075058    -0.42   0.677    -.0180244    .0117581
+mother_ed~02 |   -.030318   .0310737    -0.98   0.332    -.0919673    .0313313
+mother_ed~09 |   .0207135   .0156286     1.33   0.188    -.0102933    .0517203
+mother_ag~02 |   .0113739   .0129015     0.88   0.380    -.0142223    .0369701
+mother_ag~09 |   .0048905   .0072943     0.67   0.504    -.0095812    .0193621
+mother_em~02 |   .0200686   .1898898     0.11   0.916    -.3566674    .3968045
+mother_em~09 |  -.1972657   .1178514    -1.67   0.097    -.4310795    .0365481
+fully_vac~02 |   .1875962   .2068868     0.91   0.367    -.2228613    .5980537
+fully_vac~09 |   .2759449    .109322     2.52   0.013      .059053    .4928367
+       _cons |   .0296028    .670043     0.04   0.965    -1.299743    1.358949
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+------------------------------------------------------------+
+        Absorbed FE | Categories  - Redundant  = Num. Coefs |
+--------------------+---------------------------------------|
+ pid_link_canonical |       700         700           0    *|
+             int_ym |        41           1          40     |
+------------------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+
+ ( 1)  lead_2_dddm = 0
+
+       F(  1,   100) =    2.54
+            Prob > F =    0.1141
+
+ ( 1)  lag_0_dddm + lag_0_treat = 0
+
+------------------------------------------------------------------------------
+         waz | Coefficient  Std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+         (1) |   -.347386    .170067    -2.04   0.044     -.684794   -.0099779
+------------------------------------------------------------------------------
+file /Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thes
+> is/Proposal 3 Mexico OG/Output/Figures/Online_Appendix/event_study_ddd_sex_wa
+> z.png written in PNG format
+(MWFE estimator converged in 12 iterations)
+
+HDFE Linear regression                            Number of obs   =      4,438
+Absorbing 2 HDFE groups                           F(  38,    115) =       3.72
+Statistics robust to heteroskedasticity           Prob > F        =     0.0000
+                                                  R-squared       =     0.7033
+                                                  Adj R-squared   =     0.5011
+                                                  Within R-sq.    =     0.0334
+Number of clusters (cvegeo05) =        116        Root MSE        =     0.9108
+
+                             (Std. err. adjusted for 116 clusters in cvegeo05)
+------------------------------------------------------------------------------
+             |               Robust
+        bmiz | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+ lead_2_dddm |   .0559318   .1510825     0.37   0.712    -.2433336    .3551972
+  lag_0_dddm |   .0162593   .1301776     0.12   0.901    -.2415975    .2741161
+lead_2_treat |  -.4151356   .1178498    -3.52   0.001    -.6485735   -.1816978
+ lag_0_treat |  -.3013571   .1094878    -2.75   0.007    -.5182315   -.0844828
+ lead_2_male |  -.0917647   .0985127    -0.93   0.354    -.2868994      .10337
+  lag_0_male |  -.0061973   .0758811    -0.08   0.935    -.1565032    .1441085
+drough~5_w02 |  -.2631088   .1044959    -2.52   0.013    -.4700951   -.0561226
+drough~5_w09 |  -.1139707    .084576    -1.35   0.180    -.2814996    .0535581
+drough~6_w02 |   .4213028    .295472     1.43   0.157    -.1639702    1.006576
+drough~6_w09 |  -.0342569   .1814324    -0.19   0.851    -.3936396    .3251257
+drough~7_w02 |   .1019414   .1618708     0.63   0.530    -.2186934    .4225763
+drough~7_w09 |  -.2196893   .1253491    -1.75   0.082    -.4679817    .0286031
+drough~8_w02 |   .3164988   .1991721     1.59   0.115    -.0780228    .7110203
+drough~8_w09 |   .3419147   .1354257     2.52   0.013     .0736625    .6101669
+dwell_el~w02 |  -.5089246   .2163668    -2.35   0.020    -.9375055   -.0803436
+dwell_ele~09 |   .0249056   .2394191     0.10   0.917    -.4493375    .4991488
+dwell_fl~w02 |  -.2016344   .1471704    -1.37   0.173    -.4931507    .0898818
+dwell_flo~09 |   .1331314   .1030244     1.29   0.199      -.07094    .3372028
+dwell_ro~w02 |  -.0548101   .1142993    -0.48   0.632     -.281215    .1715948
+dwell_roo~09 |  -.1656388   .0991986    -1.67   0.098    -.3621321    .0308545
+dwell_ve~w02 |   .1582452   .0797403     1.98   0.050      .000295    .3161953
+dwell_ven~09 |   .1439394   .0665275     2.16   0.033     .0121612    .2757177
+rooms_pe~w02 |   .2531282      .2598     0.97   0.332    -.2614855    .7677419
+rooms_per~09 |    .241782   .1467888     1.65   0.102    -.0489785    .5325424
+ln_pc_ex~w02 |  -.1267949   .0493806    -2.57   0.012    -.2246084   -.0289814
+ln_pc_exp~09 |  -.0469676   .0426843    -1.10   0.273    -.1315169    .0375817
+rural_02_w02 |   .0501487   .0977786     0.51   0.609    -.1435318    .2438292
+rural_02_w09 |  -.0008048   .0752507    -0.01   0.991    -.1498621    .1482524
+mother_he~02 |   .0085723   .0053848     1.59   0.114     -.002094    .0192387
+mother_he~09 |  -7.12e-06   .0046297    -0.00   0.999    -.0091776    .0091634
+mother_ed~02 |  -.0007273   .0138465    -0.05   0.958    -.0281546    .0266999
+mother_ed~09 |   .0153035   .0112976     1.35   0.178    -.0070748    .0376817
+mother_ag~02 |  -.0092314   .0080692    -1.14   0.255     -.025215    .0067522
+mother_ag~09 |  -.0010435   .0051242    -0.20   0.839    -.0111935    .0091065
+mother_em~02 |  -.0598804   .1096483    -0.55   0.586    -.2770726    .1573118
+mother_em~09 |  -.0159989    .079289    -0.20   0.840    -.1730552    .1410574
+fully_vac~02 |    .012665   .0901726     0.14   0.889    -.1659497    .1912796
+fully_vac~09 |   .0484298   .0648587     0.75   0.457    -.0800428    .1769025
+       _cons |   .6867077   .4401178     1.56   0.121     -.185081    1.558496
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+------------------------------------------------------------+
+        Absorbed FE | Categories  - Redundant  = Num. Coefs |
+--------------------+---------------------------------------|
+ pid_link_canonical |      1714        1714           0    *|
+             int_ym |        48           1          47     |
+------------------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+
+ ( 1)  lead_2_dddm = 0
+
+       F(  1,   115) =    0.14
+            Prob > F =    0.7119
+
+ ( 1)  lag_0_dddm + lag_0_treat = 0
+
+------------------------------------------------------------------------------
+        bmiz | Coefficient  Std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+         (1) |  -.2850978   .1242402    -2.29   0.024    -.5311938   -.0390018
+------------------------------------------------------------------------------
+file /Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thes
+> is/Proposal 3 Mexico OG/Output/Figures/Online_Appendix/event_study_ddd_sex_bm
+> iz.png written in PNG format
+
+. 
+. if `own_log' log close sub_gender_did
       name:  sub_gender_did
        log:  /Users/zakserby/Documents/Documents (MAC)/Cornell University/Maste
 > r's Thesis/Proposal 3 Mexico OG/Output/Logs/Appendix/subanalysis_gender_did_r
 > egs.log
   log type:  text
- closed on:   7 Nov 2026, 03:58:48
+ closed on:  12 Nov 2026, 20:31:33
 -------------------------------------------------------------------------------

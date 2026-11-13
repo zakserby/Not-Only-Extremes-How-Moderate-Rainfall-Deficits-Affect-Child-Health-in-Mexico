@@ -65,3 +65,12 @@
 "bmiz","Remittance buffer: dry x 2002 remittances, urban","remittance_hh_02",-0.0444,0.1189,0.71,0.71,947,330,59,45
 "bmiz","Remittance buffer: dry x 2002 remittances, urban","dry:remittance_hh_02",0.2156,0.3041,0.481,0.534,947,102,22,45
 "bmiz","Main average ATT from 6): any deficit vs none, urban","D_any",-0.054,0.0945,0.57,0.593,1381,867,54,24
+"haz","Triple difference: dry x rural","dry",-0.0948,0.106,0.373,0.393,2351,858,40,89
+"haz","Triple difference: dry x rural","rural_05",-0.1415,0.1096,0.199,0.22,2351,1003,62,89
+"haz","Triple difference: dry x rural","dry:rural_05",0.1276,0.2065,0.538,0.575,2351,368,13,89
+"waz","Triple difference: dry x rural","dry",-0.2182,0.1028,0.036,0.049,1045,362,39,80
+"waz","Triple difference: dry x rural","rural_05",-0.2128,0.1142,0.065,0.073,1045,419,57,80
+"waz","Triple difference: dry x rural","dry:rural_05",0.075,0.2481,0.763,0.796,1045,158,13,80
+"bmiz","Triple difference: dry x rural","dry",-0.1742,0.1103,0.117,0.141,2300,836,40,89
+"bmiz","Triple difference: dry x rural","rural_05",-0.0142,0.0747,0.85,0.847,2300,986,62,89
+"bmiz","Triple difference: dry x rural","dry:rural_05",0.0272,0.1428,0.849,0.865,2300,358,13,89

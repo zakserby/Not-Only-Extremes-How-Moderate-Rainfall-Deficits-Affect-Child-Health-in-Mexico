@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.11.6)  7 NOV 2026 17:36
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.11.12)  13 NOV 2026 16:53
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -23,7 +23,7 @@ File: size12.clo 2026-06-04 v1.4n Standard LaTeX file (size option)
 \belowcaptionskip=\skip50
 \bibindent=\dimen150
 ) (/Users/zakserby/Library/TinyTeX/texmf-dist/tex/latex/geometry/geometry.sty
-Package: geometry 2026/03/07 v6.0 Page Geometry
+Package: geometry 2026/11/03 v6.1 Page Geometry
 (/Users/zakserby/Library/TinyTeX/texmf-dist/tex/latex/graphics/keyval.sty
 Package: keyval 2026-06-01 v1.15 key=value parser (DPC)
 \KV@toks@=\toks17
@@ -450,7 +450,7 @@ Package: kvsetkeys 2022-10-05 v1.19 Key value parser (HO)
 ) (/Users/zakserby/Library/TinyTeX/texmf-dist/tex/latex/biblatex/biblatex.sty
 Package: biblatex 2026/09/24 v3.22a programmable bibliographies (PK/MW)
 (/Users/zakserby/Library/TinyTeX/texmf-dist/tex/generic/pdftexcmds/pdftexcmds.sty
-Package: pdftexcmds 2020-06-27 v0.33 Utility functions of pdfTeX for LuaTeX (HO)
+Package: pdftexcmds 2026-10-28 v0.34 Utility functions of pdfTeX for LuaTeX (HO)
 Package pdftexcmds Info: \pdf@primitive is available.
 Package pdftexcmds Info: \pdf@ifprimitive is available.
 Package pdftexcmds Info: \pdfdraftmode found.
@@ -1147,7 +1147,7 @@ Package pdftex.def Info: /Users/zakserby/Documents/Documents (MAC)/Cornell Unive
 
 ] [6 </Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thesis/Proposal 3 Mexico OG/Output/Figures/Online_Appendix/contdid_binscatter_bmiz.png> </Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thesis/Proposal 3 Mexico OG/Output/Figures/Online_Appendix/contdid_binscatter_haz.png> </Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thesis/Proposal 3 Mexico OG/Output/Figures/Online_Appendix/contdid_binscatter_waz.png>] [7 </Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thesis/Proposal 3 Mexico OG/Output/Figures/Online_Appendix/contdid_att_clustered_bmiz.png> </Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thesis/Proposal 3 Mexico OG/Output/Figures/Online_Appendix/contdid_att_clustered_haz.png> </Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thesis/Proposal 3 Mexico OG/Output/Figures/Online_Appendix/contdid_att_clustered_waz.png>] [8
 
-] [9] [10] [11] [12] [13] [14] [15] [16] (./Online_Appendix.aux)
+] [9] [10] [11] [12] [13] [14] [15] [16] [17] [18] (./Online_Appendix.aux)
  ***********
 LaTeX2e <2026-11-01>
 L3 programming layer <2020/03/25>
@@ -1159,18 +1159,18 @@ Package logreq Info: Writing requests to 'Online_Appendix.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 27912 strings out of 468958
- 496017 string characters out of 5453337
- 1830127 words of memory out of 5000000
- 56618 multiletter control sequences out of 15000+600000
- 704964 words of font info for 197 fonts, out of 8000000 for 9000
+ 27992 strings out of 468958
+ 497191 string characters out of 5453336
+ 1849316 words of memory out of 5000000
+ 56688 multiletter control sequences out of 15000+600000
+ 705148 words of font info for 199 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  84i,9n,117p,2427b,4041s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </Users/zakserby/Library/TinyTeX/texmf-dist/fonts/type1/public/newtx/NewTXMI.pfb></Users/zakserby/Library/TinyTeX/texmf-dist/fonts/type1/public/newtx/NewTXMI7.pfb></Users/zakserby/Library/TinyTeX/texmf-dist/fonts/type1/public/pdftex/pdftexspace.pfb></Users/zakserby/Library/TinyTeX/texmf-dist/fonts/type1/public/newtx/txmiaX.pfb></Users/zakserby/Library/TinyTeX/texmf-dist/fonts/type1/public/newtx/txsys.pfb></Users/zakserby/Library/TinyTeX/texmf-dist/fonts/type1/public/newtx/ztmb.pfb></Users/zakserby/Library/TinyTeX/texmf-dist/fonts/type1/public/newtx/ztmr.pfb></Users/zakserby/Library/TinyTeX/texmf-dist/fonts/type1/public/newtx/ztmri.pfb>
-Output written on Online_Appendix.pdf (16 pages, 545354 bytes).
+Output written on Online_Appendix.pdf (18 pages, 556751 bytes).
 PDF statistics:
- 258 PDF objects out of 1000 (max. 8388607)
- 208 compressed objects within 3 object streams
- 43 named destinations out of 1000 (max. 500000)
+ 284 PDF objects out of 1000 (max. 8388607)
+ 232 compressed objects within 3 object streams
+ 49 named destinations out of 1000 (max. 500000)
  26679 words of extra memory for PDF output out of 29859 (max. 10000000)
 

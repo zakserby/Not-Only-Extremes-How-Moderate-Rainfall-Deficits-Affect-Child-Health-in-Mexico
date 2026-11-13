@@ -106,6 +106,7 @@ figure_title <- function(name) {
   if (base == "event_study") family <- paste0("Event Study, ", v, ", Binary DID")
   if (base == "event_study_ddd") family <- paste0("Triple Difference Event Study, ", v, ", Binary DID")
   if (base == "event_study_severity") family <- paste0("Event Study by Dose Level, ", v, ", Discrete Dose")
+  if (base == "event_study_dry") family <- paste0("Event Study for Pooled Dry, ", v, ", Discrete Dose")
   if (base == "contdid_binscatter") family <- paste0("Change in ", v, " by 2009 Rainfall Deficit, Continuous Dose")
   if (base == "contdid_att_clustered") family <- paste0("ATT by 2009 Rainfall Deficit, ", v, ", Continuous Dose")
   if (base == "contdid_acrt_clustered") family <- paste0("ACRT by 2009 Rainfall Deficit, ", v, ", Continuous Dose")
@@ -122,6 +123,7 @@ figure_note <- function(name) {
   fe <- "Child and interview year-month fixed effects, 2005 is the reference wave, and 95\\% confidence intervals use standard errors clustered by 2005 municipality."
   if (grepl("^event_study_severity_.*_all3", name)) return("Moderately dry and severely dry or worse compared with near-normal. The sample is the children in the discrete-dose table who were measured in all three survey waves, so the 2002 lead and the 2009 coefficient come from the same children. Similar to the discrete-dose table, there are no controls. Included are child and survey wave fixed effects. 2005 is the reference wave. 95\\% confidence intervals use standard errors clustered by 2005 municipality.")
   if (grepl("^event_study_severity_", name)) return("Moderately dry and severely dry or worse compared with near-normal. The 2009 coefficients are the same as in the discrete-dose table. Here I include both the 2002 lead and the 2009 coefficient. Similar to the discrete-dose table, there are no controls. Included are child and survey wave fixed effects. 2005 is the reference wave. 95\\% confidence intervals use standard errors clustered by 2005 municipality.")
+  if (grepl("^event_study_dry_", name)) return("Dry ($z \\le -1$) compared with near-normal, pooling the moderately dry and severely dry or worse dose groups. The figure looks at pre-trends for the pooled dry estimates in the discrete-dose table. Similar to the discrete-dose table, there are no controls. Included are child and survey wave fixed effects. 2005 is the reference wave. 95\\% confidence intervals use standard errors clustered by 2005 municipality.")
   if (grepl("^event_study_(haz|waz|bmiz)_controls", name)) return("Drought compared with no drought. The coefficients are on the 2009 drought indicator interacted with the 2002 and 2009 survey waves. The sample is the children in Model 3 of the binary difference-in-differences, in each survey wave in which they are measured. The Model 3 controls are each interacted with the 2002 and 2009 survey waves. Included are child and interview year-month fixed effects. 2005 is the reference wave. 95\\% confidence intervals use standard errors clustered by 2005 municipality.")
   if (grepl("^overlap_pscore_", name)) return("The sample is the children in the discrete-dose regressions. Kernel densities of the propensity score. That is, the predicted probability of being in the dry dose group from a logit on baseline characteristics. Baseline characteristics are the 2002 household controls (electricity, floor, roof, ventilation, rooms per person, log expenditure per person, rural) and the 2005 child and mother controls (sex, full vaccination, mother's height, schooling, age at birth, and employment), and the child's age. Missing values are set to the sample mean and flagged with an indicator. Each panel compares one dry dose group with near-normal (\\ensuremath{-1<z<1}) and is estimated separately. Moderately dry is \\ensuremath{-1.5<z\\le -1}, and severely dry or worse is \\ensuremath{z\\le -1.5}. In each box, children and mean score are shown as dry dose group/near-normal. Outside support is the number of dry dose group children whose score lies below the lowest or above the highest near-normal score.")
   ""
@@ -142,7 +144,8 @@ figure_block <- function(sub, name) {
 main_figs <- c("drought_map_spi.png", "event_study_severity_bmiz.png", "event_study_severity_haz.png", "event_study_severity_waz.png",
                "event_study_severity_bmiz_all3.png", "overlap_pscore_bmiz.png")
 app_figs <- c("drought_map_binary.png", "event_study_bmiz_controls.png", "event_study_haz_controls.png", "event_study_waz_controls.png",
-              "event_study_severity_haz_all3.png", "event_study_severity_waz_all3.png")
+              "event_study_severity_haz_all3.png", "event_study_severity_waz_all3.png",
+              "event_study_dry_bmiz.png", "event_study_dry_haz.png", "event_study_dry_waz.png")
 online_figs <- c("contdid_binscatter_bmiz.png", "contdid_binscatter_haz.png", "contdid_binscatter_waz.png", "contdid_att_clustered_bmiz.png", "contdid_att_clustered_haz.png", "contdid_att_clustered_waz.png")
 
 #===============================================================================
@@ -205,7 +208,7 @@ compile_tex("Results")
 #===============================================================================
 
 # This section builds the paper and its own appendix. Additionally it builds the online appendix from the text in Paper/Text
-# In the text, each %%TABLE, %%FIGURE and %%FIGROW line is where a table or figure goes. NOTE: We have it so it gets replaced with the one from Output
+# In the text, each %%TABLE, %%TABROW, %%FIGURE and %%FIGROW line is where a table or figure goes. NOTE: We have it so it gets replaced with the one from Output
 
 # Finds which folder the figure is in e.g. Main, Appendix or Online_Appendix
 figure_path <- function(name) {
@@ -348,6 +351,24 @@ paper_figrow <- function(files, labels, titles, notes) {
     "\\end{sidewaysfigure}", "")
 }
 
+# Tables sit side by side on one landscape page
+paper_tabrow <- function(file, keys, labels) {
+  w <- sprintf("%.2f", 0.98 / min(2, length(keys)))
+  rows <- c()
+  for (i in seq_along(keys)) {
+    tb <- table_block(file, keys[i], labels[i])
+    # Titles are centered like the figure titles of paper_figrow
+    tb <- sub("\\begin{table}[!htbp]\\centering", paste("\\begin{minipage}[t]{", w, "\\linewidth}\\centering\\captionsetup{justification=centering}", sep=""), tb, fixed = TRUE)
+    tb <- sub("\\caption{", "\\captionof{table}{", tb, fixed = TRUE)
+    tb <- sub("\\end{table}", "\\end{minipage}", tb, fixed = TRUE)
+    # Blank lines are dropped so the tables stay on the same line
+    rows <- c(rows, tb[tb != ""], "\\hfill")
+    # A third or fourth table starts a new row below
+    if (i %% 2 == 0 && i < length(keys)) rows <- c(rows, "\\par\\vspace{14pt}\\noindent")
+  }
+  c("\\begin{sidewaystable}[p]", "\\noindent", rows, "\\end{sidewaystable}", "")
+}
+
 # Makes a landscape page wait one more page, so a nearby table or figure isn't left alone on a page
 wait_one_page <- function(x) {
   # Adds \afterpagefloat{ at the start
@@ -366,7 +387,19 @@ fill_text <- function(file) {
   last_float <- -100
   is_float <- function(x) startsWith(x, "%%FIGURE") || (startsWith(x, "%%TABLE") && !grepl("balance_table", x))
   float_lines <- which(sapply(lines, is_float))
-  near_next <- function(j) any(float_lines > j & float_lines - j <= 10)
+  # A \FloatBarrier ends the stretch, so a table or figure after it doesn't count as close
+  barriers <- which(lines == "\\FloatBarrier")
+  near_next <- function(j) any(float_lines > j & float_lines - j <= 10 & float_lines < min(c(barriers[barriers > j], Inf)))
+  # A subheading right above a landscape page goes on that page, so it isn't left alone on the page before
+  with_heading <- function(tb) {
+    k <- length(out)
+    while (k > 0 && identical(out[[k]], "")) k <- k - 1
+    if (k == 0 || length(out[[k]]) != 1 || !startsWith(out[[k]], "\\subsubsection*")) return(tb)
+    i <- grep("\\begin{sideways", tb, fixed = TRUE)[1]
+    tb <- append(tb, c(out[[k]], "\\vspace{6pt}"), after = i)
+    out[[k]] <<- ""
+    tb
+  }
   for (j in seq_along(lines)) {
     l <- lines[j]
     # Splits the line at each |, e.g. %%TABLE|file|caption words|label
@@ -378,7 +411,10 @@ fill_text <- function(file) {
       tb <- table_block(p[2], p[3], p[4])
       # If it's landscape and a table or figure is within 10 lines, it waits one more page
       landscape <- any(grepl("\\begin{sidewaystable}", tb, fixed = TRUE))
-      if (landscape && (j - last_float <= 10 || near_next(j))) tb <- wait_one_page(tb)
+      # A landscape table with its subheading doesn't wait, so the subheading stays in its section
+      n0 <- length(tb)
+      if (landscape) tb <- with_heading(tb)
+      if (landscape && length(tb) == n0 && (j - last_float <= 10 || near_next(j))) tb <- wait_one_page(tb)
       if (!landscape) last_float <- j
       out[[length(out) + 1]] <- tb
       # One figure
@@ -388,10 +424,17 @@ fill_text <- function(file) {
       # Figures side by side on a landscape page, which also waits a page if one is close
     } else if (p[1] == "%%FIGROW") {
       fr <- paper_figrow(strsplit(p[2], ";")[[1]], strsplit(p[3], ";")[[1]], strsplit(p[4], ";")[[1]], ifelse(length(p) > 4, p[5], ""))
-      if (j - last_float <= 10 || near_next(j)) fr <- wait_one_page(fr)
+      n0 <- length(fr)
+      fr <- with_heading(fr)
+      if (length(fr) == n0 && (j - last_float <= 10 || near_next(j))) fr <- wait_one_page(fr)
       out[[length(out) + 1]] <- fr
+      # Tables side by side on a landscape page, e.g. %%TABROW|file|caption words;caption words|label;label, same as %%FIGROW
+      # Unlike %%FIGROW it does not wait one more page, since that can push the page past the \clearpage of the next section
+    } else if (p[1] == "%%TABROW") {
+      out[[length(out) + 1]] <- with_heading(paper_tabrow(p[2], strsplit(p[3], ";")[[1]], strsplit(p[4], ";")[[1]]))
       # Regular text stays the same
     } else {
+      if (l == "\\FloatBarrier") last_float <- -100
       out[[length(out) + 1]] <- l
     }
   }

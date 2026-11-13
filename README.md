@@ -11,13 +11,13 @@
 
 ## Overview
 
-This thesis studies how the effects of the 2009 rainfall deficit in Mexico on child health vary with the severity of the deficit, and whether household remittances buffered the shock. Child health is measured by WHO height-for-age (HAZ), weight-for-age (WAZ), and BMI-for-age (BMIZ) z-scores. It combines the Mexican Family Life Survey (MxFLS) for 2002, 2005 and 2009 with municipality-level CHIRPS rainfall over the May-October growing season. The main design is a difference-in-differences (DID) that treats rainfall severity categories as the dose levels of a multi-valued discrete treatment, following Callaway, Goodman-Bacon and Sant'Anna (2024). The categories use Standardized Precipitation Index (SPI) cutoffs, and near-normal municipalities are the comparison group. The thesis also estimates a binary DID with baseline controls, triple differences with 2002 remittances, event studies, and a continuous DID, with subanalyses by child sex and by rural vs urban locality.
+This thesis studies how the effects of the 2009 rainfall deficit in Mexico on child health vary with the severity of the deficit, and whether household remittances buffered the shock. Child health is measured by WHO height-for-age (HAZ), weight-for-age (WAZ), and BMI-for-age (BMIZ) z-scores. It combines the Mexican Family Life Survey (MxFLS) for 2002, 2005 and 2009 with municipality-level CHIRPS rainfall over the May-October growing season. The main design is a difference-in-differences (DID) that treats rainfall severity categories as the dose levels of a multi-valued discrete treatment, following Callaway, Goodman-Bacon and Sant'Anna (2024). The categories use Standardized Precipitation Index (SPI) cutoffs, and near-normal municipalities are the comparison group. The thesis also estimates a binary DID with baseline controls, triple differences with 2002 remittances, event studies, attrition tests, and a continuous DID, with subanalyses and triple differences by child sex and by rural vs urban locality.
 
 ## How to run
 
 1. Download or clone this repository.
 2. Open `Scripts/00_Master.do`. Double-clicking it sets Stata's working folder to `Scripts` (if Stata is already open, `cd` to the project or `Scripts` folder first). The project root is found automatically.
-3. Run it. The pipeline first cleans the three MxFLS waves (2002, 2005, 2009) and builds the DID analysis data. It then runs the summary statistics and balance tables, the drought map in R, and the DID, triple difference and event study regressions. Next come the continuous DID in R and the subanalyses by sex and by rural vs urban, in Stata and then R. Last, it writes the regression tables and builds the paper in R, compiled to `Paper/MS_Thesis.pdf`, `Paper/Online_Appendix.pdf` and `Paper/Results.pdf`. The continuous DID steps are the slowest because of the wild cluster bootstrap.
+3. Run it. The pipeline first cleans the three MxFLS waves (2002, 2005, 2009) and builds the DID analysis data. It then runs the summary statistics, attrition tests and balance tables, the drought map in R, and the DID, triple difference and event study regressions. Next come the continuous DID in R and the subanalyses by sex and by rural vs urban, in Stata and then R. Last, it writes the regression tables and builds the paper in R, compiled to `Paper/MS_Thesis.pdf`, `Paper/Online_Appendix.pdf` and `Paper/Results.pdf`. The continuous DID steps are the slowest because of the wild cluster bootstrap.
 
 Each step can be switched on or off with the `run_*` switches at the top of `00_Master.do` (all are on). The master calls R through `Rscript` and finds it automatically in the usual Mac locations. On another system, set `global Rscript` in `00_Master.do`.
 
@@ -50,8 +50,8 @@ Scripts/
     DID_Regs.do                     Binary DID, triple difference, event studies, robustness
     Contdid_regs.R                  Continuous DID, rainfall dose groups with SPI cutoffs, remittance buffer
     functions.R                     Functions used by the R scripts
-    Subanalysis_Gender_*            Same analyses for boys and girls
-    Subanalysis_Rural_*             Same analyses for rural and urban children
+    Subanalysis_Gender_*            Same analyses for boys and girls, and the triple difference by sex
+    Subanalysis_Rural_*             Same analyses for rural and urban children, and the triple difference by rural locality
   Paper/
     Build_Results.R                 Writes MS_Thesis.tex, Online_Appendix.tex and Results.tex and compiles the PDFs
 

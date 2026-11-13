@@ -445,6 +445,18 @@ for (s in names(misc$sexes)) {
 elapsed("SPI section")
 
 # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+# 8b). Triple difference: dry x male, all children -----
+# = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+
+# Use same code as f. Remittance buffer in Contdid_regs.R but with child sex
+for (v in misc$outcomes) {
+  fd_sex <- first_diff(add_spi(make_df(v, c(2005, 2009), extra = "child_male")))
+  cat("\n==================== Triple difference, dry x male:", v, "====================\n")
+  spi_reg(fd_sex, c("dry","child_male","dry:child_male"), v, "Triple difference: dry x male", near_normal)
+}
+elapsed("Triple difference section")
+
+# = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 # 9). Save the headline results -----
 # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 

@@ -3,7 +3,7 @@
        log:  /Users/zakserby/Documents/Documents (MAC)/Cornell University/Maste
 > r's Thesis/Proposal 3 Mexico OG/Output/Logs/Main/did_regs.log
   log type:  text
- opened on:   7 Nov 2026, 03:58:22
+ opened on:  13 Nov 2026, 02:28:53
 
 . do "$root/Scripts/Regressions/DID_Regs.do"
 
@@ -1612,6 +1612,188 @@ file /Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thes
 > tten in PNG format
 
 . 
+. * Same event study, but dry (z <= -1) pools the two classes like the dry colu
+> mn of the SPI table
+. gen dry = (rain_z2009 <= -1) if rain_z2009 < 1
+(28,604 missing values generated)
+
+. gen lead_2_dry = dry * (year == 2002)
+(28,604 missing values generated)
+
+. gen lag_0_dry  = dry * (year == 2009)
+(28,604 missing values generated)
+
+. 
+. foreach v in haz waz bmiz {
+  2.     quietly areg `v' lead_2_dry lag_0_dry i.year if e_`v' == 1 & spi_`v' =
+> = 1, absorb(pid_link_canonical) vce(cluster cvegeo05)
+  3.     boottest lead_2_dry, reps(9999) weighttype(webb) seed(1234) nograph
+  4.     reghdfe `v' lead_2_dry lag_0_dry if e_`v' == 1 & spi_`v' == 1, absorb(
+> pid_link_canonical year) vce(cluster cvegeo05)
+  5. 
+.     preserve
+  6.     postfile handle int etime double b se lb ub using "$out_regs/Appendix/
+> es_dry_`v'.dta", replace
+  7.     post handle (-2) (_b[lead_2_dry]) (_se[lead_2_dry]) (_b[lead_2_dry] - 
+> 1.96*_se[lead_2_dry]) (_b[lead_2_dry] + 1.96*_se[lead_2_dry])
+  8.     post handle (-1) (0) (0) (0) (0)
+  9.     post handle (0) (_b[lag_0_dry]) (_se[lag_0_dry]) (_b[lag_0_dry] - 1.96
+> *_se[lag_0_dry]) (_b[lag_0_dry] + 1.96*_se[lag_0_dry])
+ 10.     postclose handle
+ 11. 
+.     use "$out_regs/Appendix/es_dry_`v'.dta", clear
+ 12.     sort etime
+ 13.     twoway ///
+>         (rcap ub lb etime, lcolor(black)) ///
+>         (scatter b etime, mcolor(blue) msymbol(O)), ///
+>         xlabel(-2 "2002" -1 "2005 (ref)" 0 "2009") ///
+>         xline(-1, lpattern(dash) lcolor(red)) ///
+>         yline(0, lpattern(dash) lcolor(black)) ///
+>         xtitle("Event time (wave)") ytitle("Coefficient") ///
+>         legend(order(2 "Dry (z <= -1)") pos(6) row(1))
+ 14.     graph export "$out_figs/Appendix/event_study_dry_`v'.png", replace
+ 15.     restore
+ 16. }
+
+Wild bootstrap-t, null imposed, 9999 replications, Wald test, bootstrap cluster
+> ing by cvegeo05, Webb weights:
+  lead_2_dry
+
+                          t(128) =    -0.0837
+                        Prob>|t| =     0.9208
+
+95% confidence set for null hypothesis expression: [−.1934, .1726]
+(MWFE estimator converged in 3 iterations)
+
+HDFE Linear regression                            Number of obs   =      5,960
+Absorbing 2 HDFE groups                           F(   2,    128) =       0.10
+Statistics robust to heteroskedasticity           Prob > F        =     0.9006
+                                                  R-squared       =     0.6836
+                                                  Adj R-squared   =     0.4770
+                                                  Within R-sq.    =     0.0001
+Number of clusters (cvegeo05) =        129        Root MSE        =     0.9522
+
+                             (Std. err. adjusted for 129 clusters in cvegeo05)
+------------------------------------------------------------------------------
+             |               Robust
+         haz | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+  lead_2_dry |   -.009735    .090513    -0.11   0.915    -.1888305    .1693606
+   lag_0_dry |  -.0406057   .0999433    -0.41   0.685    -.2383605    .1571491
+       _cons |  -.5520425    .019274   -28.64   0.000    -.5901794   -.5139057
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+------------------------------------------------------------+
+        Absorbed FE | Categories  - Redundant  = Num. Coefs |
+--------------------+---------------------------------------|
+ pid_link_canonical |      2351        2351           0    *|
+               year |         3           1           2     |
+------------------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+(file /Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's
+    Thesis/Proposal 3 Mexico
+    OG/Output/Regression_Estimates/Appendix/es_dry_haz.dta not found)
+(file /Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's The
+> sis/Proposal 3 Mexico OG/Output/Figures/Appendix/event_study_dry_haz.png not 
+> found)
+file /Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thes
+> is/Proposal 3 Mexico OG/Output/Figures/Appendix/event_study_dry_haz.png writt
+> en in PNG format
+
+Wild bootstrap-t, null imposed, 9999 replications, Wald test, bootstrap cluster
+> ing by cvegeo05, Webb weights:
+  lead_2_dry
+
+                          t(118) =    -1.0519
+                        Prob>|t| =     0.1762
+
+95% confidence set for null hypothesis expression: [−.5558, .1103]
+(MWFE estimator converged in 3 iterations)
+
+HDFE Linear regression                            Number of obs   =      2,357
+Absorbing 2 HDFE groups                           F(   2,    118) =       2.45
+Statistics robust to heteroskedasticity           Prob > F        =     0.0911
+                                                  R-squared       =     0.7067
+                                                  Adj R-squared   =     0.4718
+                                                  Within R-sq.    =     0.0041
+Number of clusters (cvegeo05) =        119        Root MSE        =     0.9921
+
+                             (Std. err. adjusted for 119 clusters in cvegeo05)
+------------------------------------------------------------------------------
+             |               Robust
+         waz | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+  lead_2_dry |  -.2270057   .1609384    -1.41   0.161    -.5457076    .0916962
+   lag_0_dry |  -.1970658   .1171645    -1.68   0.095    -.4290834    .0349517
+       _cons |   .0134677   .0190369     0.71   0.481    -.0242306     .051166
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+------------------------------------------------------------+
+        Absorbed FE | Categories  - Redundant  = Num. Coefs |
+--------------------+---------------------------------------|
+ pid_link_canonical |      1045        1045           0    *|
+               year |         3           1           2     |
+------------------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+(file /Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's
+    Thesis/Proposal 3 Mexico
+    OG/Output/Regression_Estimates/Appendix/es_dry_waz.dta not found)
+(file /Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's The
+> sis/Proposal 3 Mexico OG/Output/Figures/Appendix/event_study_dry_waz.png not 
+> found)
+file /Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thes
+> is/Proposal 3 Mexico OG/Output/Figures/Appendix/event_study_dry_waz.png writt
+> en in PNG format
+
+Wild bootstrap-t, null imposed, 9999 replications, Wald test, bootstrap cluster
+> ing by cvegeo05, Webb weights:
+  lead_2_dry
+
+                          t(128) =    -1.8352
+                        Prob>|t| =     0.0234
+
+95% confidence set for null hypothesis expression: [−.4847, −.03604]
+(MWFE estimator converged in 3 iterations)
+
+HDFE Linear regression                            Number of obs   =      5,764
+Absorbing 2 HDFE groups                           F(   2,    128) =       3.24
+Statistics robust to heteroskedasticity           Prob > F        =     0.0426
+                                                  R-squared       =     0.7001
+                                                  Adj R-squared   =     0.5005
+                                                  Within R-sq.    =     0.0041
+Number of clusters (cvegeo05) =        129        Root MSE        =     0.9335
+
+                             (Std. err. adjusted for 129 clusters in cvegeo05)
+------------------------------------------------------------------------------
+             |               Robust
+        bmiz | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+-------------+----------------------------------------------------------------
+  lead_2_dry |  -.2565675    .108366    -2.37   0.019    -.4709882   -.0421467
+   lag_0_dry |  -.1624861   .0755789    -2.15   0.033    -.3120319   -.0129404
+       _cons |   .4996575   .0164611    30.35   0.000     .4670865    .5322286
+------------------------------------------------------------------------------
+
+Absorbed degrees of freedom:
+------------------------------------------------------------+
+        Absorbed FE | Categories  - Redundant  = Num. Coefs |
+--------------------+---------------------------------------|
+ pid_link_canonical |      2300        2300           0    *|
+               year |         3           1           2     |
+------------------------------------------------------------+
+* = FE nested within cluster; treated as redundant for DoF computation
+(file /Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's
+    Thesis/Proposal 3 Mexico
+    OG/Output/Regression_Estimates/Appendix/es_dry_bmiz.dta not found)
+(file /Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's The
+> sis/Proposal 3 Mexico OG/Output/Figures/Appendix/event_study_dry_bmiz.png not
+>  found)
+file /Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thes
+> is/Proposal 3 Mexico OG/Output/Figures/Appendix/event_study_dry_bmiz.png writ
+> ten in PNG format
+
+. 
 . 
 . * c. Triple-difference event study
 . * This tests whether children in 2002 remittance households in drought areas 
@@ -3179,5 +3361,5 @@ end of do-file
        log:  /Users/zakserby/Documents/Documents (MAC)/Cornell University/Maste
 > r's Thesis/Proposal 3 Mexico OG/Output/Logs/Main/did_regs.log
   log type:  text
- closed on:   7 Nov 2026, 03:58:37
+ closed on:  13 Nov 2026, 02:29:10
 -------------------------------------------------------------------------------

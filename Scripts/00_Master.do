@@ -52,16 +52,16 @@ capture mkdir "$out_sumstats/Online_Appendix"
 global run_R           0   // Rebuild the municipality May to October rainfall data in R. Note: it is slow because it reads the 7.7 GB CHIRPS file). Also its output is already in Data/Cleaned 
 global run_cleaning    1   // MxFLS cleans all waves and appends them 
 global run_build_did   1   // Builds the DID analysis data once. Note: The summary stats, DID, continuous DID and subanalyses all load it
-global run_sumstats_did 1  // DID summary statistics, and the balance table and overlap figure of the rainfall classes
+global run_sumstats_did 1  // DID summary statistics, the attrition tests, and the balance table and overlap figure of the rainfall classes
 global run_map         1   // Map of the 2009 drought by municipality in R
 global run_did         1   // DID regressions, event studies and the all three waves robustness checks for the binary DID and SPI classes
 global run_contdid     1   // Continuous DID in R. Slow bc the wild cluster bootstrap uses 9,999 draws
-global run_sub_gender_did     1   // Subanalyses: DID regressions for boys and girls separately
-global run_sub_gender_contdid 1   // Subanalyses: continuous DID for boys and girls separately. Slow for the same reason as run_contdid
-global run_sub_rural_did     1   // Subanalyses: DID regressions for rural and urban children separately
-global run_sub_rural_contdid 1   // Subanalyses: continuous DID for rural and urban children separately. Slow for the same reason as run_contdid
+global run_sub_gender_did     1   // Subanalyses: DID regressions for boys and girls separately, and the triple difference by sex
+global run_sub_gender_contdid 1   // Subanalyses: continuous DID for boys and girls separately, and dry x male. Slow for the same reason as run_contdid
+global run_sub_rural_did     1   // Subanalyses: DID regressions for rural and urban children separately, and the triple difference by rural
+global run_sub_rural_contdid 1   // Subanalyses: continuous DID for rural and urban children separately, and dry x rural. Slow for the same reason as run_contdid
 global run_regstats    1   // Exports the regression tables to LaTeX. Note: runs last because it needs the continuous DID results from R
-global run_paper       1   // Builds Paper/MS_Thesis.tex and .pdf (the paper and its appendix) and Paper/Online_Appendix.tex and .pdf from the text in Paper/Text, and Paper/Results.tex and .pdf with every table and figure
+global run_paper       1   // Builds MS Thesis Paper --> the .tex version of the paper and .pdf. Additionally builds online appendix and the results
 
 * If the municipality rainfall data is not in Data/Cleaned yet, e.g. a fresh copy with only the raw data, the R rainfall step runs even if run_R is 0
 capture confirm file "$clean_rain/municipality_year_rainfall.dta"

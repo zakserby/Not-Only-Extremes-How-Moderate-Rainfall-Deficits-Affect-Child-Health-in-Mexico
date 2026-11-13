@@ -40,7 +40,7 @@ foreach d in "$out_sumstats" "$out_regs" "$out_logs" {
 }
 * 
 * Tables and figures go to the folder of where they are placed, Main (paper), Appendix (appendix in the paper) or Online_Appendix
-* The dose summary table and the BMIZ balance table and overlap figure are in the main text, the Model 3 summary table in the appendix, and the sample size, attrition, HAZ and WAZ balance tables and overlap figures in the online appendix
+* The dose summary table is in the main text, the BMIZ balance table and overlap figure, the attrition tests and the Model 3 summary table in the appendix, and the sample size, sample attrition, HAZ and WAZ balance tables and overlap figures in the online appendix
 capture mkdir "$out_sumstats/Online_Appendix"
 capture mkdir "$out_figs"
 foreach s in Main Appendix Online_Appendix {
@@ -123,9 +123,9 @@ gen cls_near = (rain_z2009 > -1) if rain_z2009 < 1
 gen cls_mod = (rain_z2009 <= -1 & rain_z2009 > -1.5) if rain_z2009 < 1
 gen cls_sev = (rain_z2009 <= -1.5) if rain_z2009 < 1
 label variable rain_z2009 "2009 rainfall, z"
-label variable cls_near "Near normal, \ensuremath{-1<z<1}"
-label variable cls_mod "Moderately dry, \ensuremath{-1.5<z\le -1}"
-label variable cls_sev "Severely dry or worse, \ensuremath{z\le -1.5}"
+label variable cls_near "Near normal (\ensuremath{-1<z<1})"
+label variable cls_mod "Moderately dry (\ensuremath{-1.5<z\le -1})"
+label variable cls_sev "Severely dry or worse (\ensuremath{z\le -1.5})"
 
 * We compute the numbers in the notes underneath the table here, so nothing is hardcoded. Same regressions as the sample size table further down including Model 3 of DID_Regs.do. 
 capture which reghdfe
@@ -301,7 +301,7 @@ local age_bmiz "15 or younger"
 capture file close cnt
 * The sample size and attrition tables are their own file in Tables/Online_Appendix
 file open cnt using "$out_sumstats/Online_Appendix/sample_size_attrition_tables.tex", write replace
-foreach l in "\documentclass[12pt]{article}" "\usepackage[margin=1in]{geometry}" "\usepackage{booktabs}" "\usepackage{longtable}" "\usepackage{caption}" "\DeclareCaptionLabelSeparator{emdash}{---}" "\captionsetup{font=normalsize,labelfont=sc,textfont=sc,labelsep=emdash}" "\begin{document}" {
+foreach l in "\documentclass[12pt]{article}" "\usepackage[margin=1in]{geometry}" "\usepackage{booktabs}" "\usepackage{longtable}" "\usepackage{caption}" "\DeclareCaptionLabelSeparator{emdash}{---}" "\captionsetup{font=normalsize,labelfont=sc,textfont=sc,labelsep=emdash}" "\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}" "\begin{document}" {
     file write cnt `"`l'"' _n
 }
 
@@ -360,10 +360,10 @@ file write cnt "\bottomrule" _n
 * Panel C starts on a new page like Panel B of the summary statistics table, so its header is not left at the bottom of a page
 file write cnt "\newpage" _n "\toprule" _n " & \multicolumn{2}{c}{Panel C: Dose groups vs near normal}\\*" _n "\cmidrule(lr){2-3}" _n " & Control & Treated\\*" _n "\midrule" _n
 * Each class with its z range, in the order of the SPI regressions in Contdid_regs.R
-local cls_mod "Moderately dry, \ensuremath{-1.5<z\le -1}"
-local cls_sev "Severely dry or worse, \ensuremath{z\le -1.5}"
-local cls_sevonly "Severely dry, \ensuremath{-2<z\le -1.5}"
-local cls_ext "Extremely dry, \ensuremath{z\le -2}"
+local cls_mod "Moderately dry (\ensuremath{-1.5<z\le -1})"
+local cls_sev "Severely dry or worse (\ensuremath{z\le -1.5})"
+local cls_sevonly "Severely dry (\ensuremath{-2<z\le -1.5})"
+local cls_ext "Extremely dry (\ensuremath{z\le -2})"
 foreach c in mod sev sevonly ext {
     local space ""
     if "`c'" != "mod" local space "\addlinespace[6pt]"
@@ -396,11 +396,12 @@ restore
 
 
 *******************************************************************
-* Attrition
+* Attrition, general aka not specific to regressions 
 *******************************************************************
 
 * Table 4: Sample attrition across the waves, as counts of children in each wave. The DID only uses 2005 and 2009 and the event studies use all three waves. The continuous DID uses the same samples, so this covers it too
 * Each row starts from the children who meet the regression sample rules in the first wave and could stay in the sample, not from all children measured. Then the later columns count who is still in the sample
+* NOTE THIS IS JUST OVERALL ATTRITION BETWEEN WAVES
 
 preserve
 * Age cutoffs of the samples, same as in Build_DID_Analysis_Data.do
@@ -502,10 +503,117 @@ file write cnt "since MxFLS-3 interviews ran over several years. Children not in
 file write cnt "This gap is `gap0509' years from 2005 to 2009 and `gap0209' years from 2002 to 2009. Among children measured in both waves, `sh0509' and `sh0209' percent of gaps are within a year of the median." _n
 file write cnt "A one-year error only matters for children near the age cutoff. This way, children who simply aged out are not counted as attrition.}\\" _n
 file write cnt "\end{longtable}" _n "\endgroup" _n
-
-* The document ends here
-file write cnt "\end{document}" _n
 file close cnt
+
+*******************************************************************
+* Attrition tests, specific to regressions
+*******************************************************************
+
+* We run two attrition tests to assess attrition bias
+* 1) Regress attrition on the dose groups and on the binary drought
+* 2) Baseline Outcomes of Attrited and Non-Attrited Children
+	*(a) regress the 2005 outcome on attrition for all children
+	*(b) keep only the children lost to attrition and regress their 2005 outcome on the treatment
+* NOTE: One row per child the 2005 row, no fixed effects or controls like the balance table, standard errors clustered by 2005 municipality
+
+
+*** ATTRITION CONCEPT ******
+    * NOTE: CAN THINK OF DID AS DENOMINATOR AND ATTRITED AS NUMERATOR
+    * attrited = 1: the child met the sample rules in 2005 and would still have been young enough in 2009, but has no usable 2009 measurement, so the child dropped out of the sample
+    * attrited = 0: the child was measured in 2009 and is in the regression sample. Children who simply aged out aren't counted either way
+
+
+foreach o in haz waz bmiz {
+    * did = 1 marks every child who met the DID sample rules in 2005 and could have been in the 2009 estimation sample
+    gen did = (year == 2005 & age < `cut_`o'' & !missing(`o') & !missing(treat2009) & treat_early == 0 & age_next < `cut_`o'')
+    * Attrited = 1 if the child is not in the 2009 estimation sample and 0 if the child is. Both are eligible children, i.e. did == 1 in both cases
+    gen attrited = (reg_`o' != 1) if did == 1
+    * Test 1, dose groups vs near normal and binary drought
+    quietly regress attrited cls_mod cls_sev if did == 1, vce(cluster cvegeo05)
+	* Computes mean attrition
+    quietly summarize attrited if e(sample)
+    estadd scalar mean = r(mean)
+    eststo a1_`o'
+    quietly regress attrited treat2009 if did == 1, vce(cluster cvegeo05)
+    quietly summarize attrited if e(sample)
+    estadd scalar mean = r(mean)
+    eststo a2_`o'
+    * Test 2 (a) the 2005 outcome on attrition for all children on the dose sample and the binary sample
+    quietly regress `o' attrited if did == 1 & !missing(cls_mod), vce(cluster cvegeo05)
+    quietly summarize `o' if e(sample)
+    estadd scalar mean = r(mean)
+    eststo b1_`o'
+    quietly regress `o' attrited if did == 1, vce(cluster cvegeo05)
+    quietly summarize `o' if e(sample)
+    estadd scalar mean = r(mean)
+    eststo b2_`o'
+    * Test 2 (b) only the children lost to attrition. Their 2005 outcome on the dose groups and on the binary drought
+    quietly regress `o' cls_mod cls_sev if did == 1 & attrited == 1, vce(cluster cvegeo05)
+    quietly summarize `o' if e(sample)
+    estadd scalar mean = r(mean)
+    eststo c1_`o'
+    quietly regress `o' treat2009 if did == 1 & attrited == 1, vce(cluster cvegeo05)
+    quietly summarize `o' if e(sample)
+    estadd scalar mean = r(mean)
+    eststo c2_`o'
+    drop did attrited
+}
+
+* Notes
+local tstart `" "\clearpage" "\begingroup" "\footnotesize" "\renewcommand{\arraystretch}{0.86}" "\setlength{\tabcolsep}{4pt}" "\setlength{\LTcapwidth}{\textwidth}" "'
+local dlab `"cls_mod "Moderately dry (\ensuremath{-1.5<z\le -1})" cls_sev "Severely dry or worse (\ensuremath{z\le -1.5})" treat2009 "Drought""'
+local stars "\mbox{\sym{*}\(p<.10\), \sym{**}\(p<.05\), \sym{***}\(p<.01\).}"
+local fe "There are no fixed effects or controls. Standard errors clustered by 2005 municipality are in parentheses. Wild cluster bootstrap p-values are not reported."
+local a_note "Each column regresses an indicator for attrition on the treatment. Each coefficient is the difference in the probability of attrition between children in that rainfall group and children in near-normal municipalities. Attrition equals 1 if the child is not in the 2009 estimation sample. The table compares moderately dry and severely dry or worse with near-normal (\ensuremath{-1<z<1}) municipalities. The sample omits children in wet municipalities (z of 1 or above). Specifically, children in the sample meet the regression sample rules in MxFLS-2 (2005). That is, they are aged 15 or younger for HAZ and BMIZ and 10 or younger for WAZ in both survey waves, have a 2005 municipality, and were not measured in MxFLS-3 before November 2009, for the same reason as in Table~\ref{tab:sumstats}. Children who aged out are not counted as attrition."
+local a2_note "See Table~\ref{tab:oaattrrain} notes. The coefficient is the difference in the probability of attrition between children in drought and non-drought municipalities. This specification includes wet municipalities (z of 1 or above) and uses the binary drought instead of the dose groups. Drought is May--October 2009 CHIRPS rainfall below the municipality's 1981--2004 20th percentile (Shah and Steinberg 2017)."
+* Notes
+local b_note "This table tests whether the children lost to attrition differ at baseline from those who stay. Each column regresses the 2005 WHO z-score on an indicator for attrition, for all children. Attrition equals 1 if the child is not in the 2009 estimation sample. The sample is as in Table~\ref{tab:oaattrrain}. The treatment does not enter. The dose and binary versions differ only in that the discrete-dose version excludes children in wet municipalities (z of 1 or above)."
+local b2_note "See Table~\ref{tab:oaattrbase} notes. This version includes children in wet municipalities."
+local c_note "This table tests whether the children lost to attrition from moderately dry and severely dry or worse municipalities differ at baseline from those lost from near-normal (\ensuremath{-1<z<1}) municipalities. It keeps only the children lost to attrition, without children in wet municipalities (z of 1 or above). Each column regresses their 2005 WHO z-score on the treatment. The sample is as in Table~\ref{tab:oaattrrain}."
+local c2_note "See Table~\ref{tab:oaattrlost} notes. This version compares the children lost to attrition from drought municipalities with those lost from all other municipalities, including wet ones. Drought is May--October 2009 CHIRPS rainfall below the municipality's 1981--2004 20th percentile (Shah and Steinberg 2017)."
+
+* Table 1: Effects of the 2009 Rainfall Deficit on Attrition, discrete dose and binary DID
+esttab a1_haz a1_waz a1_bmiz using "$out_sumstats/Online_Appendix/sample_size_attrition_tables.tex", append booktabs ///
+    cells(b(star fmt(3)) se(par fmt(3))) star(* 0.10 ** 0.05 *** 0.01) keep(cls_mod cls_sev) varlabels(`dlab') ///
+    stats(mean N, labels("Mean attrition" "Children") fmt(3 %9.0fc)) collabels(none) nomtitles numbers nonotes noobs nodepvars ///
+    prehead(`tstart' "\begin{longtable}{l*{3}{c}}" "\caption{Effects of the 2009 Rainfall Deficit on Attrition, Discrete Dose}\\" "\toprule" " & HAZ & WAZ & BMIZ\\") ///
+    posthead("\midrule") prefoot("\midrule") ///
+    postfoot("\bottomrule" "\addlinespace[6pt]\multicolumn{4}{p{0.97\textwidth}}{\scriptsize \textit{Notes:} `a_note' `fe' `stars'}\\" "\end{longtable}" "\endgroup")
+esttab a2_haz a2_waz a2_bmiz using "$out_sumstats/Online_Appendix/sample_size_attrition_tables.tex", append booktabs ///
+    cells(b(star fmt(3)) se(par fmt(3))) star(* 0.10 ** 0.05 *** 0.01) keep(treat2009) varlabels(`dlab') ///
+    stats(mean N, labels("Mean attrition" "Children") fmt(3 %9.0fc)) collabels(none) nomtitles numbers nonotes noobs nodepvars ///
+    prehead(`tstart' "\begin{longtable}{l*{3}{c}}" "\caption{Effects of the 2009 Rainfall Deficit on Attrition, Binary DID}\\" "\toprule" " & HAZ & WAZ & BMIZ\\") ///
+    posthead("\midrule") prefoot("\midrule") ///
+    postfoot("\bottomrule" "\addlinespace[6pt]\multicolumn{4}{p{0.97\textwidth}}{\scriptsize \textit{Notes:} `a2_note' `stars'}\\" "\end{longtable}" "\endgroup")
+
+* Table 2: Baseline Outcomes of Attrited and Non-Attrited Children, test 2 (a), discrete dose and binary DID
+local blab `"`dlab' attrited "Attrited""'
+esttab b1_haz b1_waz b1_bmiz using "$out_sumstats/Online_Appendix/sample_size_attrition_tables.tex", append booktabs ///
+    cells(b(star fmt(3)) se(par fmt(3))) star(* 0.10 ** 0.05 *** 0.01) keep(attrited) varlabels(`blab') ///
+    stats(mean N, labels("Mean of 2005 outcome" "Children") fmt(3 %9.0fc)) collabels(none) nomtitles numbers nonotes noobs nodepvars ///
+    prehead(`tstart' "\begin{longtable}{l*{3}{c}}" "\caption{Baseline Outcomes of Attrited and Non-Attrited Children, Discrete Dose}\\" "\toprule" " & HAZ & WAZ & BMIZ\\") ///
+    posthead("\midrule") prefoot("\midrule") ///
+    postfoot("\bottomrule" "\addlinespace[6pt]\multicolumn{4}{p{0.97\textwidth}}{\scriptsize \textit{Notes:} `b_note' `fe' `stars'}\\" "\end{longtable}" "\endgroup")
+esttab b2_haz b2_waz b2_bmiz using "$out_sumstats/Online_Appendix/sample_size_attrition_tables.tex", append booktabs ///
+    cells(b(star fmt(3)) se(par fmt(3))) star(* 0.10 ** 0.05 *** 0.01) keep(attrited) varlabels(`blab') ///
+    stats(mean N, labels("Mean of 2005 outcome" "Children") fmt(3 %9.0fc)) collabels(none) nomtitles numbers nonotes noobs nodepvars ///
+    prehead(`tstart' "\begin{longtable}{l*{3}{c}}" "\caption{Baseline Outcomes of Attrited and Non-Attrited Children, Binary DID}\\" "\toprule" " & HAZ & WAZ & BMIZ\\") ///
+    posthead("\midrule") prefoot("\midrule") ///
+    postfoot("\bottomrule" "\addlinespace[6pt]\multicolumn{4}{p{0.97\textwidth}}{\scriptsize \textit{Notes:} `b2_note' `stars'}\\" "\end{longtable}" "\endgroup")
+
+* Table 3: Baseline Outcomes of Children Lost to Attrition, test 2 (b), discrete dose and binary DID
+esttab c1_haz c1_waz c1_bmiz using "$out_sumstats/Online_Appendix/sample_size_attrition_tables.tex", append booktabs ///
+    cells(b(star fmt(3)) se(par fmt(3))) star(* 0.10 ** 0.05 *** 0.01) keep(cls_mod cls_sev) varlabels(`blab') ///
+    stats(mean N, labels("Mean of 2005 outcome" "Children") fmt(3 %9.0fc)) collabels(none) nomtitles numbers nonotes noobs nodepvars ///
+    prehead(`tstart' "\begin{longtable}{l*{3}{c}}" "\caption{Baseline Outcomes of Children Lost to Attrition, Discrete Dose}\\" "\toprule" " & HAZ & WAZ & BMIZ\\") ///
+    posthead("\midrule") prefoot("\midrule") ///
+    postfoot("\bottomrule" "\addlinespace[6pt]\multicolumn{4}{p{0.97\textwidth}}{\scriptsize \textit{Notes:} `c_note' `fe' `stars'}\\" "\end{longtable}" "\endgroup")
+esttab c2_haz c2_waz c2_bmiz using "$out_sumstats/Online_Appendix/sample_size_attrition_tables.tex", append booktabs ///
+    cells(b(star fmt(3)) se(par fmt(3))) star(* 0.10 ** 0.05 *** 0.01) keep(treat2009) varlabels(`blab') ///
+    stats(mean N, labels("Mean of 2005 outcome" "Children") fmt(3 %9.0fc)) collabels(none) nomtitles numbers nonotes noobs nodepvars ///
+    prehead(`tstart' "\begin{longtable}{l*{3}{c}}" "\caption{Baseline Outcomes of Children Lost to Attrition, Binary DID}\\" "\toprule" " & HAZ & WAZ & BMIZ\\") ///
+    posthead("\midrule") prefoot("\midrule") ///
+    postfoot("\bottomrule" "\addlinespace[6pt]\multicolumn{4}{p{0.97\textwidth}}{\scriptsize \textit{Notes:} `c2_note' `stars'}\\" "\end{longtable}" "\endgroup" "\end{document}")
 restore
 
 
@@ -569,7 +677,7 @@ foreach o in bmiz haz waz {
     }
 
     * LaTeX, creating a landscape table with two rows of 16 columns
-    * The BMIZ balance table is in the main text, and the HAZ and WAZ ones are in the online appendix
+    * The BMIZ balance table is in the appendix, and the HAZ and WAZ ones are in the online appendix
     local file = cond("`o'" == "bmiz", "$out_sumstats/Main/balance_table.tex", "$out_sumstats/Online_Appendix/balance_table_online_appendix.tex")
     local mode = cond("`o'" == "waz", "append", "replace")
     local doc `" "\documentclass[12pt]{article}" "\usepackage[margin=1in]{geometry}" "\usepackage{booktabs}" "\usepackage{longtable}" "\usepackage{caption}" "\usepackage{graphicx}" "\usepackage{array}" "\usepackage{pdflscape}" "\DeclareCaptionLabelSeparator{emdash}{---}" "\captionsetup{font=normalsize,labelfont=sc,textfont=sc,labelsep=emdash}" "\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}" "\begin{document}" "'

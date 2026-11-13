@@ -268,4 +268,55 @@ foreach v in haz waz bmiz {
 }
 }
 
+*******************************************************************
+* Triple difference by sex, all children
+*******************************************************************
+
+* Same as Model 5 of DID_Regs.do, but with child sex
+gen treat_post_male05 = treat_post * child_male_05
+label variable treat_post_male05 "2009 drought x post x male"
+foreach v in haz waz bmiz {
+    reghdfe `v' treat_post child_male_05_post treat_post_male05 $did_controls $controls02 $controls05 if s_`v' == 1, absorb($FE_month) vce(cluster cvegeo05)
+    * Total drought effect for boys
+    lincom treat_post + treat_post_male05
+    * Children in this regression, for the event study below
+    gen tmp = e(sample)
+    bysort pid_link_canonical: egen mddd_`v' = max(tmp)
+    drop tmp
+}
+
+* Triple difference event study, same as DID_Regs.do but with child sex
+* NOTE: This figure is not used in the paper or online appendix, but the pretrend is in a table in the online appendix
+gen lead_2_male = child_male_05 * (year == 2002)
+gen lag_0_male  = child_male_05 * (year == 2009)
+gen lead_2_dddm = treat2009 * child_male_05 * (year == 2002)
+gen lag_0_dddm  = treat2009 * child_male_05 * (year == 2009)
+
+foreach v in haz waz bmiz {
+    reghdfe `v' lead_2_dddm lag_0_dddm lead_2_treat lag_0_treat lead_2_male lag_0_male $es_controls if e_`v' == 1 & mddd_`v' == 1, absorb($FE_month) vce(cluster cvegeo05)
+    * Pre-trend test for the DDD. The lead should be about 0
+    test lead_2_dddm
+    lincom lag_0_treat + lag_0_dddm
+
+    preserve
+    postfile handle int etime double b se lb ub using "$out_regs/Appendix/es_ddd_sex_`v'.dta", replace
+    post handle (-2) (_b[lead_2_dddm]) (_se[lead_2_dddm]) (_b[lead_2_dddm] - 1.96*_se[lead_2_dddm]) (_b[lead_2_dddm] + 1.96*_se[lead_2_dddm])
+    post handle (-1) (0) (0) (0) (0)
+    post handle (0) (_b[lag_0_dddm]) (_se[lag_0_dddm]) (_b[lag_0_dddm] - 1.96*_se[lag_0_dddm]) (_b[lag_0_dddm] + 1.96*_se[lag_0_dddm])
+    postclose handle
+
+    use "$out_regs/Appendix/es_ddd_sex_`v'.dta", clear
+    sort etime
+    twoway ///
+        (rcap ub lb etime, lcolor(black)) ///
+        (scatter b etime, mcolor(blue) msymbol(O)), ///
+        xlabel(-2 "2002" -1 "2005 (ref)" 0 "2009") ///
+        xline(-1, lpattern(dash) lcolor(red)) ///
+        yline(0, lpattern(dash) lcolor(black)) ///
+        xtitle("Event time (wave)") ytitle("Coefficient") ///
+        title("DDD event study (drought x male): `v'") legend(off)
+    graph export "$out_figs/Online_Appendix/event_study_ddd_sex_`v'.png", replace
+    restore
+}
+
 if `own_log' log close sub_gender_did

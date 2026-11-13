@@ -445,6 +445,18 @@ for (s in names(misc$rural)) {
 elapsed("SPI section")
 
 # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+# 8b). Triple difference: dry x rural, all children -----
+# = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+
+# Use same code as f. Remittance buffer in Contdid_regs.R but with rural locality
+for (v in misc$outcomes) {
+  fd_rur <- first_diff(add_spi(make_df(v, c(2005, 2009), extra = "rural_05")))
+  cat("\n==================== Triple difference, dry x rural:", v, "====================\n")
+  spi_reg(fd_rur, c("dry","rural_05","dry:rural_05"), v, "Triple difference: dry x rural", near_normal)
+}
+elapsed("Triple difference section")
+
+# = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 # 9). Save the headline results -----
 # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 

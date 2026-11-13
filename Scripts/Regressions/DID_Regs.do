@@ -281,6 +281,37 @@ foreach v in haz waz bmiz {
     restore
 }
 
+* Same event study, but dry (z <= -1) pools the two classes like the dry column of the SPI table
+gen dry = (rain_z2009 <= -1) if rain_z2009 < 1
+gen lead_2_dry = dry * (year == 2002)
+gen lag_0_dry  = dry * (year == 2009)
+
+foreach v in haz waz bmiz {
+    quietly areg `v' lead_2_dry lag_0_dry i.year if e_`v' == 1 & spi_`v' == 1, absorb(pid_link_canonical) vce(cluster cvegeo05)
+    boottest lead_2_dry, reps(9999) weighttype(webb) seed(1234) nograph
+    reghdfe `v' lead_2_dry lag_0_dry if e_`v' == 1 & spi_`v' == 1, absorb(pid_link_canonical year) vce(cluster cvegeo05)
+
+    preserve
+    postfile handle int etime double b se lb ub using "$out_regs/Appendix/es_dry_`v'.dta", replace
+    post handle (-2) (_b[lead_2_dry]) (_se[lead_2_dry]) (_b[lead_2_dry] - 1.96*_se[lead_2_dry]) (_b[lead_2_dry] + 1.96*_se[lead_2_dry])
+    post handle (-1) (0) (0) (0) (0)
+    post handle (0) (_b[lag_0_dry]) (_se[lag_0_dry]) (_b[lag_0_dry] - 1.96*_se[lag_0_dry]) (_b[lag_0_dry] + 1.96*_se[lag_0_dry])
+    postclose handle
+
+    use "$out_regs/Appendix/es_dry_`v'.dta", clear
+    sort etime
+    twoway ///
+        (rcap ub lb etime, lcolor(black)) ///
+        (scatter b etime, mcolor(blue) msymbol(O)), ///
+        xlabel(-2 "2002" -1 "2005 (ref)" 0 "2009") ///
+        xline(-1, lpattern(dash) lcolor(red)) ///
+        yline(0, lpattern(dash) lcolor(black)) ///
+        xtitle("Event time (wave)") ytitle("Coefficient") ///
+        legend(order(2 "Dry (z <= -1)") pos(6) row(1))
+    graph export "$out_figs/Appendix/event_study_dry_`v'.png", replace
+    restore
+}
+
 
 * c. Triple-difference event study
 * This tests whether children in 2002 remittance households in drought areas were already on a different health path before the 2009 drought. Want to see that the 2002 lead is roughly 0. If 0, then any difference after 2009 can more credibly be read as remittances buffering the drought, not pre-existing differences between remittance and non-remittance families

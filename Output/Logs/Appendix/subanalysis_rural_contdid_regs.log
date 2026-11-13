@@ -703,6 +703,22 @@ g. Wild bootstrap check of the main average ATT (any deficit vs none):
  D_any                         -0.054 (0.095)  p clustered = 0.570 | p wild bootstrap = 0.593 | 867 children in 54 municipalities
 SPI section done, elapsed: 0.8 min
 
+==================== Triple difference, dry x rural: haz ====================
+ dry                           -0.095 (0.106)  p clustered = 0.373 | p wild bootstrap = 0.393 | 858 children in 40 municipalities
+ rural_05                      -0.142 (0.110)  p clustered = 0.199 | p wild bootstrap = 0.220 | 1003 children in 62 municipalities
+ dry:rural_05                   0.128 (0.206)  p clustered = 0.538 | p wild bootstrap = 0.575 | 368 children in 13 municipalities
+
+==================== Triple difference, dry x rural: waz ====================
+ dry                           -0.218 (0.103)  p clustered = 0.036 | p wild bootstrap = 0.049 | 362 children in 39 municipalities
+ rural_05                      -0.213 (0.114)  p clustered = 0.065 | p wild bootstrap = 0.073 | 419 children in 57 municipalities
+ dry:rural_05                   0.075 (0.248)  p clustered = 0.763 | p wild bootstrap = 0.796 | 158 children in 13 municipalities
+
+==================== Triple difference, dry x rural: bmiz ====================
+ dry                           -0.174 (0.110)  p clustered = 0.117 | p wild bootstrap = 0.141 | 836 children in 40 municipalities
+ rural_05                      -0.014 (0.075)  p clustered = 0.850 | p wild bootstrap = 0.847 | 986 children in 62 municipalities
+ dry:rural_05                   0.027 (0.143)  p clustered = 0.849 | p wild bootstrap = 0.865 | 358 children in 13 municipalities
+Triple difference section done, elapsed: 0.8 min
+
 ==================== Summary ====================
  outcome           sample
      haz 2005-2009, rural
@@ -866,6 +882,15 @@ SPI section done, elapsed: 0.8 min
     bmiz     Remittance buffer: dry x 2002 remittances, urban
     bmiz     Remittance buffer: dry x 2002 remittances, urban
     bmiz Main average ATT from 6): any deficit vs none, urban
+     haz                       Triple difference: dry x rural
+     haz                       Triple difference: dry x rural
+     haz                       Triple difference: dry x rural
+     waz                       Triple difference: dry x rural
+     waz                       Triple difference: dry x rural
+     waz                       Triple difference: dry x rural
+    bmiz                       Triple difference: dry x rural
+    bmiz                       Triple difference: dry x rural
+    bmiz                       Triple difference: dry x rural
                                         term    coef se_clustered p_clustered
  Average ACRT (needs strong parallel trends) -0.3728       1.1726       0.751
                                          dry  0.0328       0.1803       0.856
@@ -933,6 +958,15 @@ SPI section done, elapsed: 0.8 min
                             remittance_hh_02 -0.0444       0.1189       0.710
                         dry:remittance_hh_02  0.2156       0.3041       0.481
                                        D_any -0.0540       0.0945       0.570
+                                         dry -0.0948       0.1060       0.373
+                                    rural_05 -0.1415       0.1096       0.199
+                                dry:rural_05  0.1276       0.2065       0.538
+                                         dry -0.2182       0.1028       0.036
+                                    rural_05 -0.2128       0.1142       0.065
+                                dry:rural_05  0.0750       0.2481       0.763
+                                         dry -0.1742       0.1103       0.117
+                                    rural_05 -0.0142       0.0747       0.850
+                                dry:rural_05  0.0272       0.1428       0.849
  p_wild_bootstrap n_children children_in_group municipalities_in_group
                NA       1003               368                      13
             0.876       1003               368                      13
@@ -1000,6 +1034,15 @@ SPI section done, elapsed: 0.8 min
             0.710        947               330                      59
             0.534        947               102                      22
             0.593       1381               867                      54
+            0.393       2351               858                      40
+            0.220       2351              1003                      62
+            0.575       2351               368                      13
+            0.049       1045               362                      39
+            0.073       1045               419                      57
+            0.796       1045               158                      13
+            0.141       2300               836                      40
+            0.847       2300               986                      62
+            0.865       2300               358                      13
  untreated_municipalities
                        49
                        49
@@ -1067,4 +1110,13 @@ SPI section done, elapsed: 0.8 min
                        45
                        45
                        24
+                       89
+                       89
+                       89
+                       80
+                       80
+                       80
+                       89
+                       89
+                       89
 Total runtime: 0.8 min

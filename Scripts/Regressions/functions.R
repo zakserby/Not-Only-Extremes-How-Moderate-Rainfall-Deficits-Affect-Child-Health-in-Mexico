@@ -10,7 +10,7 @@
 # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 
 # Create a balanced panel for one outcome and set of waves, in order to use the format: id, G, D, time_period, Y
-make_df <- function(v, waves) {
+make_df <- function(v, waves, extra = NULL) {
   # Keep rows that are in waves 2005 and 2009, age is under the limit, and is not missing
   df <- panel[panel$year %in% waves & panel$age < misc$age_cut[[v]] & !is.na(panel[[v]]), ]
   # This code below is a safeguard for dups but we don't need it
@@ -28,7 +28,7 @@ make_df <- function(v, waves) {
   # Copies outcomes into column called Y
   df$Y <- df[[v]]
   # This code reorders by child and time period and then we keep the appropriate variables for this df
-  keep <- c("id","G","D","time_period","Y","D_any","cvegeo05","remittance_hh_02")
+  keep <- c("id","G","D","time_period","Y","D_any","cvegeo05","remittance_hh_02", extra)
   df <- df[order(df$id, df$time_period), keep]
   row.names(df) <- NULL
   df

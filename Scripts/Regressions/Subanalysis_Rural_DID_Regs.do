@@ -272,4 +272,57 @@ foreach v in haz waz bmiz {
 }
 }
 
+*******************************************************************
+* Triple difference by rural, all children
+*******************************************************************
+
+* This code is the same as Model 5 of DID_Regs.do but for rural
+gen rural_05_post = rural_05 * post
+gen treat_post_rural05 = treat_post * rural_05
+label variable rural_05_post "2005 rural x post"
+label variable treat_post_rural05 "2009 drought x post x 2005 rural"
+foreach v in haz waz bmiz {
+    reghdfe `v' treat_post rural_05_post treat_post_rural05 $did_controls $controls02 $controls05 if s_`v' == 1, absorb($FE_month) vce(cluster cvegeo05)
+    * Total drought effect for rural children
+    lincom treat_post + treat_post_rural05
+    * Children in this regression, for the event study below
+    gen tmp = e(sample)
+    bysort pid_link_canonical: egen mddd_`v' = max(tmp)
+    drop tmp
+}
+
+* Triple difference event study, same as DID_Regs.do but with rural
+* NOTE: I place this event study in output but it is not in the paper or online appendix just bc it's not that pertinent. If needed it can be inserted. We do use the pretrend in the table though
+gen lead_2_rur  = rural_05 * (year == 2002)
+gen lag_0_rur   = rural_05 * (year == 2009)
+gen lead_2_dddr = treat2009 * rural_05 * (year == 2002)
+gen lag_0_dddr  = treat2009 * rural_05 * (year == 2009)
+
+foreach v in haz waz bmiz {
+    reghdfe `v' lead_2_dddr lag_0_dddr lead_2_treat lag_0_treat lead_2_rur lag_0_rur $es_controls if e_`v' == 1 & mddd_`v' == 1, absorb($FE_month) vce(cluster cvegeo05)
+    * Pre-trend test for the DDD. The lead should be about 0
+    test lead_2_dddr
+    lincom lag_0_treat + lag_0_dddr
+
+    preserve
+    postfile handle int etime double b se lb ub using "$out_regs/Appendix/es_ddd_rural_`v'.dta", replace
+    post handle (-2) (_b[lead_2_dddr]) (_se[lead_2_dddr]) (_b[lead_2_dddr] - 1.96*_se[lead_2_dddr]) (_b[lead_2_dddr] + 1.96*_se[lead_2_dddr])
+    post handle (-1) (0) (0) (0) (0)
+    post handle (0) (_b[lag_0_dddr]) (_se[lag_0_dddr]) (_b[lag_0_dddr] - 1.96*_se[lag_0_dddr]) (_b[lag_0_dddr] + 1.96*_se[lag_0_dddr])
+    postclose handle
+
+    use "$out_regs/Appendix/es_ddd_rural_`v'.dta", clear
+    sort etime
+    twoway ///
+        (rcap ub lb etime, lcolor(black)) ///
+        (scatter b etime, mcolor(blue) msymbol(O)), ///
+        xlabel(-2 "2002" -1 "2005 (ref)" 0 "2009") ///
+        xline(-1, lpattern(dash) lcolor(red)) ///
+        yline(0, lpattern(dash) lcolor(black)) ///
+        xtitle("Event time (wave)") ytitle("Coefficient") ///
+        title("DDD event study (drought x rural): `v'") legend(off)
+    graph export "$out_figs/Online_Appendix/event_study_ddd_rural_`v'.png", replace
+    restore
+}
+
 if `own_log' log close sub_rural_did

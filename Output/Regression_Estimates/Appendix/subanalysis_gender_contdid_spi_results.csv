@@ -65,3 +65,12 @@
 "bmiz","Remittance buffer: dry x 2002 remittances, girls","remittance_hh_02",0.128,0.0874,0.146,0.15,872,327,77,76
 "bmiz","Remittance buffer: dry x 2002 remittances, girls","dry:remittance_hh_02",-0.3008,0.1801,0.098,0.119,872,101,22,76
 "bmiz","Main average ATT from 6): any deficit vs none, girls","D_any",-0.082,0.0757,0.281,0.294,1206,783,80,41
+"haz","Triple difference: dry x male","dry",-0.0088,0.1154,0.939,0.942,2351,858,40,89
+"haz","Triple difference: dry x male","child_male",0.0986,0.0637,0.124,0.131,2351,1166,119,89
+"haz","Triple difference: dry x male","dry:child_male",-0.0645,0.1124,0.567,0.576,2351,427,38,89
+"waz","Triple difference: dry x male","dry",-0.1795,0.1109,0.108,0.128,1045,362,39,80
+"waz","Triple difference: dry x male","child_male",0.1094,0.1193,0.361,0.37,1045,536,102,80
+"waz","Triple difference: dry x male","dry:child_male",-0.0413,0.194,0.832,0.834,1045,196,35,80
+"bmiz","Triple difference: dry x male","dry",-0.1241,0.0801,0.124,0.138,2300,836,40,89
+"bmiz","Triple difference: dry x male","child_male",0.0646,0.0642,0.316,0.316,2300,1137,119,89
+"bmiz","Triple difference: dry x male","dry:child_male",-0.0778,0.1016,0.445,0.451,2300,416,38,89
