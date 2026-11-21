@@ -91,7 +91,7 @@ Overall ACRT:
 ---
 Signif. codes: `*' confidence band does not cover 0
 
-Case 1 done, elapsed: 0.3 min
+Case 1 done, elapsed: 0.2 min
 
 ==================== Case 2, ATT event study: haz | rural ====================
 
@@ -514,7 +514,7 @@ Signif. codes: `*' confidence band does not cover 0
 
 Clustered average ATT = -0.04 ( 0.185 )
 Difference in average ATT (remittance minus non-remittance) = 0.011 ( 0.231 )
-Remittance section done, elapsed: 0.6 min
+Remittance section done, elapsed: 0.5 min
 
 ==================== SPI classes: haz | rural ====================
 Near normal (untreated): 635 children in 49 municipalities | Dry (z <= -1): 368 children in 13 municipalities

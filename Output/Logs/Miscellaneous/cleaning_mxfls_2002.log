@@ -4,7 +4,7 @@
 > r's Thesis/Proposal 3 Mexico OG/Output/Logs/Miscellaneous/cleaning_mxfls_2002
 > .log
   log type:  text
- opened on:  30 Oct 2026, 20:29:34
+ opened on:  21 Nov 2026, 13:38:05
 .     do "$scripts/Cleaning/Cleaning Script for MxFLS_2002_03.do"
 
 . *******************************************************************
@@ -113,7 +113,7 @@
 .     tempfile roster_sex
 
 .     save `roster_sex'
-file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St36362.000002 saved
+file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St19247.000002 saved
     as .dta format
 
 . restore
@@ -183,7 +183,7 @@ file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St36362.000002 saved
 .     tempfile visitdate
 
 .     save `visitdate'
-file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St36362.000004 saved
+file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St19247.000004 saved
     as .dta format
 
 . restore
@@ -225,7 +225,7 @@ file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St36362.000004 saved
 .     tempfile measdate
 
 .     save `measdate'
-file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St36362.000006 saved
+file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St19247.000006 saved
     as .dta format
 
 . restore
@@ -623,7 +623,7 @@ u5: 3 BMIZ obs flagged out of range (<-5 or >5)
 .     keep folio ls haz waz bmiz
 
 .     save `z_u5'
-file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St36362.000007 saved
+file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St19247.000007 saved
     as .dta format
 
 . restore
@@ -1009,7 +1009,7 @@ Note:       Prevalences are written to
 .     keep folio ls haz waz bmiz
 
 .     save `z_5to19'
-file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St36362.000008 saved
+file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St19247.000008 saved
     as .dta format
 
 . restore
@@ -1022,7 +1022,7 @@ file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St36362.000008 saved
 .     append using `z_5to19'
 
 .     save `z_all'
-file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St36362.000009 saved
+file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St19247.000009 saved
     as .dta format
 
 . restore
@@ -1077,7 +1077,7 @@ file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St36362.000009 saved
 . tempfile temp_biomarkers
 
 . save `temp_biomarkers'
-file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St36362.00000d saved
+file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St19247.00000d saved
     as .dta format
 
 . 
@@ -1110,7 +1110,7 @@ other_chro~s |     11,311    2.950667    .4556815          1          8
 . tempfile temp_child_health
 
 . save `temp_child_health'
-file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St36362.00000e saved
+file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St19247.00000e saved
     as .dta format
 
 . 
@@ -1177,7 +1177,7 @@ p_r_food_c~s |         35    411.1429    814.5398          0       3000
 . tempfile temp_re
 
 . save `temp_re'
-file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St36362.00000f saved
+file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St19247.00000f saved
     as .dta format
 
 . 
@@ -1198,7 +1198,7 @@ file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St36362.00000f saved
 . tempfile temp_re1
 
 . save `temp_re1'
-file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St36362.00000g saved
+file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St19247.00000g saved
     as .dta format
 
 . 
@@ -1289,7 +1289,7 @@ file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St36362.00000g saved
 . tempfile temp_tp_re
 
 . save `temp_tp_re'
-file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St36362.00000h saved
+file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St19247.00000h saved
     as .dta format
 
 . 
@@ -1336,7 +1336,7 @@ note: label truncated to 80 characters
 . tempfile temp_ac_remittance
 
 . save `temp_ac_remittance'
-file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St36362.00000i saved
+file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St19247.00000i saved
     as .dta format
 
 . 
@@ -1346,7 +1346,7 @@ file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St36362.00000i saved
 . tempfile temp_ac_remittance_hh
 
 . save `temp_ac_remittance_hh'
-file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St36362.00000j saved
+file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St19247.00000j saved
     as .dta format
 
 . 
@@ -1397,7 +1397,7 @@ file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St36362.00000j saved
 . tempfile temp_cash_tp
 
 . save `temp_cash_tp'
-file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St36362.00000k saved
+file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St19247.00000k saved
     as .dta format
 
 . 
@@ -1420,7 +1420,7 @@ file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St36362.00000k saved
 . tempfile temp_cash_th
 
 . save `temp_cash_th'
-file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St36362.00000l saved
+file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St19247.00000l saved
     as .dta format
 
 . 
@@ -1440,7 +1440,7 @@ file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St36362.00000l saved
 . tempfile temp_cash_thi
 
 . save `temp_cash_thi'
-file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St36362.00000m saved
+file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St19247.00000m saved
     as .dta format
 
 . 
@@ -1520,7 +1520,7 @@ file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St36362.00000m saved
 . tempfile temp_cash_3b
 
 . save `temp_cash_3b'
-file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St36362.00000n saved
+file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St19247.00000n saved
     as .dta format
 
 . 
@@ -1559,7 +1559,7 @@ file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St36362.00000n saved
 . tempfile temp_cash_ptp
 
 . save `temp_cash_ptp'
-file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St36362.00000o saved
+file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St19247.00000o saved
     as .dta format
 
 . 
@@ -1588,7 +1588,7 @@ file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St36362.00000o saved
 . tempfile temp_cash_pth
 
 . save `temp_cash_pth'
-file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St36362.00000p saved
+file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St19247.00000p saved
     as .dta format
 
 . 
@@ -1616,7 +1616,7 @@ file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St36362.00000p saved
 . tempfile temp_cash_pthi
 
 . save `temp_cash_pthi'
-file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St36362.00000q saved
+file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St19247.00000q saved
     as .dta format
 
 . 
@@ -1687,7 +1687,7 @@ file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St36362.00000q saved
 . tempfile temp_cash_px
 
 . save `temp_cash_px'
-file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St36362.00000r saved
+file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St19247.00000r saved
     as .dta format
 
 . 
@@ -1755,7 +1755,7 @@ file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St36362.00000r saved
 . tempfile temp_remit_hh
 
 . save `temp_remit_hh'
-file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St36362.00000s saved
+file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St19247.00000s saved
     as .dta format
 
 . 
@@ -1821,7 +1821,7 @@ file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St36362.00000s saved
 .     tempfile temp_mg1
 
 .     save `temp_mg1'
-file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St36362.00000u saved
+file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St19247.00000u saved
     as .dta format
 
 . restore
@@ -1859,7 +1859,7 @@ file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St36362.00000u saved
 . tempfile temp_migration
 
 . save `temp_migration'
-file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St36362.00000v saved
+file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St19247.00000v saved
     as .dta format
 
 . 
@@ -1872,7 +1872,7 @@ file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St36362.00000v saved
 . tempfile temp_migration_hh
 
 . save `temp_migration_hh'
-file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St36362.00000w saved
+file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St19247.00000w saved
     as .dta format
 
 . 
@@ -1892,7 +1892,7 @@ file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St36362.00000w saved
 . tempfile temp_controls_hh
 
 . save `temp_controls_hh'
-file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St36362.00000x saved
+file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St19247.00000x saved
     as .dta format
 
 . 
@@ -2031,7 +2031,7 @@ file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St36362.00000x saved
 . tempfile temp_vaccination
 
 . save `temp_vaccination'
-file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St36362.000010 saved
+file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St19247.000010 saved
     as .dta format
 
 . 
@@ -2081,7 +2081,7 @@ file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St36362.000010 saved
 . tempfile temp_birth_order
 
 . save `temp_birth_order'
-file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St36362.000011 saved
+file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St19247.000011 saved
     as .dta format
 
 . 
@@ -2115,7 +2115,7 @@ file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St36362.000011 saved
 . tempfile temp_birth_weight
 
 . save `temp_birth_weight'
-file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St36362.000012 saved
+file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St19247.000012 saved
     as .dta format
 
 . 
@@ -2145,7 +2145,7 @@ file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St36362.000012 saved
 . tempfile temp_delivered_home
 
 . save `temp_delivered_home'
-file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St36362.000013 saved
+file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St19247.000013 saved
     as .dta format
 
 . 
@@ -2197,7 +2197,7 @@ file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St36362.000013 saved
 . tempfile temp_breastfed
 
 . save `temp_breastfed'
-file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St36362.000014 saved
+file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St19247.000014 saved
     as .dta format
 
 . 
@@ -2229,7 +2229,7 @@ file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St36362.000014 saved
 . tempfile temp_iron
 
 . save `temp_iron'
-file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St36362.000015 saved
+file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St19247.000015 saved
     as .dta format
 
 . 
@@ -2262,7 +2262,7 @@ file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St36362.000015 saved
 . tempfile temp_premature
 
 . save `temp_premature'
-file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St36362.000016 saved
+file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St19247.000016 saved
     as .dta format
 
 . 
@@ -2311,7 +2311,7 @@ file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St36362.000016 saved
 . tempfile temp_heights
 
 . save `temp_heights'
-file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St36362.000017 saved
+file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St19247.000017 saved
     as .dta format
 
 . * We replace observations who correspond to the wrong sex
@@ -2325,7 +2325,7 @@ file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St36362.000017 saved
 . tempfile temp_mother_height
 
 . save `temp_mother_height'
-file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St36362.000018 saved
+file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St19247.000018 saved
     as .dta format
 
 . use `temp_heights', clear
@@ -2340,7 +2340,7 @@ file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St36362.000018 saved
 . tempfile temp_father_height
 
 . save `temp_father_height'
-file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St36362.000019 saved
+file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St19247.000019 saved
     as .dta format
 
 . * We merge in the parents heights to their children. Also not that we use les
@@ -2392,7 +2392,7 @@ file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St36362.000019 saved
 . tempfile temp_parent_height
 
 . save `temp_parent_height'
-file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St36362.00001a saved
+file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St19247.00001a saved
     as .dta format
 
 . 
@@ -2428,7 +2428,7 @@ file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St36362.00001a saved
 . tempfile temp_ages
 
 . save `temp_ages'
-file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St36362.00001b saved
+file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St19247.00001b saved
     as .dta format
 
 . * The gender must match across files. Similar to the code above for height
@@ -2442,7 +2442,7 @@ file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St36362.00001b saved
 . tempfile temp_mother_age
 
 . save `temp_mother_age'
-file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St36362.00001c saved
+file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St19247.00001c saved
     as .dta format
 
 . use `temp_ages', clear
@@ -2458,7 +2458,7 @@ file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St36362.00001c saved
 . tempfile temp_father_age
 
 . save `temp_father_age'
-file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St36362.00001d saved
+file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St19247.00001d saved
     as .dta format
 
 . * Link each child to their mother and father. 51 = parent dead or not living 
@@ -2527,7 +2527,7 @@ file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St36362.00001d saved
 . tempfile temp_parent_age
 
 . save `temp_parent_age'
-file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St36362.00001e saved
+file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St19247.00001e saved
     as .dta format
 
 . 
@@ -2585,7 +2585,7 @@ file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St36362.00001e saved
 . tempfile temp_employed
 
 . save `temp_employed'
-file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St36362.00001f saved
+file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St19247.00001f saved
     as .dta format
 
 . * We only keep the mother's value if she is female and the father's value if 
@@ -2600,7 +2600,7 @@ file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St36362.00001f saved
 . tempfile temp_mother_employed
 
 . save `temp_mother_employed'
-file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St36362.00001g saved
+file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St19247.00001g saved
     as .dta format
 
 . use `temp_employed', clear
@@ -2616,7 +2616,7 @@ file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St36362.00001g saved
 . tempfile temp_father_employed
 
 . save `temp_father_employed'
-file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St36362.00001h saved
+file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St19247.00001h saved
     as .dta format
 
 . * Link each child to their mother and father. 51 = parent dead or not living 
@@ -2667,7 +2667,7 @@ file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St36362.00001h saved
 . tempfile temp_parent_employed
 
 . save `temp_parent_employed'
-file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St36362.00001i saved
+file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St19247.00001i saved
     as .dta format
 
 . 
@@ -2685,7 +2685,7 @@ file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St36362.00001i saved
 . tempfile temp_proxy_ed
 
 . save `temp_proxy_ed'
-file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St36362.00001j saved
+file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St19247.00001j saved
     as .dta format
 
 . use "$path/hh02dta_b3a/iiia_ed.dta", clear
@@ -2785,7 +2785,7 @@ file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St36362.00001j saved
 . tempfile temp_edu_years
 
 . save `temp_edu_years'
-file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St36362.00001k saved
+file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St19247.00001k saved
     as .dta format
 
 . * Making sure gender match for mother and father. Same as the code above. 
@@ -2799,7 +2799,7 @@ file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St36362.00001k saved
 . tempfile temp_mother_edu
 
 . save `temp_mother_edu'
-file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St36362.00001l saved
+file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St19247.00001l saved
     as .dta format
 
 . use `temp_edu_years', clear
@@ -2815,7 +2815,7 @@ file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St36362.00001l saved
 . tempfile temp_father_edu
 
 . save `temp_father_edu'
-file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St36362.00001m saved
+file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St19247.00001m saved
     as .dta format
 
 . * Link each child to their mother and father. 51 = parent dead or not living 
@@ -2862,7 +2862,7 @@ file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St36362.00001m saved
 . tempfile temp_parent_edu
 
 . save `temp_parent_edu'
-file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St36362.00001n saved
+file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St19247.00001n saved
     as .dta format
 
 . 
@@ -2925,7 +2925,7 @@ file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St36362.00001n saved
 . tempfile temp_dwell_cvo
 
 . save `temp_dwell_cvo'
-file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St36362.00001o saved
+file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St19247.00001o saved
     as .dta format
 
 . 
@@ -2970,7 +2970,7 @@ file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St36362.00001o saved
 . tempfile temp_rooms
 
 . save `temp_rooms'
-file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St36362.00001p saved
+file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St19247.00001p saved
     as .dta format
 
 . 
@@ -3389,7 +3389,7 @@ file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St36362.00001p saved
 . tempfile temp_expend
 
 . save `temp_expend'
-file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St36362.00001q saved
+file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St19247.00001q saved
     as .dta format
 
 . * Household size to create the monthly expenditure for a household
@@ -3428,7 +3428,7 @@ file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St36362.00001q saved
 . tempfile temp_pc_expend
 
 . save `temp_pc_expend'
-file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St36362.00001r saved
+file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St19247.00001r saved
     as .dta format
 
 . 
@@ -3456,7 +3456,7 @@ file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St36362.00001r saved
 . tempfile temp_progresa
 
 . save `temp_progresa'
-file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St36362.00001s saved
+file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St19247.00001s saved
     as .dta format
 
 . 
@@ -3731,7 +3731,7 @@ file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St36362.00001s saved
 .     tempfile temp_ent_c
 
 .     save `temp_ent_c'
-file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St36362.00001u saved
+file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St19247.00001u saved
     as .dta format
 
 . restore
@@ -3791,7 +3791,7 @@ file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St36362.00001u saved
 .     tempfile temp_mun_c
 
 .     save `temp_mun_c'
-file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St36362.00001w saved
+file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St19247.00001w saved
     as .dta format
 
 . restore
@@ -3836,7 +3836,7 @@ file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St36362.00001w saved
 .     tempfile temp_rural
 
 .     save `temp_rural'
-file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St36362.000020 saved
+file /var/folders/8b/5tzzlj113bd9tswyt9lzxf580000gn/T//St19247.000020 saved
     as .dta format
 
 . restore
@@ -3979,5 +3979,5 @@ end of do-file
 > r's Thesis/Proposal 3 Mexico OG/Output/Logs/Miscellaneous/cleaning_mxfls_2002
 > .log
   log type:  text
- closed on:  30 Oct 2026, 20:29:39
+ closed on:  21 Nov 2026, 13:38:10
 -------------------------------------------------------------------------------

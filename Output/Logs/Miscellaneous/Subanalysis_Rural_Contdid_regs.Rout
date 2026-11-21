@@ -130,7 +130,7 @@ Warning messages:
   row names were found from a short variable and have been discarded
 8: In data.frame(..., check.names = FALSE) :
   row names were found from a short variable and have been discarded
-Case 1 done, elapsed: 0.3 min
+Case 1 done, elapsed: 0.2 min
 
 ==================== Case 2, ATT event study: haz | rural ====================
 
@@ -631,7 +631,7 @@ Warning messages:
   critical value for uniform confidence band is somehow smaller than
             critical value for pointwise confidence interval...using pointwise
             confidence interal
-Remittance section done, elapsed: 0.6 min
+Remittance section done, elapsed: 0.5 min
 
 ==================== SPI classes: haz | rural ====================
 Near normal (untreated): 635 children in 49 municipalities | Dry (z <= -1): 368 children in 13 municipalities

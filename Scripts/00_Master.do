@@ -55,7 +55,7 @@ global run_build_did   1   // Builds the DID analysis data once. Note: The summa
 global run_sumstats_did 1  // DID summary statistics, the attrition tests, and the balance table and overlap figure of the rainfall classes
 global run_map         1   // Map of the 2009 drought by municipality in R
 global run_did         1   // DID regressions, event studies and the all three waves robustness checks for the binary DID and SPI classes
-global run_contdid     1   // Continuous DID in R. Slow bc the wild cluster bootstrap uses 9,999 draws
+global run_contdid     1   // Continuous DID in R. Slow bc the wild cluster bootstrap uses 9,999 draws. Also the discrete dose by 2005 age bin
 global run_sub_gender_did     1   // Subanalyses: DID regressions for boys and girls separately, and the triple difference by sex
 global run_sub_gender_contdid 1   // Subanalyses: continuous DID for boys and girls separately, and dry x male. Slow for the same reason as run_contdid
 global run_sub_rural_did     1   // Subanalyses: DID regressions for rural and urban children separately, and the triple difference by rural

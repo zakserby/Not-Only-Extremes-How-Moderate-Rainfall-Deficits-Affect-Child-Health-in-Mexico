@@ -74,6 +74,8 @@ foreach v in haz waz bmiz {
 
 * Same as DID_Regs do file, except rural_02_post is taken out of controls02 because rural does not vary within a subsample
 global FE_month "pid_link_canonical int_ym"
+* State x wave FE 
+global FE_es "pid_link_canonical int_ym state05#year"
 global did_controls "drought2005_post drought2006_post drought2007_post drought2008_post"
 global controls02 "dwell_electricity_02_post dwell_floor_good_02_post dwell_roof_good_02_post dwell_ventilation_good_02_post rooms_per_person_02_post ln_pc_expend_month_02_post"
 global controls05 "child_male_05_post mother_height_cm_05_post mother_edu_years_05_post mother_age_at_birth_05_post mother_employed_05_post fully_vaccinated_05_post"
@@ -85,6 +87,10 @@ foreach c in drought2005 drought2006 drought2007 drought2008 dwell_electricity_0
     gen `c'_w02 = `c' * (year == 2002)
     gen `c'_w09 = `c' * (year == 2009)
     global es_controls "$es_controls `c'_w02 `c'_w09"
+}
+* The 2005-2008 droughts are only interacted with the 2009 wave, same as DID_Regs.do
+foreach c in drought2005 drought2006 drought2007 drought2008 {
+    global es_controls : subinstr global es_controls "`c'_w02" ""
 }
 
 * reghdfe and its dependencies, same as DID_Regs.do
@@ -190,7 +196,8 @@ foreach v in haz waz bmiz {
 * c. Triple-difference event study
 foreach v in haz waz bmiz {
     * We restrict to the Model 5 children
-    reghdfe `v' lead_2_ddd lag_0_ddd lead_2_treat lag_0_treat lead_2_remit lag_0_remit $es_controls if e_`v' == 1 & m5_`v' == 1 & `rural', absorb($FE_month) vce(cluster cvegeo05)
+    * Using state x wave FE
+    reghdfe `v' lead_2_ddd lag_0_ddd lead_2_treat lag_0_treat lead_2_remit lag_0_remit $es_controls if e_`v' == 1 & m5_`v' == 1 & `rural', absorb($FE_es) vce(cluster cvegeo05)
     test lead_2_ddd
     lincom lag_0_treat + lag_0_ddd
 
@@ -299,7 +306,8 @@ gen lead_2_dddr = treat2009 * rural_05 * (year == 2002)
 gen lag_0_dddr  = treat2009 * rural_05 * (year == 2009)
 
 foreach v in haz waz bmiz {
-    reghdfe `v' lead_2_dddr lag_0_dddr lead_2_treat lag_0_treat lead_2_rur lag_0_rur $es_controls if e_`v' == 1 & mddd_`v' == 1, absorb($FE_month) vce(cluster cvegeo05)
+    * Using state x wave FE
+    reghdfe `v' lead_2_dddr lag_0_dddr lead_2_treat lag_0_treat lead_2_rur lag_0_rur $es_controls if e_`v' == 1 & mddd_`v' == 1, absorb($FE_es) vce(cluster cvegeo05)
     * Pre-trend test for the DDD. The lead should be about 0
     test lead_2_dddr
     lincom lag_0_treat + lag_0_dddr

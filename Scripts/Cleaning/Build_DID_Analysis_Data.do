@@ -75,6 +75,9 @@ bysort pid_link_canonical (mun_name05): replace mun_name05 = mun_name05[_N]
 order cvegeo05 mun_name05, after(mun_name)
 label variable cvegeo05 "Child's 2005 municipality"
 label variable mun_name05 "Name of the child's 2005 municipality"
+* State of the child's 2005 municipality, the first two digits of cvegeo05. Used for the state x wave FE in the event studies with controls
+gen state05 = real(substr(cvegeo05, 1, 2))
+label variable state05 "State of the child's 2005 municipality"
 
 
 *******************************************************************
@@ -169,7 +172,7 @@ label variable child_male "Male (indicator)"
 
 
 * Child and parent controls at baseline before the shock still. We use 2005 and not 2002 because these are the child's own values and children born after 2002 are not in 2002.
-foreach v in child_male mother_height_cm mother_edu_years mother_age_at_birth mother_employed fully_vaccinated father_height_cm father_edu_years father_age_at_birth father_employed birth_order oldest_child birth_weight_kg delivered_home predominant_breastfed iron_pregnancy premature {
+foreach v in child_male mother_height_cm mother_edu_years mother_age_at_birth mother_employed fully_vaccinated father_height_cm father_edu_years father_age_at_birth father_employed birth_order oldest_child birth_weight_kg delivered_home predominant_breastfed iron_pregnancy premature age {
     * Keep the value only on the 2005 row
     gen tmp05 = `v' if year == 2005
     * Next we duplicate 2005 value to all of the child's rows
@@ -177,6 +180,11 @@ foreach v in child_male mother_height_cm mother_edu_years mother_age_at_birth mo
     drop tmp05
     gen `v'_05_post = `v'_05 * post
 }
+* 2005 age bins for the heterogeneity by age, uniform 5-year bins
+gen agegrp05 = 0 if age_05 <= 4
+replace agegrp05 = 5 if inrange(age_05, 5, 9)
+replace agegrp05 = 10 if age_05 >= 10 & !missing(age_05)
+label variable agegrp05 "Child's 2005 age bin (0 = 0-4, 5 = 5-9, 10 = 10-15)"
 
 
 * 2002 remittances are used as the remittance measure in the triple difference

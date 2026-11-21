@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.11.12)  13 NOV 2026 16:53
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.11.12)  21 NOV 2026 15:01
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -23,14 +23,14 @@ File: size12.clo 2026-06-04 v1.4n Standard LaTeX file (size option)
 \belowcaptionskip=\skip50
 \bibindent=\dimen150
 ) (/Users/zakserby/Library/TinyTeX/texmf-dist/tex/latex/geometry/geometry.sty
-Package: geometry 2026/11/03 v6.1 Page Geometry
+Package: geometry 2026/11/15 v6.2 Page Geometry
 (/Users/zakserby/Library/TinyTeX/texmf-dist/tex/latex/graphics/keyval.sty
 Package: keyval 2026-06-01 v1.15 key=value parser (DPC)
 \KV@toks@=\toks17
 ) (/Users/zakserby/Library/TinyTeX/texmf-dist/tex/generic/iftex/ifvtex.sty
-Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
+Package: ifvtex 2026/10/27 v1.7 ifvtex compatibility package
 (/Users/zakserby/Library/TinyTeX/texmf-dist/tex/generic/iftex/iftex.sty
-Package: iftex 2024/12/12 v1.0g TeX engine tests
+Package: iftex 2026/11/17 v1.0h TeX engine tests
 ))
 \Gm@cnth=\count284
 \Gm@cntv=\count285
@@ -299,19 +299,19 @@ LaTeX Warning: Reference `tab:sumstats' on page 16 undefined on input line 576.
 
 ]
 
-LaTeX Warning: Reference `tab:sumstats' on page 17 undefined on input line 612.
+LaTeX Warning: Reference `tab:sumstats' on page 17 undefined on input line 613.
 
 [17
 
 ]
 
-LaTeX Warning: Reference `tab:sumstats' on page 18 undefined on input line 648.
+LaTeX Warning: Reference `tab:sumstats' on page 18 undefined on input line 650.
 
 [18
 
 ]
 
-LaTeX Warning: Reference `tab:sumstats' on page 19 undefined on input line 684.
+LaTeX Warning: Reference `tab:sumstats' on page 19 undefined on input line 687.
 
 [19
 
@@ -319,252 +319,262 @@ LaTeX Warning: Reference `tab:sumstats' on page 19 undefined on input line 684.
 <../Output/Figures/Appendix/drought_map_binary.png, id=91, 1957.3125pt x 1355.0625pt>
 File: ../Output/Figures/Appendix/drought_map_binary.png Graphic file (type png)
 <use ../Output/Figures/Appendix/drought_map_binary.png>
-Package pdftex.def Info: ../Output/Figures/Appendix/drought_map_binary.png  used on input line 692.
+Package pdftex.def Info: ../Output/Figures/Appendix/drought_map_binary.png  used on input line 695.
 (pdftex.def)             Requested size: 375.80544pt x 260.17317pt.
-<../Output/Figures/Appendix/event_study_bmiz_controls.png, id=92, 542.025pt x 325.215pt>
-File: ../Output/Figures/Appendix/event_study_bmiz_controls.png Graphic file (type png)
-<use ../Output/Figures/Appendix/event_study_bmiz_controls.png>
-Package pdftex.def Info: ../Output/Figures/Appendix/event_study_bmiz_controls.png  used on input line 698.
+<../Output/Figures/Appendix/event_study_controls.png, id=92, 542.025pt x 325.215pt>
+File: ../Output/Figures/Appendix/event_study_controls.png Graphic file (type png)
+<use ../Output/Figures/Appendix/event_study_controls.png>
+Package pdftex.def Info: ../Output/Figures/Appendix/event_study_controls.png  used on input line 701.
 (pdftex.def)             Requested size: 375.80544pt x 225.49031pt.
-<../Output/Figures/Appendix/event_study_haz_controls.png, id=93, 542.025pt x 325.215pt>
-File: ../Output/Figures/Appendix/event_study_haz_controls.png Graphic file (type png)
-<use ../Output/Figures/Appendix/event_study_haz_controls.png>
-Package pdftex.def Info: ../Output/Figures/Appendix/event_study_haz_controls.png  used on input line 705.
+<../Output/Figures/Appendix/event_study_severity_haz_all3.png, id=93, 542.025pt x 325.215pt>
+File: ../Output/Figures/Appendix/event_study_severity_haz_all3.png Graphic file (type png)
+<use ../Output/Figures/Appendix/event_study_severity_haz_all3.png>
+Package pdftex.def Info: ../Output/Figures/Appendix/event_study_severity_haz_all3.png  used on input line 708.
 (pdftex.def)             Requested size: 375.80544pt x 225.49031pt.
 [20
 
- <../Output/Figures/Appendix/drought_map_binary.png> <../Output/Figures/Appendix/event_study_bmiz_controls.png>]
-<../Output/Figures/Appendix/event_study_waz_controls.png, id=99, 542.025pt x 325.215pt>
-File: ../Output/Figures/Appendix/event_study_waz_controls.png Graphic file (type png)
-<use ../Output/Figures/Appendix/event_study_waz_controls.png>
-Package pdftex.def Info: ../Output/Figures/Appendix/event_study_waz_controls.png  used on input line 712.
-(pdftex.def)             Requested size: 375.80544pt x 225.49031pt.
-<../Output/Figures/Appendix/event_study_severity_haz_all3.png, id=100, 542.025pt x 325.215pt>
-File: ../Output/Figures/Appendix/event_study_severity_haz_all3.png Graphic file (type png)
-<use ../Output/Figures/Appendix/event_study_severity_haz_all3.png>
-Package pdftex.def Info: ../Output/Figures/Appendix/event_study_severity_haz_all3.png  used on input line 719.
-(pdftex.def)             Requested size: 375.80544pt x 225.49031pt.
-[21 <../Output/Figures/Appendix/event_study_haz_controls.png> <../Output/Figures/Appendix/event_study_waz_controls.png>]
-<../Output/Figures/Appendix/event_study_severity_waz_all3.png, id=106, 542.025pt x 325.215pt>
+ <../Output/Figures/Appendix/drought_map_binary.png> <../Output/Figures/Appendix/event_study_controls.png>]
+<../Output/Figures/Appendix/event_study_severity_waz_all3.png, id=99, 542.025pt x 325.215pt>
 File: ../Output/Figures/Appendix/event_study_severity_waz_all3.png Graphic file (type png)
 <use ../Output/Figures/Appendix/event_study_severity_waz_all3.png>
-Package pdftex.def Info: ../Output/Figures/Appendix/event_study_severity_waz_all3.png  used on input line 726.
+Package pdftex.def Info: ../Output/Figures/Appendix/event_study_severity_waz_all3.png  used on input line 715.
 (pdftex.def)             Requested size: 375.80544pt x 225.49031pt.
-<../Output/Figures/Appendix/event_study_dry_bmiz.png, id=107, 542.025pt x 325.215pt>
-File: ../Output/Figures/Appendix/event_study_dry_bmiz.png Graphic file (type png)
-<use ../Output/Figures/Appendix/event_study_dry_bmiz.png>
-Package pdftex.def Info: ../Output/Figures/Appendix/event_study_dry_bmiz.png  used on input line 733.
+<../Output/Figures/Appendix/event_study_dry.png, id=100, 542.025pt x 325.215pt>
+File: ../Output/Figures/Appendix/event_study_dry.png Graphic file (type png)
+<use ../Output/Figures/Appendix/event_study_dry.png>
+Package pdftex.def Info: ../Output/Figures/Appendix/event_study_dry.png  used on input line 722.
 (pdftex.def)             Requested size: 375.80544pt x 225.49031pt.
-[22 <../Output/Figures/Appendix/event_study_severity_haz_all3.png> <../Output/Figures/Appendix/event_study_severity_waz_all3.png>]
-<../Output/Figures/Appendix/event_study_dry_haz.png, id=113, 542.025pt x 325.215pt>
-File: ../Output/Figures/Appendix/event_study_dry_haz.png Graphic file (type png)
-<use ../Output/Figures/Appendix/event_study_dry_haz.png>
-Package pdftex.def Info: ../Output/Figures/Appendix/event_study_dry_haz.png  used on input line 740.
-(pdftex.def)             Requested size: 375.80544pt x 225.49031pt.
-<../Output/Figures/Appendix/event_study_dry_waz.png, id=114, 542.025pt x 325.215pt>
-File: ../Output/Figures/Appendix/event_study_dry_waz.png Graphic file (type png)
-<use ../Output/Figures/Appendix/event_study_dry_waz.png>
-Package pdftex.def Info: ../Output/Figures/Appendix/event_study_dry_waz.png  used on input line 747.
-(pdftex.def)             Requested size: 375.80544pt x 225.49031pt.
-[23 <../Output/Figures/Appendix/event_study_dry_bmiz.png> <../Output/Figures/Appendix/event_study_dry_haz.png>] [24 <../Output/Figures/Appendix/event_study_dry_waz.png>]
+[21 <../Output/Figures/Appendix/event_study_severity_haz_all3.png> <../Output/Figures/Appendix/event_study_severity_waz_all3.png>] [22 <../Output/Figures/Appendix/event_study_dry.png>]
 
-LaTeX Warning: Reference `tab:sumstats' on page 25 undefined on input line 861.
+LaTeX Warning: Reference `tab:sumstats' on page 23 undefined on input line 836.
 
 
-LaTeX Warning: Reference `tab:oa_contdid' on page 25 undefined on input line 861.
+LaTeX Warning: Reference `tab:oa_contdid' on page 23 undefined on input line 836.
+
+[23
+
+] [24]
+
+LaTeX Warning: Reference `tab:sumstats' on page 25 undefined on input line 872.
 
 [25
 
-] [26]
+]
 
-LaTeX Warning: Reference `tab:sumstats' on page 27 undefined on input line 897.
+LaTeX Warning: Reference `tab:sumstats' on page 26 undefined on input line 895.
+
+[26
+
+]
+
+LaTeX Warning: Reference `tab:oaattrrain' on page 27 undefined on input line 916.
 
 [27
 
 ]
 
-LaTeX Warning: Reference `tab:sumstats' on page 28 undefined on input line 920.
+LaTeX Warning: Reference `tab:oaattrrain' on page 28 undefined on input line 937.
 
 [28
 
 ]
 
-LaTeX Warning: Reference `tab:oaattrrain' on page 29 undefined on input line 941.
+LaTeX Warning: Reference `tab:oaattrbase' on page 29 undefined on input line 958.
 
 [29
 
 ]
 
-LaTeX Warning: Reference `tab:oaattrrain' on page 30 undefined on input line 962.
+LaTeX Warning: Reference `tab:oaattrrain' on page 30 undefined on input line 981.
 
 [30
 
 ]
 
-LaTeX Warning: Reference `tab:oaattrbase' on page 31 undefined on input line 983.
+LaTeX Warning: Reference `tab:oaattrlost' on page 31 undefined on input line 1002.
 
 [31
 
 ]
 
-LaTeX Warning: Reference `tab:oaattrrain' on page 32 undefined on input line 1006.
+LaTeX Warning: Reference `tab:sumstats' on page 32 undefined on input line 1035.
 
 [32
 
 ]
 
-LaTeX Warning: Reference `tab:oaattrlost' on page 33 undefined on input line 1027.
+LaTeX Warning: Reference `tab:sumstats' on page 33 undefined on input line 1067.
 
 [33
 
 ]
 
-LaTeX Warning: Reference `tab:sumstats' on page 34 undefined on input line 1060.
+LaTeX Warning: Reference `tab:sumstats' on page 34 undefined on input line 1099.
 
 [34
 
 ]
 
-LaTeX Warning: Reference `tab:sumstats' on page 35 undefined on input line 1092.
+LaTeX Warning: Reference `tab:sumstats' on page 35 undefined on input line 1131.
 
 [35
 
 ]
 
-LaTeX Warning: Reference `tab:sumstats' on page 36 undefined on input line 1124.
+LaTeX Warning: Reference `tab:sumstats' on page 36 undefined on input line 1163.
 
 [36
 
 ]
 
-LaTeX Warning: Reference `tab:sumstats' on page 37 undefined on input line 1156.
+LaTeX Warning: Reference `tab:sumstats' on page 37 undefined on input line 1195.
 
 [37
 
 ]
 
-LaTeX Warning: Reference `tab:sumstats' on page 38 undefined on input line 1188.
+LaTeX Warning: Reference `tab:sumstats' on page 38 undefined on input line 1227.
 
 [38
 
 ]
 
-LaTeX Warning: Reference `tab:sumstats' on page 39 undefined on input line 1220.
+LaTeX Warning: Reference `tab:sumstats' on page 39 undefined on input line 1259.
 
 [39
 
 ]
 
-LaTeX Warning: Reference `tab:sumstats' on page 40 undefined on input line 1252.
+LaTeX Warning: Reference `tab:sumstats' on page 40 undefined on input line 1291.
 
 [40
 
 ]
 
-LaTeX Warning: Reference `tab:sumstats' on page 41 undefined on input line 1284.
+LaTeX Warning: Reference `tab:sumstats' on page 41 undefined on input line 1323.
 
 [41
 
 ]
 
-LaTeX Warning: Reference `tab:sumstats' on page 42 undefined on input line 1316.
+LaTeX Warning: Reference `tab:sumstats' on page 42 undefined on input line 1355.
 
 [42
 
 ]
 
-LaTeX Warning: Reference `tab:sumstats' on page 43 undefined on input line 1348.
+LaTeX Warning: Reference `tab:sumstats' on page 43 undefined on input line 1387.
 
 [43
 
-]
+] [44
 
-LaTeX Warning: Reference `tab:sumstats' on page 44 undefined on input line 1380.
-
-[44
-
-]
-
-LaTeX Warning: Reference `tab:sumstats' on page 45 undefined on input line 1412.
-
-[45
+] [45
 
 ] [46
 
 ] [47
 
-] [48
+]
 
-] [49
+LaTeX Warning: Reference `tab:sumstats' on page 48 undefined on input line 1561.
+
+[48
 
 ]
 
-LaTeX Warning: Reference `tab:sumstats' on page 50 undefined on input line 1586.
+LaTeX Warning: Reference `tab:sumstats' on page 49 undefined on input line 1589.
+
+[49
+
+]
+
+LaTeX Warning: Reference `tab:sumstats' on page 50 undefined on input line 1616.
 
 [50
 
 ]
 
-LaTeX Warning: Reference `tab:sumstats' on page 51 undefined on input line 1614.
+LaTeX Warning: Reference `tab:sumstats' on page 51 undefined on input line 1644.
 
 [51
 
-]
-
-LaTeX Warning: Reference `tab:sumstats' on page 52 undefined on input line 1641.
-
-[52
+] [52
 
 ]
 
-LaTeX Warning: Reference `tab:sumstats' on page 53 undefined on input line 1669.
+LaTeX Warning: Reference `tab:oaagedosehaz' on page 53 undefined on input line 1696.
 
 [53
 
-] [54
+]
+
+LaTeX Warning: Reference `tab:oaagedosehaz' on page 54 undefined on input line 1722.
+
+[54
+
+]
+
+LaTeX Warning: Reference `tab:oaagedosehaz' on page 55 undefined on input line 1742.
+
+[55
+
+]
+
+LaTeX Warning: Reference `tab:oaagehaz' on page 56 undefined on input line 1762.
+
+[56
+
+]
+
+LaTeX Warning: Reference `tab:oaagehaz' on page 57 undefined on input line 1782.
+
+[57
+
+] [58
 
 
-] [55
+] [59
 
 
 
 ]
-<../Output/Figures/Online_Appendix/contdid_binscatter_bmiz.png, id=224, 1304.875pt x 903.375pt>
+<../Output/Figures/Online_Appendix/contdid_binscatter_bmiz.png, id=228, 1304.875pt x 903.375pt>
 File: ../Output/Figures/Online_Appendix/contdid_binscatter_bmiz.png Graphic file (type png)
 <use ../Output/Figures/Online_Appendix/contdid_binscatter_bmiz.png>
-Package pdftex.def Info: ../Output/Figures/Online_Appendix/contdid_binscatter_bmiz.png  used on input line 1772.
+Package pdftex.def Info: ../Output/Figures/Online_Appendix/contdid_binscatter_bmiz.png  used on input line 1885.
 (pdftex.def)             Requested size: 375.80544pt x 260.16629pt.
-<../Output/Figures/Online_Appendix/contdid_binscatter_haz.png, id=225, 1304.875pt x 903.375pt>
+<../Output/Figures/Online_Appendix/contdid_binscatter_haz.png, id=229, 1304.875pt x 903.375pt>
 File: ../Output/Figures/Online_Appendix/contdid_binscatter_haz.png Graphic file (type png)
 <use ../Output/Figures/Online_Appendix/contdid_binscatter_haz.png>
-Package pdftex.def Info: ../Output/Figures/Online_Appendix/contdid_binscatter_haz.png  used on input line 1778.
+Package pdftex.def Info: ../Output/Figures/Online_Appendix/contdid_binscatter_haz.png  used on input line 1891.
 (pdftex.def)             Requested size: 375.80544pt x 260.16629pt.
-<../Output/Figures/Online_Appendix/contdid_binscatter_waz.png, id=226, 1304.875pt x 903.375pt>
+<../Output/Figures/Online_Appendix/contdid_binscatter_waz.png, id=230, 1304.875pt x 903.375pt>
 File: ../Output/Figures/Online_Appendix/contdid_binscatter_waz.png Graphic file (type png)
 <use ../Output/Figures/Online_Appendix/contdid_binscatter_waz.png>
-Package pdftex.def Info: ../Output/Figures/Online_Appendix/contdid_binscatter_waz.png  used on input line 1784.
+Package pdftex.def Info: ../Output/Figures/Online_Appendix/contdid_binscatter_waz.png  used on input line 1897.
 (pdftex.def)             Requested size: 375.80544pt x 260.16629pt.
-[56
+[60
 
 
  <../Output/Figures/Online_Appendix/contdid_binscatter_bmiz.png> <../Output/Figures/Online_Appendix/contdid_binscatter_haz.png>]
-<../Output/Figures/Online_Appendix/contdid_att_clustered_bmiz.png, id=232, 1304.875pt x 903.375pt>
+<../Output/Figures/Online_Appendix/contdid_att_clustered_bmiz.png, id=236, 1304.875pt x 903.375pt>
 File: ../Output/Figures/Online_Appendix/contdid_att_clustered_bmiz.png Graphic file (type png)
 <use ../Output/Figures/Online_Appendix/contdid_att_clustered_bmiz.png>
-Package pdftex.def Info: ../Output/Figures/Online_Appendix/contdid_att_clustered_bmiz.png  used on input line 1790.
+Package pdftex.def Info: ../Output/Figures/Online_Appendix/contdid_att_clustered_bmiz.png  used on input line 1903.
 (pdftex.def)             Requested size: 375.80544pt x 260.16629pt.
-<../Output/Figures/Online_Appendix/contdid_att_clustered_haz.png, id=233, 1304.875pt x 903.375pt>
+<../Output/Figures/Online_Appendix/contdid_att_clustered_haz.png, id=237, 1304.875pt x 903.375pt>
 File: ../Output/Figures/Online_Appendix/contdid_att_clustered_haz.png Graphic file (type png)
 <use ../Output/Figures/Online_Appendix/contdid_att_clustered_haz.png>
-Package pdftex.def Info: ../Output/Figures/Online_Appendix/contdid_att_clustered_haz.png  used on input line 1796.
+Package pdftex.def Info: ../Output/Figures/Online_Appendix/contdid_att_clustered_haz.png  used on input line 1909.
 (pdftex.def)             Requested size: 375.80544pt x 260.16629pt.
-[57 <../Output/Figures/Online_Appendix/contdid_binscatter_waz.png> <../Output/Figures/Online_Appendix/contdid_att_clustered_bmiz.png>]
-<../Output/Figures/Online_Appendix/contdid_att_clustered_waz.png, id=239, 1304.875pt x 903.375pt>
+[61 <../Output/Figures/Online_Appendix/contdid_binscatter_waz.png> <../Output/Figures/Online_Appendix/contdid_att_clustered_bmiz.png>]
+<../Output/Figures/Online_Appendix/contdid_att_clustered_waz.png, id=244, 1304.875pt x 903.375pt>
 File: ../Output/Figures/Online_Appendix/contdid_att_clustered_waz.png Graphic file (type png)
 <use ../Output/Figures/Online_Appendix/contdid_att_clustered_waz.png>
-Package pdftex.def Info: ../Output/Figures/Online_Appendix/contdid_att_clustered_waz.png  used on input line 1802.
+Package pdftex.def Info: ../Output/Figures/Online_Appendix/contdid_att_clustered_waz.png  used on input line 1915.
 (pdftex.def)             Requested size: 375.80544pt x 260.16629pt.
-[58 <../Output/Figures/Online_Appendix/contdid_att_clustered_haz.png> <../Output/Figures/Online_Appendix/contdid_att_clustered_waz.png>] (./Results.aux)
+[62 <../Output/Figures/Online_Appendix/contdid_att_clustered_haz.png> <../Output/Figures/Online_Appendix/contdid_att_clustered_waz.png>] (./Results.aux)
  ***********
 LaTeX2e <2026-11-01>
 L3 programming layer <2026-09-09>
@@ -574,18 +584,18 @@ LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 3642 strings out of 468958
- 71179 string characters out of 5453336
- 546759 words of memory out of 5000000
- 32853 multiletter control sequences out of 15000+600000
+ 3612 strings out of 468958
+ 69219 string characters out of 5453336
+ 546928 words of memory out of 5000000
+ 32823 multiletter control sequences out of 15000+600000
  634043 words of font info for 58 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  57i,12n,65p,1210b,469s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </Users/zakserby/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></Users/zakserby/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb></Users/zakserby/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></Users/zakserby/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></Users/zakserby/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></Users/zakserby/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></Users/zakserby/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></Users/zakserby/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></Users/zakserby/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></Users/zakserby/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></Users/zakserby/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></Users/zakserby/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></Users/zakserby/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></Users/zakserby/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></Users/zakserby/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmti8.pfb>
-Output written on Results.pdf (58 pages, 1755233 bytes).
+Output written on Results.pdf (62 pages, 1692850 bytes).
 PDF statistics:
- 310 PDF objects out of 1000 (max. 8388607)
- 176 compressed objects within 2 object streams
+ 315 PDF objects out of 1000 (max. 8388607)
+ 185 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
- 106 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 86 words of extra memory for PDF output out of 10000 (max. 10000000)
 

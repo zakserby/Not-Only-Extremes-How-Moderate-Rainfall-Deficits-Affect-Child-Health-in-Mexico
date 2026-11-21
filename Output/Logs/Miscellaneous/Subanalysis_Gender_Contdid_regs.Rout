@@ -126,7 +126,7 @@ Warning messages:
             confidence interal
 7: In data.frame(..., check.names = FALSE) :
   row names were found from a short variable and have been discarded
-Case 1 done, elapsed: 0.3 min
+Case 1 done, elapsed: 0.2 min
 
 ==================== Case 2, ATT event study: haz | boys ====================
 
@@ -635,7 +635,7 @@ Warning messages:
   critical value for uniform confidence band is somehow smaller than
             critical value for pointwise confidence interval...using pointwise
             confidence interal
-Remittance section done, elapsed: 0.6 min
+Remittance section done, elapsed: 0.5 min
 
 ==================== SPI classes: haz | boys ====================
 Near normal (untreated): 739 children in 81 municipalities | Dry (z <= -1): 427 children in 38 municipalities

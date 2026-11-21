@@ -11,7 +11,7 @@
 
 ## Overview
 
-This thesis studies how the effects of the 2009 rainfall deficit in Mexico on child health vary with the severity of the deficit, and whether household remittances buffered the shock. Child health is measured by WHO height-for-age (HAZ), weight-for-age (WAZ), and BMI-for-age (BMIZ) z-scores. It combines the Mexican Family Life Survey (MxFLS) for 2002, 2005 and 2009 with municipality-level CHIRPS rainfall over the May-October growing season. The main design is a difference-in-differences (DID) that treats rainfall severity categories as the dose levels of a multi-valued discrete treatment, following Callaway, Goodman-Bacon and Sant'Anna (2024). The categories use Standardized Precipitation Index (SPI) cutoffs, and near-normal municipalities are the comparison group. The thesis also estimates a binary DID with baseline controls, triple differences with 2002 remittances, event studies, attrition tests, and a continuous DID, with subanalyses and triple differences by child sex and by rural vs urban locality.
+This thesis studies how the effects of the 2009 rainfall deficit in Mexico on child health vary with the severity of the deficit, and whether household remittances buffered the shock. Child health is measured by WHO height-for-age (HAZ), weight-for-age (WAZ), and BMI-for-age (BMIZ) z-scores. It combines the Mexican Family Life Survey (MxFLS) for 2002, 2005 and 2009 with municipality-level CHIRPS rainfall over the May-October growing season. The main design is a difference-in-differences (DID) that treats rainfall severity categories as the dose levels of a multi-valued discrete treatment, following Callaway, Goodman-Bacon and Sant'Anna (2024). The categories use Standardized Precipitation Index (SPI) cutoffs, and near-normal municipalities are the comparison group. The thesis also estimates a binary DID with baseline controls, triple differences with 2002 remittances, event studies, attrition tests, and a continuous DID, with subanalyses and triple differences by child sex and by rural vs urban locality and estimates by 2005 age bin.
 
 ## How to run
 
@@ -48,7 +48,7 @@ Scripts/
     Drought_map.R                   Maps of the 2009 drought by municipality
   Regressions/
     DID_Regs.do                     Binary DID, triple difference, event studies, robustness
-    Contdid_regs.R                  Continuous DID, rainfall dose groups with SPI cutoffs, remittance buffer
+    Contdid_regs.R                  Continuous DID, rainfall dose groups with SPI cutoffs, remittance buffer, age bins
     functions.R                     Functions used by the R scripts
     Subanalysis_Gender_*            Same analyses for boys and girls, and the triple difference by sex
     Subanalysis_Rural_*             Same analyses for rural and urban children, and the triple difference by rural locality

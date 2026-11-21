@@ -72,7 +72,7 @@ states <- aggregate(mun["CVE_ENT"], by = list(mun$CVE_ENT), FUN = function(x) x[
 breaks <- c(-Inf, -2, -1.5, -1, 1, Inf)
 labels <- c("Extremely dry, z <= -2", "Severely dry, -2 < z <= -1.5", "Moderately dry, -1.5 < z <= -1", "Near normal, -1 < z < 1", "Wet, z >= 1")
 # Colors
-spi_colors <- c(brewer.pal(11, "BrBG")[c(2, 4, 5)], "grey90", brewer.pal(11, "BrBG")[9])
+spi_colors <- c("#9A1428", "#D02C2C", "#F4A582", "#F2F2F2", "#92C5DE")
 # Note: right = TRUE so z = -1 counts as moderately dry and z = -1.5 as severely dry, the same as add_spi()
 mun$spi_class <- cut(mun$rain_z, breaks = breaks, labels = FALSE, right = TRUE)
 
@@ -94,8 +94,8 @@ dev.off()
 
 # Binary drought, the DID treatment
 # NOTE: The binary treatment and the SPI classes don't line up. About a sixth of the 2009 droughts have z above -1, near normal in the SPI classes, so the binary treatment mixes mild and severe deficits
-draw_map(ifelse(is.na(mun$drought), "white", ifelse(mun$drought == 1, "#A6611A", "grey90")), "drought_map_binary.png", "Appendix")
-legend("bottomleft", legend = c("Drought", "No drought", "Municipality in the estimation sample"), fill = c("#A6611A", "grey90", NA),
+draw_map(ifelse(is.na(mun$drought), "white", ifelse(mun$drought == 1, "#D02C2C", "#F2F2F2")), "drought_map_binary.png", "Appendix")
+legend("bottomleft", legend = c("Drought", "No drought", "Municipality in the estimation sample"), fill = c("#D02C2C", "#F2F2F2", NA),
        border = c(NA, NA, "black"), bty = "n", cex = 0.65)
 dev.off()
 

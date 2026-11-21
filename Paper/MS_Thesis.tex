@@ -82,7 +82,7 @@ Research on how events during early developmental stages shape later health outc
 
 I examine a related but distinct question that has received relatively limited attention in the existing literature. For children exposed to negative rainfall deviations during childhood, how do the effects on height-for-age (HAZ), weight-for-age (WAZ), and BMI-for-age (BMIZ) z-scores vary with the severity of these deviations? My question is essentially one about heterogeneous treatment effects across different dose levels of rainfall shocks experienced by children in their municipality of residence. Additionally, I am particularly interested in examining whether there is evidence to support allocating more resources toward one level of rainfall deviation compared to another. The answer to this question has important policy implications, as it may determine whether greater attention should be directed toward moderate rainfall deficits. This is particularly relevant as the \textcite{ipccSummaryPolicymakers2021} finds that human-induced climate change has already contributed to increases in agricultural droughts in some regions, with further increases in their frequency or severity projected across Central and North America. Such policies could help mitigate the negative effects on child health, among other potentially affected outcomes.
 
-My findings indicate that moderate rainfall deficits are the only dose group with a consistently statistically significant effect, reducing children's BMI-for-age z-scores relative to children in near-normal municipalities. A lower BMIZ means a child weighs less for their height and age than the reference population. After a negative income shock I interpret it as reduced nutritional intake. Rainfall 1 to 1.5 standard deviations below the municipality's norm leads children to experience a 0.22 standard deviation smaller increase in BMIZ between 2005 and 2009 (compared to an average increase of 0.23 standard deviations). For WAZ, the estimates have the same sign and similar magnitudes but are not statistically significant. For HAZ I find essentially no effect in any specification. These results follow from the idea that weight is typically a proxy for short-term nutritional status, while height reflects health and nutrition during the critical periods of growth in early life \parencite{currieEarlyLifeHealthAdult2013}. Supporting the previous findings of \textcite{almondChildhoodCircumstancesAdult2018}, my results suggest that shocks below the extreme end of the distribution also deserve the attention of policymakers. I find that moderate rainfall deficits appear to be the more prevalent problem, potentially because of their relatively greater frequency and lower likelihood of receiving support. Additionally, I find no statistically significant effect for the severely dry or worse dose group, I do not interpret this null result as evidence that severe deficits are harmless. This dose group fails pre-trend tests and exhibits imbalances in baseline characteristics that may bias the estimate toward zero and could mask a negative effect. Nonetheless, this finding could motivate further research quantifying how much more beneficial it would be to allocate resources toward mitigating one level of rainfall deficits rather than another, which I leave to future research.
+My findings indicate that moderate rainfall deficits are the only dose group with a consistently statistically significant effect, reducing children's BMI-for-age z-scores relative to children in near-normal municipalities. A lower BMIZ means a child weighs less for their height and age than the reference population. After a negative income shock I interpret it as reduced nutritional intake. Rainfall 1 to 1.5 standard deviations below the municipality's norm leads children to experience a 0.22 standard deviation smaller increase in BMIZ between 2005 and 2009 (compared to an average increase of 0.23 standard deviations). This dose group passes the pre-trend test, although the standard error of the 2002 lead is large. For WAZ, the estimates have the same sign and similar magnitudes but are not statistically significant. For HAZ I find essentially no effect in any specification. These results follow from the idea that weight is typically a proxy for short-term nutritional status, while height reflects health and nutrition during the critical periods of growth in early life \parencite{currieEarlyLifeHealthAdult2013}. Supporting the previous findings of \textcite{almondChildhoodCircumstancesAdult2018}, my results suggest that shocks below the extreme end of the distribution also deserve the attention of policymakers. I find that moderate rainfall deficits appear to be the more prevalent problem, potentially because of their relatively greater frequency and lower likelihood of receiving support. Additionally, I find no statistically significant effect for the severely dry or worse dose group, I do not interpret this null result as evidence that severe deficits are harmless. This dose group fails pre-trend tests and exhibits imbalances in baseline characteristics that may bias the estimate toward zero and could mask a negative effect. Nonetheless, this finding could motivate further research quantifying how much more beneficial it would be to allocate resources toward mitigating one level of rainfall deficits rather than another, which I leave to future research.
 
 Two alternative difference-in-differences specifications extend my analysis. The first employs a binary rainfall shock with baseline controls and fixed effects, allowing me to account for a rich set of pre-shock characteristics. The second uses a continuous-dose specification that exploits the full distribution of rainfall shocks. The binary specification yields similar results for BMIZ and HAZ and stronger results for WAZ, corroborating my main findings. In addition, I conduct robustness checks to assess the identification assumptions and the exogeneity of rainfall. The analysis also examines remittances as a consumption-smoothing mechanism and finds no evidence that they protected children from the shock. Among children in households that did not receive remittances in 2002, living in a dry municipality reduced the change in BMIZ by 0.25 standard deviations. This effect is statistically significant. However, the remittance interaction is positive for BMIZ and negative for WAZ and HAZ, but not statistically significant for any outcome.
 
@@ -220,7 +220,7 @@ I also report wild cluster bootstrap p-values, because with few treated municipa
 
 Overall, I find that children experiencing moderate rainfall deficits of 1 to 1.5 standard deviations below their municipality's norm had a decline in BMIZ relative to children in near-normal municipalities. Point estimates for WAZ have the same sign and a similar magnitude but are not statistically significant. I find no significant effect for the severely dry or worse dose group, and no evidence that HAZ responds at any level of the deficit. The key identifying assumption is parallel trends. Absent the 2009 rainfall deficit, children in near-normal municipalities would have followed the same trend as children in moderately dry municipalities. The same assumption applies to the comparison between the severely dry or worse dose group and the near-normal group.
 
-My pre-trend test is a three-period event study with 2005 as the reference survey wave, estimated on the children in Table~\ref{tab:dose} with child and survey wave fixed effects. The 2002 leads are identified from the children who were also measured in 2002. Whereas the treatment effect compares the 2005 to 2009 change in each dry dose group with the change in near-normal municipalities, the pre-trend test makes the same comparison for 2002 to 2005, before the deficit occurred. If trends were parallel before the deficit, these 2002 leads should be close to zero. Figure~\ref{fig:es_bmiz} shows that the BMIZ lead for the moderately dry dose group is $-0.24$ and not significant, but its standard error of 0.17 is large, so the lead is imprecisely estimated and the test is not very informative. The BMIZ lead for the severely dry or worse dose group is $-0.26$ with a standard error of 0.12 and fails the pre-trend test. The WAZ leads are of similar size in both dose groups and are not significant. The HAZ leads are close to zero in both dose groups. The event studies for all three outcomes are shown in Figures~\ref{fig:es_bmiz} to~\ref{fig:es_waz}, and the 2009 coefficients match those in Table~\ref{tab:dose}.
+My pre-trend test is a three-period event study with 2005 as the reference survey wave, estimated on the children in Table~\ref{tab:dose} with child and survey wave fixed effects. The 2002 leads are identified from the children who were also measured in 2002. Whereas the treatment effect compares the 2005 to 2009 change in each dry dose group with the change in near-normal municipalities, the pre-trend test makes the same comparison for 2002 to 2005, before the deficit occurred. If trends were parallel before the deficit, these 2002 leads should be close to zero. Figure~\ref{fig:es_bmiz} shows that the BMIZ lead for the moderately dry dose group is $-0.24$ and not significant, but its standard error of 0.17 is large, so the lead is imprecisely estimated and the absence of a significant pre-trend should be interpreted with caution. The BMIZ lead for the severely dry or worse dose group is $-0.26$ with a standard error of 0.12 and fails the pre-trend test. The WAZ leads are of similar size in both dose groups and are not significant. The HAZ leads are close to zero in both dose groups. The event studies for all three outcomes are shown in Figures~\ref{fig:es_bmiz} to~\ref{fig:es_waz}, and the 2009 coefficients match those in Table~\ref{tab:dose}.
 
 \afterpagefloat{\begin{sidewaysfigure}[p]
 \noindent
@@ -354,7 +354,7 @@ Children    &       2,379         &       2,379         &       1,714         & 
 \endgroup
 
 
-The basic specification in column 1 implies that children in municipalities affected by the 2009 drought experienced a 0.15 standard deviation smaller increase in BMIZ between 2005 and 2009 than children in other municipalities (compared to an average increase of 0.23 standard deviations in the sample). Converted using the WHO reference for each child's age, sex, and height, this corresponds to roughly 0.4 kg/m$^2$ lower BMI or about 0.8 kg less body weight at the average height of 139 cm. This is most comparable to my discrete-dose specification without controls. As with the discrete-dose results, BMIZ is not monotonically related to welfare, so the economic significance of this decline differs across children with different baseline nutritional status. Adding controls for droughts between 2005 and 2008 in column 2 keeps the coefficient statistically significant and increases its absolute magnitude slightly from $-0.15$ to $-0.18$. Further adding baseline household, child, and maternal controls in column 3 to address potentially confounding pre-shock differences between children roughly doubles the estimate to $-0.30$. With a standard error similar to that in column 2, it becomes statistically significant at the 1 percent level. Column 4 adds paternal and birth controls and the estimate remains negative and statistically significant. However, the sample decreases to only 712 children primarily due to missing observations associated with paternal migration. However, the primary identifying assumption of parallel pre-trends does not hold. The 2002 lead is large and statistically significant, with a coefficient of $-0.39$ and a standard error of 0.10, as shown in the BMIZ event study in Appendix Table~\ref{tab:esbmiz} and Figure~\ref{fig:esc_bmiz}. These findings therefore remain suggestive. Nonetheless, they provide some reassurance because the two designs agree on the sign and approximate magnitude of the effect. I discuss the coefficient on remittances in column 5 in Section \hyperref[sec:IX]{IX}.
+The basic specification in column 1 implies that children in municipalities affected by the 2009 drought experienced a 0.15 standard deviation smaller increase in BMIZ between 2005 and 2009 than children in other municipalities (compared to an average increase of 0.23 standard deviations in the sample). Converted using the WHO reference for each child's age, sex, and height, this corresponds to roughly 0.4 kg/m$^2$ lower BMI or about 0.8 kg less body weight at the average height of 139 cm. This is most comparable to my discrete-dose specification without controls. As with the discrete-dose results, BMIZ is not monotonically related to welfare, so the economic significance of this decline differs across children with different baseline nutritional status. Adding controls for droughts between 2005 and 2008 in column 2 keeps the coefficient statistically significant and increases its absolute magnitude slightly from $-0.15$ to $-0.18$. Further adding baseline household, child, and maternal controls in column 3 to address potentially confounding pre-shock differences between children roughly doubles the estimate to $-0.30$. With a standard error similar to that in column 2, it becomes statistically significant at the 1 percent level. Column 4 adds paternal and birth controls and the estimate remains negative and statistically significant. The sample decreases to only 712 children primarily due to missing observations associated with paternal migration. The primary identifying assumption of parallel pre-trends does not clearly fail, but I cannot confidently claim that it holds. While the 2002 lead is not statistically significant, it is large with a coefficient of $-0.24$ and a standard error of 0.15. This is shown in the BMIZ event study in Appendix Table~\ref{tab:esbmiz} and Figure~\ref{fig:esc}. These findings therefore remain suggestive. Nonetheless, they provide some reassurance because the two designs agree on the sign and approximate magnitude of the effect. The two event studies differ because the binary specification uses the Model 3 children and controls, with interview year-month and state $\times$ wave fixed effects. For the discrete dose, I adhere to \textcite{callawayDifferenceinDifferencesContinuousTreatment2024} and do not add controls or further fixed effects. I discuss the coefficient on remittances in column 5 in Section \hyperref[sec:IX]{IX}.
 
 \begingroup\setstretch{1}
 \begingroup
@@ -450,7 +450,7 @@ I find that drought lowers BMIZ for both boys and girls by similar magnitudes. I
 
 \subsection*{D. Heterogeneity by Rural and Urban Residence}
 
-I also examine whether the effects differ between rural and urban children, defining a child as rural if their household locality in 2005 had fewer than 2,500 inhabitants. I expected larger effects in rural areas because household incomes there depend more directly on rain-fed agriculture. In contrast, urban households are exposed mainly through food prices. Instead, I find larger effects on weight-related outcomes for urban children. In the binary specification, the BMIZ estimates for urban children are statistically significant in Models 1 through 3, implying 0.19, 0.26, and 0.38 standard deviation smaller increases in BMIZ. The rural estimates range from $-0.10$ to $-0.21$ standard deviations and are not statistically significant. The WAZ estimates follow the same pattern and no statistically significant effects are found for HAZ. In the discrete-dose specification, the BMIZ estimates are similar for rural and urban children. Relative to children in near-normal municipalities, residence in a dry municipality implies a 0.15 standard deviation smaller increase in BMIZ for rural children and a 0.17 standard deviation smaller increase for urban children. Neither estimate is statistically significant. For WAZ, only the urban estimate of $-0.22$ is statistically significant at the 5 percent level. Again, the DDD estimates show no statistically significant difference in the drought effect between rural and urban children for any outcome in either specification. One explanation is that the drought could have raised maize and tortilla prices, directly reducing food consumption for households that purchase their food. Rural farm households that consume what they grow may be partly insulated from these price increases. Another possible explanation is the conditional cash transfer program PROGRESA. The program began in 1997 and initially targeted rural households, potentially mitigating the effects of drought for rural families \parencite{adhvaryuHelpingChildrenCatch2024}. These results are shown in Online Appendix Tables~\ref{OA-tab:oa_haz_rural} to~\ref{OA-tab:oa_bmiz_urban} and~\ref{OA-tab:oa_cd_haz} to~\ref{OA-tab:oa_cd_bmiz} for the separate estimates by rural and urban residence, and~\ref{OA-tab:oa_ddd_rural} to~\ref{OA-tab:oa_ddd_rural_dose} for the DDD.
+I also examine whether the effects differ between rural and urban children, defining a child as rural if their household locality in 2005 had fewer than 2,500 inhabitants. I expected larger effects in rural areas because household incomes there depend more directly on rain-fed agriculture. In contrast, urban households are exposed mainly through food prices. Instead, I find larger effects on weight-related outcomes for urban children. In the binary specification, the BMIZ estimates for urban children are statistically significant in Models 1 through 3, implying 0.19, 0.26, and 0.38 standard deviation smaller increases in BMIZ. The rural estimates range from $-0.10$ to $-0.21$ standard deviations and are not statistically significant. The WAZ estimates follow the same pattern and no statistically significant effects are found for HAZ. In the discrete-dose specification, the BMIZ estimates are similar for rural and urban children. Relative to children in near-normal municipalities, residence in a dry municipality implies a 0.15 standard deviation smaller increase in BMIZ for rural children and a 0.17 standard deviation smaller increase for urban children. Neither estimate is statistically significant. For WAZ, only the urban estimate of $-0.22$ is statistically significant at the 5 percent level. Again, the DDD estimates show no statistically significant difference in the drought effect between rural and urban children for any outcome in either specification. One explanation is that the drought could have raised maize and tortilla prices, directly reducing food consumption for households that purchase their food. Rural farm households that consume what they grow may be partly insulated from these price increases. Another possible explanation is the conditional cash transfer program PROGRESA. The program began in 1997 and initially targeted rural households, potentially mitigating the effects of drought for rural families \parencite{adhvaryuHelpingChildrenCatch2024}. These results are shown in Online Appendix Tables~\ref{OA-tab:oa_haz_rural} to~\ref{OA-tab:oa_bmiz_urban} and~\ref{OA-tab:oa_cd_haz} to~\ref{OA-tab:oa_cd_bmiz} for the separate estimates by rural and urban residence, and~\ref{OA-tab:oa_ddd_rural} to~\ref{OA-tab:oa_ddd_rural_dose} for the DDD. Estimates of the discrete-dose and binary specifications separately by 2005 age bin, ages 0 to 4, 5 to 9, and 10 to 15, are in Online Appendix Tables~\ref{OA-tab:oaagedosehaz} to~\ref{OA-tab:oaagebmiz}.
 
 \section*{VIII. Robustness Checks}\phantomsection\label{sec:VIII}
 
@@ -763,7 +763,7 @@ Children    &       1,146         &         811         &       1,128         \\
 \midrule
 Moderately dry&      -0.048\sym{*}  &      -0.038         &      -0.048         &       0.101\sym{*}  &      -0.026         &      -0.078         &     293.396         &       0.038         &       0.095         &      -0.087\sym{*}  &       0.018         &      -0.146         &       0.034         &       0.526         &      -0.600         &       0.818         \\
             &     (0.028)         &     (0.074)         &     (0.060)         &     (0.053)         &     (0.027)         &     (0.168)         &   (628.937)         &     (0.165)         &     (0.094)         &     (0.049)         &     (0.025)         &     (0.160)         &     (0.054)         &     (1.051)         &     (0.641)         &     (0.507)         \\
-Severely dry or worse&      -0.011         &       0.104\sym{**} &       0.065         &       0.080         &       0.071\sym{**} &       0.204         &     433.655         &      -0.257\sym{*}  &      -0.120\sym{**} &      -0.087\sym{*}  &      -0.012         &       0.169         &       0.074         &       0.575         &       1.181\sym{**} &       0.100         \\
+Severely dry or worse&      -0.011         &       0.104\sym{**} &       0.065         &       0.080         &       0.071\sym{**} &       0.204         &     433.654         &      -0.257\sym{*}  &      -0.120\sym{**} &      -0.087\sym{*}  &      -0.012         &       0.169         &       0.074         &       0.575         &       1.181\sym{**} &       0.100         \\
             &     (0.010)         &     (0.042)         &     (0.074)         &     (0.069)         &     (0.033)         &     (0.163)         &   (590.207)         &     (0.134)         &     (0.059)         &     (0.045)         &     (0.029)         &     (0.228)         &     (0.054)         &     (1.610)         &     (0.528)         &     (0.537)         \\
 
 \addlinespace[3pt]Observations&       1,914         &       1,914         &       1,914         &       1,899         &       1,911         &       1,886         &       1,886         &       1,914         &       1,870         &       1,734         &       2,300         &       2,300         &       2,184         &       2,172         &       2,199         &       2,219         \\
@@ -806,30 +806,15 @@ Long-run rainfall is the municipality's 1981--2004 May--October mean and SD in m
 
 \FloatBarrier
 
-
-
-\begin{sidewaysfigure}[p]
+\clearpage
 \subsubsection*{A.5. Pooled Dry}\phantomsection\label{app:pooled}
-\vspace{6pt}
-\noindent
-\begin{minipage}[t]{0.33\linewidth}
+
+\begin{figure}[!htbp]
 \centering
-\captionof{figure}{Event Study for Pooled Dry, BMI-for-Age}\label{fig:es_dry_bmiz}
-\includegraphics[width=\linewidth]{/Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thesis/Proposal 3 Mexico OG/Output/Figures/Appendix/event_study_dry_bmiz.png}
-\end{minipage}\hfill
-\begin{minipage}[t]{0.33\linewidth}
-\centering
-\captionof{figure}{Event Study for Pooled Dry, Height-for-Age}\label{fig:es_dry_haz}
-\includegraphics[width=\linewidth]{/Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thesis/Proposal 3 Mexico OG/Output/Figures/Appendix/event_study_dry_haz.png}
-\end{minipage}\hfill
-\begin{minipage}[t]{0.33\linewidth}
-\centering
-\captionof{figure}{Event Study for Pooled Dry, Weight-for-Age}\label{fig:es_dry_waz}
-\includegraphics[width=\linewidth]{/Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thesis/Proposal 3 Mexico OG/Output/Figures/Appendix/event_study_dry_waz.png}
-\end{minipage}\hfill
-\par\vspace{6pt}
-\noindent\parbox{\linewidth}{\singlespacing\scriptsize \textit{Notes:} Dry ($z \le -1$) compared with near-normal, pooling the moderately dry and severely dry or worse dose groups. The figure looks at pre-trends for the pooled dry estimates in Table~\ref{tab:dose}. Similar to Table~\ref{tab:dose}, there are no controls. Included are child and survey wave fixed effects. 2005 is the reference wave. 95\% confidence intervals use standard errors clustered by 2005 municipality.}
-\end{sidewaysfigure}
+\caption{Event Study for Pooled Dry by Outcome}\label{fig:es_dry}
+\includegraphics[width=0.85\textwidth]{/Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thesis/Proposal 3 Mexico OG/Output/Figures/Appendix/event_study_dry.png}
+\par\parbox{0.85\textwidth}{\singlespacing\scriptsize \textit{Notes:} Dry ($z \le -1$) compared with near-normal, pooling the moderately dry and severely dry or worse dose groups. The figure looks at pre-trends for the pooled dry estimates in Table~\ref{tab:dose}. Similar to Table~\ref{tab:dose}, there are no controls. Included are child and survey wave fixed effects. 2005 is the reference wave. 95\% confidence intervals use standard errors clustered by 2005 municipality. HAZ, WAZ and BMIZ are shown together.}
+\end{figure}
 
 
 \FloatBarrier
@@ -976,25 +961,9 @@ The household controls are from 2002, and the child, mother, father, and birth c
 
 \begin{figure}[!htbp]
 \centering
-\caption{Event Study with Controls, BMI-for-Age, Binary Treatment}\label{fig:esc_bmiz}
-\includegraphics[width=0.85\textwidth]{/Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thesis/Proposal 3 Mexico OG/Output/Figures/Appendix/event_study_bmiz_controls.png}
-\par\parbox{0.85\textwidth}{\singlespacing\scriptsize \textit{Notes:} Drought compared with no drought. The coefficients are on the 2009 drought indicator interacted with the 2002 and 2009 survey waves. The sample is the children in Model 3 of the binary difference-in-differences, in each survey wave in which they are measured. The Model 3 controls are each interacted with the 2002 and 2009 survey waves. Included are child and interview year-month fixed effects. 2005 is the reference wave. 95\% confidence intervals use standard errors clustered by 2005 municipality.}
-\end{figure}
-
-
-\begin{figure}[!htbp]
-\centering
-\caption{Event Study with Controls, Height-for-Age, Binary Treatment}\label{fig:esc_haz}
-\includegraphics[width=0.85\textwidth]{/Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thesis/Proposal 3 Mexico OG/Output/Figures/Appendix/event_study_haz_controls.png}
-\par\parbox{0.85\textwidth}{\singlespacing\scriptsize \textit{Notes:} See Figure~\ref{fig:esc_bmiz}.}
-\end{figure}
-
-
-\begin{figure}[!htbp]
-\centering
-\caption{Event Study with Controls, Weight-for-Age, Binary Treatment}\label{fig:esc_waz}
-\includegraphics[width=0.85\textwidth]{/Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thesis/Proposal 3 Mexico OG/Output/Figures/Appendix/event_study_waz_controls.png}
-\par\parbox{0.85\textwidth}{\singlespacing\scriptsize \textit{Notes:} See Figure~\ref{fig:esc_bmiz}.}
+\caption{Event Study with Controls by Outcome, Binary Treatment}\label{fig:esc}
+\includegraphics[width=0.85\textwidth]{/Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thesis/Proposal 3 Mexico OG/Output/Figures/Appendix/event_study_controls.png}
+\par\parbox{0.85\textwidth}{\singlespacing\scriptsize \textit{Notes:} This event study differs from the discrete-dose event study in Figure~\ref{fig:es_bmiz}, which has no controls and only child and survey wave fixed effects. Drought compared with no drought. The coefficients are on the 2009 drought indicator interacted with the 2002 and 2009 survey waves. The sample is the children in Model 3 of the binary difference-in-differences, in each survey wave in which they are measured. The Model 3 controls are each interacted with the 2002 and 2009 survey waves. The 2005--2008 droughts are only interacted with the 2009 wave because they had not happened by 2002. Included are child, interview year-month, and state $\times$ wave fixed effects. 2005 is the reference wave. 95\% confidence intervals use standard errors clustered by 2005 municipality. HAZ, WAZ and BMIZ are shown together.}
 \end{figure}
 
 
@@ -1014,26 +983,27 @@ The household controls are from 2002, and the child, mother, father, and birth c
             &\multicolumn{1}{c}{(1)}&\multicolumn{1}{c}{(2)}\\
             &\multicolumn{1}{c}{Event study}&\multicolumn{1}{c}{Triple difference}\\
 \midrule
-Drought \ensuremath{\times} 2002 wave (lead)&       0.115         &       0.192         \\
-            &     (0.116)         &     (0.128)         \\
-Drought \ensuremath{\times} 2009 wave&       0.015         &      -0.008         \\
-            &     (0.110)         &     (0.114)         \\
-Drought \ensuremath{\times} 2002 remittances \ensuremath{\times} 2002 wave (lead)&                     &      -0.297         \\
+Drought \ensuremath{\times} 2002 wave (lead)&      -0.008         &       0.038         \\
+            &     (0.129)         &     (0.136)         \\
+Drought \ensuremath{\times} 2009 wave&       0.104         &       0.056         \\
+            &     (0.114)         &     (0.127)         \\
+Drought \ensuremath{\times} 2002 remittances \ensuremath{\times} 2002 wave (lead)&                     &      -0.293         \\
             &                     &     (0.180)         \\
-Drought \ensuremath{\times} 2002 remittances \ensuremath{\times} 2009 wave&                     &      -0.158         \\
-            &                     &     (0.147)         \\
+Drought \ensuremath{\times} 2002 remittances \ensuremath{\times} 2009 wave&                     &      -0.179         \\
+            &                     &     (0.142)         \\
 \midrule
-2005--2008 droughts \ensuremath{\times} wave&           Y         &           Y         \\
+2005--2008 droughts \ensuremath{\times} 2009 wave&           Y         &           Y         \\
 2002 household controls \ensuremath{\times} wave&           Y         &           Y         \\
 2005 child and mother controls \ensuremath{\times} wave&           Y         &           Y         \\
 Child FE    &           Y         &           Y         \\
 Interview year-month FE&           Y         &           Y         \\
+State \ensuremath{\times} wave FE&           Y         &           Y         \\
 Children    &       1,755         &       1,622         \\
 \bottomrule
 \end{tabular}}%
 \makebox[\textwidth][c]{\usebox{\tblbox}}%
 \par\vspace{4pt}
-\noindent\makebox[\textwidth][c]{\parbox{\wd\tblbox}{\scriptsize \textit{Notes:} This table tests for pre-trends before the 2009 drought. Regressions are at the child-wave level with 2005 as the reference wave. The sample is children aged 15 or younger in each wave they are in. They were not measured in MxFLS-3 before November 2009, for the same reason as in Table~\ref{tab:sumstats}. Col. 1 keeps the children in Model 3 of the binary DID and Col. 2 those in Model 5, so each matches its DID sample. Col. 1 interacts the drought indicator with the 2002 and 2009 waves. The 2002 interaction is the lead. Col. 2 adds the drought terms times 2002 remittances. The 2002 remittance terms on their own are not shown. Baseline controls are interacted with wave to allow different trends by pre-treatment characteristics, following the same logic as the controls interacted with post in the binary DID. All regressions include child and interview year-month fixed effects, and standard errors are clustered by 2005 municipality. \mbox{\sym{*}\(p<.10\), \sym{**}\(p<.05\), \sym{***}\(p<.01\).}}}%
+\noindent\makebox[\textwidth][c]{\parbox{\wd\tblbox}{\scriptsize \textit{Notes:} This table tests for pre-trends before the 2009 drought. Regressions are at the child-wave level with 2005 as the reference wave. The sample is children aged 15 or younger in each wave they are in. They were not measured in MxFLS-3 before November 2009, for the same reason as in Table~\ref{tab:sumstats}. Col. 1 keeps the children in Model 3 of the binary DID and Col. 2 those in Model 5, so each matches its DID sample. Col. 1 interacts the drought indicator with the 2002 and 2009 waves. The 2002 interaction is the lead. Col. 2 adds the drought terms times 2002 remittances. The 2002 remittance terms on their own are not shown. Baseline controls are interacted with wave to allow different trends by pre-treatment characteristics, following the same logic as the controls interacted with post in the binary DID. The 2005--2008 droughts are only interacted with the 2009 wave because they had not happened by 2002. They hit mostly the same municipalities as the 2009 deficit, so interacting them with the 2002 wave would nearly duplicate the treatment and inflate the 2002 lead. All regressions include child, interview year-month, and state \ensuremath{\times} wave fixed effects, and standard errors are clustered by 2005 municipality. \mbox{\sym{*}\(p<.10\), \sym{**}\(p<.05\), \sym{***}\(p<.01\).}}}%
 \end{table}
 \endgroup
 \endgroup
@@ -1055,26 +1025,27 @@ Children    &       1,755         &       1,622         \\
             &\multicolumn{1}{c}{(1)}&\multicolumn{1}{c}{(2)}\\
             &\multicolumn{1}{c}{Event study}&\multicolumn{1}{c}{Triple difference}\\
 \midrule
-Drought \ensuremath{\times} 2002 wave (lead)&      -0.481\sym{**} &      -0.336         \\
-            &     (0.216)         &     (0.244)         \\
-Drought \ensuremath{\times} 2009 wave&      -0.298\sym{**} &      -0.105         \\
-            &     (0.126)         &     (0.145)         \\
-Drought \ensuremath{\times} 2002 remittances \ensuremath{\times} 2002 wave (lead)&                     &      -0.078         \\
-            &                     &     (0.347)         \\
-Drought \ensuremath{\times} 2002 remittances \ensuremath{\times} 2009 wave&                     &      -0.373\sym{*}  \\
-            &                     &     (0.208)         \\
+Drought \ensuremath{\times} 2002 wave (lead)&      -0.163         &       0.015         \\
+            &     (0.200)         &     (0.240)         \\
+Drought \ensuremath{\times} 2009 wave&      -0.037         &       0.168         \\
+            &     (0.181)         &     (0.187)         \\
+Drought \ensuremath{\times} 2002 remittances \ensuremath{\times} 2002 wave (lead)&                     &      -0.225         \\
+            &                     &     (0.349)         \\
+Drought \ensuremath{\times} 2002 remittances \ensuremath{\times} 2009 wave&                     &      -0.457\sym{**} \\
+            &                     &     (0.220)         \\
 \midrule
-2005--2008 droughts \ensuremath{\times} wave&           Y         &           Y         \\
+2005--2008 droughts \ensuremath{\times} 2009 wave&           Y         &           Y         \\
 2002 household controls \ensuremath{\times} wave&           Y         &           Y         \\
 2005 child and mother controls \ensuremath{\times} wave&           Y         &           Y         \\
 Child FE    &           Y         &           Y         \\
 Interview year-month FE&           Y         &           Y         \\
+State \ensuremath{\times} wave FE&           Y         &           Y         \\
 Children    &         700         &         634         \\
 \bottomrule
 \end{tabular}}%
 \makebox[\textwidth][c]{\usebox{\tblbox}}%
 \par\vspace{4pt}
-\noindent\makebox[\textwidth][c]{\parbox{\wd\tblbox}{\scriptsize \textit{Notes:} This table tests for pre-trends before the 2009 drought. Regressions are at the child-wave level with 2005 as the reference wave. The sample is children aged 10 or younger in each wave they are in. They were not measured in MxFLS-3 before November 2009, for the same reason as in Table~\ref{tab:sumstats}. Col. 1 keeps the children in Model 3 of the binary DID and Col. 2 those in Model 5, so each matches its DID sample. Col. 1 interacts the drought indicator with the 2002 and 2009 waves. The 2002 interaction is the lead. Col. 2 adds the drought terms times 2002 remittances. The 2002 remittance terms on their own are not shown. Baseline controls are interacted with wave to allow different trends by pre-treatment characteristics, following the same logic as the controls interacted with post in the binary DID. All regressions include child and interview year-month fixed effects, and standard errors are clustered by 2005 municipality. \mbox{\sym{*}\(p<.10\), \sym{**}\(p<.05\), \sym{***}\(p<.01\).}}}%
+\noindent\makebox[\textwidth][c]{\parbox{\wd\tblbox}{\scriptsize \textit{Notes:} This table tests for pre-trends before the 2009 drought. Regressions are at the child-wave level with 2005 as the reference wave. The sample is children aged 10 or younger in each wave they are in. They were not measured in MxFLS-3 before November 2009, for the same reason as in Table~\ref{tab:sumstats}. Col. 1 keeps the children in Model 3 of the binary DID and Col. 2 those in Model 5, so each matches its DID sample. Col. 1 interacts the drought indicator with the 2002 and 2009 waves. The 2002 interaction is the lead. Col. 2 adds the drought terms times 2002 remittances. The 2002 remittance terms on their own are not shown. Baseline controls are interacted with wave to allow different trends by pre-treatment characteristics, following the same logic as the controls interacted with post in the binary DID. The 2005--2008 droughts are only interacted with the 2009 wave because they had not happened by 2002. They hit mostly the same municipalities as the 2009 deficit, so interacting them with the 2002 wave would nearly duplicate the treatment and inflate the 2002 lead. All regressions include child, interview year-month, and state \ensuremath{\times} wave fixed effects, and standard errors are clustered by 2005 municipality. \mbox{\sym{*}\(p<.10\), \sym{**}\(p<.05\), \sym{***}\(p<.01\).}}}%
 \end{table}
 \endgroup
 \endgroup
@@ -1096,26 +1067,27 @@ Children    &         700         &         634         \\
             &\multicolumn{1}{c}{(1)}&\multicolumn{1}{c}{(2)}\\
             &\multicolumn{1}{c}{Event study}&\multicolumn{1}{c}{Triple difference}\\
 \midrule
-Drought \ensuremath{\times} 2002 wave (lead)&      -0.387\sym{***}&      -0.423\sym{***}\\
-            &     (0.104)         &     (0.120)         \\
-Drought \ensuremath{\times} 2009 wave&      -0.293\sym{***}&      -0.262\sym{**} \\
-            &     (0.097)         &     (0.114)         \\
-Drought \ensuremath{\times} 2002 remittances \ensuremath{\times} 2002 wave (lead)&                     &       0.186         \\
+Drought \ensuremath{\times} 2002 wave (lead)&      -0.241         &      -0.279         \\
+            &     (0.149)         &     (0.170)         \\
+Drought \ensuremath{\times} 2009 wave&      -0.310\sym{**} &      -0.253\sym{*}  \\
+            &     (0.132)         &     (0.149)         \\
+Drought \ensuremath{\times} 2002 remittances \ensuremath{\times} 2002 wave (lead)&                     &       0.163         \\
             &                     &     (0.202)         \\
-Drought \ensuremath{\times} 2002 remittances \ensuremath{\times} 2009 wave&                     &       0.040         \\
-            &                     &     (0.217)         \\
+Drought \ensuremath{\times} 2002 remittances \ensuremath{\times} 2009 wave&                     &       0.002         \\
+            &                     &     (0.227)         \\
 \midrule
-2005--2008 droughts \ensuremath{\times} wave&           Y         &           Y         \\
+2005--2008 droughts \ensuremath{\times} 2009 wave&           Y         &           Y         \\
 2002 household controls \ensuremath{\times} wave&           Y         &           Y         \\
 2005 child and mother controls \ensuremath{\times} wave&           Y         &           Y         \\
 Child FE    &           Y         &           Y         \\
 Interview year-month FE&           Y         &           Y         \\
+State \ensuremath{\times} wave FE&           Y         &           Y         \\
 Children    &       1,714         &       1,587         \\
 \bottomrule
 \end{tabular}}%
 \makebox[\textwidth][c]{\usebox{\tblbox}}%
 \par\vspace{4pt}
-\noindent\makebox[\textwidth][c]{\parbox{\wd\tblbox}{\scriptsize \textit{Notes:} This table tests for pre-trends before the 2009 drought. Regressions are at the child-wave level with 2005 as the reference wave. The sample is children aged 15 or younger in each wave they are in. They were not measured in MxFLS-3 before November 2009, for the same reason as in Table~\ref{tab:sumstats}. Col. 1 keeps the children in Model 3 of the binary DID and Col. 2 those in Model 5, so each matches its DID sample. Col. 1 interacts the drought indicator with the 2002 and 2009 waves. The 2002 interaction is the lead. Col. 2 adds the drought terms times 2002 remittances. The 2002 remittance terms on their own are not shown. Baseline controls are interacted with wave to allow different trends by pre-treatment characteristics, following the same logic as the controls interacted with post in the binary DID. All regressions include child and interview year-month fixed effects, and standard errors are clustered by 2005 municipality. \mbox{\sym{*}\(p<.10\), \sym{**}\(p<.05\), \sym{***}\(p<.01\).}}}%
+\noindent\makebox[\textwidth][c]{\parbox{\wd\tblbox}{\scriptsize \textit{Notes:} This table tests for pre-trends before the 2009 drought. Regressions are at the child-wave level with 2005 as the reference wave. The sample is children aged 15 or younger in each wave they are in. They were not measured in MxFLS-3 before November 2009, for the same reason as in Table~\ref{tab:sumstats}. Col. 1 keeps the children in Model 3 of the binary DID and Col. 2 those in Model 5, so each matches its DID sample. Col. 1 interacts the drought indicator with the 2002 and 2009 waves. The 2002 interaction is the lead. Col. 2 adds the drought terms times 2002 remittances. The 2002 remittance terms on their own are not shown. Baseline controls are interacted with wave to allow different trends by pre-treatment characteristics, following the same logic as the controls interacted with post in the binary DID. The 2005--2008 droughts are only interacted with the 2009 wave because they had not happened by 2002. They hit mostly the same municipalities as the 2009 deficit, so interacting them with the 2002 wave would nearly duplicate the treatment and inflate the 2002 lead. All regressions include child, interview year-month, and state \ensuremath{\times} wave fixed effects, and standard errors are clustered by 2005 municipality. \mbox{\sym{*}\(p<.10\), \sym{**}\(p<.05\), \sym{***}\(p<.01\).}}}%
 \end{table}
 \endgroup
 \endgroup

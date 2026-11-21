@@ -108,7 +108,7 @@ source(paste(dir$root,"/Scripts/Regressions/functions.R",sep=""))
 # First we are just reading in the data, need less variables because don't need controls
 panel <- read_dta(paste(dir$clean,"/MxFLS/mxfls_did_analysis.dta",sep=""),
                   col_select = c("pid_link_canonical","year","cvegeo05","age","haz","waz","bmiz","remittance_hh_02",
-                                 "treat2009","treat_early","rain_z2009","rain_deficit2009","any_deficit2009"))
+                                 "treat2009","treat_early","rain_z2009","rain_deficit2009","any_deficit2009","agegrp05"))
 panel <- as.data.frame(panel)
 
 # Same sample rules as DID_Regs.do. A 2005 municipality with 2009 rainfall (treat2009 not missing), and we drop every child measured before November 2009 (treat_early = 1)
@@ -542,8 +542,29 @@ for (v in misc$outcomes) {
 }
 elapsed("SPI section")
 
+
 # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
-# 9). Save the headline results -----
+# 9). Heterogeneity by 2005 age bin -----
+# = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+
+# Uniform 5-year bins of the child's 2005 age denoted agegrp05. We built in Build_DID_Analysis_Data.do with age bins 0-4, 5-9 and 10-15
+# The discrete-dose table separately for each age bin, like the subanalyses by sex and rural
+# Note: WAZ has no children aged 10-15 in 2005, as they would be over 10 in 2009
+for (v in misc$outcomes) {
+  fd_a <- first_diff(add_spi(make_df(v, c(2005, 2009), extra = "agegrp05")))
+  fd_a <- fd_a[!is.na(fd_a$agegrp05), ]
+  cat("\n==================== Heterogeneity by age bin:", v, "====================\n")
+  for (g in unique(fd_a$agegrp05)) {
+    lab <- paste0("Age ", g, " to ", ifelse(g == 10, 15, g + 4))
+    fd_g <- fd_a[fd_a$agegrp05 == g, ]
+    spi_reg(fd_g, "dry", v, paste0(lab, "; dry"), near_normal)
+    spi_reg(fd_g, c("mod_dry","sev_dry"), v, paste0(lab, "; groups"), near_normal)
+  }
+}
+elapsed("Age bin section")
+
+# = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+# 10). Save the headline results -----
 # = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 
 cat("\n==================== Summary ====================\n")

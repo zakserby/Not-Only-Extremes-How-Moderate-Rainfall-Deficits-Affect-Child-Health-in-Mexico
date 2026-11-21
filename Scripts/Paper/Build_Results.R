@@ -100,6 +100,7 @@ figure_title <- function(name) {
   g <- group[parts[parts %in% names(group)]]
   # This finds the figure type, whatever's left after removing the outcome and subgroup pieces (i.e. event study)
   base <- paste(parts[!(parts %in% c(names(outcome), names(group)))], collapse = "_")
+  if (length(v) == 0) v <- "All Outcomes"
   # This is basicaly constructing the title
   family <- gsub("_", " ", base)
   if (base == "trends") family <- paste0("Mean ", v, " by Wave, Treated and Control, Binary DID")
@@ -123,8 +124,8 @@ figure_note <- function(name) {
   fe <- "Child and interview year-month fixed effects, 2005 is the reference wave, and 95\\% confidence intervals use standard errors clustered by 2005 municipality."
   if (grepl("^event_study_severity_.*_all3", name)) return("Moderately dry and severely dry or worse compared with near-normal. The sample is the children in the discrete-dose table who were measured in all three survey waves, so the 2002 lead and the 2009 coefficient come from the same children. Similar to the discrete-dose table, there are no controls. Included are child and survey wave fixed effects. 2005 is the reference wave. 95\\% confidence intervals use standard errors clustered by 2005 municipality.")
   if (grepl("^event_study_severity_", name)) return("Moderately dry and severely dry or worse compared with near-normal. The 2009 coefficients are the same as in the discrete-dose table. Here I include both the 2002 lead and the 2009 coefficient. Similar to the discrete-dose table, there are no controls. Included are child and survey wave fixed effects. 2005 is the reference wave. 95\\% confidence intervals use standard errors clustered by 2005 municipality.")
-  if (grepl("^event_study_dry_", name)) return("Dry ($z \\le -1$) compared with near-normal, pooling the moderately dry and severely dry or worse dose groups. The figure looks at pre-trends for the pooled dry estimates in the discrete-dose table. Similar to the discrete-dose table, there are no controls. Included are child and survey wave fixed effects. 2005 is the reference wave. 95\\% confidence intervals use standard errors clustered by 2005 municipality.")
-  if (grepl("^event_study_(haz|waz|bmiz)_controls", name)) return("Drought compared with no drought. The coefficients are on the 2009 drought indicator interacted with the 2002 and 2009 survey waves. The sample is the children in Model 3 of the binary difference-in-differences, in each survey wave in which they are measured. The Model 3 controls are each interacted with the 2002 and 2009 survey waves. Included are child and interview year-month fixed effects. 2005 is the reference wave. 95\\% confidence intervals use standard errors clustered by 2005 municipality.")
+  if (grepl("^event_study_dry", name)) return("Dry ($z \\le -1$) compared with near-normal, pooling the moderately dry and severely dry or worse dose groups. The figure looks at pre-trends for the pooled dry estimates in the discrete-dose table. Similar to the discrete-dose table, there are no controls. Included are child and survey wave fixed effects. 2005 is the reference wave. 95\\% confidence intervals use standard errors clustered by 2005 municipality. HAZ, WAZ and BMIZ are shown together.")
+  if (grepl("^event_study_controls", name)) return("Drought compared with no drought. The coefficients are on the 2009 drought indicator interacted with the 2002 and 2009 survey waves. The sample is the children in Model 3 of the binary difference-in-differences, in each survey wave in which they are measured. The Model 3 controls are each interacted with the 2002 and 2009 survey waves. The 2005--2008 droughts are only interacted with the 2009 wave because they had not happened by 2002. Included are child, interview year-month, and state \\ensuremath{\\times} wave fixed effects. 2005 is the reference wave. 95\\% confidence intervals use standard errors clustered by 2005 municipality. HAZ, WAZ and BMIZ are shown together.")
   if (grepl("^overlap_pscore_", name)) return("The sample is the children in the discrete-dose regressions. Kernel densities of the propensity score. That is, the predicted probability of being in the dry dose group from a logit on baseline characteristics. Baseline characteristics are the 2002 household controls (electricity, floor, roof, ventilation, rooms per person, log expenditure per person, rural) and the 2005 child and mother controls (sex, full vaccination, mother's height, schooling, age at birth, and employment), and the child's age. Missing values are set to the sample mean and flagged with an indicator. Each panel compares one dry dose group with near-normal (\\ensuremath{-1<z<1}) and is estimated separately. Moderately dry is \\ensuremath{-1.5<z\\le -1}, and severely dry or worse is \\ensuremath{z\\le -1.5}. In each box, children and mean score are shown as dry dose group/near-normal. Outside support is the number of dry dose group children whose score lies below the lowest or above the highest near-normal score.")
   ""
 }
@@ -143,9 +144,9 @@ figure_block <- function(sub, name) {
 # The figures in each folder: Main (paper), Appendix (appendix in the paper) and Online_Appendix
 main_figs <- c("drought_map_spi.png", "event_study_severity_bmiz.png", "event_study_severity_haz.png", "event_study_severity_waz.png",
                "event_study_severity_bmiz_all3.png", "overlap_pscore_bmiz.png")
-app_figs <- c("drought_map_binary.png", "event_study_bmiz_controls.png", "event_study_haz_controls.png", "event_study_waz_controls.png",
+app_figs <- c("drought_map_binary.png", "event_study_controls.png",
               "event_study_severity_haz_all3.png", "event_study_severity_waz_all3.png",
-              "event_study_dry_bmiz.png", "event_study_dry_haz.png", "event_study_dry_waz.png")
+              "event_study_dry.png")
 online_figs <- c("contdid_binscatter_bmiz.png", "contdid_binscatter_haz.png", "contdid_binscatter_waz.png", "contdid_att_clustered_bmiz.png", "contdid_att_clustered_haz.png", "contdid_att_clustered_waz.png")
 
 #===============================================================================

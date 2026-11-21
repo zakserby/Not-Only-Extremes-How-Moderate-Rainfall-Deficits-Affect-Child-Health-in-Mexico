@@ -3,9 +3,8 @@
        log:  /Users/zakserby/Documents/Documents (MAC)/Cornell University/Maste
 > r's Thesis/Proposal 3 Mexico OG/Output/Logs/Main/summary_stats_did.log
   log type:  text
- opened on:  13 Nov 2026, 16:52:26
-
-. do "$root/Scripts/Statistics/Summary Stats DID.do"
+ opened on:  21 Nov 2026, 13:38:25
+.     do "$scripts/Statistics/Summary Stats DID.do"
 
 . *******************************************************************
 . * Summary statistics for the 2009 drought DID
@@ -1678,7 +1677,7 @@ added scalar:
                e(mean) =  .11135491
 
 added scalar:
-               e(mean) =  33.459929
+               e(mean) =  33.45993
 
 added scalar:
                e(mean) =  .745219
@@ -1720,7 +1719,7 @@ added scalar:
                e(mean) =  .56841564
 
 added scalar:
-               e(mean) =  .38417789
+               e(mean) =  .38417788
 
 added scalar:
                e(mean) =  6.5127751
@@ -1890,7 +1889,7 @@ added scalar:
                e(mean) =  .07304786
 
 added scalar:
-               e(mean) =  32.082929
+               e(mean) =  32.08293
 
 added scalar:
                e(mean) =  .79123711
@@ -1932,11 +1931,10 @@ file /Users/zakserby/Documents/Documents (MAC)/Cornell University/Master's Thes
 . 
 . 
 end of do-file
-
-. log close sumstats_did
+.     log close sumstats_did
       name:  sumstats_did
        log:  /Users/zakserby/Documents/Documents (MAC)/Cornell University/Maste
 > r's Thesis/Proposal 3 Mexico OG/Output/Logs/Main/summary_stats_did.log
   log type:  text
- closed on:  13 Nov 2026, 16:52:34
+ closed on:  21 Nov 2026, 13:38:33
 -------------------------------------------------------------------------------

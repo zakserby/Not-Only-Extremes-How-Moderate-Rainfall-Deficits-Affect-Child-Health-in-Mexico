@@ -467,6 +467,37 @@ This warning is displayed once per session.
             confidence interal
 SPI section done, elapsed: 0.8 min
 
+==================== Heterogeneity by age bin: haz ====================
+ dry                           -0.055 (0.218)  p clustered = 0.800 | p wild bootstrap = 0.810 | 300 children in 38 municipalities
+ mod_dry                       -0.053 (0.305)  p clustered = 0.863 | p wild bootstrap = 0.883 | 184 children in 22 municipalities
+ sev_dry                       -0.060 (0.237)  p clustered = 0.801 | p wild bootstrap = 0.837 | 116 children in 16 municipalities
+ dry                           -0.060 (0.096)  p clustered = 0.534 | p wild bootstrap = 0.548 | 411 children in 35 municipalities
+ mod_dry                       -0.004 (0.111)  p clustered = 0.973 | p wild bootstrap = 0.978 | 220 children in 19 municipalities
+ sev_dry                       -0.124 (0.141)  p clustered = 0.380 | p wild bootstrap = 0.415 | 191 children in 16 municipalities
+ dry                            0.066 (0.123)  p clustered = 0.594 | p wild bootstrap = 0.602 | 147 children in 30 municipalities
+ mod_dry                        0.198 (0.134)  p clustered = 0.143 | p wild bootstrap = 0.174 | 84 children in 17 municipalities
+ sev_dry                       -0.111 (0.151)  p clustered = 0.463 | p wild bootstrap = 0.500 | 63 children in 13 municipalities
+
+==================== Heterogeneity by age bin: waz ====================
+ dry                           -0.160 (0.136)  p clustered = 0.244 | p wild bootstrap = 0.279 | 320 children in 38 municipalities
+ mod_dry                       -0.210 (0.181)  p clustered = 0.248 | p wild bootstrap = 0.341 | 191 children in 22 municipalities
+ sev_dry                       -0.085 (0.160)  p clustered = 0.595 | p wild bootstrap = 0.620 | 129 children in 16 municipalities
+ dry                           -0.401 (0.246)  p clustered = 0.108 | p wild bootstrap = 0.137 | 42 children in 22 municipalities
+ mod_dry                       -0.308 (0.242)  p clustered = 0.208 | p wild bootstrap = 0.261 | 26 children in 15 municipalities
+ sev_dry                       -0.552 (0.430)  p clustered = 0.204 | p wild bootstrap = 0.344 | 16 children in 7 municipalities
+
+==================== Heterogeneity by age bin: bmiz ====================
+ dry                           -0.249 (0.111)  p clustered = 0.027 | p wild bootstrap = 0.037 | 287 children in 38 municipalities
+ mod_dry                       -0.331 (0.132)  p clustered = 0.014 | p wild bootstrap = 0.034 | 175 children in 22 municipalities
+ sev_dry                       -0.121 (0.154)  p clustered = 0.434 | p wild bootstrap = 0.505 | 112 children in 16 municipalities
+ dry                           -0.169 (0.112)  p clustered = 0.133 | p wild bootstrap = 0.154 | 403 children in 35 municipalities
+ mod_dry                       -0.289 (0.160)  p clustered = 0.073 | p wild bootstrap = 0.123 | 214 children in 19 municipalities
+ sev_dry                       -0.034 (0.095)  p clustered = 0.718 | p wild bootstrap = 0.723 | 189 children in 16 municipalities
+ dry                            0.058 (0.098)  p clustered = 0.555 | p wild bootstrap = 0.554 | 146 children in 30 municipalities
+ mod_dry                        0.193 (0.115)  p clustered = 0.095 | p wild bootstrap = 0.113 | 83 children in 17 municipalities
+ sev_dry                       -0.120 (0.138)  p clustered = 0.386 | p wild bootstrap = 0.406 | 63 children in 13 municipalities
+Age bin section done, elapsed: 0.8 min
+
 ==================== Summary ====================
  outcome    sample                                                estimate
      haz 2005-2009                           Average ATT (parallel trends)
@@ -536,6 +567,30 @@ SPI section done, elapsed: 0.8 min
     bmiz     Remittance buffer: dry x 2002 remittances
     bmiz     Remittance buffer: dry x 2002 remittances
     bmiz Main average ATT from 6): any deficit vs none
+     haz                               Age 0 to 4; dry
+     haz                            Age 0 to 4; groups
+     haz                            Age 0 to 4; groups
+     haz                               Age 5 to 9; dry
+     haz                            Age 5 to 9; groups
+     haz                            Age 5 to 9; groups
+     haz                             Age 10 to 15; dry
+     haz                          Age 10 to 15; groups
+     haz                          Age 10 to 15; groups
+     waz                               Age 0 to 4; dry
+     waz                            Age 0 to 4; groups
+     waz                            Age 0 to 4; groups
+     waz                               Age 5 to 9; dry
+     waz                            Age 5 to 9; groups
+     waz                            Age 5 to 9; groups
+    bmiz                               Age 0 to 4; dry
+    bmiz                            Age 0 to 4; groups
+    bmiz                            Age 0 to 4; groups
+    bmiz                               Age 5 to 9; dry
+    bmiz                            Age 5 to 9; groups
+    bmiz                            Age 5 to 9; groups
+    bmiz                             Age 10 to 15; dry
+    bmiz                          Age 10 to 15; groups
+    bmiz                          Age 10 to 15; groups
                                         term    coef se_clustered p_clustered
  Average ACRT (needs strong parallel trends)  0.1875       0.4665       0.688
                                          dry -0.0406       0.0999       0.685
@@ -570,6 +625,30 @@ SPI section done, elapsed: 0.8 min
                             remittance_hh_02  0.0387       0.0705       0.584
                         dry:remittance_hh_02  0.1000       0.2073       0.631
                                        D_any -0.0454       0.0686       0.509
+                                         dry -0.0555       0.2180       0.800
+                                     mod_dry -0.0526       0.3052       0.863
+                                     sev_dry -0.0600       0.2372       0.801
+                                         dry -0.0598       0.0960       0.534
+                                     mod_dry -0.0037       0.1107       0.973
+                                     sev_dry -0.1245       0.1413       0.380
+                                         dry  0.0655       0.1225       0.594
+                                     mod_dry  0.1980       0.1341       0.143
+                                     sev_dry -0.1111       0.1508       0.463
+                                         dry -0.1596       0.1363       0.244
+                                     mod_dry -0.2099       0.1808       0.248
+                                     sev_dry -0.0853       0.1601       0.595
+                                         dry -0.4010       0.2458       0.108
+                                     mod_dry -0.3078       0.2418       0.208
+                                     sev_dry -0.5523       0.4305       0.204
+                                         dry -0.2488       0.1109       0.027
+                                     mod_dry -0.3307       0.1324       0.014
+                                     sev_dry -0.1207       0.1539       0.434
+                                         dry -0.1694       0.1118       0.133
+                                     mod_dry -0.2886       0.1597       0.073
+                                     sev_dry -0.0344       0.0951       0.718
+                                         dry  0.0581       0.0979       0.555
+                                     mod_dry  0.1934       0.1145       0.095
+                                     sev_dry -0.1202       0.1380       0.386
  p_wild_bootstrap n_children children_in_group municipalities_in_group
                NA       2351               858                      40
             0.704       2351               858                      40
@@ -604,6 +683,30 @@ SPI section done, elapsed: 0.8 min
             0.577       1734               639                      96
             0.653       1734               198                      32
             0.518       2383              1568                      87
+            0.810        828               300                      38
+            0.883        828               184                      22
+            0.837        828               116                      16
+            0.548       1139               411                      35
+            0.978       1139               220                      19
+            0.415       1139               191                      16
+            0.602        384               147                      30
+            0.174        384                84                      17
+            0.500        384                63                      13
+            0.279        898               320                      38
+            0.341        898               191                      22
+            0.620        898               129                      16
+            0.137        147                42                      22
+            0.261        147                26                      15
+            0.344        147                16                       7
+            0.037        800               287                      38
+            0.034        800               175                      22
+            0.505        800               112                      16
+            0.154       1117               403                      35
+            0.123       1117               214                      19
+            0.723       1117               189                      16
+            0.554        383               146                      30
+            0.113        383                83                      17
+            0.406        383                63                      13
  untreated_municipalities
                        89
                        89
@@ -638,4 +741,28 @@ SPI section done, elapsed: 0.8 min
                        83
                        83
                        46
+                       75
+                       75
+                       75
+                       84
+                       84
+                       84
+                       65
+                       65
+                       65
+                       75
+                       75
+                       75
+                       42
+                       42
+                       42
+                       73
+                       73
+                       73
+                       84
+                       84
+                       84
+                       65
+                       65
+                       65
 Total runtime: 0.8 min

@@ -77,6 +77,10 @@ foreach c in drought2005 drought2006 drought2007 drought2008 dwell_electricity_0
     gen `c'_w09 = `c' * (year == 2009)
     global es_controls "$es_controls `c'_w02 `c'_w09"
 }
+* The 2005-2008 droughts are only interacted with the 2009 wave, same as DID_Regs.do
+foreach c in drought2005 drought2006 drought2007 drought2008 {
+    global es_controls : subinstr global es_controls "`c'_w02" ""
+}
 * Model 3 and Model 5 children, same as DID_Regs.do, so the event study table uses the same children as the DID tables
 foreach v in haz waz bmiz {
     quietly reghdfe `v' treat_post drought2005_post drought2006_post drought2007_post drought2008_post dwell_electricity_02_post dwell_floor_good_02_post dwell_roof_good_02_post dwell_ventilation_good_02_post rooms_per_person_02_post ln_pc_expend_month_02_post rural_02_post child_male_05_post mother_height_cm_05_post mother_edu_years_05_post mother_age_at_birth_05_post mother_employed_05_post fully_vaccinated_05_post if s_`v' == 1, absorb(pid_link_canonical int_ym) vce(cluster cvegeo05)
@@ -121,6 +125,8 @@ drop tmp05
 *******************************************************************
 
 global FE_month "pid_link_canonical int_ym"
+* State x wave FE for the event studies with controls, same as DID_Regs.do
+global FE_es "pid_link_canonical int_ym state05#year"
 global did_controls "drought2005_post drought2006_post drought2007_post drought2008_post"
 global controls02 "dwell_electricity_02_post dwell_floor_good_02_post dwell_roof_good_02_post dwell_ventilation_good_02_post rooms_per_person_02_post ln_pc_expend_month_02_post rural_02_post"
 global controls05 "child_male_05_post mother_height_cm_05_post mother_edu_years_05_post mother_age_at_birth_05_post mother_employed_05_post fully_vaccinated_05_post"
@@ -522,24 +528,28 @@ foreach t in main all3 boys girls rural urban {
 foreach v in haz waz bmiz {
     eststo clear
     * This is Col. 1 the event study with controls on the Model 3 children
-    quietly reghdfe `v' lead_2_treat lag_0_treat $es_controls if e_`v' == 1 & m3_`v' == 1, absorb($FE_month) vce(cluster cvegeo05)
+    * Using state x wave FE
+    quietly reghdfe `v' lead_2_treat lag_0_treat $es_controls if e_`v' == 1 & m3_`v' == 1, absorb($FE_es) vce(cluster cvegeo05)
     add_rows Y Y Y N
+    estadd local fe_state "Y"
     eststo esc
     * Triple difference with controls on the Model 5 children
-    quietly reghdfe `v' lead_2_ddd lag_0_ddd lead_2_treat lag_0_treat lead_2_remit lag_0_remit $es_controls if e_`v' == 1 & m5_`v' == 1, absorb($FE_month) vce(cluster cvegeo05)
+    * Using state x wave FE
+    quietly reghdfe `v' lead_2_ddd lag_0_ddd lead_2_treat lag_0_treat lead_2_remit lag_0_remit $es_controls if e_`v' == 1 & m5_`v' == 1, absorb($FE_es) vce(cluster cvegeo05)
     add_rows Y Y Y N
+    estadd local fe_state "Y"
     eststo ddd
 
 	* 2nd chunk is building the header and the notes
     local ph `" "\clearpage" `tabstart' "\begin{longtable}{l*{2}{c}}" "\caption{Event Study, 2009 Drought and `cap_`v''}\\" "\toprule" " & \multicolumn{2}{c}{`head_`v''}\\" "\cmidrule(lr){2-3}" "'
-    local pf `" "\bottomrule" "\addlinespace[6pt]\multicolumn{3}{p{0.97\textwidth}}{\scriptsize \textit{Notes:} This table tests for pre-trends before the 2009 drought. Regressions are at the child-wave level with 2005 as the" "reference wave. The sample is children aged `age_`v'' in each wave they are in. They were not measured in MxFLS-3 before November 2009, for the same reason as in Table~\ref{tab:sumstats}. Col. 1 keeps the children in Model 3 of the binary DID and Col. 2 those in Model 5, so each matches its DID sample. Col. 1 interacts the drought indicator with the 2002 and 2009 waves. The 2002 interaction is the lead." "Col. 2 adds the drought terms times 2002 remittances. The 2002 remittance terms on their own are not shown." "Baseline controls are interacted with wave to allow different trends by pre-treatment characteristics, following the same logic as the controls interacted with post in the binary DID. All regressions include child and interview year-month fixed effects, and standard errors are clustered by 2005 municipality. `stars'}\\" "\end{longtable}" "\endgroup" "'
+    local pf `" "\bottomrule" "\addlinespace[6pt]\multicolumn{3}{p{0.97\textwidth}}{\scriptsize \textit{Notes:} This table tests for pre-trends before the 2009 drought. Regressions are at the child-wave level with 2005 as the" "reference wave. The sample is children aged `age_`v'' in each wave they are in. They were not measured in MxFLS-3 before November 2009, for the same reason as in Table~\ref{tab:sumstats}. Col. 1 keeps the children in Model 3 of the binary DID and Col. 2 those in Model 5, so each matches its DID sample. Col. 1 interacts the drought indicator with the 2002 and 2009 waves. The 2002 interaction is the lead." "Col. 2 adds the drought terms times 2002 remittances. The 2002 remittance terms on their own are not shown." "Baseline controls are interacted with wave to allow different trends by pre-treatment characteristics, following the same logic as the controls interacted with post in the binary DID. The 2005--2008 droughts are only interacted with the 2009 wave because they had not happened by 2002. They hit mostly the same municipalities as the 2009 deficit, so interacting them with the 2002 wave would nearly duplicate the treatment and inflate the 2002 lead. All regressions include child, interview year-month, and state \ensuremath{\times} wave fixed effects, and standard errors are clustered by 2005 municipality. `stars'}\\" "\end{longtable}" "\endgroup" "'
 
 	* Here we actually writing the table
     esttab esc ddd using "$out_sumstats/Appendix/regression_tables_appendix.tex", append booktabs ///
         cells(b(star fmt(3)) se(par fmt(3))) star(* 0.10 ** 0.05 *** 0.01) ///
         keep(lead_2_treat lag_0_treat lead_2_ddd lag_0_ddd) order(lead_2_treat lag_0_treat lead_2_ddd lag_0_ddd) ///
         varlabels(lead_2_treat "Drought \ensuremath{\times} 2002 wave (lead)" lag_0_treat "Drought \ensuremath{\times} 2009 wave" lead_2_ddd "Drought \ensuremath{\times} 2002 remittances \ensuremath{\times} 2002 wave (lead)" lag_0_ddd "Drought \ensuremath{\times} 2002 remittances \ensuremath{\times} 2009 wave") ///
-        stats(droughts hh child fe_child fe_month nchild, labels("2005--2008 droughts \ensuremath{\times} wave" "2002 household controls \ensuremath{\times} wave" "2005 child and mother controls \ensuremath{\times} wave" "Child FE" "Interview year-month FE" "Children") fmt(0 0 0 0 0 %9.0fc)) ///
+        stats(droughts hh child fe_child fe_month fe_state nchild, labels("2005--2008 droughts \ensuremath{\times} 2009 wave" "2002 household controls \ensuremath{\times} wave" "2005 child and mother controls \ensuremath{\times} wave" "Child FE" "Interview year-month FE" "State \ensuremath{\times} wave FE" "Children") fmt(0 0 0 0 0 0 %9.0fc)) ///
         collabels(none) mtitles("Event study" "Triple difference") numbers nonotes noobs nodepvars ///
         prehead(`ph') posthead("\midrule") prefoot("\midrule") postfoot(`pf')
 }
@@ -592,7 +602,8 @@ foreach g in sex rur {
         drop tmp
         eststo `g'_`v'
         * Pre-trend lead of the triple difference event study, on the same children, added to the stored regression
-        quietly reghdfe `v' `leads' if e_`v' == 1 & mddd_`v' == 1, absorb($FE_month) vce(cluster cvegeo05)
+        * Using state x wave FE
+        quietly reghdfe `v' `leads' if e_`v' == 1 & mddd_`v' == 1, absorb($FE_es) vce(cluster cvegeo05)
         quietly test `lead'
         local pl = r(p)
         estadd scalar p_lead = `pl' : `g'_`v'
@@ -772,7 +783,7 @@ foreach g in sex rur {
     local xpost = cond("`g'" == "sex", "child_male_05_post", "rural_05_post")
     local ph `" "\clearpage" `tabstart' "\begin{longtable}{l*{3}{c}}" "\caption{`cap', Binary DID}\\" "\toprule" " & HAZ & WAZ & BMIZ\\" "'
     * Notes, the same as the binary DID notes without the parts that are not about this table
-    local pf `" "\bottomrule" "\addlinespace[6pt]\multicolumn{4}{p{0.97\textwidth}}{\scriptsize \textit{Notes:} This table tests whether the effect of the 2009 drought differs for `who' with a triple difference on all children, using the binary DID. `def' Children are aged 15 or younger for HAZ and BMIZ and 10 or younger for WAZ in both survey waves, with a 2005 municipality." "They were not measured in MxFLS-3 before November 2009, for the same reason as in Table~\ref{tab:sumstats}. The regressions keep the controls of Col. 3 of the main binary DID tables and add drought \ensuremath{\times} post \ensuremath{\times} `nm', the difference in the drought effect for `who'. `ctrl'" "The pre-trend p-value tests the 2002 lead of the triple difference in the event study on the same children, with the controls interacted with the 2002 and 2009 waves. All regressions include child and interview year-month fixed effects, and standard errors are clustered by 2005 municipality. `stars'}\\" "\end{longtable}" "\endgroup" "'
+    local pf `" "\bottomrule" "\addlinespace[6pt]\multicolumn{4}{p{0.97\textwidth}}{\scriptsize \textit{Notes:} This table tests whether the effect of the 2009 drought differs for `who' with a triple difference on all children, using the binary DID. `def' Children are aged 15 or younger for HAZ and BMIZ and 10 or younger for WAZ in both survey waves, with a 2005 municipality." "They were not measured in MxFLS-3 before November 2009, for the same reason as in Table~\ref{tab:sumstats}. The regressions keep the controls of Col. 3 of the main binary DID tables and add drought \ensuremath{\times} post \ensuremath{\times} `nm', the difference in the drought effect for `who'. `ctrl'" "The pre-trend p-value tests the 2002 lead of the triple difference in the event study on the same children, with the controls interacted with the 2002 and 2009 waves and state \ensuremath{\times} wave fixed effects. The exception is the 2005--2008 droughts, which are only interacted with the 2009 wave because they had not happened by 2002. All regressions include child and interview year-month fixed effects, and standard errors are clustered by 2005 municipality. `stars'}\\" "\end{longtable}" "\endgroup" "'
     file close tab
     esttab `g'_haz `g'_waz `g'_bmiz using "$out_sumstats/Online_Appendix/regression_tables_online_appendix.tex", append booktabs ///
         cells(b(star fmt(3)) se(par fmt(3))) star(* 0.10 ** 0.05 *** 0.01) ///
@@ -814,6 +825,97 @@ foreach g in sex rur {
     file write tab "Dry \ensuremath{\times} `nm' is the difference in the effect of dry rainfall for `who'. Standard errors clustered by 2005 municipality are in parentheses. `mnw_note' `star_note' `stars'}\\" _n
     file write tab "\end{longtable}" _n "\endgroup" _n
 }
+
+* Heterogeneity by 2005 age bin, online appendix. Same approach as the SPI tables above: the discrete dose is written by hand with file write, with the numbers from csv_cell (section 9 of Contdid_regs.R), one table per outcome
+* Note: WAZ has no children aged 10 to 15 in 2005, as they would be over 10 in 2009
+local s0 "Age 0 to 4"
+local s5 "Age 5 to 9"
+local s10 "Age 10 to 15"
+local l0 "Age 0--4"
+local l5 "Age 5--9"
+local l10 "Age 10--15"
+local r_dry "Dry (\ensuremath{z\le -1})"
+local r_mod_dry "Moderately dry"
+local r_sev_dry "Severely dry or worse"
+foreach v in haz waz bmiz {
+    local groups = cond("`v'" == "waz", "0 5", "0 5 10")
+    local nc : word count `groups'
+    local nc1 = `nc' + 1
+    local wnote = cond("`v'" == "waz", "There are no WAZ children aged 10 to 15 in 2005, as they would be over 10 in 2009. ", "")
+    tab_head `nc' "Discrete Dose by 2005 Age Bin, `cap_`v''"
+    * Header, one column per age bin
+    local h1 ""
+    local h2 ""
+    local k 0
+    foreach g of local groups {
+        local k = `k' + 1
+        local h1 "`h1' & `l`g''"
+        local h2 "`h2' & (`k')"
+    }
+    file write tab "`h1'\\" _n "`h2'\\" _n "\midrule" _n
+    * Each row is a dose group. Dry comes from the "dry" regression and the two dose groups from the "groups" regression
+    foreach t in dry mod_dry sev_dry {
+        local sp = cond("`t'" == "dry", "dry", "groups")
+        local row1 "`r_`t''"
+        local row2 ""
+        local row3 ""
+        foreach g of local groups {
+            csv_cell if group == "all" & outcome == "`v'" & spec == "`s`g''; `sp'" & term == "`t'", se(se_clustered) pc(p_clustered) wild(p_wild_bootstrap)
+            local row1 "`row1' & `r(b)'"
+            local row2 "`row2' & `r(se)'"
+            local row3 "`row3' & `r(p)'"
+        }
+        file write tab "`row1'\\" _n "`row2'\\" _n "`row3'\\" _n
+    }
+    local row "\midrule Children"
+    foreach g of local groups {
+        csv_num n_children if group == "all" & outcome == "`v'" & spec == "`s`g''; dry" & term == "dry"
+        local row "`row' & `r(n)'"
+    }
+    file write tab "`row'\\" _n
+    file write tab "\bottomrule" _n
+    * Notes. The HAZ table has the full notes and the WAZ and BMIZ tables refer to it
+    local dnote "See Table~\ref{tab:oaagedosehaz} notes. Here the outcome is the `low_`v''. `wnote'"
+    if "`v'" == "haz" local dnote "This table repeats the discrete-dose regressions separately for each 2005 age bin: ages 0 to 4, 5 to 9, and 10 to 15. Standard errors clustered by 2005 municipality are in parentheses. `mnw_note' `star_note' "
+    file write tab "\addlinespace[6pt]\multicolumn{`nc1'}{p{0.97\textwidth}}{\scriptsize \textit{Notes:} `dnote'`stars'}\\" _n
+    file write tab "\end{longtable}" _n "\endgroup" _n
+}
+
+* Binary DID by 2005 age bin. Model 3, the main binary DID with all controls, run separately for each age bin, one table per outcome
+* The csv results are in memory here, so we load the DID analysis data for the regressions and go back to the csv results after
+preserve
+use "$clean_mxfls/mxfls_did_analysis.dta", clear
+* Note: WAZ has no children aged 10 to 15 in 2005, as they would be over 10 in 2009
+local l0 "Age 0--4"
+local l5 "Age 5--9"
+local l10 "Age 10--15"
+foreach v in haz waz bmiz {
+    eststo clear
+    local groups = cond("`v'" == "waz", "0 5", "0 5 10")
+    local mt ""
+    foreach g of local groups {
+        quietly reghdfe `v' treat_post $did_controls $controls02 $controls05 if s_`v' == 1 & agegrp05 == `g', absorb($FE_month) vce(cluster cvegeo05)
+        add_rows Y Y Y N
+        eststo age`g'
+        local mt `"`mt' "`l`g''""'
+    }
+    local nc : word count `groups'
+    local nc1 = `nc' + 1
+    local wnote = cond("`v'" == "waz", "There are no WAZ children aged 10 to 15 in 2005, as they would be over 10 in 2009. ", "")
+    local ph `" "\clearpage" `tabstart' "\begin{longtable}{l*{`nc'}{c}}" "\caption{Binary DID by 2005 Age Bin, `cap_`v''}\\" "\toprule" "'
+    local bnote "See Table~\ref{tab:oaagehaz} notes. Here the outcome is the `low_`v''. `wnote'"
+    if "`v'" == "haz" local bnote "This table repeats Model 3 of the binary DID, with the same controls and fixed effects, separately for each 2005 age bin. The age bins are as in Table~\ref{tab:oaagedosehaz}. Standard errors clustered by 2005 municipality are in parentheses. "
+    local pf `" "\bottomrule" "\addlinespace[6pt]\multicolumn{`nc1'}{p{0.97\textwidth}}{\scriptsize \textit{Notes:} `bnote'`stars'}\\" "\end{longtable}" "\endgroup" "'
+    file close tab
+    esttab using "$out_sumstats/Online_Appendix/regression_tables_online_appendix.tex", append booktabs ///
+        cells(b(star fmt(3)) se(par fmt(3))) star(* 0.10 ** 0.05 *** 0.01) ///
+        keep(treat_post) varlabels(treat_post "Drought \ensuremath{\times} post") ///
+        stats(nchild, labels("Children") fmt(%9.0fc)) ///
+        collabels(none) mtitles(`mt') numbers nonotes noobs nodepvars ///
+        prehead(`ph') posthead("\midrule") prefoot("\midrule") postfoot(`pf')
+    file open tab using "$out_sumstats/Online_Appendix/regression_tables_online_appendix.tex", write append
+}
+restore
 
 * Writing it and then end
 file write tab "\end{document}" _n

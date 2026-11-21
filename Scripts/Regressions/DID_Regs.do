@@ -58,6 +58,8 @@ use "$clean_mxfls/mxfls_did_analysis.dta", clear
 global FE_did "pid_link_canonical year"
 * Child FE and interview year-month FE, so treated and control children measured in the same month are compared. 
 global FE_month "pid_link_canonical int_ym"
+* State x wave FE, so treated and control children are only compared within the same state
+global FE_es "pid_link_canonical int_ym state05#year"
 * Controls for other droughts. Must be interacted with post
 global did_controls "drought2005_post drought2006_post drought2007_post drought2008_post"
 * Baseline 2002 household controls. Must be interacted with post
@@ -189,11 +191,11 @@ foreach v in haz waz bmiz {
     use "$out_regs/Appendix/es_`v'.dta", clear
     sort etime
     twoway ///
-        (rcap ub lb etime, lcolor(black)) ///
-        (scatter b etime, mcolor(blue) msymbol(O)), ///
+        (rcap ub lb etime, lcolor("18 135 90")) ///
+        (scatter b etime, mcolor("18 135 90") msymbol(O)), ///
         xlabel(-2 "2002" -1 "2005 (ref)" 0 "2009") ///
-        xline(-1, lpattern(dash) lcolor(red)) ///
-        yline(0, lpattern(dash) lcolor(black)) ///
+        xline(-1, lpattern(dash) lcolor(black)) ///
+        yline(0, lpattern(dash) lcolor(gs8)) ///
         xtitle("Event time (wave)") ytitle("Coefficient") ///
         title("Event study: `v'") legend(off)
     * Saved to the Figures folder
@@ -208,32 +210,43 @@ foreach c in drought2005 drought2006 drought2007 drought2008 dwell_electricity_0
     gen `c'_w09 = `c' * (year == 2009)
     global es_controls "$es_controls `c'_w02 `c'_w09"
 }
+* The 2005-2008 droughts are only interacted with the 2009 wave because they had not happened by 2002
+foreach c in drought2005 drought2006 drought2007 drought2008 {
+    global es_controls : subinstr global es_controls "`c'_w02" ""
+}
 
+* All three outcomes in one figure. Each outcome is moved a little left and right of each wave so their CIs don't overlap
+postfile handle str4 outcome double etime b se lb ub using "$out_regs/Appendix/es_controls.dta", replace
 foreach v in haz waz bmiz {
     * Again, we restrict to the Model 3 children
-    reghdfe `v' lead_2_treat lag_0_treat $es_controls if e_`v' == 1 & m3_`v' == 1, absorb($FE_month) vce(cluster cvegeo05)
+    * We use state x wave FE
+    reghdfe `v' lead_2_treat lag_0_treat $es_controls if e_`v' == 1 & m3_`v' == 1, absorb($FE_es) vce(cluster cvegeo05)
     test lead_2_treat
 
-    preserve
-    postfile handle int etime double b se lb ub using "$out_regs/Appendix/es_`v'_controls.dta", replace
-    post handle (-2) (_b[lead_2_treat]) (_se[lead_2_treat]) (_b[lead_2_treat] - 1.96*_se[lead_2_treat]) (_b[lead_2_treat] + 1.96*_se[lead_2_treat])
-    post handle (-1) (0) (0) (0) (0)
-    post handle (0) (_b[lag_0_treat]) (_se[lag_0_treat]) (_b[lag_0_treat] - 1.96*_se[lag_0_treat]) (_b[lag_0_treat] + 1.96*_se[lag_0_treat])
-    postclose handle
-
-    use "$out_regs/Appendix/es_`v'_controls.dta", clear
-    sort etime
-    twoway ///
-        (rcap ub lb etime, lcolor(black)) ///
-        (scatter b etime, mcolor(blue) msymbol(O)), ///
-        xlabel(-2 "2002" -1 "2005 (ref)" 0 "2009") ///
-        xline(-1, lpattern(dash) lcolor(red)) ///
-        yline(0, lpattern(dash) lcolor(black)) ///
-        xtitle("Event time (wave)") ytitle("Coefficient") ///
-        legend(off)
-    graph export "$out_figs/Appendix/event_study_`v'_controls.png", replace
-    restore
+    local off = cond("`v'" == "haz", -0.08, cond("`v'" == "waz", 0, 0.08))
+    post handle ("`v'") (-2 + `off') (_b[lead_2_treat]) (_se[lead_2_treat]) (_b[lead_2_treat] - 1.96*_se[lead_2_treat]) (_b[lead_2_treat] + 1.96*_se[lead_2_treat])
+    post handle ("`v'") (-1 + `off') (0) (0) (0) (0)
+    post handle ("`v'") (0 + `off') (_b[lag_0_treat]) (_se[lag_0_treat]) (_b[lag_0_treat] - 1.96*_se[lag_0_treat]) (_b[lag_0_treat] + 1.96*_se[lag_0_treat])
 }
+postclose handle
+
+preserve
+use "$out_regs/Appendix/es_controls.dta", clear
+sort outcome etime
+twoway ///
+    (rcap ub lb etime if outcome == "haz", lcolor("153 68 153")) ///
+    (scatter b etime if outcome == "haz", mcolor("153 68 153") msymbol(T)) ///
+    (rcap ub lb etime if outcome == "waz", lcolor("122 182 72")) ///
+    (scatter b etime if outcome == "waz", mcolor("122 182 72") msymbol(S)) ///
+    (rcap ub lb etime if outcome == "bmiz", lcolor("18 135 90")) ///
+    (scatter b etime if outcome == "bmiz", mcolor("18 135 90") msymbol(O)), ///
+    xlabel(-2 "2002" -1 "2005 (ref)" 0 "2009") ///
+    xline(-1, lpattern(dash) lcolor(black)) ///
+    yline(0, lpattern(dash) lcolor(gs8)) ///
+    xtitle("Event time (wave)") ytitle("Coefficient") ///
+    legend(order(2 "HAZ" 4 "WAZ" 6 "BMIZ") pos(6) row(1))
+graph export "$out_figs/Appendix/event_study_controls.png", replace
+restore
 
 * Event study by SPI class, near normal is the reference and wet municipalities (z >= 1) are dropped like add_spi() in functions.R. * Note: We don't use controls. This is same as the SPI table. Same children as the SPI table, in each wave they are measured, with child and wave FE like its first difference
 gen mod_dry = (rain_z2009 <= -1 & rain_z2009 > -1.5) if rain_z2009 < 1
@@ -267,13 +280,13 @@ foreach v in haz waz bmiz {
     use "$out_regs/Main/es_severity_`v'.dta", clear
     sort cls etime
     twoway ///
-        (rcap ub lb etime if cls == "mod", lcolor(gs9)) ///
-        (scatter b etime if cls == "mod", mcolor(orange) msymbol(O)) ///
-        (rcap ub lb etime if cls == "sev", lcolor(black)) ///
-        (scatter b etime if cls == "sev", mcolor(cranberry) msymbol(T)), ///
+        (rcap ub lb etime if cls == "mod", lcolor("153 68 153")) ///
+        (scatter b etime if cls == "mod", mcolor("153 68 153") msymbol(O)) ///
+        (rcap ub lb etime if cls == "sev", lcolor("18 135 90")) ///
+        (scatter b etime if cls == "sev", mcolor("18 135 90") msymbol(T)), ///
         xlabel(-2 "2002" -1 "2005 (ref)" 0 "2009") ///
-        xline(-1, lpattern(dash) lcolor(red)) ///
-        yline(0, lpattern(dash) lcolor(black)) ///
+        xline(-1, lpattern(dash) lcolor(black)) ///
+        yline(0, lpattern(dash) lcolor(gs8)) ///
         xtitle("Event time (wave)") ytitle("Coefficient") ///
         legend(order(2 "Moderately dry (-1.5 < z <= -1)" 4 "Severely dry or worse (z <= -1.5)") pos(6) row(1))
     local f "Main"
@@ -286,31 +299,37 @@ gen dry = (rain_z2009 <= -1) if rain_z2009 < 1
 gen lead_2_dry = dry * (year == 2002)
 gen lag_0_dry  = dry * (year == 2009)
 
+* All three outcomes in one figure. Each outcome is moved a little left and right of each wave so their CIs don't overlap
+postfile handle str4 outcome double etime b se lb ub using "$out_regs/Appendix/es_dry.dta", replace
 foreach v in haz waz bmiz {
     quietly areg `v' lead_2_dry lag_0_dry i.year if e_`v' == 1 & spi_`v' == 1, absorb(pid_link_canonical) vce(cluster cvegeo05)
     boottest lead_2_dry, reps(9999) weighttype(webb) seed(1234) nograph
     reghdfe `v' lead_2_dry lag_0_dry if e_`v' == 1 & spi_`v' == 1, absorb(pid_link_canonical year) vce(cluster cvegeo05)
 
-    preserve
-    postfile handle int etime double b se lb ub using "$out_regs/Appendix/es_dry_`v'.dta", replace
-    post handle (-2) (_b[lead_2_dry]) (_se[lead_2_dry]) (_b[lead_2_dry] - 1.96*_se[lead_2_dry]) (_b[lead_2_dry] + 1.96*_se[lead_2_dry])
-    post handle (-1) (0) (0) (0) (0)
-    post handle (0) (_b[lag_0_dry]) (_se[lag_0_dry]) (_b[lag_0_dry] - 1.96*_se[lag_0_dry]) (_b[lag_0_dry] + 1.96*_se[lag_0_dry])
-    postclose handle
-
-    use "$out_regs/Appendix/es_dry_`v'.dta", clear
-    sort etime
-    twoway ///
-        (rcap ub lb etime, lcolor(black)) ///
-        (scatter b etime, mcolor(blue) msymbol(O)), ///
-        xlabel(-2 "2002" -1 "2005 (ref)" 0 "2009") ///
-        xline(-1, lpattern(dash) lcolor(red)) ///
-        yline(0, lpattern(dash) lcolor(black)) ///
-        xtitle("Event time (wave)") ytitle("Coefficient") ///
-        legend(order(2 "Dry (z <= -1)") pos(6) row(1))
-    graph export "$out_figs/Appendix/event_study_dry_`v'.png", replace
-    restore
+    local off = cond("`v'" == "haz", -0.08, cond("`v'" == "waz", 0, 0.08))
+    post handle ("`v'") (-2 + `off') (_b[lead_2_dry]) (_se[lead_2_dry]) (_b[lead_2_dry] - 1.96*_se[lead_2_dry]) (_b[lead_2_dry] + 1.96*_se[lead_2_dry])
+    post handle ("`v'") (-1 + `off') (0) (0) (0) (0)
+    post handle ("`v'") (0 + `off') (_b[lag_0_dry]) (_se[lag_0_dry]) (_b[lag_0_dry] - 1.96*_se[lag_0_dry]) (_b[lag_0_dry] + 1.96*_se[lag_0_dry])
 }
+postclose handle
+
+preserve
+use "$out_regs/Appendix/es_dry.dta", clear
+sort outcome etime
+twoway ///
+    (rcap ub lb etime if outcome == "haz", lcolor("153 68 153")) ///
+    (scatter b etime if outcome == "haz", mcolor("153 68 153") msymbol(T)) ///
+    (rcap ub lb etime if outcome == "waz", lcolor("122 182 72")) ///
+    (scatter b etime if outcome == "waz", mcolor("122 182 72") msymbol(S)) ///
+    (rcap ub lb etime if outcome == "bmiz", lcolor("18 135 90")) ///
+    (scatter b etime if outcome == "bmiz", mcolor("18 135 90") msymbol(O)), ///
+    xlabel(-2 "2002" -1 "2005 (ref)" 0 "2009") ///
+    xline(-1, lpattern(dash) lcolor(black)) ///
+    yline(0, lpattern(dash) lcolor(gs8)) ///
+    xtitle("Event time (wave)") ytitle("Coefficient") ///
+    legend(order(2 "HAZ" 4 "WAZ" 6 "BMIZ") pos(6) row(1))
+graph export "$out_figs/Appendix/event_study_dry.png", replace
+restore
 
 
 * c. Triple-difference event study
@@ -325,7 +344,8 @@ label variable lag_0_ddd  "2009 drought x 2002 remittances x 2009 wave (buffer e
 
 foreach v in haz waz bmiz {
     * We restrict to the Model 5 children
-    reghdfe `v' lead_2_ddd lag_0_ddd lead_2_treat lag_0_treat lead_2_remit lag_0_remit $es_controls if e_`v' == 1 & m5_`v' == 1, absorb($FE_month) vce(cluster cvegeo05)
+    * We use state x wave FE
+    reghdfe `v' lead_2_ddd lag_0_ddd lead_2_treat lag_0_treat lead_2_remit lag_0_remit $es_controls if e_`v' == 1 & m5_`v' == 1, absorb($FE_es) vce(cluster cvegeo05)
     * Pre-trend test for the DDD. The lead should be about 0
     test lead_2_ddd
     lincom lag_0_treat + lag_0_ddd
@@ -340,11 +360,11 @@ foreach v in haz waz bmiz {
     use "$out_regs/Appendix/es_ddd_`v'.dta", clear
     sort etime
     twoway ///
-        (rcap ub lb etime, lcolor(black)) ///
-        (scatter b etime, mcolor(blue) msymbol(O)), ///
+        (rcap ub lb etime, lcolor("18 135 90")) ///
+        (scatter b etime, mcolor("18 135 90") msymbol(O)), ///
         xlabel(-2 "2002" -1 "2005 (ref)" 0 "2009") ///
-        xline(-1, lpattern(dash) lcolor(red)) ///
-        yline(0, lpattern(dash) lcolor(black)) ///
+        xline(-1, lpattern(dash) lcolor(black)) ///
+        yline(0, lpattern(dash) lcolor(gs8)) ///
         xtitle("Event time (wave)") ytitle("Coefficient") ///
         title("DDD event study (drought x 2002 remittances): `v'") legend(off)
     graph export "$out_figs/Online_Appendix/event_study_ddd_`v'.png", replace
@@ -419,11 +439,11 @@ foreach v in haz waz bmiz {
     use "$out_regs/Appendix/es_`v'_all3.dta", clear
     sort etime
     twoway ///
-        (rcap ub lb etime, lcolor(black)) ///
-        (scatter b etime, mcolor(blue) msymbol(O)), ///
+        (rcap ub lb etime, lcolor("18 135 90")) ///
+        (scatter b etime, mcolor("18 135 90") msymbol(O)), ///
         xlabel(-2 "2002" -1 "2005 (ref)" 0 "2009") ///
-        xline(-1, lpattern(dash) lcolor(red)) ///
-        yline(0, lpattern(dash) lcolor(black)) ///
+        xline(-1, lpattern(dash) lcolor(black)) ///
+        yline(0, lpattern(dash) lcolor(gs8)) ///
         xtitle("Event time (wave)") ytitle("Coefficient") ///
         title("Event study, children in all 3 waves: `v'") legend(off)
     * Saved to the Figures folder
@@ -459,13 +479,13 @@ foreach v in haz waz bmiz {
     use "$out_regs/Appendix/es_severity_`v'_all3.dta", clear
     sort cls etime
     twoway ///
-        (rcap ub lb etime if cls == "mod", lcolor(gs9)) ///
-        (scatter b etime if cls == "mod", mcolor(orange) msymbol(O)) ///
-        (rcap ub lb etime if cls == "sev", lcolor(black)) ///
-        (scatter b etime if cls == "sev", mcolor(cranberry) msymbol(T)), ///
+        (rcap ub lb etime if cls == "mod", lcolor("153 68 153")) ///
+        (scatter b etime if cls == "mod", mcolor("153 68 153") msymbol(O)) ///
+        (rcap ub lb etime if cls == "sev", lcolor("18 135 90")) ///
+        (scatter b etime if cls == "sev", mcolor("18 135 90") msymbol(T)), ///
         xlabel(-2 "2002" -1 "2005 (ref)" 0 "2009") ///
-        xline(-1, lpattern(dash) lcolor(red)) ///
-        yline(0, lpattern(dash) lcolor(black)) ///
+        xline(-1, lpattern(dash) lcolor(black)) ///
+        yline(0, lpattern(dash) lcolor(gs8)) ///
         xtitle("Event time (wave)") ytitle("Coefficient") ///
         legend(order(2 "Moderately dry (-1.5 < z <= -1)" 4 "Severely dry or worse (z <= -1.5)") pos(6) row(1))
     local f = cond("`v'" == "bmiz", "Main", "Appendix")
